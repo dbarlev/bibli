@@ -12,17 +12,11 @@ class Register extends Component {
 
   render() {
 
-    var packageNameDictionary = {
-        1: "חבילת חינם",
-        2: "חבילת פרימיום",
-        3: "חבילת סופר פרימיום"
-    }  
-
     return (
         <div className="App">
             <Header headline="הרשמה"/>
             <span>חבילה מסוג: </span>
-            <span>{packageNameDictionary[this.props.chooseSubscription]}</span>
+            <span>{this.props.chooseSubscription.name}</span>
         </div>
         
     );
