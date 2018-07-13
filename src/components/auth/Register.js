@@ -21,7 +21,7 @@ class Register extends Component {
     return (
         <div className="App">
             <Header headline="הרשמה"/>
-            <span>בחרת חבילה מסוג:</span>
+            <span>חבילה מסוג: </span>
             <span>{packageNameDictionary[this.props.chooseSubscription]}</span>
         </div>
         
