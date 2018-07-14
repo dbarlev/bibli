@@ -11,3 +11,14 @@ body{
     padding: 0 !important;
     list-style: none;
 }
+
+#register input[type=checkbox]{
+    margin-right: -20px;
+}
+
+#register form{
+    margin-top: 20px;
+    border: 1px solid hsl(0, 1%, 87%);
+    padding: 20px;
+    padding-top: 35px;
+}
