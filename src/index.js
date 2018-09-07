@@ -2,8 +2,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
-import { createStore } from 'redux'
-import { Provider } from 'react-redux'
+import { createStore, applyMiddleware } from 'redux'
+import { Provider } from 'react-redux';
+import thunk from 'redux-thunk';
 import App from './components/App';
 import AboutUs from './components/AboutUs';
 import Register from './components/auth/Register';
@@ -12,7 +13,7 @@ import rootReducer from './reducers'
 import registerServiceWorker from './registerServiceWorker';
 import './index.css';
 
-let store = createStore(rootReducer);
+let store = createStore(rootReducer, applyMiddleware(thunk));
 //store.subscribe(() => console.log('store subscribe', store.getState()))
 
 ReactDOM.render(

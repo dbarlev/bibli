@@ -22,3 +22,14 @@ body{
     padding: 20px;
     padding-top: 35px;
 }
+
+#apaBooksForm form{
+    margin: 5%;
+    border: 1px solid hsl(0, 0%, 90%);
+    padding: 5% 5% 10% 13%;
+    border-radius: 20px;
+}
+
+#writersFeilds{
+    background-color: hsla(205, 69%, 34%, 0.41) !important;
+}

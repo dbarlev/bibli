@@ -1,4 +1,5 @@
-import { CHOOSE_SUBSCRIPTION } from '../actions';
+import { CHOOSE_SUBSCRIPTION, CREATE_APA_STANDARD } from '../actions';
+import { populateBookApa } from './functions.js';
 import { combineReducers } from 'redux';     
 
 
@@ -17,8 +18,19 @@ function chooseSubscription(state = [], action){
   }
 }
 
+function createApa(state = [], action){
+  switch (action.type) {
+    case CREATE_APA_STANDARD:
+        return populateBookApa(action);
+    default:
+        return state
+  }
+}
+
+
 const rootReducer = combineReducers({
-     chooseSubscription
+     chooseSubscription,
+     createApa
 });
 
 export default rootReducer;
