@@ -20,7 +20,13 @@ class ApaBooks extends Component {
   {
     super();
     this.state = {
-      names: []
+      names: [],
+      formFeilds:[
+        {id: "bookName", label: "שם הספר"},
+        {id: "publisherName", label: "שם ההוצאה לאור"},
+        {id: "publisherLocation", label: "מיקום ההוצאה לאור"},
+        {id: "publishYear", label: "שנת ההוצאה"}
+      ]
     }
   }
 
@@ -81,42 +87,21 @@ class ApaBooks extends Component {
         <div className="row">
           <div className="col-md-4 col-md-offset-4">
             <Form horizontal>
-              <FormGroup  controlId="formHorizontalEmail">
-                <Col sm={8}>
-                  <FormControl ref="bookName" type="text" />
-                  <HelpBlock role="status" aria-live="polite"></HelpBlock>
-                </Col>
-                <Col componentClass={ControlLabel}>
-                  שם הספר:
-                </Col>
-              </FormGroup>
-              <FormGroup  controlId="formHorizontalEmail">
-                <Col sm={8}>
-                  <FormControl ref="publisherName" type="text" />
-                  <HelpBlock role="status" aria-live="polite"></HelpBlock>
-                </Col>
-                <Col componentClass={ControlLabel}>
-                  שם ההוצאה לאור:
-                </Col>
-              </FormGroup>
-              <FormGroup  controlId="formHorizontalEmail">
-                <Col sm={8}>
-                  <FormControl ref="publisherLocation" type="text" />
-                  <HelpBlock role="status" aria-live="polite"></HelpBlock>
-                </Col>
-                <Col componentClass={ControlLabel}>
-                  מקום ההוצאה לאור:
-                </Col>
-              </FormGroup>
-              <FormGroup  controlId="formHorizontalEmail">
-                <Col sm={8}>
-                  <FormControl ref="publishYear" type="text" />
-                  <HelpBlock role="status" aria-live="polite"></HelpBlock>
-                </Col>
-                <Col componentClass={ControlLabel}>
-                  שנת פרסום:
-                </Col>
-              </FormGroup>
+              {
+                this.state.formFeilds.map((feild,index) => {
+                    return (
+                      <FormGroup controlId={feild.id}>
+                        <Col sm={8}>
+                          <FormControl ref={feild.id} type="text" />
+                          <HelpBlock role="status" aria-live="polite"></HelpBlock>
+                        </Col>
+                        <Col componentClass={ControlLabel}>
+                          {feild.label}
+                        </Col>
+                      </FormGroup>
+                    );
+                })
+              }
 
               <Writers onWriterChange={this.getWritersNames.bind(this)} />
 
