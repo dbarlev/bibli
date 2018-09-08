@@ -14,7 +14,7 @@ import {
 import {CreateBookApaStandart} from '../../../actions';
 import Writers from '../writers/Writers';
 
-class ApaBooks extends Component {
+class ApaArticle extends Component {
 
   constructor()
   {
@@ -83,7 +83,7 @@ class ApaBooks extends Component {
 
 
     return (
-      <div id="apaBooksForm" className="apaForm">
+      <div id="apaArticleForm" className="apaForm">
         <div className="row">
           <div className="col-md-4 col-md-offset-4">
             <Form horizontal>
@@ -107,7 +107,7 @@ class ApaBooks extends Component {
 
               <FormGroup>
                 <Col >
-                  <Button onClick={(event) => this.onSubmitApa(event)} type="submit">הירשם</Button>
+                  <Button onClick={(event) => this.onSubmitApa(event)} type="submit">צור רשומה</Button>
                 </Col>
               </FormGroup>
             </Form>
@@ -128,5 +128,5 @@ const mapStateToProps = (state) => {
   return {createApa: state.createApa}
 }
 
-export default connect(mapStateToProps, {CreateBookApaStandart})(ApaBooks);
+export default connect(mapStateToProps, {CreateBookApaStandart})(ApaArticle);
 

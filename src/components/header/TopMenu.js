@@ -22,7 +22,7 @@ class TopMenu extends Component {
             </Navbar.Header>
             <Navbar.Collapse >
                 <Nav pullRight>
-                    <LinkContainer to="/aboutus" >
+                     <LinkContainer to="/aboutus" >
                         <NavItem>אודות</NavItem>
                     </LinkContainer>
                     <IndexLinkContainer  to="/" >

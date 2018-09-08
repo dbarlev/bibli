@@ -23,7 +23,7 @@ body{
     padding-top: 35px;
 }
 
-#apaBooksForm form{
+.apaForm form{
     margin: 5%;
     border: 1px solid hsl(0, 0%, 90%);
     padding: 5% 5% 10% 13%;
@@ -33,3 +33,9 @@ body{
 #writersFeilds{
     background-color: hsla(205, 69%, 34%, 0.41) !important;
 }
+
+.tabs .nav-item
+{
+    float: right;
+}
+

@@ -1,16 +1,58 @@
+const Months = {
+    "1": "ינואר",
+    "2": "פברואר",
+    "3": "מרץ",
+    "4": "אפריל",
+    "5": "מאי",
+    "6": "יוני",
+    "7": "יולי",
+    "8": "אוגוסט",
+    "9": "ספטמבר",
+    "10": "אוקטובר",
+    "11": "נובמבר",
+    "12": "דצמבר"
+}
+
 export function populateBookApa(action){
-    let data = action.value;
-    var fName = "";
-    var lName = "";
-    var publishYear = data.publishYear;
-    var bookName = data.bookName;
-    var location = data.publisherLocation;
-    var publisherName = data.publisherName;
-    var writers = getWriters(action.value.editor);
-    var fullAPA = writers + "' (" + publishYear + "). " + bookName + ". " + location + ": " + publisherName;
+    let data = action.value,
+        publishYear = data.publishYear,
+        bookName = data.bookName,
+        location = data.publisherLocation,
+        publisherName = data.publisherName,
+        writers = getWriters(action.value.editor),
+        fullAPA = writers + "' (" + publishYear + "). " + bookName + ". " + location + ": " + publisherName;
     
     return fullAPA;
 }
+
+export function populatePaperApa(action){
+    let data = action.value,
+        sourceOption = data.selectedSourceOption,
+        paperName = data.paperName,
+        papertHeadline = data.papertHeadline,
+        pagesNumber = data.pagesNumber,
+        dateOfPublish = data.dateOfPublish,
+        paperLink = data.paperLink,
+        writers = getWriters(action.value.editor),
+        fullAPA;
+
+    if(sourceOption.value == "online")
+    {
+         let d = new Date();
+         let month = d.getMonth() + 1; // +1 because it's start from 0
+         let date =  d.getDate();
+         date = date.length == 1 ? "0" + date : date;
+         month = Months[month];
+         fullAPA = writers + "' (" + dateOfPublish + "). " + papertHeadline + ". " + paperName + ", " + pagesNumber + ", נדלה ב " + date + " ב" + month + " מ " + paperLink + ".";
+    }
+    else
+    {
+        fullAPA = writers + "' (" + dateOfPublish + "). " + papertHeadline + ". " + paperName + ", " + pagesNumber + ".";
+    }
+    
+    return fullAPA;
+}
+
 
 
 function getWriters(writers)
