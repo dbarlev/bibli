@@ -11,7 +11,9 @@ import {
   ControlLabel,
   HelpBlock
 } from 'react-bootstrap';
-import {CreateBookApaStandart} from '../../../actions';
+import Select from 'react-select';
+
+import {CreateArticleApaStandart} from '../../../actions';
 import Writers from '../writers/Writers';
 
 class ApaArticle extends Component {
@@ -22,11 +24,24 @@ class ApaArticle extends Component {
     this.state = {
       names: [],
       formFeilds:[
-        {id: "bookName", label: "שם הספר"},
-        {id: "publisherName", label: "שם ההוצאה לאור"},
-        {id: "publisherLocation", label: "מיקום ההוצאה לאור"},
-        {id: "publishYear", label: "שנת ההוצאה"}
-      ]
+        {
+            id: "sourceType",
+            type: "select", 
+            options: [
+              { value: "print", label: 'בדפוס' },
+              { value: "online", label: 'מקוון' }
+            ],
+            label: "סוג מקור"
+        },
+        {id: "noteName", label: "שם כתב העת"},
+        {id: "articleName", label: "שם המאמר"},
+        {id: "episode", label: "כרך"},
+        {id: "pages", label: "עמודים"},
+        {id: "publishYear", label: "שנת פרסום"},
+        {id: "paperLink", label: "קישור לכתבה"}
+      ],
+      hiddenFeilds: ["paperLink"],
+      selectedSourceOption: { value: 1, label: 'בדפוס' }
     }
   }
 
@@ -39,20 +54,26 @@ class ApaArticle extends Component {
   onSubmitApa(event)
   {
     event.preventDefault();
-    let bookName = this.getElement(this.refs.bookName);
-    let publisherName = this.getElement(this.refs.publisherName);
-    let publisherLocation = this.getElement(this.refs.publisherLocation);
+    let selectedSourceOption = this.state.selectedSourceOption;
+    let noteName = this.getElement(this.refs.noteName);
+    let articleName = this.getElement(this.refs.articleName);
+    let episode = this.getElement(this.refs.episode);
+    let pages = this.getElement(this.refs.pages);
     let publishYear = this.getElement(this.refs.publishYear);
+    let paperLink = this.refs.paperLink != null ? this.getElement(this.refs.paperLink) : null;
 
     var details = {
-        bookName,
-        publisherName,
-        publisherLocation,
+        selectedSourceOption,
+        noteName,
+        articleName,
+        episode,
+        pages,
         publishYear,
+        paperLink,
         editor: this.state.names
     }
 
-    this.props.CreateBookApaStandart(details); // call to redux action that created the apa query
+    this.props.CreateArticleApaStandart(details); // call to redux action that created the apa query
   }
 
   getWritersNames(name)
@@ -79,25 +100,75 @@ class ApaArticle extends Component {
     this.setState({names});
   }
 
+  handleSourceChange(value)
+  {
+    var hiddenFeilds = this.state.hiddenFeilds;
+    if(value.value == "online")
+    {
+        var index = hiddenFeilds.indexOf("paperLink");
+        hiddenFeilds.splice(index,1);
+    }
+    else
+    {
+        hiddenFeilds.push("paperLink");      
+    }
+    this.setState({
+      selectedSourceOption: value,
+      hiddenFeilds: hiddenFeilds
+    });
+  }
+
+  validateFeildType(feild, className)
+  {
+      if(this.state.hiddenFeilds.indexOf(feild.id) > -1)
+        return;
+
+      if(feild.type == "select")
+      {
+        return (
+          <div>
+              <Col sm={8}>
+                  <Select
+                      className={className}
+                      options={feild.options}
+                      onChange={this.handleSourceChange.bind(this)}
+                      value={this.state.selectedSourceOption}
+                    />
+              </Col>
+              <Col componentClass={ControlLabel}>
+                    {feild.label}
+            </Col>
+          </div>
+        )  
+      }
+      else
+      {
+          return (
+                <div>
+                    <Col sm={8}>
+                      <FormControl ref={feild.id} type="text" />
+                      <HelpBlock role="status" aria-live="polite"></HelpBlock>
+                    </Col>
+                    <Col componentClass={ControlLabel}>
+                      {feild.label}
+                    </Col>
+                </div>
+          );
+      }
+  }
+
   render() {
 
-
     return (
-      <div id="apaArticleForm" className="apaForm">
+      <div id="apaPaperForm" className="apaForm">
         <div className="row">
           <div className="col-md-4 col-md-offset-4">
-            <Form horizontal>
+            <Form horizontal>   
               {
                 this.state.formFeilds.map((feild,index) => {
                     return (
                       <FormGroup key={index} controlId={feild.id}>
-                        <Col sm={8}>
-                          <FormControl ref={feild.id} type="text" />
-                          <HelpBlock role="status" aria-live="polite"></HelpBlock>
-                        </Col>
-                        <Col componentClass={ControlLabel}>
-                          {feild.label}
-                        </Col>
+                          {this.validateFeildType(feild, "sourceTypeCombobox")}
                       </FormGroup>
                     );
                 })
@@ -128,5 +199,5 @@ const mapStateToProps = (state) => {
   return {createApa: state.createApa}
 }
 
-export default connect(mapStateToProps, {CreateBookApaStandart})(ApaArticle);
+export default connect(mapStateToProps, {CreateArticleApaStandart})(ApaArticle);
 

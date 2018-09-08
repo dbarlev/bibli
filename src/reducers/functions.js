@@ -53,6 +53,34 @@ export function populatePaperApa(action){
     return fullAPA;
 }
 
+export function populateArticleApa(action){
+    let data = action.value,
+        sourceOption = data.selectedSourceOption,
+        noteName = data.noteName,
+        articleName = data.articleName,
+        episode = data.episode,
+        pages = data.pages,
+        publishYear = data.publishYear,
+        paperLink = data.paperLink,
+        writers = getWriters(action.value.editor),
+        fullAPA;
+
+    if(sourceOption.value == "online")
+    {
+         let d = new Date();
+         let month = d.getMonth() + 1; // +1 because it's start from 0
+         let date =  d.getDate();
+         date = date.length == 1 ? "0" + date : date;
+         month = Months[month];
+         fullAPA = writers + "' (" + publishYear + "). " + articleName + ". " + noteName + ", " + episode + ", " + pages + ", נדלה ב " + date + " ב" + month + " מ " + paperLink + ".";
+    }
+    else
+    {
+        fullAPA = writers + "' (" + publishYear + "). " + articleName + ". " + noteName + ", " + episode + ", " + pages + ".";
+    }
+    
+    return fullAPA;
+}
 
 
 function getWriters(writers)
