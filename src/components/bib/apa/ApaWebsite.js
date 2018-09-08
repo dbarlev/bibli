@@ -11,7 +11,7 @@ import {
   ControlLabel,
   HelpBlock
 } from 'react-bootstrap';
-import {CreateBookApaStandart} from '../../../actions';
+import {CreateWebsiteApaStandart} from '../../../actions';
 import Writers from '../writers/Writers';
 
 class ApaWebsite extends Component {
@@ -22,10 +22,9 @@ class ApaWebsite extends Component {
     this.state = {
       names: [],
       formFeilds:[
-        {id: "bookName", label: "שם הספר"},
-        {id: "publisherName", label: "שם ההוצאה לאור"},
-        {id: "publisherLocation", label: "מיקום ההוצאה לאור"},
-        {id: "publishYear", label: "שנת ההוצאה"}
+        {id: "linkToPage", label: "קישור לכתבה"},
+        {id: "articleHeadline", label: "כותרת הכתבה"},
+        {id: "publishYear", label: "תאריך פרסום"}
       ]
     }
   }
@@ -39,20 +38,18 @@ class ApaWebsite extends Component {
   onSubmitApa(event)
   {
     event.preventDefault();
-    let bookName = this.getElement(this.refs.bookName);
-    let publisherName = this.getElement(this.refs.publisherName);
-    let publisherLocation = this.getElement(this.refs.publisherLocation);
+    let linkToPage = this.getElement(this.refs.linkToPage);
+    let articleHeadline = this.getElement(this.refs.articleHeadline);
     let publishYear = this.getElement(this.refs.publishYear);
 
     var details = {
-        bookName,
-        publisherName,
-        publisherLocation,
+        linkToPage,
+        articleHeadline,
         publishYear,
         editor: this.state.names
     }
 
-    this.props.CreateBookApaStandart(details); // call to redux action that created the apa query
+    this.props.CreateWebsiteApaStandart(details); // call to redux action that created the apa query
   }
 
   getWritersNames(name)
@@ -128,5 +125,5 @@ const mapStateToProps = (state) => {
   return {createApa: state.createApa}
 }
 
-export default connect(mapStateToProps, {CreateBookApaStandart})(ApaWebsite);
+export default connect(mapStateToProps, {CreateWebsiteApaStandart})(ApaWebsite);
 

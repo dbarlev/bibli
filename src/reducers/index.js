@@ -1,5 +1,5 @@
-import { CHOOSE_SUBSCRIPTION, CREATE_APA_BOOKS_STANDARD, CREATE_APA_PAPER_STANDARD, CREATE_APA_ARTICLE_STANDARD } from '../actions';
-import { populateBookApa, populatePaperApa, populateArticleApa } from './functions.js';
+import { CHOOSE_SUBSCRIPTION, CREATE_APA_BOOKS_STANDARD, CREATE_APA_PAPER_STANDARD, CREATE_APA_ARTICLE_STANDARD, CREATE_APA_WEBSITE_STANDARD } from '../actions';
+import { populateBookApa, populatePaperApa, populateArticleApa, populateWebisteApa } from './functions.js';
 import { combineReducers } from 'redux';     
 
 
@@ -26,6 +26,8 @@ function createApa(state = [], action){
         return populatePaperApa(action);
     case CREATE_APA_ARTICLE_STANDARD:
         return populateArticleApa(action);
+    case CREATE_APA_WEBSITE_STANDARD:
+        return populateWebisteApa(action);
     default:
         return state
   }

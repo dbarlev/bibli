@@ -25,6 +25,25 @@ export function populateBookApa(action){
     return fullAPA;
 }
 
+export function populateWebisteApa(action){
+
+    let data = action.value,
+        publishYear = data.publishYear,
+        linkToPage = data.linkToPage,
+        articleHeadline = data.articleHeadline,
+        writers = getWriters(action.value.editor);
+
+        let d = new Date();
+        let month = d.getMonth() + 1; // +1 because it's start from 0
+        let date =  d.getDate();
+        date = date.length == 1 ? "0" + date : date;
+        month = Months[month];
+
+        let fullAPA = writers + "' (" + publishYear + "). " + articleHeadline + ". " + date + " ב" + month + " מ " + linkToPage + ".";
+
+    return fullAPA;
+}
+
 export function populatePaperApa(action){
     let data = action.value,
         sourceOption = data.selectedSourceOption,

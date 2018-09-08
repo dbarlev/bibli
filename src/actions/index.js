@@ -2,6 +2,7 @@ export const CHOOSE_SUBSCRIPTION = "CHOOSE_SUBSCRIPTION";
 export const CREATE_APA_BOOKS_STANDARD = "CREATE_APA_BOOKS_STANDARD";
 export const CREATE_APA_PAPER_STANDARD = "CREATE_APA_PAPER_STANDARD";
 export const CREATE_APA_ARTICLE_STANDARD = "CREATE_APA_ARTICLE_STANDARD";
+export const CREATE_APA_WEBSITE_STANDARD = "CREATE_APA_WEBSITE_STANDARD";
 
 
 export function chooseSubscription(value, name){
@@ -32,6 +33,14 @@ export function CreateArticleApaStandart(obj){
         value : obj
     }
 }
+
+export function CreateWebsiteApaStandart(obj){
+    return {
+        type: CREATE_APA_WEBSITE_STANDARD,
+        value : obj
+    }
+}
+
 
 
 
