@@ -16,28 +16,31 @@ class LoginForm extends Component {
     constructor() {
         super();
         this.state={
-            username: '',
-            password: ''
+            username: 'david',
+            password: '954472'
         }
         this.onSubmitLogin = this.onSubmitLogin.bind(this);
         this.onChange = this.onChange.bind(this);
     }
 
     onSubmitLogin(event){
+
+        let data = this.state;
         event.preventDefault();
-        fetch('http://127.0.0.1/bibli/rest/api/post/read_single.php')
+        fetch('http://127.0.0.1/bibli/rest/api/post/read_user_data.php?username=' + this.state.username + '&password='+ this.state.password )
         .then(response => response.json())
+        .then(parsedJSON => console.log(parsedJSON.results))
         .then(data => this.setState({ data }))
         .catch(error => console.log('parsing faild', error))
     }
 
     onChange(event){
-        this.setState({
-            //משום מה לא הצלחתי לעבוד עם ref הבנתי ששאפשר רק בתוך lifecyclemethod...
-            [event.target.name]: event.target.value
-        })
+        // this.setState({
+        //     //משום מה לא הצלחתי לעבוד עם ref הבנתי ששאפשר רק בתוך lifecyclemethod...
+        //     [event.target.name]: event.target.value
+        // })
 
-        console.log(this.state);
+        // console.log(this.state);
     }
 
  

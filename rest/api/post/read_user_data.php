@@ -12,13 +12,14 @@
 
 // var_dump($_POST);
     //get the id from the url
-    $post->userid = isset($_POST['userid']) ? $_POST['userid'] : 'no var';
+    $post->username = isset($_GET['username']) ? $_GET['username'] : 'no var';
+    $post->password = isset($_GET['password']) ? $_GET['password'] : 'no var';
 
     //get post
     //$post->read_single();
-    $post->get_all_bibs_by_user();
+    $post->login();
 
-    $result = $post->get_all_bibs_by_user();
+    $result = $post->login();
    
    
     
@@ -52,11 +53,7 @@
             extract($row);
 
             $post_arr = array(
-                'userid' => $userid,
-                'bookid' => $bookid,
-                'bibidbook' => $bibidbook,
-              
-
+                'userid' => $userid
             );
 
             //PUSH TO THE DATA
@@ -68,36 +65,3 @@
     }else{
         echo 'no users';
     }
-    // /*/*/    
-    // $result = $post->read();
-
-    // $num = $result->rowCount();
-
-    // if($num > 0){
-    //     $posts_arr = array();
-    //     $posts_arr['data'] = array();
-
-    //     while($row = $result->fetch(PDO::FETCH_ASSOC)){
-    //         extract($row);
-
-    //         $post_item = array(
-    //             'bookid' => $bookid,
-    //             'id' => $userid,
-    //             'name' => $name,
-    //             'username' => $username,
-    //             'email' => $email,
-    //             'time' => $time,
-                
-
-
-    //         );
-
-    //         //PUSH TO THE DATA
-    //         array_push($posts_arr['data'], $post_item);
-    //     }
-    //     //turn to json
-
-    //     echo json_encode($posts_arr);
-    // }else{
-    //     echo 'no users';
-    // }

@@ -25,6 +25,24 @@
             return $stmt;
         }
 
+
+        public function login(){
+            $query = 'SELECT * FROM
+                ' . $this->table . ' 
+                WHERE
+                username = ? AND password = ?'; 
+
+            
+            $stmt = $this->conn->prepare($query);
+            
+            $stmt->bindParam(1, $this->username);
+            $stmt->bindParam(2, $this->password);
+            
+            $stmt->execute();
+
+            return $stmt;
+        }
+
         public function read_single(){
             $query = 'SELECT * FROM
                 ' . $this->table . ' u
