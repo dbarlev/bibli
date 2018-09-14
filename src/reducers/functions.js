@@ -1,17 +1,4 @@
-const Months = {
-    "1": "ינואר",
-    "2": "פברואר",
-    "3": "מרץ",
-    "4": "אפריל",
-    "5": "מאי",
-    "6": "יוני",
-    "7": "יולי",
-    "8": "אוגוסט",
-    "9": "ספטמבר",
-    "10": "אוקטובר",
-    "11": "נובמבר",
-    "12": "דצמבר"
-}
+import {HeMonths, EnMonths} from './consts';
 
 export function populateBookApa(action){
     let data = action.value,
@@ -19,9 +6,10 @@ export function populateBookApa(action){
         bookName = data.bookName,
         location = data.publisherLocation,
         publisherName = data.publisherName,
-        writers = getWriters(action.value.editor),
-        fullAPA = writers + "' (" + publishYear + "). " + bookName + ". " + location + ": " + publisherName;
-    
+        lang = checkLanguage(bookName), // get the first letter of the first writer and check it's language
+        writers = getWriters(action.value.editor, lang);
+        let fullAPA = writers + "' (" + publishYear + "). " + bookName + ". " + location + ": " + publisherName;
+
     return fullAPA;
 }
 
@@ -31,15 +19,18 @@ export function populateWebisteApa(action){
         publishYear = data.publishYear,
         linkToPage = data.linkToPage,
         articleHeadline = data.articleHeadline,
-        writers = getWriters(action.value.editor);
+        lang = checkLanguage(articleHeadline), // get the first letter of the first writer and check it's language
+        writers = getWriters(action.value.editor, lang);
 
-        let d = new Date();
-        let month = d.getMonth() + 1; // +1 because it's start from 0
-        let date =  d.getDate();
-        date = date.length == 1 ? "0" + date : date;
-        month = Months[month];
-
+        let month = getOutputMonth();
+        let date =  getOutputDate();
         let fullAPA = writers + "' (" + publishYear + "). " + articleHeadline + ". " + date + " ב" + month + " מ " + linkToPage + ".";
+
+        if(lang == "en")
+        {
+            month = getOutputMonth("en");
+            fullAPA = writers + "' (" + publishYear + "). " + articleHeadline + ". " + "Retrieved " + month + " " + date + " From " + linkToPage + ".";
+        }
 
     return fullAPA;
 }
@@ -52,17 +43,21 @@ export function populatePaperApa(action){
         pagesNumber = data.pagesNumber,
         dateOfPublish = data.dateOfPublish,
         paperLink = data.paperLink,
-        writers = getWriters(action.value.editor),
+        lang = checkLanguage(paperName), // get the first letter of the first writer and check it's language
+        writers = getWriters(action.value.editor, lang),
         fullAPA;
 
     if(sourceOption.value == "online")
     {
-         let d = new Date();
-         let month = d.getMonth() + 1; // +1 because it's start from 0
-         let date =  d.getDate();
-         date = date.length == 1 ? "0" + date : date;
-         month = Months[month];
+         let month = getOutputMonth();
+         let date =  getOutputDate();
          fullAPA = writers + "' (" + dateOfPublish + "). " + papertHeadline + ". " + paperName + ", " + pagesNumber + ", נדלה ב " + date + " ב" + month + " מ " + paperLink + ".";
+         
+        if(lang == "en")
+        {
+            month = getOutputMonth("en");
+            fullAPA = writers + "' (" + dateOfPublish + "). " + papertHeadline + ". " + paperName + ", " + pagesNumber + ", Retrieved " + month + " " + date + " From " + paperLink + ".";
+        }
     }
     else
     {
@@ -81,17 +76,21 @@ export function populateArticleApa(action){
         pages = data.pages,
         publishYear = data.publishYear,
         paperLink = data.paperLink,
-        writers = getWriters(action.value.editor),
+        lang = checkLanguage(noteName), // get the first letter of the first writer and check it's language
+        writers = getWriters(action.value.editor, lang),
         fullAPA;
 
     if(sourceOption.value == "online")
     {
-         let d = new Date();
-         let month = d.getMonth() + 1; // +1 because it's start from 0
-         let date =  d.getDate();
-         date = date.length == 1 ? "0" + date : date;
-         month = Months[month];
+         let month = getOutputMonth();
+         let date =  getOutputDate();
          fullAPA = writers + "' (" + publishYear + "). " + articleName + ". " + noteName + ", " + episode + ", " + pages + ", נדלה ב " + date + " ב" + month + " מ " + paperLink + ".";
+         
+        if(lang == "en")
+        {
+            month = getOutputMonth("en");
+            fullAPA = writers + "' (" + publishYear + "). " + articleName + ". " + noteName + ", " + episode + ", " + pages + ", Retrieved " + month + " " + date + " From " + paperLink + ".";
+        }
     }
     else
     {
@@ -101,10 +100,41 @@ export function populateArticleApa(action){
     return fullAPA;
 }
 
+function checkLanguage(text)
+{
+    var lang = "he";
+    if(/^[a-zA-Z]+$/.test(text))
+    {
+        lang = "en";
+    }
+    return lang;
+}
 
-function getWriters(writers)
+function getOutputMonth(langCode)
+{
+    let d = new Date();
+    let CurrentMonth = d.getMonth() + 1; // +1 because it's start from 0
+    let month = HeMonths[CurrentMonth];
+    if(langCode == "en" || langCode == "english")
+    {
+        month = EnMonths[CurrentMonth];
+    }
+    return month;
+}
+
+function getOutputDate()
+{
+    let d = new Date();
+    let date =  d.getDate();
+    return date.length == 1 ? "0" + date : date;
+}
+
+function getWriters(writers, lang)
 {
     var nameStr = "";
+    var seperator = " ו";
+    if(lang == "en") seperator = " & ";
+
     writers.forEach(function(writer,i){
         i++;
         let keys = Object.keys(writer);
@@ -117,7 +147,7 @@ function getWriters(writers)
             }
             else
             {
-                nameStr += " ו" + name + ",";
+                nameStr += seperator + name + ",";
             } 
         }
         else if(i == writers.length) // last name of the last editor
