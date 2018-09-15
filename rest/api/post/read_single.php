@@ -34,6 +34,7 @@
         extract($user_row);
         $posts_arr = array(
             'userid' => $userid,
+            'usertype' => $usertype,
             'count' => $num,
             'name' => $name
         );

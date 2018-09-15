@@ -1,7 +1,7 @@
 <?php
     header('Access-Control-Allow-Origin: *');
     header('Content-Type: application/json');
-    
+
     include_once './config/Database.php';
     include_once './Users.php';
 
@@ -36,6 +36,7 @@
                             extract($user_row);
                             $posts_arr = array(
                                 'userid' => $userid,
+                                'usertype' => $usertype,
                                 'count' => $num,
                                 'name' => $name
                             );

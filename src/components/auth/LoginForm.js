@@ -17,21 +17,30 @@ class LoginForm extends Component {
         super();
         this.state={
             username: '',
-            password: ''
+            password: '',
+            data: [],
+            auth: false
         }
         this.onSubmitLogin = this.onSubmitLogin.bind(this);
         this.onChange = this.onChange.bind(this);
     }
 
     onSubmitLogin(event){
-
+        let auth = this.state.auth;
         event.preventDefault();
         fetch('http://127.0.0.1/bibli/api/user_switch/' + this.state.username + 
         '/'+ this.state.password )
         .then(response => response.json())
-        .then(parsedJSON => console.log(parsedJSON.results))
-        .then(data => this.setState({ data }))
+        .then(json => console.log(json))
+        .then(json => {
+            this.setState({
+                auth: true,
+                data: json
+            })
+
+        })
         .catch(error => console.log('parsing faild', error))
+
     }
 
     onChange(event){
@@ -40,12 +49,13 @@ class LoginForm extends Component {
             [event.target.name]: event.target.value
         })
 
-        // console.log(this.state);
+        console.log(this.state);
     }
 
  
 
     render() {
+        
         return (
             <div id="LoginForm">
                 <div className="row">
@@ -82,4 +92,8 @@ class LoginForm extends Component {
     }
 }
 
+const UserState = (state) =>{
+    console.log("state ", state)
+    return
+}
 export default LoginForm;
