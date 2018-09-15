@@ -1,14 +1,22 @@
 import {HeMonths, EnMonths} from './consts';
 
 export function populateBookApa(action){
+    // let data = action.value,
+    //     publishYear = data.publishYear,
+    //     bookName = data.bookName,
+    //     location = data.publisherLocation,
+    //     publisherName = data.publisherName,
+        
     let data = action.value,
-        publishYear = data.publishYear,
-        bookName = data.bookName,
-        location = data.publisherLocation,
-        publisherName = data.publisherName,
-        lang = checkLanguage(bookName), // get the first letter of the first writer and check it's language
-        writers = getWriters(action.value.editor, lang);
-        let fullAPA = writers + "' (" + publishYear + "). " + bookName + ". " + location + ": " + publisherName;
+        location = data.publishcity,
+        publisherName = data.publishname,
+        year = data.publishyear,
+        bookName = data.bookname,
+        bookID = data.bookid;
+        //lang = checkLanguage(bookName); // get the first letter of the first writer and check it's language
+        //writers = getWriters(action.value.editor, lang);
+        let fullAPA = {apa: ".דני,ב (" + year + "). " + bookName + ". " + location + ": " + publisherName, bookID};
+
 
     return fullAPA;
 }

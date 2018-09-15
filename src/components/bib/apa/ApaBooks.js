@@ -39,15 +39,15 @@ class ApaBooks extends Component {
   onSubmitApa(event)
   {
     event.preventDefault();
-    let bookName = this.getElement(this.refs.bookName);
-    let publisherName = this.getElement(this.refs.publisherName);
-    let publisherLocation = this.getElement(this.refs.publisherLocation);
+    let bookname = this.getElement(this.refs.bookName);
+    let publishname = this.getElement(this.refs.publisherName);
+    let publishcity = this.getElement(this.refs.publisherLocation);
     let publishYear = this.getElement(this.refs.publishYear);
 
     var details = {
-        bookName,
-        publisherName,
-        publisherLocation,
+        bookname,
+        publishname,
+        publishcity,
         publishYear,
         editor: this.state.names
     }
@@ -85,7 +85,7 @@ class ApaBooks extends Component {
     return (
       <div id="apaBooksForm" className="apaForm">
         <div className="row">
-          <div className="col-md-4 col-md-offset-4">
+          <div className="col-md-8">
             <Form horizontal>
               {
                 this.state.formFeilds.map((feild,index) => {
@@ -124,9 +124,10 @@ class ApaBooks extends Component {
 
 const mapStateToProps = (state) => {
   if(state.createApa.length > 0)
-    alert(state.createApa);
+   
   return {createApa: state.createApa}
 }
 
-export default connect(mapStateToProps, {CreateBookApaStandart})(ApaBooks);
+// export default connect(mapStateToProps, {CreateBookApaStandart})(ApaBooks);
+export default ApaBooks;
 

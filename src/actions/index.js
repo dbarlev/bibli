@@ -3,6 +3,7 @@ export const CREATE_APA_BOOKS_STANDARD = "CREATE_APA_BOOKS_STANDARD";
 export const CREATE_APA_PAPER_STANDARD = "CREATE_APA_PAPER_STANDARD";
 export const CREATE_APA_ARTICLE_STANDARD = "CREATE_APA_ARTICLE_STANDARD";
 export const CREATE_APA_WEBSITE_STANDARD = "CREATE_APA_WEBSITE_STANDARD";
+export const DELETE_RECORD_FROM_USER = "DELETE_RECORD_FROM_USER";
 
 
 export function chooseSubscription(value, name){
@@ -40,6 +41,15 @@ export function CreateWebsiteApaStandart(obj){
         value : obj
     }
 }
+
+export function DeleteRecordFromUser(obj){
+    return {
+        type: DELETE_RECORD_FROM_USER,
+        value : obj
+    }
+}
+
+
 
 
 

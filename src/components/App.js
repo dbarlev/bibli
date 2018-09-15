@@ -3,6 +3,7 @@ import Footer from './footer/Footer.js';
 import Header from './header/Header.js';
 import SubOptions from './subscription/SubOptions';
 import ApaTabs from './bib/tabs';
+import BibRecordsList from './bib/records/BibRecordsList';
 
 import './App.css';
 
@@ -12,7 +13,14 @@ class App extends Component {
       <div className="App">
         <Header headline="1ברוכים הבאים לביבלי"/>
         <SubOptions />
-        <ApaTabs />
+          <div className="row">
+              <div className="col-md-5">
+                     <BibRecordsList />
+              </div>
+              <div className="col-md-7">
+                  <ApaTabs />
+              </div>
+          </div>
       </div>
     );
   }

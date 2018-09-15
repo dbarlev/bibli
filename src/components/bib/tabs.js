@@ -25,16 +25,12 @@ class ApaTabs extends Component {
 
     return (
       <div id="apaTabcontrol">
-        <div className="row">
-            <div className="col-md-10 col-md-offset-1">
-                <Tabs onSelect={(index, label) => console.log(label + ' selected')}>
-                    <Tab label="ספר"><ApaBooks /></Tab>
-                    <Tab label="עיתון"><ApaPaper /></Tab>
-                    <Tab label="כת עת"><ApaArticle /></Tab>
-                    <Tab label="אתר"><ApaWebsite /></Tab>
-                </Tabs>
-            </div>
-        </div>
+          <Tabs onSelect={(index, label) => console.log(label + ' selected')}>
+              <Tab label="ספר"><ApaBooks /></Tab>
+              <Tab label="עיתון"><ApaPaper /></Tab>
+              <Tab label="כת עת"><ApaArticle /></Tab>
+              <Tab label="אתר"><ApaWebsite /></Tab>
+          </Tabs>         
       </div>
 
     );

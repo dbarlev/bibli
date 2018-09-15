@@ -159,7 +159,7 @@ class ApaPaper extends Component {
     return (
       <div id="apaPaperForm" className="apaForm">
         <div className="row">
-          <div className="col-md-4 col-md-offset-4">
+          <div className="col-md-8">
             <Form horizontal>   
               {
                 this.state.formFeilds.map((feild,index) => {
