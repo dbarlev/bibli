@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
+import { Redirect } from 'react-router-dom'
 // import {connect} from 'react-redux';
 import {
     Button,
@@ -31,13 +32,15 @@ class LoginForm extends Component {
         fetch('http://127.0.0.1/bibli/api/user_switch/' + this.state.username + 
         '/'+ this.state.password )
         .then(response => response.json())
-        .then(json => console.log(json))
         .then(json => {
-            this.setState({
-                auth: true,
-                data: json
-            })
-
+            console.log(json)
+            if(json.count > 0)
+            {
+                this.setState({
+                    auth: true,
+                    data: json
+                });
+            }
         })
         .catch(error => console.log('parsing faild', error))
 
@@ -52,7 +55,13 @@ class LoginForm extends Component {
         console.log(this.state);
     }
 
- 
+    redirectUser()
+    {
+        if(this.state.auth)
+        {
+             return <Redirect to='/' />
+        }
+    }
 
     render() {
         
@@ -81,6 +90,7 @@ class LoginForm extends Component {
                             </FormGroup>
                             <FormGroup>
                                 <Col >
+                                    {this.redirectUser()}
                                     <Button onClick={this.onSubmitLogin} type="submit" id="loginSubmit">התחבר</Button>
                                 </Col>
                             </FormGroup>
