@@ -40,7 +40,6 @@ function deleteRecordFromUser(state = [], action){
 function createApa(state = [], action){
   switch (action.type) {
     case CREATE_APA_BOOKS_STANDARD:
-        //state.push();
         return populateBookApa(action);
     case CREATE_APA_PAPER_STANDARD:
         return populatePaperApa(action);

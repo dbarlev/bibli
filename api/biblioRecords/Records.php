@@ -3,7 +3,6 @@
     include_once '../config/Database.php';
     init();
 
-
     function init()
     {
 		$database = new Database();
@@ -14,11 +13,32 @@
 
     function CreateHeaders()
     {
-
 		header("Access-Control-Allow-Origin: *");
 		header('Access-Control-Allow-Headers: Origin, Content-Type, Authorization, X-Auth-Token');
-		header('Access-Control-Allow-Methods: GET, POST, PUT, PATCH, DELETE, HEAD, OPTIONS');
-			
+		header('Access-Control-Allow-Methods: GET, POST, PUT, PATCH, DELETE, HEAD, OPTIONS');	
+    }
+
+	function verifyRequestMethod($db)
+    {
+		$request_method = $_SERVER["REQUEST_METHOD"];
+        switch($request_method)
+		{
+			case 'GET':
+				getRecords($db);
+				break;
+			case 'POST':
+				break;
+			case 'PUT':
+				deleteRecordFromUser($db);
+				break;
+			case 'DELETE':
+				break;
+			default:
+				getRecords($db);
+				// Invalid Request Method
+				//header("HTTP/1.0 405 Method Not Allowed");
+				break;
+		}
     }
     
     function getRecords($db)
@@ -36,6 +56,12 @@
 		 $stmt->execute();
 		
 		$records_row = $stmt->fetchAll(PDO::FETCH_ASSOC);
+		foreach(  $records_row as $key => &$value )
+		{
+			$records_row[$key]["wFname"] = unserialize($value["wFname"]);
+			$records_row[$key]["wLname"] = unserialize($value["wLname"]);
+		}
+		unset($value);
 		echo json_encode($records_row);
     }
 
@@ -49,14 +75,12 @@
 
     }
 
-	// the delete will only remove the connection of the record from the user.
-	// the record will stay on the database, for future search
     function deleteRecordFromUser($db)
     {
 		$userid = ($_GET["userid"]);
 		$bookid = ($_GET["bookid"]);
 		
-		$query = 'UPDATE books SET userid = 9000 WHERE bookid = ?'; // hard coded number just for development, on production it should be null
+		$query = 'UPDATE books SET userid = 9000 WHERE bookid = ?';
 							
 		$stmt = $db->prepare($query);
 		$stmt->bindParam(1, $bookid);
@@ -64,27 +88,6 @@
 
 		getRecords($db);
     }
-
-    function verifyRequestMethod($db)
-    {
-		$request_method = $_SERVER["REQUEST_METHOD"];
-        switch($request_method)
-		{
-			case 'GET':
-				getRecords($db);
-				break;
-			case 'POST':
-				break;
-			case 'PUT':
-				deleteRecordFromUser($db);
-				break;
-			case 'DELETE':
-				break;
-			default:
-				header("HTTP/1.0 405 Method Not Allowed");
-				break;
-		}
-    }
-             
+          
 
 ?>

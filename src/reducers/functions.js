@@ -12,10 +12,10 @@ export function populateBookApa(action){
         publisherName = data.publishname,
         year = data.publishyear,
         bookName = data.bookname,
-        bookID = data.bookid;
-        //lang = checkLanguage(bookName); // get the first letter of the first writer and check it's language
-        //writers = getWriters(action.value.editor, lang);
-        let fullAPA = {apa: ".דני,ב (" + year + "). " + bookName + ". " + location + ": " + publisherName, bookID};
+        bookID = data.bookid,
+        lang = checkLanguage(bookName), // get the first letter of the first writer and check it's language
+        writers = getWriters(data, lang);
+        let fullAPA = {apa: writers + "(" + year + "). " + bookName + ". " + location + ": " + publisherName, bookID};
 
 
     return fullAPA;
@@ -32,12 +32,12 @@ export function populateWebisteApa(action){
 
         let month = getOutputMonth();
         let date =  getOutputDate();
-        let fullAPA = writers + "' (" + publishYear + "). " + articleHeadline + ". " + date + " ב" + month + " מ " + linkToPage + ".";
+        let fullAPA = writers + "(" + publishYear + "). " + articleHeadline + ". " + date + " ב" + month + " מ " + linkToPage + ".";
 
         if(lang == "en")
         {
             month = getOutputMonth("en");
-            fullAPA = writers + "' (" + publishYear + "). " + articleHeadline + ". " + "Retrieved " + month + " " + date + " From " + linkToPage + ".";
+            fullAPA = writers + "(" + publishYear + "). " + articleHeadline + ". " + "Retrieved " + month + " " + date + " From " + linkToPage + ".";
         }
 
     return fullAPA;
@@ -59,17 +59,17 @@ export function populatePaperApa(action){
     {
          let month = getOutputMonth();
          let date =  getOutputDate();
-         fullAPA = writers + "' (" + dateOfPublish + "). " + papertHeadline + ". " + paperName + ", " + pagesNumber + ", נדלה ב " + date + " ב" + month + " מ " + paperLink + ".";
+         fullAPA = writers + "(" + dateOfPublish + "). " + papertHeadline + ". " + paperName + ", " + pagesNumber + ", נדלה ב " + date + " ב" + month + " מ " + paperLink + ".";
          
         if(lang == "en")
         {
             month = getOutputMonth("en");
-            fullAPA = writers + "' (" + dateOfPublish + "). " + papertHeadline + ". " + paperName + ", " + pagesNumber + ", Retrieved " + month + " " + date + " From " + paperLink + ".";
+            fullAPA = writers + "(" + dateOfPublish + "). " + papertHeadline + ". " + paperName + ", " + pagesNumber + ", Retrieved " + month + " " + date + " From " + paperLink + ".";
         }
     }
     else
     {
-        fullAPA = writers + "' (" + dateOfPublish + "). " + papertHeadline + ". " + paperName + ", " + pagesNumber + ".";
+        fullAPA = writers + "(" + dateOfPublish + "). " + papertHeadline + ". " + paperName + ", " + pagesNumber + ".";
     }
     
     return fullAPA;
@@ -92,17 +92,17 @@ export function populateArticleApa(action){
     {
          let month = getOutputMonth();
          let date =  getOutputDate();
-         fullAPA = writers + "' (" + publishYear + "). " + articleName + ". " + noteName + ", " + episode + ", " + pages + ", נדלה ב " + date + " ב" + month + " מ " + paperLink + ".";
+         fullAPA = writers + "(" + publishYear + "). " + articleName + ". " + noteName + ", " + episode + ", " + pages + ", נדלה ב " + date + " ב" + month + " מ " + paperLink + ".";
          
         if(lang == "en")
         {
             month = getOutputMonth("en");
-            fullAPA = writers + "' (" + publishYear + "). " + articleName + ". " + noteName + ", " + episode + ", " + pages + ", Retrieved " + month + " " + date + " From " + paperLink + ".";
+            fullAPA = writers + "(" + publishYear + "). " + articleName + ". " + noteName + ", " + episode + ", " + pages + ", Retrieved " + month + " " + date + " From " + paperLink + ".";
         }
     }
     else
     {
-        fullAPA = writers + "' (" + publishYear + "). " + articleName + ". " + noteName + ", " + episode + ", " + pages + ".";
+        fullAPA = writers + "(" + publishYear + "). " + articleName + ". " + noteName + ", " + episode + ", " + pages + ".";
     }
     
     return fullAPA;
@@ -139,6 +139,33 @@ function getOutputDate()
 
 function getWriters(writers, lang)
 {
+    // if there is no writers, exit the function
+    if(writers.wFname == false)
+        return "";
+
+    // retrive from db
+    if(writers.wFname != undefined)
+    {
+        var data = writers;
+        var fname = data.wFname.join().split(",");
+        var lname = data.wLname.join().split(",");
+        var length = fname.length;
+        writers = [];
+
+        for(var i = 0; i < length; i++)
+        {
+            let writerFname = {
+                firstNamefield: fname[i].trim()
+            }
+            let writerLname = {
+                lastNamefield: lname[i].trim()
+            }
+            writers.push(writerFname);
+	        writers.push(writerLname);
+        }
+    }
+    
+    
     var nameStr = "";
     var seperator = " ו";
     if(lang == "en") seperator = " & ";
@@ -161,7 +188,7 @@ function getWriters(writers, lang)
         else if(i == writers.length) // last name of the last editor
         {
             name = name.substr(0,1);
-            nameStr += " " + name;
+            nameStr += " " + name + "' ";
         }
         else if(i % 2 == 0) // last name
         {

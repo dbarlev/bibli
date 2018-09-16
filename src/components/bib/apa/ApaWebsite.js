@@ -121,7 +121,7 @@ class ApaWebsite extends Component {
 
 const mapStateToProps = (state) => {
   if(state.createApa.length > 0)
-    alert(state.createApa);
+    console.log(state.createApa);
   return {createApa: state.createApa}
 }
 

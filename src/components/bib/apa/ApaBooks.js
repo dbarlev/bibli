@@ -25,7 +25,7 @@ class ApaBooks extends Component {
         {id: "bookName", label: "שם הספר"},
         {id: "publisherName", label: "שם ההוצאה לאור"},
         {id: "publisherLocation", label: "מיקום ההוצאה לאור"},
-        {id: "publishYear", label: "שנת ההוצאה"}
+        {id: "publishyear", label: "שנת ההוצאה"}
       ]
     }
   }
@@ -42,13 +42,13 @@ class ApaBooks extends Component {
     let bookname = this.getElement(this.refs.bookName);
     let publishname = this.getElement(this.refs.publisherName);
     let publishcity = this.getElement(this.refs.publisherLocation);
-    let publishYear = this.getElement(this.refs.publishYear);
+    let publishyear = this.getElement(this.refs.publishyear);
 
     var details = {
         bookname,
         publishname,
         publishcity,
-        publishYear,
+        publishyear,
         editor: this.state.names
     }
 
@@ -124,10 +124,10 @@ class ApaBooks extends Component {
 
 const mapStateToProps = (state) => {
   if(state.createApa.length > 0)
-   
+    console.log(state.createApa);
   return {createApa: state.createApa}
 }
 
-// export default connect(mapStateToProps, {CreateBookApaStandart})(ApaBooks);
-export default ApaBooks;
+export default connect(mapStateToProps, {CreateBookApaStandart})(ApaBooks);
+
 
