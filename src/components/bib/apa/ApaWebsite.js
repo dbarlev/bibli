@@ -11,8 +11,11 @@ import {
   ControlLabel,
   HelpBlock
 } from 'react-bootstrap';
-import {CreateWebsiteApaStandart} from '../../../actions';
+import {InsertRecordToDB} from '../../../actions/ajax';
 import Writers from '../writers/Writers';
+import {GetFormatDate} from '../services/GetFormatDate';
+import {FormatWriters} from '../services/FormatWriters';
+import {VerifyLang} from '../services/VerifyLang';
 
 class ApaWebsite extends Component {
 
@@ -25,7 +28,8 @@ class ApaWebsite extends Component {
         {id: "linkToPage", label: "קישור לכתבה"},
         {id: "articleHeadline", label: "כותרת הכתבה"},
         {id: "publishYear", label: "תאריך פרסום"}
-      ]
+      ],
+      writersHandler: new FormatWriters()
     }
   }
 
@@ -38,46 +42,36 @@ class ApaWebsite extends Component {
   onSubmitApa(event)
   {
     event.preventDefault();
-    let linkToPage = this.getElement(this.refs.linkToPage);
-    let articleHeadline = this.getElement(this.refs.articleHeadline);
-    let publishYear = this.getElement(this.refs.publishYear);
+    let url = this.getElement(this.refs.linkToPage);
+    let title = this.getElement(this.refs.articleHeadline);
+    let lang = new VerifyLang(title).checkLanguage();
+    let retrived = new GetFormatDate().populateText(lang);
+    let year = this.getElement(this.refs.publishYear);
+    let recordType = 4;
+    let userid = 19;
+    let writers = this.state.writersHandler.formatWriters(this.state.names);
 
     var details = {
-        linkToPage,
-        articleHeadline,
-        publishYear,
-        editor: this.state.names
+        recordType,
+        userid,
+        url,
+        title,
+        retrived,
+        year,
+        writers
     }
 
-    this.props.CreateWebsiteApaStandart(details); // call to redux action that created the apa query
+    this.props.InsertRecordToDB(details); // call to redux action that created the apa query
   }
 
+
   getWritersNames(name)
-  {  
-     let names = this.state.names;
-     var flag = false;
-     names.forEach(function(item){
-      var keys = Object.keys(item);
-      if(keys.indexOf(name.elementID) > -1)
-      {
-        flag = true;
-        item[name.elementID] = name.data;
-      }
-    })
-    if(!flag)
-    {
-      names.push({
-        [name.elementID]: 
-        {
-          data: name.data
-        }
-      });
-    }
-    this.setState({names});
+  {   
+      var names = this.state.writersHandler.getTypedName(name, this.state.names)
+      this.setState({names});
   }
 
   render() {
-
 
     return (
       <div id="apaWebsiteForm" className="apaForm">
@@ -118,12 +112,5 @@ class ApaWebsite extends Component {
 }
 
 
-
-const mapStateToProps = (state) => {
-  if(state.createApa.length > 0)
-    console.log(state.createApa);
-  return {createApa: state.createApa}
-}
-
-export default connect(mapStateToProps, {CreateWebsiteApaStandart})(ApaWebsite);
+export default connect(null, {InsertRecordToDB})(ApaWebsite);
 

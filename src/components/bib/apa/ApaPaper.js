@@ -13,8 +13,11 @@ import {
 } from 'react-bootstrap';
 import Select from 'react-select';
 
-import {CreatePaperApaStandart} from '../../../actions';
+import {InsertRecordToDB} from '../../../actions/ajax';
 import Writers from '../writers/Writers';
+import {GetFormatDate} from '../services/GetFormatDate';
+import {FormatWriters} from '../services/FormatWriters';
+import {VerifyLang} from '../services/VerifyLang';
 
 class ApaPaper extends Component {
 
@@ -40,7 +43,8 @@ class ApaPaper extends Component {
         {id: "paperLink", label: "קישור לכתבה"}
       ],
       hiddenFeilds: ["paperLink"],
-      selectedSourceOption: { value: 1, label: 'בדפוס' }
+      selectedSourceOption: { value: 1, label: 'בדפוס' },
+      writersHandler: new FormatWriters()
     }
   }
 
@@ -54,47 +58,38 @@ class ApaPaper extends Component {
   {
     event.preventDefault();
     let selectedSourceOption = this.state.selectedSourceOption;
-    let paperName = this.getElement(this.refs.paperName);
-    let papertHeadline = this.getElement(this.refs.papertHeadline);
-    let pagesNumber = this.getElement(this.refs.pagesNumber);
-    let dateOfPublish = this.getElement(this.refs.dateOfPublish);
-    let paperLink = this.refs.paperLink != null ? this.getElement(this.refs.paperLink) : null;
+    let name = this.getElement(this.refs.paperName);
+    let lang = new VerifyLang(name).checkLanguage();
+    let retrived = new GetFormatDate().populateText(lang);
+    let title = this.getElement(this.refs.papertHeadline);
+    let pages = this.getElement(this.refs.pagesNumber);
+    let year = this.getElement(this.refs.dateOfPublish);
+    let recordType = 3;
+    let userid = 19;
+    let url = this.refs.paperLink != null ? this.getElement(this.refs.paperLink) : null;
+    let writers = this.state.writersHandler.formatWriters(this.state.names);
 
     var details = {
         selectedSourceOption,
-        paperName,
-        papertHeadline,
-        pagesNumber,
-        dateOfPublish,
-        paperLink,
-        editor: this.state.names
+        userid,
+        recordType,
+        name,
+        title,
+        retrived,
+        pages,
+        year,
+        url,
+        writers
     }
 
-    this.props.CreatePaperApaStandart(details); // call to redux action that created the apa query
+    this.props.InsertRecordToDB(details); // call to redux action that created the apa query
   }
 
+
   getWritersNames(name)
-  {  
-     let names = this.state.names;
-     var flag = false;
-     names.forEach(function(item){
-      var keys = Object.keys(item);
-      if(keys.indexOf(name.elementID) > -1)
-      {
-        flag = true;
-        item[name.elementID] = name.data;
-      }
-    })
-    if(!flag)
-    {
-      names.push({
-        [name.elementID]: 
-        {
-          data: name.data
-        }
-      });
-    }
-    this.setState({names});
+  {   
+      var names = this.state.writersHandler.getTypedName(name, this.state.names)
+      this.setState({names});
   }
 
   handleSourceChange(value)
@@ -188,13 +183,5 @@ class ApaPaper extends Component {
   }
 }
 
-
-
-const mapStateToProps = (state) => {
-  if(state.createApa.length > 0)
-    console.log(state.createApa);
-  return {createApa: state.createApa}
-}
-
-export default connect(mapStateToProps, {CreatePaperApaStandart})(ApaPaper);
+export default connect(null, {InsertRecordToDB})(ApaPaper);
 

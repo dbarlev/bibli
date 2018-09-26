@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import ReactDOM from 'react-dom';
 import {connect} from 'react-redux';
-import {CreateBookApaStandart, CreatePaperApaStandart, CreateArticleApaStandart, CreateWebsiteApaStandart} from '../../../actions';
+import {getRecordsFromDB} from '../../../actions/ajax';
 import Writers from '../writers/Writers';
 import BibRecord from './BibRecord'
 
@@ -19,19 +19,7 @@ class BibRecordsList extends Component {
 
   componentWillMount() 
   {
-        var self = this;
-        fetch('http://127.0.0.1/bibli/api/biblioRecords/Records.php?userid=19', {
-              method: "GET"  
-          })
-          .then(response => response.json())
-          .then(json => {
-              console.log(json)
-                this.setState({
-                    records: json
-                });
-                self.updateRecords();
-          })
-          .catch(error => console.log('parsing faild', error))
+      this.props.getRecordsFromDB(19);
   }
 
   componentWillReceiveProps(nextProps) {
@@ -48,53 +36,43 @@ class BibRecordsList extends Component {
       })
   }
 
-  updateRecords()
+  renderRecords()
   {
-     this.state.records.map((record,index)=>{
-        switch(record.type)
-        {
-          case "book":
-              this.props.CreateBookApaStandart(record);
-            break;
-          case "article":
-            //this.props.CreateArticleApaStandart(record);
-            break;
-          case "paper":
-            //this.props.CreatePaperApaStandart(record);
-            break;
-          case "website":
-           // this.props.CreateWebsiteApaStandart(record);
-            break;
-        }
-    });
+    const {deleteID} = this.state;
+    let allRecords = this.state.allRecords;
+    if(allRecords.length > 0)
+    {
+      return (
+          allRecords[allRecords.length-1].map( (record,index) => {
+            if(record.recordID == undefined || deleteID.indexOf(record.recordID) == -1)
+              return <BibRecord record={record} type={record.type} recordID={record.recordID} key={"bib_record" + index} />
+        })
+      );
+    }
+    else
+    {
+      return <div />
+    }
+
   }
 
   render() {
-
-    const {allRecords} = this.state;
-    const {deleteID} = this.state;
-
     return (
       <div id="bibRecords">
       {
-          allRecords.map( (record,index) => {
-            if(deleteID.indexOf(record.bookID) == -1)
-              return <BibRecord record={record.apa} bookid={record.bookID} key={"bib_record" + index} />
-        })
+       this.renderRecords()  
       }       
       </div>
     );
   }
 }
 
-
-
 const mapStateToProps = (state) => {
     return {
-        allRecords: state.createApa,
+        allRecords: state.getRecordsFromDB,
         deleteID: state.deleteRecordFromUser.value
     }
 }
 
-export default connect(mapStateToProps, {CreateBookApaStandart, CreatePaperApaStandart, CreateArticleApaStandart, CreateWebsiteApaStandart})(BibRecordsList);
+export default connect(mapStateToProps, {getRecordsFromDB})(BibRecordsList);
 

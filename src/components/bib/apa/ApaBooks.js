@@ -11,8 +11,13 @@ import {
   ControlLabel,
   HelpBlock
 } from 'react-bootstrap';
-import {CreateBookApaStandart} from '../../../actions';
+import {InsertRecordToDB} from '../../../actions/ajax';
 import Writers from '../writers/Writers';
+import {GetFormatDate} from '../services/GetFormatDate';
+import {FormatWriters} from '../services/FormatWriters';
+import {VerifyLang} from '../services/VerifyLang';
+
+
 
 class ApaBooks extends Component {
 
@@ -26,7 +31,9 @@ class ApaBooks extends Component {
         {id: "publisherName", label: "שם ההוצאה לאור"},
         {id: "publisherLocation", label: "מיקום ההוצאה לאור"},
         {id: "publishyear", label: "שנת ההוצאה"}
-      ]
+      ],
+      formSubmited: false,
+      writersHandler: new FormatWriters()
     }
   }
 
@@ -39,49 +46,39 @@ class ApaBooks extends Component {
   onSubmitApa(event)
   {
     event.preventDefault();
-    let bookname = this.getElement(this.refs.bookName);
+
+    let name = this.getElement(this.refs.bookName);
+    let lang = new VerifyLang(name).checkLanguage();
+    let retrived = new GetFormatDate().populateText(lang);
     let publishname = this.getElement(this.refs.publisherName);
     let publishcity = this.getElement(this.refs.publisherLocation);
-    let publishyear = this.getElement(this.refs.publishyear);
+    let year = this.getElement(this.refs.publishyear);
+    let recordType = 1;
+    let userid = 19;
+    let writers = this.state.writersHandler.formatWriters(this.state.names);
 
     var details = {
-        bookname,
+        userid,
+        recordType,
+        name,
         publishname,
         publishcity,
-        publishyear,
-        editor: this.state.names
+        year,
+        writers,
+        retrived
     }
 
-    this.props.CreateBookApaStandart(details); // call to redux action that created the apa query
+    this.props.InsertRecordToDB(details); // call to redux action that created the apa query
   }
 
+  
   getWritersNames(name)
-  {  
-     let names = this.state.names;
-     var flag = false;
-     names.forEach(function(item){
-      var keys = Object.keys(item);
-      if(keys.indexOf(name.elementID) > -1)
-      {
-        flag = true;
-        item[name.elementID] = name.data;
-      }
-    })
-    if(!flag)
-    {
-      names.push({
-        [name.elementID]: 
-        {
-          data: name.data
-        }
-      });
-    }
-    this.setState({names});
+  {   
+      var names = this.state.writersHandler.getTypedName(name, this.state.names)
+      this.setState({names});
   }
 
   render() {
-
-
     return (
       <div id="apaBooksForm" className="apaForm">
         <div className="row">
@@ -104,7 +101,7 @@ class ApaBooks extends Component {
               }
 
               <Writers onWriterChange={this.getWritersNames.bind(this)} />
-
+              
               <FormGroup>
                 <Col >
                   <Button onClick={(event) => this.onSubmitApa(event)} type="submit">הירשם</Button>
@@ -120,14 +117,6 @@ class ApaBooks extends Component {
   }
 }
 
-
-
-const mapStateToProps = (state) => {
-  if(state.createApa.length > 0)
-    console.log(state.createApa);
-  return {createApa: state.createApa}
-}
-
-export default connect(mapStateToProps, {CreateBookApaStandart})(ApaBooks);
+export default connect(null, {InsertRecordToDB})(ApaBooks);
 
 

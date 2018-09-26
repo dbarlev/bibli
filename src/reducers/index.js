@@ -1,11 +1,12 @@
 import { 
      CHOOSE_SUBSCRIPTION,
-     CREATE_APA_BOOKS_STANDARD,
-     CREATE_APA_PAPER_STANDARD,
-     CREATE_APA_ARTICLE_STANDARD, 
-     CREATE_APA_WEBSITE_STANDARD,
-     DELETE_RECORD_FROM_USER} from '../actions';
-import { populateBookApa, populatePaperApa, populateArticleApa, populateWebisteApa } from './functions.js';
+     DELETE_RECORD_FROM_USER,
+     GET_RECORDS_FROM_DB,
+     INSERT_RECORD_TO_USER,
+     SET_RETRIVED_DATE
+} from '../actions/consts';
+
+import { populateBookApa, populatePaperApa, populateArticleApa, populateWebisteApa, formatRecordsToApa, populateAPAData } from './functions.js';
 import { combineReducers } from 'redux';     
 
 
@@ -36,27 +37,35 @@ function deleteRecordFromUser(state = [], action){
     }
 }
 
-
-function createApa(state = [], action){
-  switch (action.type) {
-    case CREATE_APA_BOOKS_STANDARD:
-        return populateBookApa(action);
-    case CREATE_APA_PAPER_STANDARD:
-        return populatePaperApa(action);
-    case CREATE_APA_ARTICLE_STANDARD:
-        return populateArticleApa(action);
-    case CREATE_APA_WEBSITE_STANDARD:
-        return populateWebisteApa(action);
+function getRecordsFromDB(state = [], action){
+    switch (action.type) {
+        case GET_RECORDS_FROM_DB:
+           //return formatRecordsToApa(action);
+           return populateAPAData(action);
+        case INSERT_RECORD_TO_USER:
+            //return formatRecordsToApa(action);
+           return populateAPAData(action);
     default:
-        return state
-  }
+        return state;
+    }
 }
 
 
+function retrivedDate(state = [], action){
+    switch (action.type) {
+        case SET_RETRIVED_DATE:
+           //return formatRecordsToApa(action);
+           return populateAPAData(action);
+    default:
+        return state;
+    }
+}
+
 const rootReducer = combineReducers({
      chooseSubscription,
-     createApa,
-     deleteRecordFromUser
+     deleteRecordFromUser,
+     getRecordsFromDB,
+     retrivedDate
 });
 
 export default rootReducer;

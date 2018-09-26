@@ -1,111 +1,28 @@
 import {HeMonths, EnMonths} from './consts';
 
-export function populateBookApa(action){
-    // let data = action.value,
-    //     publishYear = data.publishYear,
-    //     bookName = data.bookName,
-    //     location = data.publisherLocation,
-    //     publisherName = data.publisherName,
-        
-    let data = action.value,
-        location = data.publishcity,
-        publisherName = data.publishname,
-        year = data.publishyear,
-        bookName = data.bookname,
-        bookID = data.bookid,
-        lang = checkLanguage(bookName), // get the first letter of the first writer and check it's language
-        writers = getWriters(data, lang);
-        let fullAPA = {apa: writers + "(" + year + "). " + bookName + ". " + location + ": " + publisherName, bookID};
-
-
-    return fullAPA;
-}
-
-export function populateWebisteApa(action){
-
-    let data = action.value,
-        publishYear = data.publishYear,
-        linkToPage = data.linkToPage,
-        articleHeadline = data.articleHeadline,
-        lang = checkLanguage(articleHeadline), // get the first letter of the first writer and check it's language
-        writers = getWriters(action.value.editor, lang);
-
-        let month = getOutputMonth();
-        let date =  getOutputDate();
-        let fullAPA = writers + "(" + publishYear + "). " + articleHeadline + ". " + date + " ב" + month + " מ " + linkToPage + ".";
-
-        if(lang == "en")
-        {
-            month = getOutputMonth("en");
-            fullAPA = writers + "(" + publishYear + "). " + articleHeadline + ". " + "Retrieved " + month + " " + date + " From " + linkToPage + ".";
-        }
-
-    return fullAPA;
-}
-
-export function populatePaperApa(action){
-    let data = action.value,
-        sourceOption = data.selectedSourceOption,
-        paperName = data.paperName,
-        papertHeadline = data.papertHeadline,
-        pagesNumber = data.pagesNumber,
-        dateOfPublish = data.dateOfPublish,
-        paperLink = data.paperLink,
-        lang = checkLanguage(paperName), // get the first letter of the first writer and check it's language
-        writers = getWriters(action.value.editor, lang),
-        fullAPA;
-
-    if(sourceOption.value == "online")
-    {
-         let month = getOutputMonth();
-         let date =  getOutputDate();
-         fullAPA = writers + "(" + dateOfPublish + "). " + papertHeadline + ". " + paperName + ", " + pagesNumber + ", נדלה ב " + date + " ב" + month + " מ " + paperLink + ".";
-         
-        if(lang == "en")
-        {
-            month = getOutputMonth("en");
-            fullAPA = writers + "(" + dateOfPublish + "). " + papertHeadline + ". " + paperName + ", " + pagesNumber + ", Retrieved " + month + " " + date + " From " + paperLink + ".";
-        }
-    }
-    else
-    {
-        fullAPA = writers + "(" + dateOfPublish + "). " + papertHeadline + ". " + paperName + ", " + pagesNumber + ".";
-    }
-    
-    return fullAPA;
-}
-
-export function populateArticleApa(action){
-    let data = action.value,
-        sourceOption = data.selectedSourceOption,
-        noteName = data.noteName,
-        articleName = data.articleName,
-        episode = data.episode,
-        pages = data.pages,
-        publishYear = data.publishYear,
-        paperLink = data.paperLink,
-        lang = checkLanguage(noteName), // get the first letter of the first writer and check it's language
-        writers = getWriters(action.value.editor, lang),
-        fullAPA;
-
-    if(sourceOption.value == "online")
-    {
-         let month = getOutputMonth();
-         let date =  getOutputDate();
-         fullAPA = writers + "(" + publishYear + "). " + articleName + ". " + noteName + ", " + episode + ", " + pages + ", נדלה ב " + date + " ב" + month + " מ " + paperLink + ".";
-         
-        if(lang == "en")
-        {
-            month = getOutputMonth("en");
-            fullAPA = writers + "(" + publishYear + "). " + articleName + ". " + noteName + ", " + episode + ", " + pages + ", Retrieved " + month + " " + date + " From " + paperLink + ".";
-        }
-    }
-    else
-    {
-        fullAPA = writers + "(" + publishYear + "). " + articleName + ". " + noteName + ", " + episode + ", " + pages + ".";
-    }
-    
-    return fullAPA;
+export function populateAPAData(action)
+{    
+     var records = []; 
+     action.value.map((data,index)=>{
+        let name = data.name,
+        lang = checkLanguage(name);
+        records.push({
+            location: data.publishcity,
+            publisherName: data.publishname,
+            year: data.year,
+            kereh: data.kereh,
+            name,
+            date: data.retrived,
+            type: data.type,
+            url: data.url,
+            articleHeadline: data.title,
+            pages: data.pages,
+            recordID: data.bookid,
+            lang, // get the first letter of the first writer and check it's language
+            writers: getWriters(data, lang)
+        });        
+    });
+    return records;  
 }
 
 function checkLanguage(text)
@@ -116,25 +33,6 @@ function checkLanguage(text)
         lang = "en";
     }
     return lang;
-}
-
-function getOutputMonth(langCode)
-{
-    let d = new Date();
-    let CurrentMonth = d.getMonth() + 1; // +1 because it's start from 0
-    let month = HeMonths[CurrentMonth];
-    if(langCode == "en" || langCode == "english")
-    {
-        month = EnMonths[CurrentMonth];
-    }
-    return month;
-}
-
-function getOutputDate()
-{
-    let d = new Date();
-    let date =  d.getDate();
-    return date.length == 1 ? "0" + date : date;
 }
 
 function getWriters(writers, lang)
