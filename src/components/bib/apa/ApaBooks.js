@@ -98,9 +98,10 @@ class ApaBooks extends Component {
 
               <Writers onWriterChange={this.getWritersNames.bind(this)} />
               
-              <FormGroup>
+              <FormGroup className="pull-right">
                 <Col >
-                  <Button onClick={(event) => this.onSubmitApa(event)} type="submit">הירשם</Button>
+                  <Button className="left-10" onClick={(event) => this.onSubmitApa(event)} type="submit">צור רשומה</Button>
+                  <Button onClick={(event) => this.onSubmitApa(event)} type="submit">אישור והוספת פריט נוסף</Button>
                 </Col>
               </FormGroup>
             </Form>

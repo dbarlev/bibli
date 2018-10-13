@@ -167,6 +167,11 @@ button.searchRecordBtn{
     
 }    
 
+.apaForm button{
+    background: hsl(208, 50%, 25%) !important;
+    color: white;
+}
+
 .searchRecord::-webkit-input-placeholder { /* Chrome/Opera/Safari */
   color: white !important;
 }
@@ -207,3 +212,8 @@ button.searchRecordBtn{
 .button{
     cursor: pointer;
 }
+
+.left-10{
+    margin-left: 10px;
+}
+
