@@ -58,21 +58,15 @@ class WritersForm extends Component {
     return (
       <div id="writersForm">
             <FormGroup controlId={"firstName" + this.props.name}>
-                <Col sm={8}>
-                    <FormControl value={this.state.names} onChange={ this.firstNameChange.bind(this) } ref="editorPrivateName" type="text" />
+                <Col>
+                    <FormControl className="apa" placeholder="שם פרטי"  value={this.state.names} onChange={ this.firstNameChange.bind(this) } ref="editorPrivateName" type="text" />
                     <HelpBlock role="status" aria-live="polite"></HelpBlock>
-                </Col>
-                <Col componentClass={ControlLabel}>
-                    שם פרטי:
                 </Col>
             </FormGroup>
             <FormGroup  controlId={"lastName" + this.props.name}>
-                <Col sm={8}>
-                    <FormControl onChange={ this.lastNameChange.bind(this) } ref="editorLastName" type="text" />
+                <Col>
+                    <FormControl className="apa" placeholder="שם משפחה" onChange={ this.lastNameChange.bind(this) } ref="editorLastName" type="text" />
                     <HelpBlock role="status" aria-live="polite"></HelpBlock>
-                </Col>
-                <Col componentClass={ControlLabel}>
-                    שם משפחה:
                 </Col>
             </FormGroup>
       </div>

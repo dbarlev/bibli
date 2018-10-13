@@ -13,7 +13,7 @@ import {
 } from 'react-bootstrap';
 
 
-class ListOfLists extends Component {
+class Search extends Component {
 
  constructor()
  {
@@ -35,5 +35,5 @@ class ListOfLists extends Component {
 
 
 
-export default ListOfLists;
+export default Search;
 

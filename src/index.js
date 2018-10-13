@@ -9,6 +9,7 @@ import App from './components/App';
 import AboutUs from './components/AboutUs';
 import Register from './components/auth/Register';
 import Login from './components/auth/Login';
+import addRecord from './components/bib/addRecord';
 import rootReducer from './reducers'
 import registerServiceWorker from './registerServiceWorker';
 import adminPanel from './components/adminPanel';
@@ -26,6 +27,7 @@ ReactDOM.render(
                 <Route path="/adminPanel" component={adminPanel} />
                 <Route path="/register" component={Register} />
                 <Route path="/login" component={Login} />
+                <Route path="/addRecord" component={addRecord} />
             </Switch>
         </BrowserRouter>
     </Provider>

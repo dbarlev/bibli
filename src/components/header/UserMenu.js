@@ -3,9 +3,6 @@ import {Nav, Navbar,Badge, NavItem,InputGroup, MenuItem, Button, FormGroup, Form
 import { LinkContainer, IndexLinkContainer  } from "react-router-bootstrap";
 import { Link  } from 'react-router-dom';
 
-
-import logoSrc from '../img/logo1.png';
-
 const texts = {
     1: "התחבר/י",
     2: "התנתק/י"    
@@ -30,7 +27,7 @@ class UserMenu extends Component {
                         <NavItem>אזור אישי </NavItem>
                     </LinkContainer>  
                     <li>
-                       <a href="#" className="white"><Badge>2</Badge> <i class="far fa-bell"></i></a>
+                       <a href="#" className="white"><Badge>2</Badge> <i className="far fa-bell"></i></a>
                     </li >
                 </Nav>
                  <Navbar.Form pullLeft>
@@ -38,7 +35,7 @@ class UserMenu extends Component {
                         <InputGroup>
                             <FormControl className="searchRecord" placeholder="חיפוש מאמר" type="text" />
                             <InputGroup.Button>
-                                <Button className="searchRecordBtn"><i class="fas fa-search"></i></Button>
+                                <Button className="searchRecordBtn"><i className="fas fa-search"></i></Button>
                             </InputGroup.Button>
                         </InputGroup>
                     </FormGroup>            
@@ -51,8 +48,4 @@ class UserMenu extends Component {
   }
 }
 
-/*      <FormGroup>
-                        <FormControl className="searchRecord" type="text" placeholder="Search" />
-                    </FormGroup>{' '}
-                    <Button type="submit">Submit</Button> */
 export default UserMenu;

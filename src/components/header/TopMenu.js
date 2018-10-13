@@ -32,10 +32,10 @@ class TopMenu extends Component {
                             <MenuItem> {texts[this.props.loginState]} </MenuItem>
                     </LinkContainer>
                     <li>
-                       <a href="#"> <i class="fab fa-facebook-f"></i></a>
+                       <a href="#"> <i className="fab fa-facebook-f"></i></a>
                     </li > 
                     <li>
-                       <a href="#"><i class="fas fa-search"></i><span className="seperator">|</span></a>
+                       <a href="#"><i className="fas fa-search"></i><span className="seperator">|</span></a>
                     </li > 
                     <LinkContainer className="topNavMenuItems black" to="/login" >
                         <NavItem>צור קשר</NavItem>

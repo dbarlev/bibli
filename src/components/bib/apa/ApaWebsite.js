@@ -76,18 +76,14 @@ class ApaWebsite extends Component {
     return (
       <div id="apaWebsiteForm" className="apaForm">
         <div className="row">
-          <div className="col-md-8">
             <Form horizontal>
               {
                 this.state.formFeilds.map((feild,index) => {
                     return (
                       <FormGroup key={index} controlId={feild.id}>
-                        <Col sm={8}>
-                          <FormControl ref={feild.id} type="text" />
+                        <Col>
+                          <FormControl className="apa" placeholder={feild.label} ref={feild.id} type="text" />
                           <HelpBlock role="status" aria-live="polite"></HelpBlock>
-                        </Col>
-                        <Col componentClass={ControlLabel}>
-                          {feild.label}
                         </Col>
                       </FormGroup>
                     );
@@ -102,7 +98,6 @@ class ApaWebsite extends Component {
                 </Col>
               </FormGroup>
             </Form>
-          </div>
         </div>
 
       </div>

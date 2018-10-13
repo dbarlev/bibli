@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import Footer from './footer/Footer.js';
 import Header from './header/Header.js';
 import SubOptions from './subscription/SubOptions';
-import ApaTabs from './bib/tabs';
 import Search from './bib/search/Search';
 import BibRecordsList from './bib/records/BibRecordsList';
 

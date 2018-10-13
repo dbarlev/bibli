@@ -2,6 +2,9 @@ import {HeMonths, EnMonths} from './consts';
 
 export function populateAPAData(action)
 {    
+    if(action.value.length == 0)
+        return;
+        
      var records = []; 
      action.value.map((data,index)=>{
         let name = data.name,

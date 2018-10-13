@@ -118,18 +118,16 @@ class ApaPaper extends Component {
       if(feild.type == "select")
       {
         return (
-          <div>
-              <Col sm={8}>
+          <div class="selectDropdown">
+              <Col>
                   <Select
+                      aria-label={feild.label}
                       className={className}
                       options={feild.options}
                       onChange={this.handleSourceChange.bind(this)}
                       value={this.state.selectedSourceOption}
                     />
               </Col>
-              <Col componentClass={ControlLabel}>
-                    {feild.label}
-            </Col>
           </div>
         )  
       }
@@ -137,12 +135,9 @@ class ApaPaper extends Component {
       {
           return (
                 <div>
-                    <Col sm={8}>
-                      <FormControl ref={feild.id} type="text" />
+                    <Col>
+                      <FormControl className="apa" placeholder={feild.label} ref={feild.id} type="text" />
                       <HelpBlock role="status" aria-live="polite"></HelpBlock>
-                    </Col>
-                    <Col componentClass={ControlLabel}>
-                      {feild.label}
                     </Col>
                 </div>
           );
@@ -154,7 +149,6 @@ class ApaPaper extends Component {
     return (
       <div id="apaPaperForm" className="apaForm">
         <div className="row">
-          <div className="col-md-8">
             <Form horizontal>   
               {
                 this.state.formFeilds.map((feild,index) => {
@@ -174,7 +168,6 @@ class ApaPaper extends Component {
                 </Col>
               </FormGroup>
             </Form>
-          </div>
         </div>
 
       </div>

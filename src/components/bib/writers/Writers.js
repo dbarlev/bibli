@@ -53,15 +53,14 @@ class Writers extends Component {
 
   render() {
     return (
-      <div id="writersFeilds" className="well">    
-          {
-            this.state.writers.map((name,index) => this.createWriterFeilds(name,index))   
-          }
-          <FormGroup>
-            <Col >
-              <Button onClick={this.addWriter.bind(this)} >הוסף מחבר</Button>
-            </Col>
-          </FormGroup>
+      <div id="writersFeilds">  
+          <div className="row">
+              <strong role="heading" aria-level="3" className="pull-right level3">שם המחבר<i class="fas fa-user-edit pull-right"></i></strong>
+              <span className="button" onClick={this.addWriter.bind(this)}><i class="fas fa-plus"></i></span>
+          </div> 
+            {
+              this.state.writers.map((name,index) => this.createWriterFeilds(name,index))   
+            } 
       </div>
 
     );

@@ -26,13 +26,9 @@ body{
 
 .apaForm form{
     margin: 5%;
-    border: 1px solid hsl(0, 0%, 90%);
     padding: 5% 5% 10% 13%;
     border-radius: 20px;
-}
-
-#writersFeilds{
-    background-color: hsla(205, 69%, 34%, 0.41) !important;
+    margin-top: 0;
 }
 
 .tabs .nav-item
@@ -135,6 +131,33 @@ input.searchRecord{
     color: white;
 }
 
+.apaForm input.apa{
+    width: 330px !important;
+    height: 35px;
+    background: white(0, 0%, 0%, 0);
+    border: 1px solid black !important;
+    border-radius: 0;
+    color: black;
+}
+
+.apaForm .selectDropdown .sourceTypeCombobox>div{
+    border: 1px solid black !important;
+    width: 330px !important;
+}
+
+.apaForm input::-webkit-input-placeholder { /* Chrome/Opera/Safari */
+  color: black !important;
+}
+.apaForm input::-moz-placeholder { /* Firefox 19+ */
+  color: black !important;
+}
+.apaForm input:-ms-input-placeholder { /* IE 10+ */
+  color: black !important;
+}
+.apaForm input:-moz-placeholder { /* Firefox 18- */
+  color: black;
+}
+
 button.searchRecordBtn{
     background: #204260 !important;
     margin-left: 5px !important;
@@ -166,3 +189,21 @@ button.searchRecordBtn{
      font-size: 18px;
 }
 
+.tabControlIcons a > i{
+    font-size: 22px;
+    color: black;
+}
+
+.iconText {
+    color: hsl(0, 0%, 0%);
+    font-weight: normal;
+}
+
+.level3{
+    font-weight: bold;
+    font-size: 18px;
+}
+
+.button{
+    cursor: pointer;
+}
