@@ -173,7 +173,7 @@ class BibRecord extends Component {
                   <Button color="info">{ this.props.type != null ? this.props.type : "הגדרות" }</Button>
               </div>
               <div className="col-md-8">
-                  <CardText>{this.getRecord()}</CardText>
+                  <div>{this.getRecord()}</div>
               </div>             
           </div>
       </div>

@@ -11,6 +11,8 @@ import Register from './components/auth/Register';
 import Login from './components/auth/Login';
 import rootReducer from './reducers'
 import registerServiceWorker from './registerServiceWorker';
+import adminPanel from './components/adminPanel';
+
 import './index.css';
 
 let store = createStore(rootReducer, applyMiddleware(thunk));
@@ -21,7 +23,7 @@ ReactDOM.render(
         <BrowserRouter>
             <Switch>
                 <Route exact path="/" component={App} />
-                <Route path="/aboutus" component={AboutUs} />
+                <Route path="/adminPanel" component={adminPanel} />
                 <Route path="/register" component={Register} />
                 <Route path="/login" component={Login} />
             </Switch>

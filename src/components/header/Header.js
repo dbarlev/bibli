@@ -9,9 +9,8 @@ class Header extends Component {
   
 
     return (
-       
-        <div className="App-header">
-            <TopMenu />
+        <div id="App-header">
+            <TopMenu loginState="1"  />
             <div>
                 <h1 className="App-title">{this.props.headline}</h1>
             </div>

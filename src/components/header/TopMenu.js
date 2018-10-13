@@ -4,14 +4,20 @@ import { LinkContainer, IndexLinkContainer  } from "react-router-bootstrap";
 import { Link  } from 'react-router-dom';
 
 
-import logoSrc from '../img/logo.jpg';
+import logoSrc from '../img/logo1.png';
 
+const texts = {
+    1: "התחבר/י",
+    2: "התנתק/י"    
+}
 
 
 class TopMenu extends Component {
+
+        
   render() {
     return (
-    <Navbar fluid collapseOnSelect>
+    <Navbar id="TopNav" className="nav-noStyle">
             <Navbar.Header className="pull-right">
                 <Navbar.Brand >
                 <LinkContainer to="/" >
@@ -22,26 +28,27 @@ class TopMenu extends Component {
             </Navbar.Header>
             <Navbar.Collapse >
                 <Nav pullRight>
-                     <LinkContainer to="/aboutus" >
-                        <NavItem>אודות</NavItem>
+                    <LinkContainer className="btn-warning black topnav-login-logout-btn" to="/login" >
+                            <MenuItem> {texts[this.props.loginState]} </MenuItem>
                     </LinkContainer>
-                    <IndexLinkContainer  to="/" >
-                        <NavItem>בית</NavItem>
-                    </IndexLinkContainer >
-                </Nav>
-                <Navbar.Form pullLeft>
-                    <FormGroup>
-                        <FormControl type="text" placeholder="Search" />
-                    </FormGroup>
-                        <Button type="submit">Submit</Button>
-                </Navbar.Form>
-                <Nav pullLeft>
-                    <LinkContainer to="/login" >
-                        <NavItem>התחברות</NavItem>
+                    <li>
+                       <a href="#"> <i class="fab fa-facebook-f"></i></a>
+                    </li > 
+                    <li>
+                       <a href="#"><i class="fas fa-search"></i><span className="seperator">|</span></a>
+                    </li > 
+                    <LinkContainer className="topNavMenuItems black" to="/login" >
+                        <NavItem>צור קשר</NavItem>
                     </LinkContainer>
-                    <LinkContainer to="/register" >
-                        <NavItem>הרשמה</NavItem>
+                    <LinkContainer className="topNavMenuItems black" to="/register" >
+                        <NavItem>תנאי שימוש</NavItem>
                     </LinkContainer>
+                     <LinkContainer className="topNavMenuItems black"  to="/adminPanel" >
+                        <NavItem>צור רשומה</NavItem>
+                    </LinkContainer>
+                    <IndexLinkContainer className="topNavMenuItems black" to="/" >
+                        <NavItem>מי אנחנו</NavItem>
+                    </IndexLinkContainer>  
                 </Nav>
             </Navbar.Collapse>
       </Navbar>
