@@ -22,8 +22,8 @@
     "redux-thunk": "^2.3.0"
   },
   "scripts": {
-    "build-css":  "node-sass-chokidar --include-path ./public --include-path ./node_modules public/ -o public/",
-    "watch-css":  "npm run build-css && node-sass-chokidar --include-path ./public --include-path ./node_modules public/ -o public/ --watch --recursive",
+    "build-css": "node-sass-chokidar --include-path ./public --include-path ./node_modules public/ -o public/",
+    "watch-css": "npm run build-css && node-sass-chokidar --include-path ./public --include-path ./node_modules public/ -o public/ --watch --recursive",
     "start-js": "react-scripts start",
     "build": "npm run build-css && react-scripts build",
     "start": "npm-run-all -p watch-css start-js",
