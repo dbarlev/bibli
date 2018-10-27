@@ -1,26 +1,36 @@
 import React, {Component} from 'react';
 import ReactDOM from 'react-dom';
 import {connect} from 'react-redux';
-
-import Header from '../header/Header.js'
-import RegisterForm from './RegisterForm.js'
+import Header from '../header/Header.js';
+import RegisterForm from './RegisterForm.js';
+import { addUser } from '../../actions/index';
 
 
 class Register extends Component {
-
-  constructor()
-  {
-    super();
+  constructor(){
+    super()
   }
 
-  render() {
+  onSubmitFormChild(obj)
+  {
+    this.props.addUser(obj);
+    
+  }
+
+  render(){
     return (
       <div className="App" id="register">
         <Header headline="הרשמה"/>
         <span>חבילה מסוג:
         </span>
-        <span>{this.props.chooseSubscription.name}</span>
-        <RegisterForm />
+        <span>
+        {/* {this.props.chooseSubscription.name} */}
+        </span>
+        <RegisterForm 
+          onSubmitForm={(this.onSubmitFormChild.bind(this))}
+
+        />
+
       </div>
 
     );
@@ -29,7 +39,10 @@ class Register extends Component {
 
 const mapStateToProps = (state) => {
   console.log("state", state)
-  return {chooseSubscription: state.chooseSubscription}
+  return {
+  chooseSubscription: state.chooseSubscription,
+  user: state.userReducer
+  }
 }
 
-export default connect(mapStateToProps, {})(Register);
+export default connect(mapStateToProps, {addUser})(Register);

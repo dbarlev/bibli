@@ -1,5 +1,7 @@
 import React, {Component} from 'react';
 import ReactDOM from 'react-dom';
+import { addUser } from '../../actions/index';
+
 import {connect} from 'react-redux';
 import {
   Button,
@@ -15,37 +17,38 @@ import {
 
 class RegisterForm extends Component {
 
-  constructor()
+  constructor(props)
   {
-    super();
-    this.state = {
-      validation: {
-        email: {
-          display: null
-        },
-        username: {
-          display: null
-        },
-        password: {
-          display: null
-        },
-        confirmPassword: {
-          display: null
-        }
+    super(props);
+  }
+
+  state = {
+    validation: {
+      email: {
+        display: null
       },
-      errorMessage: {
-        email: "אימייל הוא שדה חובה",
-        username: "שם משתמש הוא שדה חובה",
-        password: "סיסמה היא שדה חובה",
-        confirmPassword: "ווידוא סיסמה היא שדה חובה"
+      username: {
+        display: null
+      },
+      password: {
+        display: null
+      },
+      confirmPassword: {
+        display: null
       }
+    },
+    errorMessage: {
+      email: "אימייל הוא שדה חובה",
+      username: "שם משתמש הוא שדה חובה",
+      password: "סיסמה היא שדה חובה",
+      confirmPassword: "ווידוא סיסמה היא שדה חובה"
     }
   }
 
   populatePackagesCombobox() {
-    let value = this.props.chooseSubscription.value;
+    let value = 1;
     let feild;
-    if (this.props.chooseSubscription.value != false) {
+    if (1 != false) {
       switch (value) {
         case 1:
           feild = <FormControl disabled="true" value="חבילת חינם"/>
@@ -86,41 +89,26 @@ class RegisterForm extends Component {
     }
   }
 
-  onSubmitRegister(event)
+  onSubmitRegister(e)
   {
-    event.preventDefault();
-    let emailVal = this.getElement(this.refs.email);
-    let userNameVal = this.getElement(this.refs.username);
-    let passwordVal = this.getElement(this.refs.password);
-    let confirmPassVal = this.getElement(this.refs.confirmPassword);
+    e.preventDefault();
+  
+    let emailVal = e.target.elements.email.value;
+    let userNameVal = e.target.elements.username.value;
+    let passwordVal = e.target.elements.password.value;
+    let confirmPassVal = e.target.elements.confirmPassword.value;
 
     let obj = {
-      validation: {
-        email: {
-          display: emailVal !== ""
-            ? "success"
-            : "error"
-        },
-        username: {
-          display: userNameVal !== ""
-            ? "success"
-            : "error"
-        },
-        password: {
-          display: passwordVal !== ""
-            ? "success"
-            : "error"
-        },
-        confirmPassword: {
-          display: confirmPassVal !== ""
-            ? "success"
-            : "error"
-        }
-      }
+      name: 'dav',
+      email: emailVal,
+      username: userNameVal,
+      password: passwordVal,
+      academicInstitution: 'aaa',
+      subscription: 'asdaa'
     }
-
-    this.updateState(obj);
-
+    // console.log('this end onSubmitRegister ',this);
+    // console.log('this end onSubmitRegister.props ',this.props);
+    this.props.onSubmitForm(obj)
   }
 
   updateState(obj) {
@@ -142,10 +130,10 @@ class RegisterForm extends Component {
       <div id="registerForm">
         <div className="row">
           <div className="col-md-4 col-md-offset-4">
-            <Form horizontal>
+            <Form horizontal onSubmit={this.onSubmitRegister.bind(this)}>
               <FormGroup  controlId="formHorizontalEmail" validationState={_Validation.email.display}>
                 <Col sm={8}>
-                  <FormControl ref="email" type="email" placeholder="הקלד דואר אלקטרוני"/>
+                  <FormControl ref="email" name="email" id="email" type="email" placeholder="הקלד דואר אלקטרוני"/>
                   <HelpBlock role="status" aria-live="polite">{ _Validation.email.display === "error"
                       ? _Error.email
                       : null}</HelpBlock>
@@ -157,7 +145,7 @@ class RegisterForm extends Component {
 
               <FormGroup controlId="formHorizontalUserName" validationState={_Validation.username.display}>
                 <Col sm={8}>
-                  <FormControl ref="username" type="text" placeholder="הקלד שם משתמש"/>
+                  <FormControl ref="username" name="username" type="text" placeholder="הקלד שם משתמש"/>
                   <HelpBlock role="status" aria-live="polite">{_Validation.username.display === "error"
                       ? _Error.username
                       : null}</HelpBlock>
@@ -170,7 +158,7 @@ class RegisterForm extends Component {
 
               <FormGroup  controlId="formHorizontalPassword" validationState={_Validation.password.display}>
                 <Col sm={8}>
-                  <FormControl ref="password" type="password" placeholder="הקלד סיסמה"/>
+                  <FormControl ref="password"  name="password"  type="password" placeholder="הקלד סיסמה"/>
                   <HelpBlock role="status" aria-live="polite">{_Validation.password.display === "error"
                       ? _Error.password
                       : null}</HelpBlock>
@@ -183,7 +171,7 @@ class RegisterForm extends Component {
 
               <FormGroup controlId="formConfirmPassword" validationState={_Validation.confirmPassword.display}>
                 <Col sm={8}>
-                  <FormControl ref="confirmPassword" type="password" placeholder="הקלד סיסמה שנית"/>
+                  <FormControl ref="confirmPassword"   name="confirmPassword" type="password" placeholder="הקלד סיסמה שנית"/>
                   <HelpBlock role="status" aria-live="polite">{_Validation.confirmPassword.display === "error"
                       ? _Error.confirmPassword
                       : null}</HelpBlock>
@@ -205,7 +193,7 @@ class RegisterForm extends Component {
 
               <FormGroup>
                 <Col >
-                  <Button onClick={(event) => this.onSubmitRegister(event)} type="submit">הירשם</Button>
+                  <Button type="submit">הירשם</Button>
                 </Col>
               </FormGroup>
 
@@ -220,10 +208,6 @@ class RegisterForm extends Component {
 }
 
 
-const mapStateToProps = (state) => {
-  console.log("state", state)
-  return {chooseSubscription: state.chooseSubscription}
-}
 
-export default connect(mapStateToProps, {})(RegisterForm);
+export default RegisterForm;
 
