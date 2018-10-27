@@ -154,7 +154,7 @@ class BibRecord extends Component {
 
   deleteRecord(event) 
   {
-        var recordID = event.target.getAttribute("data-id");
+        var recordID = event.currentTarget.getAttribute("data-id");
         var userid = 19;
         var self = this;
         this.props.DeleteRecordFromUser(userid, recordID);
@@ -166,13 +166,11 @@ class BibRecord extends Component {
     return (
       <div className="bib_card"> 
           <div className="row">
-              <div className="col-md-2">
-                  <Button onClick={this.deleteRecord.bind(this)} data-id={this.props.recordID} color="danger">מחק</Button>
+              <div className="col-md-1" id="record-config-buttons">
+                  <span onClick={this.deleteRecord.bind(this)} data-id={this.props.recordID} role="button" aria-label="מחק"><i className="fas fa-trash-alt"></i></span>
+                  <span data-id={this.props.recordID} role="button" aria-label="העתק"><i className="fas fa-paste"></i></span>
               </div>
-              <div className="col-md-2">
-                  <Button color="info">{ this.props.type != null ? this.props.type : "הגדרות" }</Button>
-              </div>
-              <div className="col-md-8">
+              <div className="col-md-7">
                   <div>{this.getRecord()}</div>
               </div>             
           </div>

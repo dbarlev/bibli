@@ -127,6 +127,16 @@ body {
 body {
   direction: rtl; }
 
+i.fa, i.fas {
+  color: #204260; }
+
+button, .btn {
+  background: #204260;
+  color: white; }
+
+button > i, .btn > i {
+  color: white !important; }
+
 .logo img {
   max-height: 170px;
   max-width: 170px;
@@ -155,12 +165,16 @@ body {
   float: right; }
 
 .bib_card {
-  border: 2px solid #d4d4d4;
-  padding-top: 10px;
-  padding-right: 20px;
   margin-left: 10px;
-  margin-top: 10px;
-  height: 62px; }
+  margin-top: 20px;
+  margin-bottom: 20px;
+  height: 30px;
+  text-align: right; }
+
+#record-config-buttons > span {
+  color: darkblue;
+  cursor: pointer;
+  margin-left: 20px; }
 
 #autoCompelte-options .row {
   margin-left: 0 !important;
@@ -255,15 +269,9 @@ input.searchRecord {
   color: black; }
 
 button.searchRecordBtn {
-  background: #204260 !important;
   margin-left: 5px !important;
   border: 0 !important;
-  border-radius: 0;
-  color: white; }
-
-.apaForm button {
-  background: #204260 !important;
-  color: white; }
+  border-radius: 0; }
 
 .searchRecord::-webkit-input-placeholder {
   /* Chrome/Opera/Safari */
@@ -304,4 +312,20 @@ button.searchRecordBtn {
   cursor: pointer; }
 
 .left-10 {
+  margin-left: 10px; }
+
+.footer {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
+  background: #f2f2f3; }
+
+#addRecordBtn {
+  width: 130px;
+  height: 35px;
+  border-radius: 0; }
+
+#addRecordBtn > i {
   margin-left: 10px; }

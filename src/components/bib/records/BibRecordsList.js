@@ -23,7 +23,7 @@ class BibRecordsList extends Component {
 
   componentWillMount() 
   {
-      this.props.getRecordsFromDB(20);
+      this.props.getRecordsFromDB(19);
   }
 
   componentWillReceiveProps(nextProps) {
@@ -69,12 +69,30 @@ class BibRecordsList extends Component {
 
   }
 
+  renderAddRecordBtn()
+  {
+    let allRecords = this.state.allRecords;
+    if(allRecords.length > 0)
+    {
+      return (
+        <LinkContainer to="/addRecord" >
+                <button className="btn pull-right" id="addRecordBtn"><i className="fas fa-plus"></i> הוספת פריט </button>
+        </LinkContainer>        
+      )
+    }
+  }
+
   render() {
     return (
-      <div id="bibRecords">
-      {
-       this.renderRecords()  
-      }       
+      <div id="bibRecords"> 
+        <div className="row">
+          {
+            this.renderAddRecordBtn()
+          }
+        </div>
+        {
+        this.renderRecords()  
+        }       
       </div>
     );
   }
