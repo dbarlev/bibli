@@ -71,22 +71,25 @@ class LoginForm extends Component {
                     <div className="col-md-4 col-md-offset-4">
                         <Form horizontal>
                             <FormGroup  controlId="formHorizontalusername">
-                                <Col sm={8}>
+                                <Col sm={3} componentClass={ControlLabel}>
+                                    דואר אלקטרוני:
+                                </Col>
+
+                                <Col sm={9}>
                                 <FormControl ref="username" name="username" type="text" onChange={this.onChange} placeholder="הקלד דואר אלקטרוני"/>
                                 
                                 </Col>
-                                <Col componentClass={ControlLabel}>
-                                דואר אלקטרוני:
-                                </Col>
+                                
                             </FormGroup>
-                            <FormGroup  controlId="formHorizontalPassword">
-                                <Col sm={8}>
+                            <FormGroup controlId="formHorizontalPassword">
+                                <Col sm={3} componentClass={ControlLabel}>
+                                    סיסמא:
+                                </Col>
+                                <Col sm={9}>
                                 <FormControl ref="password" name="password" type="password" onChange={this.onChange} placeholder="הקלד סיסמא"/>
                                 
                                 </Col>
-                                <Col componentClass={ControlLabel}>
-                                סיסמא:
-                                </Col>
+                               
                             </FormGroup>
                             <FormGroup>
                                 <Col >
@@ -94,6 +97,7 @@ class LoginForm extends Component {
                                     <Button onClick={this.onSubmitLogin} type="submit" id="loginSubmit">התחבר</Button>
                                 </Col>
                             </FormGroup>
+                            <p>אינך רשום? התחבר</p>
                         </Form>
                     </div>
                 </div>

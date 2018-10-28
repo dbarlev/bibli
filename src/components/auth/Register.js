@@ -28,7 +28,7 @@ class Register extends Component {
         </span>
         <RegisterForm 
           onSubmitForm={(this.onSubmitFormChild.bind(this))}
-
+          chooseSubscription={this.props.chooseSubscription}
         />
 
       </div>
