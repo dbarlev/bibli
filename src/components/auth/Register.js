@@ -4,6 +4,7 @@ import {connect} from 'react-redux';
 import Header from '../header/Header.js';
 import RegisterForm from './RegisterForm.js';
 import { addUser } from '../../actions/index';
+import { InsertUserToDB } from '../../actions/ajax';
 
 
 class Register extends Component {
@@ -13,8 +14,8 @@ class Register extends Component {
 
   onSubmitFormChild(obj)
   {
-    this.props.addUser(obj);
-    
+    // this.props.addUser(obj);
+    this.props.InsertUserToDB(obj);
   }
 
   render(){
@@ -29,6 +30,7 @@ class Register extends Component {
         <RegisterForm 
           onSubmitForm={(this.onSubmitFormChild.bind(this))}
           chooseSubscription={this.props.chooseSubscription}
+
         />
 
       </div>
@@ -45,4 +47,4 @@ const mapStateToProps = (state) => {
   }
 }
 
-export default connect(mapStateToProps, {addUser})(Register);
+export default connect(mapStateToProps, {InsertUserToDB})(Register);

@@ -4,7 +4,8 @@ import {
     GET_RECORDS_FROM_DB,
     INSERT_RECORD_TO_USER,
     SET_RETRIVED_DATE,
-    ADD_USER
+    ADD_USER,
+    INSERT_USER_TO_DB
 } from '../actions/consts';
 
 import { populateBookApa, populatePaperApa, populateArticleApa, populateWebisteApa, formatRecordsToApa, populateAPAData } from './functions.js';

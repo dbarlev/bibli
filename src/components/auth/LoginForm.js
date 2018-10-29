@@ -12,7 +12,7 @@ import {
     ControlLabel,
     HelpBlock
 } from 'react-bootstrap';
-
+import { Link } from 'react-router-dom';
 class LoginForm extends Component {
     constructor() {
         super();
@@ -97,7 +97,7 @@ class LoginForm extends Component {
                                     <Button onClick={this.onSubmitLogin} type="submit" id="loginSubmit">התחבר</Button>
                                 </Col>
                             </FormGroup>
-                            <p>אינך רשום? התחבר</p>
+                            <p><Link to={`/register`} >אינך רשום? התחבר</Link></p>
                         </Form>
                     </div>
                 </div>
