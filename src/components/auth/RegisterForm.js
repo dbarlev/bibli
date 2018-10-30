@@ -14,7 +14,9 @@ import {
   HelpBlock,
   ButtonToolbar,
   ToggleButtonGroup,
-  ToggleButton
+  ToggleButton,
+  Grid,
+  Row
 } from 'react-bootstrap';
 
 
@@ -142,9 +144,9 @@ class RegisterForm extends Component {
     const _Error = this.state.errorMessage;
 
     return (
-      <div id="registerForm">
-        <div className="row">
-          <div className="col-md-4 col-md-offset-4">
+      <Grid id="registerForm">
+        <Row>
+          <Col className="yellow-bg" xsOffset={2} xs={8} mdOffset={4} md={4}>
             <Form horizontal onSubmit={this.onSubmitRegister.bind(this)}>
               <FormGroup  controlId="formHorizontalEmail" validationState={_Validation.email.display}>
                  <Col sm={3} componentClass={ControlLabel}>
@@ -212,15 +214,18 @@ class RegisterForm extends Component {
 
               <FormGroup>
                 <Col >
-                  <Button type="submit">הירשם</Button>
+                  <Button className="full-width-btn" type="submit">הירשם</Button>
                 </Col>
               </FormGroup>
 
             </Form>
-          </div>
-        </div>
+          </Col>
+          <Col className="grey-bg" xs={8} md={4}>
+asdasasd
+          </Col>
+        </Row>
 
-      </div>
+      </Grid>
 
     );
   }
