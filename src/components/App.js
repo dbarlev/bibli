@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import Header from './header/Header.js';
 import SubOptions from './subscription/SubOptions';
 import Search from './bib/search/Search';
-import BibRecordsList from './bib/records/BibRecordsList';
 
 import './App.css';
 

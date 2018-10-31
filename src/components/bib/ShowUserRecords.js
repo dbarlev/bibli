@@ -1,14 +1,12 @@
 import React, { Component } from 'react';
-import HeaderLogin from './header/HeaderLogin.js';
-import BibRecordsList from './bib/records/BibRecordsList';
-import ListsContainer from './bib/listOfRecords/ListsContainer';
+import HeaderLogin from '../header/HeaderLogin.js';
+import BibList from './records/BibList';
+import ListOfBiblist from './listOfRecords/ListOfBiblist';
+
+import '../App.css';
 
 
-
-import './App.css';
-
-
-class adminPanel extends Component {
+class ShowUserRecords extends Component {
   render() {
     return (
       <div className="App">
@@ -16,10 +14,10 @@ class adminPanel extends Component {
         <br />
           <div className="row">
              <div className="col-md-2 col-md-pull-1">    
-                  <ListsContainer />           
+                  <ListOfBiblist />           
               </div>
               <div className="col-md-6 col-md-pull-2">               
-                  <BibRecordsList />
+                  <BibList />
               </div>   
           </div>
       </div>
@@ -29,4 +27,4 @@ class adminPanel extends Component {
 
 
 
-export default adminPanel;
+export default ShowUserRecords;

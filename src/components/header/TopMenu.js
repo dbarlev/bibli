@@ -43,7 +43,7 @@ class TopMenu extends Component {
                     <LinkContainer className="topNavMenuItems black" to="/register" >
                         <NavItem>תנאי שימוש</NavItem>
                     </LinkContainer>
-                     <LinkContainer className="topNavMenuItems black"  to="/adminPanel" >
+                     <LinkContainer className="topNavMenuItems black"  to="/records" >
                         <NavItem>צור רשומה</NavItem>
                     </LinkContainer>
                     <IndexLinkContainer className="topNavMenuItems black" to="/" >

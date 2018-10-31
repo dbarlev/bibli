@@ -1,11 +1,11 @@
 import React, {Component} from 'react';
 import ReactDOM from 'react-dom';
-import ApaTabControl from './apaTabControl.js';
-import HeaderLogin from '../header/HeaderLogin.js';
-import ListsContainer from './listOfRecords/ListsContainer';
+import ApaTabControl from '../apaTabControl.js';
+import HeaderLogin from '../../header/HeaderLogin.js';
+import ListOfBiblist from '../listOfRecords/ListOfBiblist';
 
 
-class addRecord extends Component {
+class AddRecord extends Component {
 
   render() {
     return (
@@ -14,7 +14,7 @@ class addRecord extends Component {
         <br />
           <div className="row main-area">
               <div className="col-md-2 col-md-offset-1">    
-                  <ListsContainer showEmpty={true} />           
+                  <ListOfBiblist showEmpty={true} />           
               </div>   
               <div className="col-md-5">  
                   <div className="row">
@@ -30,5 +30,5 @@ class addRecord extends Component {
   }
 }
 
-export default addRecord;
+export default AddRecord;
 

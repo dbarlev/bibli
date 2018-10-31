@@ -3,13 +3,13 @@ import ReactDOM from 'react-dom';
 import {connect} from 'react-redux';
 import {getRecordsFromDB} from '../../../actions/ajax';
 import Writers from '../writers/Writers';
-import BibRecord from './BibRecord'
+import BibListItem from './BibListItem'
 import { LinkContainer } from "react-router-bootstrap";
 
 
 import listImg from '../../img/list.png';
 
-class BibRecordsList extends Component {
+class BibList extends Component {
 
   constructor()
   {
@@ -49,7 +49,7 @@ class BibRecordsList extends Component {
       return (
           allRecords[allRecords.length-1].map( (record,index) => {
             if(record.recordID == undefined || deleteID.indexOf(record.recordID) == -1)
-              return <BibRecord record={record} type={record.type} recordID={record.recordID} key={"bib_record" + index} />
+              return <BibListItem record={record} type={record.type} recordID={record.recordID} key={"bib_record" + index} />
         })
       );
     }
@@ -105,5 +105,5 @@ const mapStateToProps = (state) => {
     }
 }
 
-export default connect(mapStateToProps, {getRecordsFromDB})(BibRecordsList);
+export default connect(mapStateToProps, {getRecordsFromDB})(BibList);
 

@@ -9,10 +9,10 @@ import App from './components/App';
 import AboutUs from './components/AboutUs';
 import Register from './components/auth/Register';
 import Login from './components/auth/Login';
-import addRecord from './components/bib/addRecord';
+import AddRecord from './components/bib/records/AddRecord';
 import rootReducer from './reducers'
 import registerServiceWorker from './registerServiceWorker';
-import adminPanel from './components/adminPanel';
+import ShowUserRecords from './components/bib/ShowUserRecords';
 
 import './index.css';
 
@@ -24,10 +24,10 @@ ReactDOM.render(
         <BrowserRouter>
             <Switch>
                 <Route exact path="/" component={App} />
-                <Route path="/adminPanel" component={adminPanel} />
+                <Route path="/records" component={ShowUserRecords} />
                 <Route path="/register" component={Register} />
                 <Route path="/login" component={Login} />
-                <Route path="/addRecord" component={addRecord} />
+                <Route path="/addRecord" component={AddRecord} />
             </Switch>
         </BrowserRouter>
     </Provider>

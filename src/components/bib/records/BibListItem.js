@@ -6,7 +6,7 @@ import { Card, CardImg, CardText, CardBody,
 import {DeleteRecordFromUser} from '../../../actions/ajax';
 import Writers from '../writers/Writers';
 
-class BibRecord extends Component {
+class BibListItem extends Component {
 
   constructor()
   {
@@ -180,5 +180,5 @@ class BibRecord extends Component {
   }
 }
 
-export default connect (null, {DeleteRecordFromUser})(BibRecord);
+export default connect (null, {DeleteRecordFromUser})(BibListItem);
 

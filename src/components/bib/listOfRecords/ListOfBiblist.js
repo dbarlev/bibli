@@ -14,7 +14,7 @@ import {
 } from 'react-bootstrap';
 
 
-class ListsContainer extends Component {
+class ListOfBiblist extends Component {
 
  constructor()
  {
@@ -60,5 +60,5 @@ const mapStateToProps = (state) => {
     }
 }
 
-export default connect(mapStateToProps, {})(ListsContainer);
+export default connect(mapStateToProps, {})(ListOfBiblist);
 

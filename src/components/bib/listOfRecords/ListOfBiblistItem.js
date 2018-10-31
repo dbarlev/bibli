@@ -13,7 +13,7 @@ import {
 } from 'react-bootstrap';
 
 
-class SingleList extends Component {
+class ListOfBiblistItem extends Component {
 
  constructor()
  {
@@ -35,5 +35,5 @@ class SingleList extends Component {
 
 
 
-export default SingleList;
+export default ListOfBiblistItem;
 

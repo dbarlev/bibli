@@ -16,6 +16,7 @@ import Writers from '../writers/Writers';
 import {GetFormatDate} from '../services/GetFormatDate';
 import {FormatWriters} from '../services/FormatWriters';
 import {VerifyLang} from '../services/VerifyLang';
+import  RedirectTo from '../../RedirectTo';
 
 class ApaWebsite extends Component {
 
@@ -29,7 +30,8 @@ class ApaWebsite extends Component {
         {id: "articleHeadline", label: "כותרת הכתבה"},
         {id: "publishYear", label: "תאריך פרסום"}
       ],
-      writersHandler: new FormatWriters()
+      writersHandler: new FormatWriters(),
+      formSubmited: false
     }
   }
 
@@ -39,7 +41,7 @@ class ApaWebsite extends Component {
     return element.value;
   }
 
-  onSubmitApa(event)
+  onSubmitApa(event, redirectUserToList)
   {
     event.preventDefault();
     let url = this.getElement(this.refs.linkToPage);
@@ -62,6 +64,13 @@ class ApaWebsite extends Component {
     }
 
     this.props.InsertRecordToDB(details); // call to redux action that created the apa query
+
+    if(redirectUserToList)
+    {
+        this.setState({
+          formSubmited: true
+        })    
+    }
   }
 
 
@@ -91,10 +100,10 @@ class ApaWebsite extends Component {
               }
 
               <Writers onWriterChange={this.getWritersNames.bind(this)} />
-
+               <RedirectTo url="/records" allowRedirect={this.state.formSubmited}/>
               <FormGroup className="pull-right">
                 <Col >
-                  <Button className="left-10" onClick={(event) => this.onSubmitApa(event)} type="submit">צור רשומה</Button>
+                  <Button className="left-10" onClick={(event) => this.onSubmitApa(event,true)} type="submit">צור רשומה</Button>
                   <Button onClick={(event) => this.onSubmitApa(event)} type="submit">אישור והוספת פריט נוסף</Button>
                 </Col>
               </FormGroup>
