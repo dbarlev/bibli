@@ -103,3 +103,11 @@ function getWriters(writers, lang)
     });
     return nameStr;
 }
+
+
+/**user data */
+
+export function addUserDataTOdb(action)
+{    
+    console.log('addUserDataTOdb ', action);
+}

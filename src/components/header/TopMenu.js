@@ -18,25 +18,20 @@ class TopMenu extends Component {
   render() {
     return (
     <Navbar id="TopNav" className="nav-noStyle">
-            <Navbar.Header className="pull-right">
+            <Navbar.Header>
                 <Navbar.Brand >
                 <LinkContainer to="/" >
-                    <MenuItem className="logo pull-right"><img alt="Bibli Logo" src={logoSrc} /></MenuItem>
+                    <MenuItem className="logo"><img alt="Bibli Logo" src={logoSrc} /></MenuItem>
                 </LinkContainer>
                 </Navbar.Brand>
                 <Navbar.Toggle />
             </Navbar.Header>
             <Navbar.Collapse >
-                <Nav pullRight>
-                    <LinkContainer className="btn-warning black topnav-login-logout-btn" to="/login" >
-                            <MenuItem> {texts[this.props.loginState]} </MenuItem>
-                    </LinkContainer>
-                    <li>
-                       <a href="#"> <i className="fab fa-facebook-f"></i></a>
-                    </li > 
-                    <li>
-                       <a href="#"><i className="fas fa-search"></i><span className="seperator">|</span></a>
-                    </li > 
+                <Nav pullLeft>
+                    <IndexLinkContainer className="topNavMenuItems black" to="/" >
+                        <NavItem>מי אנחנו</NavItem>
+                    </IndexLinkContainer>  
+
                     <LinkContainer className="topNavMenuItems black" to="/login" >
                         <NavItem>צור קשר</NavItem>
                     </LinkContainer>
@@ -46,9 +41,15 @@ class TopMenu extends Component {
                      <LinkContainer className="topNavMenuItems black"  to="/records" >
                         <NavItem>צור רשומה</NavItem>
                     </LinkContainer>
-                    <IndexLinkContainer className="topNavMenuItems black" to="/" >
-                        <NavItem>מי אנחנו</NavItem>
-                    </IndexLinkContainer>  
+                    <li>
+                       <a href="#"> <i className="fab fa-facebook-f"></i></a>
+                    </li > 
+                    <li>
+                       <a href="#"><i className="fas fa-search"></i><span className="seperator">|</span></a>
+                    </li > 
+                    <LinkContainer className="btn-warning black topnav-login-logout-btn" to="/login" >
+                            <MenuItem> {texts[this.props.loginState]} </MenuItem>
+                    </LinkContainer>
                 </Nav>
             </Navbar.Collapse>
       </Navbar>

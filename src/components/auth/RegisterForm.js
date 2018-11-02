@@ -221,7 +221,7 @@ class RegisterForm extends Component {
             </Form>
           </Col>
           <Col className="grey-bg" xs={8} md={4}>
-asdasasd
+asdasasdגדשג
           </Col>
         </Row>
 

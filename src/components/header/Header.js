@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import TopMenu from './TopMenu.js';
-import {Button} from 'react-bootstrap';
+import {Button, Grid} from 'react-bootstrap';
 
 
 
@@ -9,12 +9,14 @@ class Header extends Component {
   
 
     return (
+        <Grid className="show-grid">
         <div id="App-header">
             <TopMenu loginState="1"  />
             <div>
                 <h1 className="App-title">{this.props.headline}</h1>
             </div>
         </div>
+        </Grid>
     );
   }
 }
