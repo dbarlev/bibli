@@ -11,7 +11,12 @@ import {
   Col,
   Checkbox,
   ControlLabel,
-  HelpBlock
+  HelpBlock,
+  ButtonToolbar,
+  ToggleButtonGroup,
+  ToggleButton,
+  Grid,
+  Row
 } from 'react-bootstrap';
 
 
@@ -45,27 +50,29 @@ class RegisterForm extends Component {
     }
   }
 
-  populatePackagesCombobox() {
-    let value = 1;
+  populatePackagesCombobox(e) {
+    let value = this.props.chooseSubscription.value;
     let feild;
-    if (1 != false) {
+    if (value != false) {
       switch (value) {
         case 1:
-          feild = <FormControl disabled="true" value="חבילת חינם"/>
+          feild = <FormControl value="חבילת חינם"/>
           break;
         case 2:
-          feild = <FormControl disabled="true" value="חבילת פרימיום"/>
+          feild = <FormControl value="חבילת פרימיום"/>
           break;
         case 3:
-          feild = <FormControl disabled="true" value="חבילת סופר פרימיום"/>
+          feild = <FormControl value="חבילת סופר פרימיום"/>
           break;
       }
 
       return (
         <div>
           <FormGroup controlId="formHorizontalPackage">
+          <Col sm={3}>
             <ControlLabel>בחר חבילה:</ControlLabel>
-            <Col sm={8}>
+          </Col>
+          <Col sm={9}>
               {feild}
             </Col>
           </FormGroup>
@@ -75,13 +82,22 @@ class RegisterForm extends Component {
       return (
         <div>
           <FormGroup controlId="formHorizontalPackage">
-            <ControlLabel>בחר חבילה:</ControlLabel>
-            <Col sm={8}>
-              <FormControl defaultValue="2" componentClass="select">
+            <Col sm={3}>
+              <ControlLabel>בחר חבילה:</ControlLabel>
+            </Col>
+            <Col sm={9}>
+              <FormControl defaultValue="2" name="ששש" componentClass="select">
                 <option value="1">חבילת חינם</option>
                 <option value="2">חבילת פרימיום</option>
                 <option value="3">חבילת סופר פרימיום</option>
               </FormControl>
+              <ButtonToolbar>
+                <ToggleButtonGroup type="radio" name="package" defaultValue={1}>
+                  <ToggleButton value="1">חבילת חינם</ToggleButton>
+                  <ToggleButton value="2">חבילת פרימיום</ToggleButton>
+                  <ToggleButton value="3">חבילת סופר פרימיום</ToggleButton>
+                </ToggleButtonGroup>
+              </ButtonToolbar>
             </Col>
           </FormGroup>
         </div>
@@ -97,14 +113,14 @@ class RegisterForm extends Component {
     let userNameVal = e.target.elements.username.value;
     let passwordVal = e.target.elements.password.value;
     let confirmPassVal = e.target.elements.confirmPassword.value;
+    let packageVal = e.target.elements.package.value;
 
     let obj = {
       name: 'dav',
       email: emailVal,
       username: userNameVal,
       password: passwordVal,
-      academicInstitution: 'aaa',
-      subscription: 'asdaa'
+      subscription: packageVal
     }
     // console.log('this end onSubmitRegister ',this);
     // console.log('this end onSubmitRegister.props ',this.props);
@@ -121,64 +137,69 @@ class RegisterForm extends Component {
     return element.value;
   }
 
+
   render() {
 
     const _Validation = this.state.validation;
     const _Error = this.state.errorMessage;
 
     return (
-      <div id="registerForm">
-        <div className="row">
-          <div className="col-md-4 col-md-offset-4">
+      <Grid id="registerForm">
+        <Row>
+          <Col className="yellow-bg" xsOffset={2} xs={8} mdOffset={4} md={4}>
             <Form horizontal onSubmit={this.onSubmitRegister.bind(this)}>
               <FormGroup  controlId="formHorizontalEmail" validationState={_Validation.email.display}>
-                <Col sm={8}>
+                 <Col sm={3} componentClass={ControlLabel}>
+                    דואר אלקטרוני:
+                 </Col>  
+                 <Col sm={9}>
                   <FormControl ref="email" name="email" id="email" type="email" placeholder="הקלד דואר אלקטרוני"/>
                   <HelpBlock role="status" aria-live="polite">{ _Validation.email.display === "error"
                       ? _Error.email
                       : null}</HelpBlock>
                 </Col>
-                <Col componentClass={ControlLabel}>
-                  דואר אלקטרוני:
-                </Col>
+
               </FormGroup>
 
               <FormGroup controlId="formHorizontalUserName" validationState={_Validation.username.display}>
-                <Col sm={8}>
-                  <FormControl ref="username" name="username" type="text" placeholder="הקלד שם משתמש"/>
-                  <HelpBlock role="status" aria-live="polite">{_Validation.username.display === "error"
-                      ? _Error.username
-                      : null}</HelpBlock>
-                </Col>
-                <Col componentClass={ControlLabel}>
+               
+                <Col sm={3} componentClass={ControlLabel}>
                   שם משתמש:
                 </Col>
+                <Col sm={9}>
+                <FormControl ref="username" name="username" type="text" placeholder="הקלד שם משתמש"/>
+                <HelpBlock role="status" aria-live="polite">{_Validation.username.display === "error"
+                    ? _Error.username
+                    : null}</HelpBlock>
+              </Col>
 
               </FormGroup>
 
               <FormGroup  controlId="formHorizontalPassword" validationState={_Validation.password.display}>
-                <Col sm={8}>
+                <Col sm={3} componentClass={ControlLabel}>
+                   סיסמה:
+                </Col>  
+                <Col sm={9}>
                   <FormControl ref="password"  name="password"  type="password" placeholder="הקלד סיסמה"/>
                   <HelpBlock role="status" aria-live="polite">{_Validation.password.display === "error"
                       ? _Error.password
                       : null}</HelpBlock>
                 </Col>
-                <Col componentClass={ControlLabel}>
-                  סיסמה:
-                </Col>
+               
 
               </FormGroup>
 
               <FormGroup controlId="formConfirmPassword" validationState={_Validation.confirmPassword.display}>
-                <Col sm={8}>
+                <Col sm={3} componentClass={ControlLabel}>
+                  וודא סיסמה:
+                </Col>
+                <Col sm={9}>
                   <FormControl ref="confirmPassword"   name="confirmPassword" type="password" placeholder="הקלד סיסמה שנית"/>
                   <HelpBlock role="status" aria-live="polite">{_Validation.confirmPassword.display === "error"
                       ? _Error.confirmPassword
                       : null}</HelpBlock>
                 </Col>
-                <Col componentClass={ControlLabel}>
-                  וודא סיסמה:
-                </Col>
+
               </FormGroup>
 
               {this.populatePackagesCombobox()}
@@ -193,20 +214,22 @@ class RegisterForm extends Component {
 
               <FormGroup>
                 <Col >
-                  <Button type="submit">הירשם</Button>
+                  <Button className="full-width-btn" type="submit">הירשם</Button>
                 </Col>
               </FormGroup>
 
             </Form>
-          </div>
-        </div>
+          </Col>
+          <Col className="grey-bg" xs={8} md={4}>
+asdasasd
+          </Col>
+        </Row>
 
-      </div>
+      </Grid>
 
     );
   }
 }
-
 
 
 export default RegisterForm;

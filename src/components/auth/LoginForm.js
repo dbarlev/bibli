@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
-import { Redirect } from 'react-router-dom';
+import { Redirect, Link } from 'react-router-dom'
+
 // import {connect} from 'react-redux';
 import {
     Button,
@@ -10,7 +11,9 @@ import {
     Col,
     Checkbox,
     ControlLabel,
-    HelpBlock
+    HelpBlock,
+    Grid,
+    Row
 } from 'react-bootstrap';
 
 class LoginForm extends Component {
@@ -66,38 +69,42 @@ class LoginForm extends Component {
     render() {
         
         return (
-            <div id="LoginForm">
-                <div className="row">
-                    <div className="col-md-4 col-md-offset-4">
+            <Grid id="LoginForm" className="yellow-bg">
+                <Row className="show-grid">
+                    <Col xsOffset={2} xs={8} mdOffset={4} md={4}>
                         <Form horizontal>
                             <FormGroup  controlId="formHorizontalusername">
-                                <Col sm={8}>
-                                <FormControl ref="username" name="username" type="text" onChange={this.onChange} placeholder="הקלד דואר אלקטרוני"/>
+                                    <Col xs={12} sm={3} componentClass={ControlLabel}>
+                                        דואר אלקטרוני:
+                                    </Col>
+
+                                    <Col xs={12} sm={9}>
+                                    <FormControl ref="username" name="username" type="text" onChange={this.onChange} placeholder="הקלד דואר אלקטרוני"/>
+                                    
+                                    </Col>
+                                    
+                                </FormGroup>
+                                <FormGroup controlId="formHorizontalPassword">
+                                    <Col xs={12} sm={3} componentClass={ControlLabel}>
+                                        סיסמא:
+                                    </Col>
+                                    <Col xs={12} sm={9}>
+                                    <FormControl ref="password" name="password" type="password" onChange={this.onChange} placeholder="הקלד סיסמא"/>
+                                    
+                                    </Col>
                                 
-                                </Col>
-                                <Col componentClass={ControlLabel}>
-                                דואר אלקטרוני:
-                                </Col>
-                            </FormGroup>
-                            <FormGroup  controlId="formHorizontalPassword">
-                                <Col sm={8}>
-                                <FormControl ref="password" name="password" type="password" onChange={this.onChange} placeholder="הקלד סיסמא"/>
-                                
-                                </Col>
-                                <Col componentClass={ControlLabel}>
-                                סיסמא:
-                                </Col>
-                            </FormGroup>
-                            <FormGroup>
-                                <Col >
-                                    {this.redirectUser()}
-                                    <Button onClick={this.onSubmitLogin} type="submit" id="loginSubmit">התחבר</Button>
-                                </Col>
-                            </FormGroup>
+                                </FormGroup>
+                                <FormGroup>
+                                    <Col >
+                                        {this.redirectUser()}
+                                        <Button onClick={this.onSubmitLogin} type="submit" className="full-width-btn" id="loginSubmit">התחבר</Button>
+                                    </Col>
+                                </FormGroup>
+                                <Link to="/register">אינך רשום? התחבר</Link>
                         </Form>
-                    </div>
-                </div>
-            </div>
+                    </Col>
+                </Row>
+            </Grid>
         );
     }
 }

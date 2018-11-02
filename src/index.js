@@ -2,7 +2,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
-import { createStore, applyMiddleware } from 'redux'
+import { createStore, applyMiddleware, compose } from 'redux'
 import { Provider } from 'react-redux';
 import thunk from 'redux-thunk';
 import App from './components/App';
@@ -16,7 +16,13 @@ import ShowUserRecords from './components/bib/ShowUserRecords';
 
 import './index.css';
 
-let store = createStore(rootReducer, applyMiddleware(thunk));
+let store = createStore(
+    rootReducer,
+    compose(
+    applyMiddleware(thunk),
+    window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+    )
+);
 //store.subscribe(() => console.log('store subscribe', store.getState()))
 
 ReactDOM.render(
