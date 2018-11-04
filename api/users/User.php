@@ -10,6 +10,7 @@
 		$db = $database->connect();
 		CreateHeaders();
 		verifyRequestMethod($db);
+		echo 'init is running';
     }
 
     function CreateHeaders()
@@ -70,47 +71,30 @@
 
     function set_user_data($db)
     {
-		var_dump($db);
+		init();
 		echo 'set_user_data';
 		 $data = json_decode(file_get_contents('php://input'));	
-		 var_dump($data);
-		//  if(isset($data->userid)) $userID = $data->userid; else  $userID = null;
-		//  if(isset($data->chapter)) $chapter = $data->chapter; else  $chapter = null;
-		//  if(isset($data->pages)) $pages = $data->pages; else  $pages = null;
-		//  if(isset($data->publishname)) $publishname = $data->publishname; else  $publishname = null;
-		//  if(isset($data->publishcity)) $publishcity = $data->publishcity; else  $publishcity = null;
-		//  if(isset($data->kereh)) $kereh = $data->kereh; else  $kereh = null;
-		//  if(isset($data->recordType)) $recordType = $data->recordType; else  $recordType = null;
-		//  if(isset($data->url)) $url = $data->url; else  $url = null;
-		//  if(isset($data->title)) $title = $data->title; else  $title = null;
-		//  if(isset($data->retrived)) $retrived = $data->retrived; else  $retrived = null;
-		//  if(isset($data->wFname)) $wFname = $data->wFname; else  $wFname = null;
-		//  if(isset($data->wLname)) $wLname = $data->wLname; else  $wLname = null;
-		//  if(isset($data->name)) $name = $data->name; else  $name = null;
-		//  if(isset($data->year)) $year = $data->year; else  $year = null;
+		
+		 $usertype = 9;
+		 if(isset($data->name)) $name = $data->name; else  $name = null;
+		 if(isset($data->email)) $email = $data->email; else  $email = null;
+		 if(isset($data->username)) $username = $data->username; else  $username = null;
+		 if(isset($data->password)) $password = $data->password; else  $password = null;
+		 if(isset($data->subscription)) $subscription = $data->subscription; else  $subscription = null;
 		 
 		 
-		//  $query = "INSERT INTO refactor_books
-		// 			(userid, chapter, pages, publishname, publishcity, kereh, RecordType, url, title, retrived,wFname, wLname, name, year) 
-		// 			 VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
-
+		 $query = "INSERT INTO users
+					(usertype, name, username, password, email) 
+					 VALUES (?,?,?,?,?)";
 					 
-		//  $stmt = $db->prepare($query);
-		//  $stmt->bindParam(1, $userID);
-		//  $stmt->bindParam(2, $chapter);
-		//  $stmt->bindParam(3, $pages);
-		//  $stmt->bindParam(4, $publishname);
-		//  $stmt->bindParam(5, $publishcity);
-		//  $stmt->bindParam(6, $kereh);
-		//  $stmt->bindParam(7, $recordType);
-		//  $stmt->bindParam(8, $url);
-		//  $stmt->bindParam(9, $title);
-		//  $stmt->bindParam(10, $retrived);
-		//  $stmt->bindParam(11, $wFname);
-		//  $stmt->bindParam(12, $wLname);
-		//  $stmt->bindParam(13, $name);
-		//  $stmt->bindParam(14, $year);
-		//  $stmt->execute();
+		 $stmt = $db->prepare($query);
+		 $stmt->bindParam(1, $usertype);
+		 $stmt->bindParam(2, $name);
+		 $stmt->bindParam(3, $username);
+		 $stmt->bindParam(4, $password);
+		 $stmt->bindParam(5, $email);
+	
+		 $stmt->execute();
 		 
 		//  getRecords($db, $userID);
     }
