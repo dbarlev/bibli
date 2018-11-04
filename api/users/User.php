@@ -71,8 +71,6 @@
 
     function set_user_data($db)
     {
-		init();
-		echo 'set_user_data';
 		 $data = json_decode(file_get_contents('php://input'));	
 		
 		 $usertype = 9;
