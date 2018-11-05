@@ -8,3 +8,42 @@
     transition-timing-function: ease-in;
     transition-delay: 0s;
 }
+
+
+
+@keyframes increase {
+    0%   {width: 100%;}
+    100% {width: 110%;}
+}
+
+@keyframes decrease {
+    0%   {width: 110%;}
+    100% {width: 100%;}
+}
+
+
+@keyframes sephiaOut {
+    0% {
+        -webkit-filter: opacity(20%);
+        -moz-filter: opacity(20%);
+        filter: opacity(20%);
+    }
+    100% {
+        -webkit-filter: opacity(100%);
+        -moz-filter: opacity(100%);
+        filter: opacity(100%);
+    }
+}
+
+@keyframes sephiaIn {
+    0% {
+        -webkit-filter: opacity(100%);
+        -moz-filter: opacity(100%);
+        filter: opacity(100%);
+    }
+    100% {
+        -webkit-filter: opacity(20%);
+        -moz-filter: grayscale(20%);
+        filter: opacity(20%);
+    }
+}

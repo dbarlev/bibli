@@ -32,38 +32,33 @@
 				get_user_data($db, $userID);
 				break;
 			case 'POST':
-				set_user_data($db);
-				break;
-			case 'PUT':
-				update_user($db);
+				return set_user_data($db);
 				break;
 			case 'DELETE':
 				delete_user($db);
 				break;
-			default:
-				get_users($db);
-				// Invalid Request Method
-				//header("HTTP/1.0 405 Method Not Allowed");
+			case 'PUT':
+				update_user($db);
 				break;
+		
 		}
     }
 	
-    function getRecords($db, $userID)
+    function getRecords($db, $email)
     {
-		 $query = 'SELECT * FROM refactor_books
-						INNER JOIN recordtype
-							ON (refactor_books.RecordType = recordtype.RecordID)
-							WHERE userid = ?';
+		 $query = 'SELECT * FROM users WHERE email = ?';
 							
 		 $stmt = $db->prepare($query);
-		 $stmt->bindParam(1, $userID);
+		 $stmt->bindParam(1, $email);
 		 $stmt->execute();
 		
 		$records_row = $stmt->fetchAll(PDO::FETCH_ASSOC);
+		var_dump($records_row);
 		foreach(  $records_row as $key => &$value )
 		{
-			$records_row[$key]["wFname"] = unserialize($value["wFname"]);
-			$records_row[$key]["wLname"] = unserialize($value["wLname"]);
+			// $records_row[$key]["wFname"] = unserialize($value["wFname"]);
+			// $records_row[$key]["wLname"] = unserialize($value["wLname"]);
+			
 		}
 		unset($value);
 		echo json_encode($records_row);
@@ -94,7 +89,7 @@
 	
 		 $stmt->execute();
 		 
-		//  getRecords($db, $userID);
+		getRecords($db, $email);
     }
 
     function deleteRecordFromUser($db)
