@@ -105,36 +105,30 @@ class RegisterForm extends Component {
     let isError = false;
     
 
-    if(emailVal){ 
+    
       const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
       let mail =  re.test(String(emailVal).toLowerCase());
 
       if(!mail){
         this.state.validation.email.display = "error";
-       
-
-
       }else{
         this.state.validation.email.display = "null";
       } 
-    }
-
+   
     if(userNameVal.length < 5){  
       isError =  true;
-      this.state.validation.usernameErr = "error";
-
+      this.state.validation.username.display = "error";
     }else{
       isError =  false;
-      this.state.validation.usernameErr = "null";
-
-    
+      this.state.validation.username.display = "null";
     }
     
+
     this.setState({
       ...this.state,
       ...this.state.validation
     });
-    
+    console.log('val state', this.state);
     return isError
   }
 
@@ -187,8 +181,10 @@ class RegisterForm extends Component {
     return (
       <Grid id="registerForm">
         <Row>
-          <Col className="yellow-bg" xsOffset={2} xs={8} smOffset={4} sm={4}>
+         
+          <Col className="yellow-bg"  xs={12}  sm={6} mdOffset={4} md={4}  >
             <Form horizontal className="no-border" onSubmit={this.onSubmitRegister.bind(this)}>
+              <h2>תרשמו אותי לביבלי!</h2>
               <FormGroup  controlId="formHorizontalEmail" validationState={_Validation.email.display}>
                 
                  <Col xs={12}>
@@ -200,7 +196,7 @@ class RegisterForm extends Component {
 
               </FormGroup>
 
-              <FormGroup controlId="formHorizontalUserName" validationState={this.state.validation.usernameErr}>
+              <FormGroup controlId="formHorizontalUserName" validationState={this.state.validation.username.display}>
                 <Col xs={12}>
                 <FormControl 
                   ref="username" 
@@ -210,8 +206,8 @@ class RegisterForm extends Component {
                   aria-label="שם משתמש"
                 />
                 <HelpBlock role="status" aria-live="polite">
-                  { this.state.validation.usernameErr === "error"
-                    ? _Error.email
+                  { this.state.validation.username.display === "error"
+                    ? _Error.username
                     : null
                   }
                 </HelpBlock>
@@ -259,7 +255,7 @@ class RegisterForm extends Component {
 
             </Form>
           </Col>
-          <Col className="grey-bg" sm={4} xsOffset={2} xs={8}>
+          <Col className="grey-bg" xs={12} sm={6} md={4}>
 asdasasdגדשג
           </Col>
         </Row>

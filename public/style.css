@@ -1720,9 +1720,7 @@ button > i,
   margin-right: -20px; }
 
 #register form {
-  margin-top: 20px;
-  padding: 20px;
-  padding-top: 35px; }
+  padding: 0 20px; }
 
 .apaForm form {
   margin: 5%;
