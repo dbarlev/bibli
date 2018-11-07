@@ -1720,10 +1720,7 @@ button > i,
   margin-right: -20px; }
 
 #register form {
-  margin-top: 20px;
-  border: 1px solid #dedede;
-  padding: 20px;
-  padding-top: 35px; }
+  padding: 0 20px; }
 
 .apaForm form {
   margin: 5%;
@@ -1918,6 +1915,20 @@ form .form-control:focus {
 .full-width-btn {
   width: 100%; }
 
+.third {
+  width: 33%; }
+
+.transparent {
+  background-color: transparent; }
+  .transparent:hover {
+    background-color: transparent; }
+
+.no-border {
+  border: 0px; }
+
+.btn {
+  border-radius: 0; }
+
 .row *,
 .row *:after,
 .row *:before {
@@ -1928,8 +1939,46 @@ form .form-control:focus {
   transition-timing-function: ease-in;
   transition-delay: 0s; }
 
+<<<<<<< HEAD
+=======
+@keyframes increase {
+  0% {
+    width: 100%; }
+  100% {
+    width: 110%; } }
+
+@keyframes decrease {
+  0% {
+    width: 110%; }
+  100% {
+    width: 100%; } }
+
+@keyframes sephiaOut {
+  0% {
+    -webkit-filter: opacity(20%);
+    -moz-filter: opacity(20%);
+    filter: opacity(20%); }
+  100% {
+    -webkit-filter: opacity(100%);
+    -moz-filter: opacity(100%);
+    filter: opacity(100%); } }
+
+@keyframes sephiaIn {
+  0% {
+    -webkit-filter: opacity(100%);
+    -moz-filter: opacity(100%);
+    filter: opacity(100%); }
+  100% {
+    -webkit-filter: opacity(20%);
+    -moz-filter: grayscale(20%);
+    filter: opacity(20%); } }
+
+>>>>>>> 34b31275a2528f0edff06e0103c6a4add5919870
 /*
  * Components
  */
 .footer {
   background-color: #f1f1f2; }
+
+.subscripsion-icon {
+  width: 100%; }

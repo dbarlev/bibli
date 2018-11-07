@@ -11,3 +11,23 @@
 .full-width-btn {
     width: 100%
 }
+
+
+.third{
+    width: 33%;
+}
+
+.transparent{
+    background-color: transparent;
+    &:hover{
+        background-color: transparent;
+    }
+}
+
+.no-border{
+    border: 0px;
+}
+
+.btn{
+    border-radius: 0;
+}

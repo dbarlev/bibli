@@ -32,8 +32,12 @@ class TopMenu extends Component {
                         <NavItem>מי אנחנו</NavItem>
                     </IndexLinkContainer>  
 
+
                     <LinkContainer className="topNavMenuItems black" to="/login" >
                         <NavItem>צור קשר</NavItem>
+                    </LinkContainer>    
+                    <LinkContainer className="topNavMenuItems black"  to="/adminPanel" >
+                        <NavItem>צור רשומה</NavItem>
                     </LinkContainer>
                     <LinkContainer className="topNavMenuItems black" to="/register" >
                         <NavItem>תנאי שימוש</NavItem>
@@ -50,6 +54,20 @@ class TopMenu extends Component {
                     <LinkContainer className="btn-warning black topnav-login-logout-btn" to="/login" >
                             <MenuItem> {texts[this.props.loginState]} </MenuItem>
                     </LinkContainer>
+                    <LinkContainer className="topNavMenuItems black" to="/login" >
+                        <NavItem>צור קשר</NavItem>
+                    </LinkContainer>
+                    <li>
+                       <a href="#"> <i className="fab fa-facebook-f"></i></a>
+                    </li > 
+                    <li>
+                       <a href="#"><i className="fas fa-search"></i><span className="seperator">|</span></a>
+                    </li > 
+
+                    <LinkContainer className="btn-warning black topnav-login-logout-btn" to="/login" >
+                            <MenuItem> {texts[this.props.loginState]} </MenuItem>
+                    </LinkContainer>
+
                 </Nav>
             </Navbar.Collapse>
       </Navbar>

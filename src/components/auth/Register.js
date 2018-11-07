@@ -21,9 +21,7 @@ class Register extends Component {
   render(){
     return (
       <div className="App" id="register">
-        <Header headline="הרשמה"/>
-        <span>חבילה מסוג:
-        </span>
+        <Header/>
         <span>
         {/* {this.props.chooseSubscription.name} */}
         </span>
