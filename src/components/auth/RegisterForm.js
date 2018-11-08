@@ -49,7 +49,7 @@ class RegisterForm extends Component {
       email: "אימייל הוא שדה חובה",
       username: "שם משתמש הוא שדה חובה",
       password: "סיסמה היא שדה חובה",
-      confirmPassword: "ווידוא סיסמה היא שדה חובה"
+      confirmPassword: "הסיסמאות אינן זהות"
     }
   }
 
@@ -86,7 +86,7 @@ class RegisterForm extends Component {
         
           <FormGroup controlId="formHorizontalPackage">
 
-            <Col sm={12}>
+            <Col md={12}>
               <ButtonToolbar>
                 <ToggleButtonGroup type="radio" name="package" defaultValue={1} aria-label="בחר חבילה">
                   <ToggleButton className="third transparent no-border" value="1"><img src={guest} className="subscripsion-icon" alt="אורח" /></ToggleButton>
@@ -101,7 +101,7 @@ class RegisterForm extends Component {
     }
   }
 
-  formsValidation(emailVal, userNameVal){
+  formsValidation(emailVal, userNameVal, passwordVal, confirmPassVal){
     let isError = false;
     
 
@@ -123,6 +123,21 @@ class RegisterForm extends Component {
       this.state.validation.username.display = "null";
     }
     
+    if(passwordVal.length < 6){
+      isError =  true;
+      this.state.validation.password.display = "error";
+    }else{
+      isError =  false;
+      this.state.validation.password.display = "null";
+    }
+
+    if( passwordVal !== confirmPassVal){
+      isError =  true;
+      this.state.validation.confirmPassword.display = "error";
+    }else{
+      isError =  false;
+      this.state.validation.confirmPassword.display = "null";
+    }
 
     this.setState({
       ...this.state,
@@ -155,7 +170,7 @@ class RegisterForm extends Component {
     // console.log('this end onSubmitRegister ',this);
     // console.log('this end onSubmitRegister.props ',this.props);
     
-    const err = this.formsValidation(emailVal, userNameVal);
+    const err = this.formsValidation(emailVal, userNameVal, passwordVal, confirmPassVal);
    
       if(!err){
         this.props.onSubmitForm(obj)

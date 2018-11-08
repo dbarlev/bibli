@@ -72,6 +72,7 @@ export const InsertUserToDB = (data) => {
             .then(json => {
                 dispatch({ type: INSERT_USER_TO_DB, value: json, data: data });
             })
+            
             .catch(error =>
                 console.log('parsing faild', error)
             )
