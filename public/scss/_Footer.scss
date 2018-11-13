@@ -1,3 +1,14 @@
 .footer {
     background-color: $mainGrey;
+    .right{
+        border-left: 1px solid;
+        margin: 10px 0;
+    }
+    .left{
+        color: red;
+    }
+
+    #FooterNav{
+        margin-top: 20px;
+    }
 }

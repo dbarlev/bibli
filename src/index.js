@@ -10,6 +10,7 @@ import AboutUs from './components/AboutUs';
 import Register from './components/auth/Register';
 import Login from './components/auth/Login';
 import addRecord from './components/bib/addRecord';
+import FrontPage from './components/frontpage/FrontPage';
 import rootReducer from './reducers'
 import registerServiceWorker from './registerServiceWorker';
 import adminPanel from './components/adminPanel';
@@ -34,6 +35,7 @@ ReactDOM.render(
                 <Route path="/register" component={Register} />
                 <Route path="/login" component={Login} />
                 <Route path="/addRecord" component={addRecord} />
+                <Route path="/front" component={FrontPage} />
             </Switch>
         </BrowserRouter>
     </Provider>
