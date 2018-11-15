@@ -47,11 +47,14 @@
     function getRecords($db, $email)
     {
 		 $query = 'SELECT * FROM users WHERE email = ?';
+
+
 							
 		 $stmt = $db->prepare($query);
 		 $stmt->bindParam(1, $email);
 		 $stmt->execute();
 		
+
 		$records_row = $stmt->fetchAll(PDO::FETCH_ASSOC);
 		var_dump($records_row);
 		foreach(  $records_row as $key => &$value )
@@ -64,37 +67,60 @@
 		echo json_encode($records_row);
     }
 
+	function check_if_users_with_same_mail($db, $email)
+	{	
+		$query = 'SELECT * FROM users WHERE email = ?';
+		$stmt = $db->prepare($query);
+		$stmt->bindParam(1, $email);
+		$stmt->execute();
+		return (bool)$stmt->fetchColumn();
+	}
+
     function set_user_data($db)
     {
+<<<<<<< HEAD
 <<<<<<< HEAD
 
 		echo 'set_user_data';
 =======
 >>>>>>> 34b31275a2528f0edff06e0103c6a4add5919870
 		 $data = json_decode(file_get_contents('php://input'));	
+=======
+		$data = json_decode(file_get_contents('php://input'));	
+
+		$usertype = 9;
+		if(isset($data->name)) $name = $data->name; else  $name = null;
+		if(isset($data->email)) $email = $data->email; else  $email = null;
+		if(isset($data->username)) $username = $data->username; else  $username = null;
+		if(isset($data->password)) $password = $data->password; else  $password = null;
+		if(isset($data->subscription)) $subscription = $data->subscription; else  $subscription = null;
 		
-		 $usertype = 9;
-		 if(isset($data->name)) $name = $data->name; else  $name = null;
-		 if(isset($data->email)) $email = $data->email; else  $email = null;
-		 if(isset($data->username)) $username = $data->username; else  $username = null;
-		 if(isset($data->password)) $password = $data->password; else  $password = null;
-		 if(isset($data->subscription)) $subscription = $data->subscription; else  $subscription = null;
-		 
-		 
-		 $query = "INSERT INTO users
-					(usertype, name, username, password, email) 
-					 VALUES (?,?,?,?,?)";
-					 
-		 $stmt = $db->prepare($query);
-		 $stmt->bindParam(1, $usertype);
-		 $stmt->bindParam(2, $name);
-		 $stmt->bindParam(3, $username);
-		 $stmt->bindParam(4, $password);
-		 $stmt->bindParam(5, $email);
-	
-		 $stmt->execute();
-		 
-		getRecords($db, $email);
+		//check if mail already exists in the database
+		$q = 'SELECT * FROM users WHERE email = ?';
+		$res = $db->prepare($q);
+		$res->bindParam(1, $email);
+		$res->execute();
+		
+		if((bool)$res->fetchColumn()){
+			echo json_encode('קיים משתמש עם חשבון מייל זהה');
+		}else{
+
+			$query = "INSERT INTO users
+						(usertype, name, username, password, email) 
+						VALUES (?,?,?,?,?)";
+						
+			$stmt = $db->prepare($query);
+			$stmt->bindParam(1, $usertype);
+			$stmt->bindParam(2, $name);
+			$stmt->bindParam(3, $username);
+			$stmt->bindParam(4, $password);
+			$stmt->bindParam(5, $email);
+			$stmt->execute();
+				
+			getRecords($db, $email);
+		}
+>>>>>>> 27944258e635858e6a5bc98db4c74811b9b3905f
+		
     }
 
     function deleteRecordFromUser($db)

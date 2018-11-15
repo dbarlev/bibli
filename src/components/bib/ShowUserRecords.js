@@ -13,10 +13,10 @@ class ShowUserRecords extends Component {
         <HeaderLogin />
         <br />
           <div className="row">
-             <div className="col-md-2 col-md-pull-1">    
+             <div className="col-md-2 col-md-offset-2">    
                   <ListOfBiblist />           
               </div>
-              <div className="col-md-6 col-md-pull-2">               
+              <div className="col-md-6">               
                   <BibList />
               </div>   
           </div>

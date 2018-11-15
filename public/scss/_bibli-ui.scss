@@ -25,9 +25,43 @@
 }
 
 .no-border{
-    border: 0px;
+    border: 0px !important;
+}
+
+.m10top{
+    margin-top: 10px;
 }
 
 .btn{
     border-radius: 0;
+}
+
+
+.btn-yellow{
+    background-color: $mainYellow;
+    a{
+        color: $mainBlueColor;
+        
+    }
+    &:hover{
+        background-color: $mainBlueColor;
+        a{
+            color: $mainYellow;
+            text-decoration: none;
+        }
+    }
+}
+/*text*/
+p, a, span, ul{
+    font-family: 'Open Sans Hebrew', serif;
+}
+
+h1, h2, h3, h4, h5, h6{
+//    font-family: 'Open Sans Hebrew Bold', serif;
+    font-family: 'Open Sans Hebrew Condensed', serif;
+
+}
+
+h5{
+    font-weight: bold;
 }

@@ -259,10 +259,10 @@ body,
   content: "\e257"; }
 
 .text-left {
-  text-align: right; }
+  text-align: left; }
 
 .text-right {
-  text-align: left; }
+  text-align: right; }
 
 .list-unstyled {
   padding-right: 0;
@@ -1720,7 +1720,7 @@ button > i,
   margin-right: -20px; }
 
 #register form {
-  padding: 0 20px; }
+  padding: 0px 20px; }
 
 .apaForm form {
   margin: 5%;
@@ -1904,6 +1904,12 @@ form .form-control:focus {
   border-color: #204260;
   box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px #204260; }
 
+form .btn-default {
+  border: 1px solid #000; }
+
+#login {
+  background-color: #f2b500; }
+
 .yellow-bg {
   padding: 15px;
   background-color: #f2b500; }
@@ -1924,10 +1930,33 @@ form .form-control:focus {
     background-color: transparent; }
 
 .no-border {
-  border: 0px; }
+  border: 0px !important; }
+
+.m10top {
+  margin-top: 10px; }
 
 .btn {
   border-radius: 0; }
+
+.btn-yellow {
+  background-color: #f2b500; }
+  .btn-yellow a {
+    color: #204260; }
+  .btn-yellow:hover {
+    background-color: #204260; }
+    .btn-yellow:hover a {
+      color: #f2b500;
+      text-decoration: none; }
+
+/*text*/
+p, a, span, ul {
+  font-family: 'Open Sans Hebrew', serif; }
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Open Sans Hebrew Condensed', serif; }
+
+h5 {
+  font-weight: bold; }
 
 .row *,
 .row *:after,
@@ -1977,8 +2006,29 @@ form .form-control:focus {
 /*
  * Components
  */
+#frontpage {
+  padding-right: 0;
+  padding-left: 0; }
+  #frontpage #secondline {
+    background-color: #f2b500; }
+
+#slider {
+  padding: 0;
+  margin-bottom: 30px;
+  background-image: url("../../"); }
+  #slider #slider-btn {
+    top: 80px;
+    position: relative; }
+
 .footer {
   background-color: #f1f1f2; }
+  .footer .right {
+    border-left: 1px solid;
+    margin: 10px 0; }
+  .footer .left {
+    color: red; }
+  .footer #FooterNav {
+    margin-top: 20px; }
 
 .subscripsion-icon {
   width: 100%; }

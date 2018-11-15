@@ -13,12 +13,12 @@ class AddRecord extends Component {
         <HeaderLogin />
         <br />
           <div className="row main-area">
-              <div className="col-md-2 col-md-offset-1">    
+              <div className="col-md-2 col-md-offset-2">    
                   <ListOfBiblist showEmpty={true} />           
               </div>   
               <div className="col-md-5">  
                   <div className="row">
-                      <div className="col-md-3">
+                      <div className="col-md-2">
                           <h3 className="level3">סוג המקור</h3>
                       </div> 
                   </div>         

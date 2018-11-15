@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import { NavLink } from 'react-router-dom';
 import { Grid, Row, Col, Nav, NavItem, Navbar, MenuItem, FormGroup, FormControl, Button} from 'react-bootstrap';
 import { LinkContainer } from "react-router-bootstrap";
 import logoSrc from '../img/logo.jpg';
@@ -10,7 +11,7 @@ class Footer extends Component{
             <Grid fluid className="footer">
                 <Grid className="show-grid">
                     <Row>
-                        <Col xs={6}> 
+                        <Col className="right" xs={6}> 
                             <h3>מעוניינים להצטרף לניוזלטר שלנו?</h3>
                             <p>השאירו פרטים ונשמח לעדכן אתכם בכל מידע חדש שיהיה לנו!</p> 
                             <form horizontal>
@@ -23,14 +24,35 @@ class Footer extends Component{
                                     </Col>
                                 </FormGroup>
                                 <FormGroup>
-                                    <Col xs={12}>
+                                    <Col xs={12} className="m10top">
                                         <Button className="full-width-btn" type="submit">הירשם</Button>
                                     </Col>
                                 </FormGroup>
                             </form>
                         </Col>
-                        <Col xs={6}>
-                            menu2
+                        <Col className="left text-right" xs={6}>
+                            <Nav id="FooterNav" className="nav-noStyle">
+                                   <li>
+                                     <a href="https://www.facebook.com/biblio.co.il/" target="__blank" >עקבו אחרינו ב <i className="fab fa-facebook"></i></a>
+                                    </li>
+                                    <li>
+                                     <NavLink to="/front">
+                                         דף ראשי
+                                    </NavLink>
+                                    </li>
+                                    <li>
+                                    <NavLink to="/">
+                                        דברו איתנו
+                                    </NavLink>
+                                    </li>
+                                    <li>
+                                    <NavLink to="/">
+                                        התנתקו
+                                    </NavLink>
+                                    </li>
+                                    
+                                            
+                            </Nav>
                         </Col>
                     </Row>
                 </Grid>

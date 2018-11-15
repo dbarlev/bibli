@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Button, FormGroup, FormControl } from 'react-bootstrap';
+import {Grid, Button, FormGroup, FormControl } from 'react-bootstrap';
 import Header from '../header/Header.js';
 import LoginForm from './LoginForm';
 
@@ -11,10 +11,10 @@ class Login extends Component {
 
   render() {
     return (
-        <div className="App" id="login">
+        <Grid fluid className="App" id="login">
             <Header headline="התחברות"/>
             <LoginForm />
-        </div>
+        </Grid>
         
     );
   }

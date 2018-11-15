@@ -69,33 +69,23 @@ class LoginForm extends Component {
     render() {
         
         return (
-            <Grid id="LoginForm" className="yellow-bg">
+            <Grid fluid id="LoginForm" className="yellow-bg">
                 <Row className="show-grid">
-                    <Col xsOffset={2} xs={8} mdOffset={4} md={4}>
+                    <Col xsOffset={2} xs={8} mdOffset={3} md={6}>
+                        <h2 className="text-center">כבר רשומים? התחברו!</h2>
                         <Form horizontal>
                             <FormGroup  controlId="formHorizontalusername">
-                                    <Col xs={12} sm={3} componentClass={ControlLabel}>
-                                        דואר אלקטרוני:
-                                    </Col>
-
-                                    <Col xs={12} sm={9}>
+                                <Col xs={12} sm={4}>
                                     <FormControl ref="username" name="username" type="text" onChange={this.onChange} placeholder="הקלד דואר אלקטרוני"/>
-                                    
-                                    </Col>
-                                    
-                                </FormGroup>
-                                <FormGroup controlId="formHorizontalPassword">
-                                    <Col xs={12} sm={3} componentClass={ControlLabel}>
-                                        סיסמא:
-                                    </Col>
-                                    <Col xs={12} sm={9}>
+                                </Col>
+                
+                                    <Col xs={12} sm={4}>
                                     <FormControl ref="password" name="password" type="password" onChange={this.onChange} placeholder="הקלד סיסמא"/>
                                     
                                     </Col>
                                 
-                                </FormGroup>
-                                <FormGroup>
-                                    <Col >
+
+                                    <Col  xs={12} sm={4} >
                                         {this.redirectUser()}
                                         <Button onClick={this.onSubmitLogin} type="submit" className="full-width-btn" id="loginSubmit">התחבר</Button>
                                     </Col>

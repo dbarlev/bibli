@@ -166,7 +166,7 @@ class BibListItem extends Component {
     return (
       <div className="bib_card"> 
           <div className="row">
-              <div className="col-md-1" id="record-config-buttons">
+              <div className="col-md-2" id="record-config-buttons">
                   <span onClick={this.deleteRecord.bind(this)} data-id={this.props.recordID} role="button" aria-label="מחק"><i className="fas fa-trash-alt"></i></span>
                   <span data-id={this.props.recordID} role="button" aria-label="העתק"><i className="fas fa-paste"></i></span>
               </div>
