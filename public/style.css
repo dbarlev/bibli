@@ -1968,8 +1968,6 @@ h5 {
   transition-timing-function: ease-in;
   transition-delay: 0s; }
 
-<<<<<<< HEAD
-=======
 @keyframes increase {
   0% {
     width: 100%; }
@@ -2002,7 +2000,6 @@ h5 {
     -moz-filter: grayscale(20%);
     filter: opacity(20%); } }
 
->>>>>>> 34b31275a2528f0edff06e0103c6a4add5919870
 /*
  * Components
  */

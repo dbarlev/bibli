@@ -36,9 +36,6 @@ class TopMenu extends Component {
                     <LinkContainer className="topNavMenuItems black" to="/login" >
                         <NavItem>צור קשר</NavItem>
                     </LinkContainer>    
-                    <LinkContainer className="topNavMenuItems black"  to="/adminPanel" >
-                        <NavItem>צור רשומה</NavItem>
-                    </LinkContainer>
                     <LinkContainer className="topNavMenuItems black" to="/register" >
                         <NavItem>תנאי שימוש</NavItem>
                     </LinkContainer>
