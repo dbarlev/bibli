@@ -78,14 +78,8 @@
 
     function set_user_data($db)
     {
-<<<<<<< HEAD
-<<<<<<< HEAD
-
 		echo 'set_user_data';
-=======
->>>>>>> 34b31275a2528f0edff06e0103c6a4add5919870
-		 $data = json_decode(file_get_contents('php://input'));	
-=======
+
 		$data = json_decode(file_get_contents('php://input'));	
 
 		$usertype = 9;
