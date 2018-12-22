@@ -34,7 +34,7 @@ class AddBibList extends Component {
     }
     else
     {
-        //this.props.InsertBibListToDB({userid, name})
+        this.props.InsertBibListToDB({userid, name})
     }
   }
  

@@ -15,7 +15,7 @@ class ListOfBiblist extends Component {
   
   componentWillMount() 
   {
-      //this.props.getBibListFromDB(19);
+      this.props.getBibListFromDB(19);
   }
 
  showList()

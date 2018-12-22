@@ -1,7 +1,6 @@
 <?php
 
     include_once '../config/Database.php';
-	include_once '../config/Biblist.php';
     init();
 
 
@@ -38,6 +37,8 @@
 				deleteRecordFromUser($db);
 				break;
 			case 'DELETE':
+				break;
+			case 'OPTIONS':
 				break;
 			default:
 				getRecords($db);
@@ -86,8 +87,6 @@
 		 if(isset($data->wLname)) $wLname = $data->wLname; else  $wLname = null;
 		 if(isset($data->name)) $name = $data->name; else  $name = null;
 		 if(isset($data->year)) $year = $data->year; else  $year = null;
-		 
-		 $listid = createList($userID, $name);
 		 
 		 $query = "INSERT INTO refactor_books
 					(userid, chapter, pages, publishname, publishcity, kereh, RecordType, url, title, retrived,wFname, wLname, name, year) 

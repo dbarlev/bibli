@@ -2,12 +2,12 @@
 
     include_once '../config/Database.php';
     init();
-$db = $database->connect();
+
 
     function init()
     {
 		$database = new Database();
-		
+		$db = $database->connect();
 		CreateHeaders();
 		verifyRequestMethod($db);
     }
@@ -39,8 +39,10 @@ $db = $database->connect();
 			case 'DELETE':
 				removeList($db);
 				break;
+			case 'OPTIONS':
+				break;
 			default:
-				getRecords($db);
+				getLists($db, $userID);
 				// Invalid Request Method
 				//header("HTTP/1.0 405 Method Not Allowed");
 				break;
@@ -49,20 +51,18 @@ $db = $database->connect();
 	
     function getLists($db, $userID)
     {
-		 $query = 'SELECT * FROM biblist 
-		 			where userid = ?
-				 		ORDER BY id DESC LIMIT 1';
+		  $query = 'SELECT * FROM biblist 
+		 			where userid = ?';
 							
 		 $stmt = $db->prepare($query);
 		 $stmt->bindParam(1, $userID);
 		 $stmt->execute();
 		
 		$records_row = $stmt->fetchAll(PDO::FETCH_ASSOC);
-		return $records_row;
-		//echo json_encode($records_row);
+		echo json_encode($records_row);
     }
 
-    function createList($userid, $name)
+    function createList($db)
     {
 		 $data = json_decode(file_get_contents('php://input'));	
 		 if(isset($data->userid)) $userID = $data->userid; else  $userID = null;
