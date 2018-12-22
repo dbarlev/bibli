@@ -14,6 +14,7 @@ import FrontPage from './components/frontpage/FrontPage';
 import rootReducer from './reducers'
 import registerServiceWorker from './registerServiceWorker';
 import ShowUserRecords from './components/bib/ShowUserRecords';
+import AddBibList from './components/bib/listOfRecords/AddBibList';
 
 import './index.css';
 
@@ -35,6 +36,7 @@ ReactDOM.render(
                 <Route path="/login" component={Login} />
                 <Route path="/addRecord" component={AddRecord} />
                 <Route path="/front" component={FrontPage} />
+                <Route path="/addNewList" component={AddBibList} />
             </Switch>
         </BrowserRouter>
     </Provider>

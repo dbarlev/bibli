@@ -1,6 +1,7 @@
 <?php
 
     include_once '../config/Database.php';
+	include_once '../config/Biblist.php';
     init();
 
 
@@ -69,6 +70,7 @@
 
     function setRecords($db)
     {
+
 		 $data = json_decode(file_get_contents('php://input'));	
 		 if(isset($data->userid)) $userID = $data->userid; else  $userID = null;
 		 if(isset($data->chapter)) $chapter = $data->chapter; else  $chapter = null;
@@ -85,6 +87,7 @@
 		 if(isset($data->name)) $name = $data->name; else  $name = null;
 		 if(isset($data->year)) $year = $data->year; else  $year = null;
 		 
+		 $listid = createList($userID, $name);
 		 
 		 $query = "INSERT INTO refactor_books
 					(userid, chapter, pages, publishname, publishcity, kereh, RecordType, url, title, retrived,wFname, wLname, name, year) 

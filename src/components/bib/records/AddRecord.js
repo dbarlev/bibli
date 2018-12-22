@@ -14,7 +14,7 @@ class AddRecord extends Component {
         <br />
           <div className="row main-area">
               <div className="col-md-2 col-md-offset-2">    
-                  <ListOfBiblist showEmpty={true} />           
+                  <ListOfBiblist />           
               </div>   
               <div className="col-md-5">  
                   <div className="row">

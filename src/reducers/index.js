@@ -5,7 +5,8 @@ import {
     INSERT_RECORD_TO_USER,
     SET_RETRIVED_DATE,
     ADD_USER,
-    INSERT_USER_TO_DB
+    INSERT_USER_TO_DB,
+    GET_BIBLIST_FROM_DB
 } from '../actions/consts';
 
 import { populateBookApa, populatePaperApa, populateArticleApa, populateWebisteApa, formatRecordsToApa, populateAPAData } from './functions.js';
@@ -33,6 +34,18 @@ function deleteRecordFromUser(state = [], action) {
             return {
                 value: action.value,
                 name: "bookid"
+            }
+        default:
+            return state;
+    }
+}
+
+function getBiblistFromDB(state = [], action) {
+    switch (action.type) {
+        case GET_BIBLIST_FROM_DB:
+            return {
+                value: action.value,
+                name: action.name
             }
         default:
             return state;
@@ -81,7 +94,8 @@ const rootReducer = combineReducers({
     deleteRecordFromUser,
     getRecordsFromDB,
     retrivedDate,
-    userReducer
+    userReducer,
+    getBiblistFromDB
 });
 
 export default rootReducer;
