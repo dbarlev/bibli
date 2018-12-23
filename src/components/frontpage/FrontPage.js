@@ -4,7 +4,8 @@ import {Grid} from 'react-bootstrap';
 import Header from '../header/Header';
 import Login from '../auth/LoginForm';
 import Slider from './Slider';
-import SecondLine from './SecondLine';
+import InfoIcons from './InfoIcons';
+import PricingTable from './PricingTable';
 
 class FrontPage extends Component {
   render() {
@@ -13,6 +14,8 @@ class FrontPage extends Component {
         <Header headline=""/>
         <Slider />
         <Login />
+        <InfoIcons />
+        <PricingTable />
       </Grid>
     )
   }
