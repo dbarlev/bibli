@@ -30,7 +30,7 @@ class UserMenu extends Component {
                        <a href="#" className="white"><Badge>2</Badge> <i className="far fa-bell"></i></a>
                     </li >
                 </Nav>
-                 <Navbar.Form pullLeft>
+                 <Navbar.Form>
                     <FormGroup className="searchArea">
                         <InputGroup>
                             <FormControl className="searchRecord" placeholder="חיפוש מאמר" type="text" />
