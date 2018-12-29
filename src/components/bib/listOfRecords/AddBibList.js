@@ -14,8 +14,7 @@ import {
   ControlLabel,
   HelpBlock
 } from 'react-bootstrap';
-
-
+import { LinkContainer } from "react-router-bootstrap";
 
 class AddBibList extends Component {
 
@@ -55,7 +54,9 @@ class AddBibList extends Component {
                           <HelpBlock role="status" aria-live="polite"></HelpBlock>
                         </Col>
                   </FormGroup>
-                  <Button onClick={this.addNewList.bind(this)} >צור רשימה</Button>
+                  <LinkContainer to="/biblist" >
+                      <button onClick={this.addNewList.bind(this)} >צור רשימה</button>
+                  </LinkContainer> 
                 </Form>
               </div>   
           </div>

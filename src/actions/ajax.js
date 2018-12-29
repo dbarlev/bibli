@@ -1,5 +1,5 @@
 import {
-    GET_RECORDS_FROM_DB,
+    GET_BIBLIST_NAMES_FROM_DB,
     DELETE_RECORD_FROM_USER,
     INSERT_RECORD_TO_USER,
     INSERT_USER_TO_DB,
@@ -7,10 +7,10 @@ import {
 } from './consts';
 import axios from 'axios';
 
-export const getRecordsFromDB = (userID) => {
-    return (dispatch) => { axios.get('http://127.0.0.1/bibli/api/records/' + userID)
+export const getBibListNamesFromDB = (userID) => {
+    return (dispatch) => { axios.get('http://127.0.0.1/bibli/api/Biblist/' + userID)
         .then(function (response) {
-            dispatch({ type: GET_RECORDS_FROM_DB, value: response.data, userid: userID });
+            dispatch({ type: GET_BIBLIST_NAMES_FROM_DB, value: response.data, userid: userID });
         })
         .catch(function (error) {
             console.log(error);
@@ -18,9 +18,9 @@ export const getRecordsFromDB = (userID) => {
     }
 };
 
-export const getBibListFromDB = (userID) => {
+export const getRecordsFromDB = (userID) => {
 
-    return (dispatch) => { axios.get('http://127.0.0.1/bibli/api/Biblist/' + userID)
+    return (dispatch) => { axios.get('http://127.0.0.1/bibli/api/records/' + userID)
         .then(function (response) {
             
             dispatch({ type: GET_BIBLIST_FROM_DB, value: response.data, userid: userID });
@@ -76,7 +76,7 @@ export const InsertBibListToDB = (data) => {
                 data: JSON.stringify(data)
         })
         .then(function (response) {
-            dispatch({ type: GET_BIBLIST_FROM_DB, value: response.data });
+            dispatch({ type: GET_BIBLIST_NAMES_FROM_DB, value: response.data });
         })
         .catch(function (error) {
             console.log(error);

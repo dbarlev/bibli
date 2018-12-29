@@ -2,11 +2,12 @@ import React, { Component } from 'react';
 import HeaderLogin from '../header/HeaderLogin.js';
 import BibList from './records/BibList';
 import ListOfBiblist from './listOfRecords/ListOfBiblist';
+import Footer from '../footer/Footer.js';
 
 import '../App.css';
 
 
-class ShowUserRecords extends Component {
+class ShowUserBibList extends Component {
   render() {
     return (
       <div className="App">
@@ -17,7 +18,7 @@ class ShowUserRecords extends Component {
                   <ListOfBiblist />           
               </div>
               <div className="col-md-6">               
-                  <BibList />
+                  <BibList />    
               </div>   
           </div>
       </div>
@@ -27,4 +28,4 @@ class ShowUserRecords extends Component {
 
 
 
-export default ShowUserRecords;
+export default ShowUserBibList;

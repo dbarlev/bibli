@@ -15,6 +15,7 @@ export function populateAPAData(action)
             year: data.year,
             kereh: data.kereh,
             name,
+            bibListName: data.Name,
             date: data.retrived,
             type: data.type,
             url: data.url,

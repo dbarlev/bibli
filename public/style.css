@@ -1888,6 +1888,10 @@ button.searchRecordBtn {
 #addRecordBtn > i {
   margin-left: 10px; }
 
+.mainListOfBiblist li {
+  list-style: none;
+  float: right; }
+
 form input[type="text"],
 form input[type="password"],
 form input[type="email"],
@@ -1960,6 +1964,9 @@ h5 {
 
 .fa {
   margin-left: 10px; }
+
+.pointer {
+  cursor: pointer; }
 
 .row *,
 .row *:after,

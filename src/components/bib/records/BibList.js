@@ -11,47 +11,63 @@ import listImg from '../../img/list.png';
 
 class BibList extends Component {
 
-  constructor()
+  constructor(props)
   {
-    super();
+    super(props);
     this.state = {
         records: [],
         allRecords: [],
-        deleteID: []
+        deleteID: [],
+        getBiblistFromDB: [],
+        bibListName: "",
+        id: null
     }
   }
 
   componentWillMount() 
   {
-      this.props.getRecordsFromDB(19);
+    //this.props.getRecordsFromDB(19, 6);
+    this.props.getRecordsFromDB(19);
+      
   }
 
   componentWillReceiveProps(nextProps) {
     
       let records = this.state.allRecords;
       let recordsToDelete = this.state.deleteID;
+      let bibListName = this.state.bibListName;
+      let getBiblistFromDB = nextProps.getBiblistFromDB;
 
+      if(getBiblistFromDB.length > 0)
+      {
+        bibListName = nextProps.getBiblistFromDB[0].bibListName;
+      }
+
+      
       records.push(nextProps.allRecords);
       recordsToDelete.push(nextProps.deleteID);
 
       this.setState({
         allRecords: records,
-        deleteID: recordsToDelete
+        deleteID: recordsToDelete,
+        getBiblistFromDB: getBiblistFromDB,
+        bibListName: bibListName
       })
   }
 
   renderRecords()
   {
-    const {deleteID} = this.state;
-    let allRecords = this.state.allRecords;
-    if(allRecords.length > 0)
+    const {deleteID, getBiblistFromDB, bibListName} = this.state;
+    
+    if(getBiblistFromDB.length > 0)
     {
-      return (
-          allRecords[allRecords.length-1].map( (record,index) => {
-            if(record.recordID == undefined || deleteID.indexOf(record.recordID) == -1)
-              return <BibListItem record={record} type={record.type} recordID={record.recordID} key={"bib_record" + index} />
-        })
-      );
+          return (
+            getBiblistFromDB.map( (record,index) => {
+              if(record.bibListName == bibListName &&
+                   (record.recordID == undefined || deleteID.indexOf(record.recordID) == -1))
+                return <BibListItem record={record} type={record.type} recordID={record.recordID} key={"bib_record" + index} />
+            })
+          );
     }
     else
     {
@@ -82,9 +98,23 @@ class BibList extends Component {
     }
   }
 
+  renderBibListName()
+  {
+    let bibListName = this.state.bibListName;
+    if(bibListName.length > 0)
+    {
+      return (
+        <h2>ביבליוגרפיה של {bibListName}</h2>     
+      )
+    }
+  }
+
   render() {
     return (
       <div id="bibRecords"> 
+        {
+          this.renderBibListName()
+        }
         <div className="row">
           {
             this.renderAddRecordBtn()
@@ -101,7 +131,8 @@ class BibList extends Component {
 const mapStateToProps = (state) => {
     return {
         allRecords: state.getRecordsFromDB,
-        deleteID: state.deleteRecordFromUser.value
+        deleteID: state.deleteRecordFromUser.value,
+        getBiblistFromDB: state.getBiblistFromDB
     }
 }
 

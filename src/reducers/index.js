@@ -1,7 +1,7 @@
 import {
     CHOOSE_SUBSCRIPTION,
     DELETE_RECORD_FROM_USER,
-    GET_RECORDS_FROM_DB,
+    GET_BIBLIST_NAMES_FROM_DB,
     INSERT_RECORD_TO_USER,
     SET_RETRIVED_DATE,
     ADD_USER,
@@ -40,31 +40,24 @@ function deleteRecordFromUser(state = [], action) {
     }
 }
 
+function getBiblistNamesFromDB(state = [], action) {
+    switch (action.type) {
+        case GET_BIBLIST_NAMES_FROM_DB:
+            return action.value;
+        default:
+            return state;
+    }
+}
+
 function getBiblistFromDB(state = [], action) {
     switch (action.type) {
         case GET_BIBLIST_FROM_DB:
-            return {
-                value: action.value,
-                name: action.name
-            }
+            let data = populateAPAData(action);
+            return data;
         default:
             return state;
     }
 }
-
-function getRecordsFromDB(state = [], action) {
-    switch (action.type) {
-        case GET_RECORDS_FROM_DB:
-            //return formatRecordsToApa(action);
-            return populateAPAData(action);
-        case INSERT_RECORD_TO_USER:
-            //return formatRecordsToApa(action);
-            return populateAPAData(action);
-        default:
-            return state;
-    }
-}
-
 
 function retrivedDate(state = [], action) {
     switch (action.type) {
@@ -92,10 +85,10 @@ function userReducer(state = [], action) {
 const rootReducer = combineReducers({
     chooseSubscription,
     deleteRecordFromUser,
-    getRecordsFromDB,
     retrivedDate,
     userReducer,
-    getBiblistFromDB
+    getBiblistFromDB,
+    getBiblistNamesFromDB
 });
 
 export default rootReducer;

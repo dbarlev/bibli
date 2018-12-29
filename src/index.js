@@ -14,7 +14,7 @@ import FrontPage from './components/frontpage/FrontPage';
 import Faq from './components/frontpage/Faq';
 import rootReducer from './reducers'
 import registerServiceWorker from './registerServiceWorker';
-import ShowUserRecords from './components/bib/ShowUserRecords';
+import ShowUserBibList from './components/bib/ShowUserBibList';
 import AddBibList from './components/bib/listOfRecords/AddBibList';
 
 import './index.css';
@@ -32,7 +32,8 @@ ReactDOM.render(
         <BrowserRouter>
             <Switch>
                 <Route exact path="/" component={FrontPage} />
-                <Route path="/records" component={ShowUserRecords} />
+                <Route path="/biblist" component={ShowUserBibList} />
+                <Route path="/biblist/:id" component={ShowUserBibList} />
                 <Route path="/register" component={Register} />
                 <Route path="/login" component={Login} />
                 <Route path="/addRecord" component={AddRecord} />

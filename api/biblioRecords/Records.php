@@ -48,24 +48,30 @@
 		}
     }
 	
-    function getRecords($db, $userID)
+	function getRecords($db, $userID)
     {
-		 $query = 'SELECT * FROM refactor_books
-						INNER JOIN recordtype
-							ON (refactor_books.RecordType = recordtype.RecordID)
-							WHERE userid = ?';
+		//   $query = 'SELECT * FROM biblist 
+		//  			where userid = ?';
+
+		$query = 'SELECT * FROM biblist 
+						LEFT JOIN refactor_books_new 
+							ON biblist.id = refactor_books_new.BiblistID 
+								INNER JOIN recordtype
+									ON (refactor_books_new.RecordType = recordtype.RecordID)
+																	WHERE biblist.Userid = ?';
 							
 		 $stmt = $db->prepare($query);
 		 $stmt->bindParam(1, $userID);
 		 $stmt->execute();
 		
 		$records_row = $stmt->fetchAll(PDO::FETCH_ASSOC);
-		foreach(  $records_row as $key => &$value )
+		foreach($records_row as $key => &$value )
 		{
 			$records_row[$key]["wFname"] = unserialize($value["wFname"]);
 			$records_row[$key]["wLname"] = unserialize($value["wLname"]);
 		}
 		unset($value);
+
 		echo json_encode($records_row);
     }
 
