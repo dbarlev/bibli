@@ -28,9 +28,8 @@ class Register extends Component {
         <RegisterForm 
           onSubmitForm={(this.onSubmitFormChild.bind(this))}
           chooseSubscription={this.props.chooseSubscription}
-
+          mailExists={this.props.user.registerSucces}
         />
-
       </div>
 
     );

@@ -1,8 +1,6 @@
 import React, {Component} from 'react';
 import ReactDOM from 'react-dom';
-import { addUser } from '../../actions/index';
 
-import {connect} from 'react-redux';
 import {
   Button,
   Form,
@@ -34,6 +32,9 @@ class RegisterForm extends Component {
       email: {
         display: null
       },
+      emailExists: {
+        display: null
+      },
       username: {
         display: null
       },
@@ -47,6 +48,7 @@ class RegisterForm extends Component {
     },
     errorMessage: {
       email: "אימייל הוא שדה חובה",
+      emailExists: 'כתובת המייל הזו כבר קיימת במערכת',
       username: "שם משתמש הוא שדה חובה",
       password: "סיסמה היא שדה חובה",
       confirmPassword: "הסיסמאות אינן זהות"
@@ -104,13 +106,16 @@ class RegisterForm extends Component {
   formsValidation(emailVal, userNameVal, passwordVal, confirmPassVal){
     let isError = false;
     
-
+console.log('dav123 ', this.props);
     
       const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
       let mail =  re.test(String(emailVal).toLowerCase());
 
       if(!mail){
         this.state.validation.email.display = "error";
+      }else if(this.props.mailExists == 0){ //this value comes from register component
+        console.log('mailExists  xxx');
+        this.state.validation.emailExists.display = "exists";
       }else{
         this.state.validation.email.display = "null";
       } 
@@ -187,7 +192,6 @@ class RegisterForm extends Component {
     return element.value;
   }
 
-
   render() {
 
     const _Validation = this.state.validation;
@@ -207,7 +211,11 @@ class RegisterForm extends Component {
                   <FormControl ref="email" name="email" id="email" type="email" placeholder="הקלד דואר אלקטרוני"  aria-label="דואר אלקטרוני"/>
                     <HelpBlock role="status" aria-live="polite">{ _Validation.email.display === "error"
                       ? _Error.email
-                      : null}</HelpBlock>
+                      : null}
+                      { _Validation.email.display === "exists"
+                      ? _Error.emailExists
+                      : null}
+                      </HelpBlock>
                 </Col>
 
               </FormGroup>
@@ -239,10 +247,7 @@ class RegisterForm extends Component {
                       ? _Error.password
                       : null}</HelpBlock>
                 </Col>
-               
-
               </FormGroup>
-
               <FormGroup controlId="formConfirmPassword" validationState={_Validation.confirmPassword.display}>
                 <Col xs={12}>
                   <FormControl ref="confirmPassword"   name="confirmPassword" type="password" placeholder="הקלד סיסמה שנית" aria-label="הקלד סיסמה שנית"/>
@@ -250,11 +255,8 @@ class RegisterForm extends Component {
                       ? _Error.confirmPassword
                       : null}</HelpBlock>
                 </Col>
-
               </FormGroup>
-
               {this.populatePackagesCombobox()}
-
               <FormGroup>
                 <Col xs={12}>
                   <Checkbox>
@@ -262,13 +264,11 @@ class RegisterForm extends Component {
                   </Checkbox>
                 </Col>
               </FormGroup>
-
               <FormGroup>
                 <Col xs={12}>
                   <Button className="full-width-btn" type="submit">הירשם</Button>
                 </Col>
               </FormGroup>
-
             </Form>
           </Col>
           <Col className="grey-bg" xs={12} sm={6} md={4}>

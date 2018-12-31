@@ -78,19 +78,15 @@ class LoginForm extends Component {
                                 <Col xs={12} sm={4}>
                                     <FormControl ref="username" name="username" type="text" onChange={this.onChange} placeholder="הקלד דואר אלקטרוני"/>
                                 </Col>
-                
-                                    <Col xs={12} sm={4}>
+                                <Col xs={12} sm={4}>
                                     <FormControl ref="password" name="password" type="password" onChange={this.onChange} placeholder="הקלד סיסמא"/>
-                                    
-                                    </Col>
-                                
-
-                                    <Col  xs={12} sm={4} >
-                                        {this.redirectUser()}
-                                        <Button onClick={this.onSubmitLogin} type="submit" className="full-width-btn" id="loginSubmit">התחבר</Button>
-                                    </Col>
-                                </FormGroup>
-                                <Link to="/register">אינך רשום? התחבר</Link>
+                                </Col>
+                                <Col  xs={12} sm={4} >
+                                    {this.redirectUser()}
+                                    <Button onClick={this.onSubmitLogin} type="submit" className="full-width-btn" id="loginSubmit">התחבר</Button>
+                                </Col>
+                            </FormGroup>
+                            <Link to="/register">אינך רשום? התחבר</Link>
                         </Form>
                     </Col>
                 </Row>

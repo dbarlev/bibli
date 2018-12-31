@@ -76,7 +76,17 @@ function userReducer(state = [], action) {
             return [
                 action.user
             ];
+            break;
+        case INSERT_USER_TO_DB:
+            console.log('User exits', action);
+            return {
+                    registerSuccess: action.value.userRegistered,
+                    username: action.value.username,
+                    email: action.value.email
 
+            };
+            console.log('User exits value', action.value);
+            break;
         default:
             return state;
     }

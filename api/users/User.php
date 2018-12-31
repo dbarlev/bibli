@@ -10,7 +10,6 @@
 		$db = $database->connect();
 		CreateHeaders();
 		verifyRequestMethod($db);
-		echo 'init is running';
     }
 
     function CreateHeaders()
@@ -46,25 +45,25 @@
 	
     function getRecords($db, $email)
     {
-		 $query = 'SELECT * FROM users WHERE email = ?';
-
-
-							
-		 $stmt = $db->prepare($query);
-		 $stmt->bindParam(1, $email);
-		 $stmt->execute();
+		 $query = 'SELECT * FROM users WHERE email = ?';				
+		$stmt = $db->prepare($query);
+		$stmt->bindParam(1, $email);
+		$stmt->execute();
 		
 
 		$records_row = $stmt->fetchAll(PDO::FETCH_ASSOC);
-		var_dump($records_row);
-		foreach(  $records_row as $key => &$value )
-		{
-			// $records_row[$key]["wFname"] = unserialize($value["wFname"]);
-			// $records_row[$key]["wLname"] = unserialize($value["wLname"]);
+		
+		// var_dump($records_row);
+		// foreach(  $records_row as $key => &$value )
+		// {
+		// 	// $records_row[$key]["wFname"] = unserialize($value["wFname"]);
+		// 	// $records_row[$key]["wLname"] = unserialize($value["wLname"]);
 			
-		}
+		// }
+
+		echo json_encode(array('userRegistered' => '1', 'username'=> 'records_row', 'email'=> $email));
 		unset($value);
-		echo json_encode($records_row);
+		// echo json_encode($records_row);
     }
 
 	function check_if_users_with_same_mail($db, $email)
@@ -78,7 +77,7 @@
 
     function set_user_data($db)
     {
-		echo 'set_user_data';
+		
 
 		$data = json_decode(file_get_contents('php://input'));	
 
@@ -95,8 +94,9 @@
 		$res->bindParam(1, $email);
 		$res->execute();
 		
-		if((bool)$res->fetchColumn()){
-			echo json_encode('קיים משתמש עם חשבון מייל זהה');
+		if($res->fetchColumn()){
+			echo json_encode(array('userRegistered' => '0', 'username'=> $username, 'email'=> $email));
+			
 		}else{
 
 			$query = "INSERT INTO users
@@ -109,11 +109,11 @@
 			$stmt->bindParam(3, $username);
 			$stmt->bindParam(4, $password);
 			$stmt->bindParam(5, $email);
+
 			$stmt->execute();
-				
+			
 			getRecords($db, $email);
 		}
->>>>>>> 27944258e635858e6a5bc98db4c74811b9b3905f
 		
     }
 
