@@ -32,26 +32,24 @@ class Footer extends Component{
                         </Col>
                         <Col className="left text-right" xs={6}>
                             <Nav id="FooterNav" className="nav-noStyle">
-                                   <li>
-                                     <a href="https://www.facebook.com/biblio.co.il/" target="__blank" >עקבו אחרינו ב <i className="fab fa-facebook"></i></a>
-                                    </li>
-                                    <li>
-                                     <NavLink to="/front">
-                                         דף ראשי
+                                <li>
+                                    <a href="https://www.facebook.com/biblio.co.il/" target="__blank" >עקבו אחרינו ב <i className="fab fa-facebook"></i></a>
+                                </li>
+                                <li>
+                                    <NavLink to="/front">
+                                        דף ראשי
                                     </NavLink>
-                                    </li>
-                                    <li>
+                                </li>
+                                <li>
                                     <NavLink to="/">
                                         דברו איתנו
                                     </NavLink>
-                                    </li>
-                                    <li>
+                                </li>
+                                <li>
                                     <NavLink to="/">
                                         התנתקו
                                     </NavLink>
-                                    </li>
-                                    
-                                            
+                                </li>
                             </Nav>
                         </Col>
                     </Row>

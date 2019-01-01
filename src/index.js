@@ -16,6 +16,7 @@ import rootReducer from './reducers'
 import registerServiceWorker from './registerServiceWorker';
 import ShowUserBibList from './components/bib/ShowUserBibList';
 import AddBibList from './components/bib/listOfRecords/AddBibList';
+import MailVerification from './components/auth/MailVerification';
 
 import './index.css';
 
@@ -23,6 +24,7 @@ let store = createStore(
     rootReducer,
     compose(
     applyMiddleware(thunk)
+    
     )
 );
 //store.subscribe(() => console.log('store subscribe', store.getState()))
@@ -35,6 +37,7 @@ ReactDOM.render(
                 <Route path="/biblist" component={ShowUserBibList} />
                 <Route path="/biblist/:id" component={ShowUserBibList} />
                 <Route path="/register" component={Register} />
+                <Route path="/mailconf/:mailVer" component={MailVerification} />
                 <Route path="/login" component={Login} />
                 <Route path="/addRecord" component={AddRecord} />
                 <Route path="/front" component={FrontPage} />

@@ -3,7 +3,8 @@ import {
     DELETE_RECORD_FROM_USER,
     INSERT_RECORD_TO_USER,
     INSERT_USER_TO_DB,
-    GET_BIBLIST_FROM_DB
+    GET_BIBLIST_FROM_DB, 
+    USER_MAIL_VERIFICATION
 } from './consts';
 import axios from 'axios';
 
@@ -98,6 +99,26 @@ export const InsertUserToDB = (data) => {
         })
         .then(function (response) {
             dispatch({ type: INSERT_USER_TO_DB, value: response.data });
+        })
+        .catch(function (error) {
+            console.log(error);
+        });
+    }
+}
+
+export const MailVerAction = (data) => {
+    
+    return (dispatch) => { axios({
+                url: "http://127.0.0.1/bibli/api/users/Mailconf.php",
+                method: 'put',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                },
+                data: JSON.stringify(data)
+        })
+        .then(function (response) {
+            dispatch({ type: USER_MAIL_VERIFICATION, value: response.data });
         })
         .catch(function (error) {
             console.log(error);

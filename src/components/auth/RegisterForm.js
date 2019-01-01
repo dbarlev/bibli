@@ -111,14 +111,14 @@ console.log('dav123 ', this.props);
       const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
       let mail =  re.test(String(emailVal).toLowerCase());
 
-      if(!mail){
-        this.state.validation.email.display = "error";
-      }else if(this.props.mailExists == 0){ //this value comes from register component
-        console.log('mailExists  xxx');
-        this.state.validation.emailExists.display = "exists";
-      }else{
-        this.state.validation.email.display = "null";
-      } 
+    if(!mail){
+      this.state.validation.email.display = "error";
+    }else if(this.props.mailExists == 0){ //this value comes from register component
+      console.log('mailExists  xxx');
+      this.state.validation.email.display = "exists";
+    }else{
+      this.state.validation.email.display = "null";
+    } 
    
     if(userNameVal.length < 5){  
       isError =  true;
@@ -148,7 +148,7 @@ console.log('dav123 ', this.props);
       ...this.state,
       ...this.state.validation
     });
-    console.log('val state', this.state);
+    // console.log('val state', this.state);
     return isError
   }
 
@@ -209,7 +209,8 @@ console.log('dav123 ', this.props);
                 
                  <Col xs={12}>
                   <FormControl ref="email" name="email" id="email" type="email" placeholder="הקלד דואר אלקטרוני"  aria-label="דואר אלקטרוני"/>
-                    <HelpBlock role="status" aria-live="polite">{ _Validation.email.display === "error"
+                    <HelpBlock role="status" aria-live="polite">
+                      { _Validation.email.display === "error"
                       ? _Error.email
                       : null}
                       { _Validation.email.display === "exists"

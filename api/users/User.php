@@ -88,6 +88,8 @@
 		if(isset($data->password)) $password = $data->password; else  $password = null;
 		if(isset($data->subscription)) $subscription = $data->subscription; else  $subscription = null;
 		
+		$verificationCode = md5(uniqid($email, true));
+
 		//check if mail already exists in the database
 		$q = 'SELECT * FROM users WHERE email = ?';
 		$res = $db->prepare($q);
@@ -100,8 +102,8 @@
 		}else{
 
 			$query = "INSERT INTO users
-						(usertype, name, username, password, email) 
-						VALUES (?,?,?,?,?)";
+						(usertype, name, username, password, email,verification_code) 
+						VALUES (?,?,?,?,?,?)";
 						
 			$stmt = $db->prepare($query);
 			$stmt->bindParam(1, $usertype);
@@ -109,9 +111,11 @@
 			$stmt->bindParam(3, $username);
 			$stmt->bindParam(4, $password);
 			$stmt->bindParam(5, $email);
+			$stmt->bindParam(6, $verificationCode);
+			
 
 			$stmt->execute();
-			
+			send_conf_mail_to_user($email, $name);
 			getRecords($db, $email);
 		}
 		
@@ -129,6 +133,46 @@
 		$stmt->execute();
 
 		getRecords($db, $userid);
-    }
+	}
+	
+
+	function send_conf_mail_to_user($email, $name){
+		// generate verification code, acts as the "key"
+		$verificationCode = md5(uniqid($email, true));
+		
+		// send the email verification
+		$verificationLink = "https://bibli.co.il/activate?code=" . $verificationCode;
+
+		$htmlStr = "";
+		$htmlStr .= "היי " . $name . ",<br /><br />";
+
+		$htmlStr .= "נא לחץ על הכפתור כדי לאשר את הרשמתך לאתר.<br /><br /><br />";
+		$htmlStr .= "<a href='{$verificationLink}' target='_blank' style='padding:1em; font-weight:bold; background-color:blue; color:#fff;'>אשר רישום</a><br /><br /><br />";
+
+		$htmlStr .= "בהצלחה!,<br />";
+		$htmlStr .= "<a href='https://bibli.co.il/' target='_blank'>ביבלי</a><br />";
+
+
+		$name = "דוד מצוות ביבלי";
+		$email_sender = "no-reply@bibli.co.il";
+		$subject = "אישור הרשמה | ביבלי";
+		$recipient_email = $email;
+
+		$headers  = "MIME-Version: 1.0\r\n";
+		$headers .= "Content-type: text/html; charset=iso-8859-1\r\n";
+		$headers .= "From: {$name} <{$email_sender}> \n";
+
+		$body = $htmlStr;
+
+		// send email using the mail function, you can also use php mailer library if you want
+		if( mail($recipient_email, $subject, $body, $headers) ){
+
+			// tell the user a verification email were sent
+			echo "<div id='successMessage'>מייל אישור נשלח ל<b>" . $email . "</b>, בבקשה פתחו את המייל ולחצו על כפתור האישור.</div>";
+
+
+		}
+	}
+
 
 ?>
