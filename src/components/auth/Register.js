@@ -28,7 +28,7 @@ class Register extends Component {
         <RegisterForm 
           onSubmitForm={(this.onSubmitFormChild.bind(this))}
           chooseSubscription={this.props.chooseSubscription}
-          mailExists={this.props.user.registerSucces}
+          mailExists={this.props.user.registerSucces} // sopouse to show if user mail already exists in the database or not
         />
       </div>
 

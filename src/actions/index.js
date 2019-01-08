@@ -1,7 +1,8 @@
 import {
     CHOOSE_SUBSCRIPTION,
     SET_RETRIVED_DATE,
-    ADD_USER
+    ADD_USER,
+    MAIL_VER
 } from './consts';
 
 export function chooseSubscription(value, name) {
@@ -27,3 +28,13 @@ export function addUser(obj) {
         user: obj
     }
 }
+
+export function MailVerAction(obj) {
+    console.log("obj", obj)
+    return {
+        type: MAIL_VER,
+        mailver: 0
+    }
+}
+
+

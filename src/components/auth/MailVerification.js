@@ -3,21 +3,25 @@ import {connect} from 'react-redux';
 import {MailVerAction} from '../../actions/ajax';
 
 
+
+
 class MailVerification extends Component {
     constructor(props){
         super(props);
 console.log(props);
-        this.state = {
-            MailVer: props.match.params.mailVer
-        };        
-
-        this.props.MailVerAction(this.state.MailVer)
+        // this.props.MailVerAction(this.state.MailVer)
     }
+
+    MailVerAction(){
+        this.props.MailVerAction(this.props.match.params.mailVer)
+        {console.log(this.props.MailVerAction)}
+    }
+
 
     render() {
         return (
-        <div>
-            {console.log(this.state.MailVer)}
+        <div onLoad={() => this.MailVerAction()}>
+           
             MailVerification
         </div>
         )
@@ -27,13 +31,14 @@ console.log(props);
 
 // export default MailVerification
 
-// const mapStateToProps = (state) => {
-//     // console.log("state", state)
-//     return {
-//     chooseSubscription: state.chooseSubscription,
-//     user: state.userReducer
-//     }
-//   }
+const mapStateToProps = (state) => {
+    // console.log("state", state)
+    return {
+    chooseSubscription: state.chooseSubscription,
+    user: state.userReducer,
+    mailVer: state.mailver
+    }
+  }
   
-  export default connect(null, { MailVerAction })(MailVerification);
+  export default connect(mapStateToProps, { MailVerAction })(MailVerification);
   

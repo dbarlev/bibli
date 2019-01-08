@@ -27,14 +27,14 @@
         switch($request_method)
 		{
 			case 'GET':
-				// $mailconf = ($_GET["mailconf"]);
-				// ($_GET["names"]) == "true" ? getListsNames($db, $userID) : getLists($db, $userID);
+            $mailconf = $_GET['mailconf'];
+            activate_user($db, $mailconf );
 				break;
 			case 'POST':
 				// createList($db);
 				break;
             case 'PUT':
-                $mailconf = ($_GET['mailconf']);
+                $mailconf = $_GET['mailconf'];
 				activate_user($db, $mailconf );
 				break;
 			case 'DELETE':
@@ -48,8 +48,7 @@
 
     function activate_user($db, $mailconf){
 
-        echo 'aaaa';
-        $q = "SELECT userid WHERE verifivation_code = ? AND active = 0";
+        $q = "SELECT * FROM users WHERE verification_code = ? AND active = 0";
         $res = $db->prepare($q);
 		$res->bindParam(1, $mailconf);
         $res->execute();
@@ -57,12 +56,13 @@
         
         if($num>0){
 
-            $query = 'UPDATE users SET active = 1 WHERE verifivation_code = ?';
+            $query = 'UPDATE users SET active = 1 WHERE verification_code = ?';
             $stmt = $db->prepare($query);
             $stmt->bindParam(1, $mailconf);
             $stmt->execute();
-        }else{
-
+            echo 'כתובת המייל אושרה';
+        }else if($num = 0){
+            echo 'חשבון המייל שלכם אושר בעבר, ';
         }
 	
 

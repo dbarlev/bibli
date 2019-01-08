@@ -6,7 +6,8 @@ import {
     SET_RETRIVED_DATE,
     ADD_USER,
     INSERT_USER_TO_DB,
-    GET_BIBLIST_FROM_DB
+    GET_BIBLIST_FROM_DB,
+    USER_MAIL_VERIFICATION
 } from '../actions/consts';
 
 import { populateBookApa, populatePaperApa, populateArticleApa, populateWebisteApa, formatRecordsToApa, populateAPAData } from './functions.js';
@@ -77,7 +78,7 @@ function userReducer(state = [], action) {
                 action.user
             ];
             break;
-        case INSERT_USER_TO_DB:
+        case INSERT_USER_TO_DB: //comes back from the ajax file response
             console.log('User exits', action);
             return {
                     registerSuccess: action.value.userRegistered,
@@ -87,10 +88,20 @@ function userReducer(state = [], action) {
             };
             console.log('User exits value', action.value);
             break;
+        case USER_MAIL_VERIFICATION: //comes back from the ajax file response
+        console.log('User mailver is', action);
+        return {
+                mailver: 0,
+                action
+        };
+        console.log('User exits value', action.value);
+        break;
         default:
-            return state;
+            return state
     }
 }
+
+
 
 const rootReducer = combineReducers({
     chooseSubscription,
