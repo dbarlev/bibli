@@ -7,4 +7,3 @@ export const ADD_USER = "ADD_USER";
 export const INSERT_USER_TO_DB = "INSERT_USER_TO_DB";
 export const GET_BIBLIST_FROM_DB = "GET_BIBLIST_FROM_DB";
 export const USER_MAIL_VERIFICATION = "USER_MAIL_VERIFICATION";
-export const MAIL_VER = "MAIL_VER";

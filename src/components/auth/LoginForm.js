@@ -62,7 +62,7 @@ class LoginForm extends Component {
     {
         if(this.state.auth)
         {
-             return <Redirect to='/' />
+            return <Redirect to='/' />
         }
     }
 

@@ -89,12 +89,11 @@ function userReducer(state = [], action) {
             console.log('User exits value', action.value);
             break;
         case USER_MAIL_VERIFICATION: //comes back from the ajax file response
-        console.log('User mailver is', action);
+        console.log('User mailver is', action.value);
         return {
-                mailver: 0,
-                action
+                mailver: action.value
         };
-        console.log('User exits value', action.value);
+        console.log('user test mailver', action.value);
         break;
         default:
             return state

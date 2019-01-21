@@ -107,10 +107,10 @@ export const InsertUserToDB = (data) => {
 }
 
 export const MailVerAction = (data) => {
-    
+    console.log('data ', data);
     return (dispatch) => { axios({
-                url: "http://127.0.0.1/bibli/api/users/Mailconf.php",
-                method: 'put',
+                url: 'http://127.0.0.1/bibli/api/users/mailconf.php?mailconf=' + data,
+                method: 'PUT',
                 headers: {
                     'Accept': 'application/json',
                     'Content-Type': 'application/json'
@@ -124,25 +124,4 @@ export const MailVerAction = (data) => {
             console.log(error);
         });
     }
-
-    // return (dispatch) => {
-    //     fetch("http://127.0.0.1/bibli/api/users/User.php", {
-    //             method: "POST",
-    //             headers: {
-    //                 'Accept': 'application/json',
-    //                 'Content-Type': 'application/json'
-    //             },
-    //             body: JSON.stringify(data)
-    //         })
-    //         .then((response) => {
-    //             let clone = response.clone();
-    //             return clone.json()})
-    //         .then((json) => {
-    //             dispatch({ type: INSERT_USER_TO_DB, value: json, data: data });
-    //         })
-            
-    //         .catch(error =>
-    //             console.log('parsing faild', error)
-    //         )
-    // };
 };

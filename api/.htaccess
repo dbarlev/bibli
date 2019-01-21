@@ -3,5 +3,5 @@ RewriteRule ^user_switch/([0-9a-zA-Z]+)/([0-9a-zA-Z]+)/?$ user_switch.php?userna
 RewriteRule ^records/([0-9a-zA-Z]+)/?$ biblioRecords/records.php?userid=$1 [NC,L]
 RewriteRule ^records/([0-9a-zA-Z]+)/([0-9a-zA-Z]+)/?$ biblioRecords/records.php?userid=$1&recordID=$2 [NC,L]
 RewriteRule ^biblist/([0-9a-zA-Z]+)/?$ biblioRecords/biblist.php?userid=$1 [NC,L]
-RewriteRule ^mailconf/([0-9a-zA-Z]+)/?$ users/Mailconf.php?mailconf=$1 [NC,L]
+RewriteRule ^mailconf/([0-9a-zA-Z]+)/?$ users/mailconf.php?mailconf=$1 [NC,L]
 

@@ -2,35 +2,35 @@ import React, { Component } from 'react'
 import {connect} from 'react-redux';
 import {MailVerAction} from '../../actions/ajax';
 
-
-
-
 class MailVerification extends Component {
     constructor(props){
         super(props);
-console.log(props);
-        // this.props.MailVerAction(this.state.MailVer)
+        console.log('props ', props);
     }
 
-    MailVerAction(){
-        this.props.MailVerAction(this.props.match.params.mailVer)
-        {console.log(this.props.MailVerAction)}
-    }
+    // MailVerAction(data){
+    //     this.props.MailVerAction(data)
+    //     {console.log('all MailVerAction props ', data)}
+    // }
 
+    componentDidMount() {
+        this.props.MailVerAction(this.props.match.params.mailVer);
+        // {console.log('all MailVerAction props ', this.props.match.params.mailVer)}
+    }
 
     render() {
         return (
-        <div onLoad={() => this.MailVerAction()}>
-           
-            MailVerification
+        <div>
+            <h1>Mial Verfication</h1>
+            {(this.props.user.mailVer == 1 ? 'sucssess' : 'already registered' )}
+        
+            
         </div>
         )
     }
 }
 
-
 // export default MailVerification
-
 const mapStateToProps = (state) => {
     // console.log("state", state)
     return {
@@ -38,7 +38,6 @@ const mapStateToProps = (state) => {
     user: state.userReducer,
     mailVer: state.mailver
     }
-  }
-  
-  export default connect(mapStateToProps, { MailVerAction })(MailVerification);
-  
+}
+
+export default connect(mapStateToProps, { MailVerAction })(MailVerification);

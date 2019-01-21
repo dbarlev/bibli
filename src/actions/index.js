@@ -2,7 +2,7 @@ import {
     CHOOSE_SUBSCRIPTION,
     SET_RETRIVED_DATE,
     ADD_USER,
-    MAIL_VER
+    USER_MAIL_VERIFICATION
 } from './consts';
 
 export function chooseSubscription(value, name) {
@@ -32,7 +32,7 @@ export function addUser(obj) {
 export function MailVerAction(obj) {
     console.log("obj", obj)
     return {
-        type: MAIL_VER,
+        type: USER_MAIL_VERIFICATION,
         mailver: 0
     }
 }
