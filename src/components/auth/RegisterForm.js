@@ -182,6 +182,10 @@ console.log('dav123 ', this.props);
       } 
   }
 
+
+  onClick=()=>{
+    
+  }
   updateState(obj) {
     this.setState(obj);
   }
@@ -191,6 +195,7 @@ console.log('dav123 ', this.props);
     let element = ReactDOM.findDOMNode(refs);
     return element.value;
   }
+
 
   render() {
 
@@ -205,7 +210,7 @@ console.log('dav123 ', this.props);
           
             <Form horizontal className="no-border " onSubmit={this.onSubmitRegister.bind(this)}>
               <h3 className="text-right">תרשמו אותי לביבלי!</h3>
-              <FormGroup  controlId="formHorizontalEmail" validationState={_Validation.email.display}>
+              <FormGroup  validationState={_Validation.email.display}>
                 
                  <Col xs={12}>
                   <FormControl ref="email" name="email" id="email" type="email" placeholder="הקלד דואר אלקטרוני"  aria-label="דואר אלקטרוני"/>

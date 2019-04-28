@@ -102,8 +102,8 @@
 		}else{
 
 			$query = "INSERT INTO users
-						(usertype, name, username, password, email,verification_code) 
-						VALUES (?,?,?,?,?,?)";
+						(usertype, name, username, password, email,verification_code, subscription) 
+						VALUES (?,?,?,?,?,?,?)";
 						
 			$stmt = $db->prepare($query);
 			$stmt->bindParam(1, $usertype);
@@ -112,6 +112,7 @@
 			$stmt->bindParam(4, $password);
 			$stmt->bindParam(5, $email);
 			$stmt->bindParam(6, $verificationCode);
+			$stmt->bindParam(7, $subscription);
 			
 
 			$stmt->execute();
