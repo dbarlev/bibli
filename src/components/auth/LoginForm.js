@@ -23,10 +23,24 @@ class LoginForm extends Component {
             username: '',
             password: '',
             data: [],
-            auth: false
+            auth: false,
+            usernameError: '',
+            passwordError: ''
         }
         this.onSubmitLogin = this.onSubmitLogin.bind(this);
         this.onChange = this.onChange.bind(this);
+    }
+
+    validate = () => {
+        let isError = false;
+        const errors = {};
+
+        if(this.state.username == ''){
+            isError = true;
+            errors.usernameError = 'לא הזנתם כתובת שם משתמש'
+        }
+        console.log('errors ',errors);
+        return isError;
     }
 
     onSubmitLogin(event){
@@ -43,11 +57,17 @@ class LoginForm extends Component {
                     auth: true,
                     data: json
                 });
+            }else{
+                let isError = true;
+                console.log('aaa');
             }
+           
         })
         .catch(error => console.log('parsing faild', error))
 
+
     }
+
 
     onChange(event){
         this.setState({
@@ -86,7 +106,7 @@ class LoginForm extends Component {
                                     <Button onClick={this.onSubmitLogin} type="submit" className="full-width-btn" id="loginSubmit">התחבר</Button>
                                 </Col>
                             </FormGroup>
-                            <Link to="/register">אינך רשום? התחבר</Link>
+                            <Link to="/register">אינך רשום? הרשם!</Link>
                         </Form>
                     </Col>
                 </Row>

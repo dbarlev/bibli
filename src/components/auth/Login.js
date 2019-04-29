@@ -13,7 +13,7 @@ class Login extends Component {
     return (
         <Grid fluid className="App" id="login">
             <Header headline="התחברות"/>
-            <LoginForm />
+            <LoginForm onLoginForm={this}/>
         </Grid>
         
     );

@@ -24,19 +24,26 @@ class MailVerification extends Component {
     }
 
     isVerified = (mailVer) => {
-        switch(mailVer){
+
+        let ans = '';
+        switch(Number(mailVer)){
             case 0:
-            return <div><p>לא נרשמת לאתר זה בעבר</p> <Link to="/register" className="btn btn-warning"> הרשמו! <i class="fas fa-chevron-left "></i></Link></div>;
-            
+            ans = <div><p>לא נרשמת לאתר זה בעבר</p> <Link to="/register" className="btn btn-warning"> הרשמו! <i class="fas fa-chevron-left "></i></Link></div>;
+            break;
+
             case 1:
-            return <div> <p>החשבון אושר בהצלחה</p> <Link to="/login" className="btn btn-warning"> התחברו! <i class="fas fa-chevron-left "></i></Link></div>;
-        
+            ans = <div> <p>החשבון אושר בהצלחה</p> <Link to="/login" className="btn btn-warning"> התחברו! <i class="fas fa-chevron-left "></i></Link></div>;
+            break;
+
             case 2:
-            return <div><p>החשבון אושר בעבר</p><Link to="/login" className="btn btn-warning"> התחברו <i class="fas fa-chevron-left "></i></Link></div>;
-            
+            ans =<div><p>החשבון אושר בעבר</p><Link to="/login" className="btn btn-warning"> התחברו <i class="fas fa-chevron-left "></i></Link></div>;
+             break;
+
             default:
-            return <div>default</div>;
+            ans = <div></div>;
+            break;
         }
+        return ans;
     }
     render() {
         return (
@@ -44,8 +51,7 @@ class MailVerification extends Component {
             <Row>
             <Header headline="אישור רישום"/>
             <Grid style={footer}>
-               { this.isVerified(this.props.user.mailVer)}
-             
+               { this.isVerified(this.props.user.mailver)}
             </Grid>
             <Footer />
             </Row>

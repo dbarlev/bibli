@@ -15,20 +15,12 @@
             {
                 case 'GET':
                     // Retrive users
-                  
-                  
-
-
-                        
                         $username = ($_GET["username"]);
                         $password = ($_GET["password"]);
-
-                       
 
                         $result = $user->get_users($username, $password);
 
                         $num = $result->rowCount();
-
                         //$user_result = $user->get_users($user_id);
                         $posts_arr = array();
                         //while($user_row = $user_result->fetch(PDO::FETCH_ASSOC)){

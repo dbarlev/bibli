@@ -103,7 +103,7 @@ class RegisterForm extends Component {
     }
   }
 
-  formsValidation(emailVal, userNameVal, passwordVal, confirmPassVal){
+  formsValidation(emailVal, userNameVal, passwordVal, confirmPassVal, mailExists){
     let isError = false;
     
 console.log('dav123 ', this.props);
@@ -114,9 +114,10 @@ console.log('dav123 ', this.props);
     if(!mail){
       this.state.validation.email.display = "error";
     }else if(this.props.mailExists == 0){ //this value comes from register component
-      console.log('mailExists  xxx');
+      console.log('mailExists ', this.props.mailExists);
       this.state.validation.email.display = "exists";
     }else{
+      console.log('mailExists null', mailExists);
       this.state.validation.email.display = "null";
     } 
    
@@ -156,7 +157,8 @@ console.log('dav123 ', this.props);
   onSubmitRegister(e)
   {
     e.preventDefault();
-      
+     
+    console.log(this.props, 'e.props');
 
     let emailVal = e.target.elements.email.value;
     let userNameVal = e.target.elements.username.value;
@@ -223,7 +225,7 @@ console.log('dav123 ', this.props);
                       : null}
                       </HelpBlock>
                 </Col>
-
+{this.props.mailExists} this.props.mailExists
               </FormGroup>
 
               <FormGroup controlId="formHorizontalUserName" validationState={this.state.validation.username.display}>
