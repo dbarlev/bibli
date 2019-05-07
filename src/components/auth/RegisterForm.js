@@ -55,6 +55,17 @@ class RegisterForm extends Component {
     }
   }
 
+
+  componentDidMount() {
+    this.props.mailExists;
+    console.log('mailExists componentDidMount', this.props.mailExists);
+  }
+
+  componentDidUpdate() {
+    this.props.mailExists;
+    console.log('mailExists componentDidUpdate', this.props.mailExists);
+  }
+
   populatePackagesCombobox(e) {
     let value = this.props.chooseSubscription.value;
     let feild;
@@ -110,16 +121,34 @@ console.log('dav123 ', this.props);
     
       const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
       let mail =  re.test(String(emailVal).toLowerCase());
+    console.log(mail , ' mail');
+
 
     if(!mail){
-      this.state.validation.email.display = "error";
+      console.log('!mail', mail);
+      console.log('this.state.validation.email', this.state.validation.email);
+      this.setState({
+        ...this.state.validation.email,
+        display: 'error'
+      });
+      console.log('!mail', this.state);
+
+      // let mailVal = {...this.state.validation.email};
+      // mailVal.display = 'error';
+      // this.setState({mailVal});
+
+
     }else if(this.props.mailExists == 0){ //this value comes from register component
-      console.log('mailExists ', this.props.mailExists);
-      this.state.validation.email.display = "exists";
+      this.setState({
+        ...this.state.validation.email,
+        display: 'exists'
+      });
     }else{
-      console.log('mailExists null', mailExists);
-      this.state.validation.email.display = "null";
-    } 
+      this.setState({
+        ...this.state.validation.email,
+        display: 'null'
+      });
+    }
    
     if(userNameVal.length < 5){  
       isError =  true;
@@ -212,7 +241,7 @@ console.log('dav123 ', this.props);
           
             <Form horizontal className="no-border " onSubmit={this.onSubmitRegister.bind(this)}>
               <h3 className="text-right">תרשמו אותי לביבלי!</h3>
-              <FormGroup  validationState={_Validation.email.display}>
+              <FormGroup validationState={_Validation.email.display}>
                 
                  <Col xs={12}>
                   <FormControl ref="email" name="email" id="email" type="email" placeholder="הקלד דואר אלקטרוני"  aria-label="דואר אלקטרוני"/>
@@ -225,7 +254,6 @@ console.log('dav123 ', this.props);
                       : null}
                       </HelpBlock>
                 </Col>
-{this.props.mailExists} this.props.mailExists
               </FormGroup>
 
               <FormGroup controlId="formHorizontalUserName" validationState={this.state.validation.username.display}>

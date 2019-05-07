@@ -12,6 +12,7 @@ class Register extends Component {
     super()
   }
 
+  
   onSubmitFormChild(obj)
   {
     // this.props.addUser(obj);
