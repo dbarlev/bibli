@@ -92,15 +92,8 @@
 		 if(isset($data->url)) $url = $data->url; else  $url = null;
 		 if(isset($data->title)) $title = $data->title; else  $title = null;
 		 if(isset($data->retrived)) $retrived = $data->retrived; else  $retrived = null;
-		 
-		 if(isset($data->writers)){
-			foreach($data->writers as $key => $value) 
-			{
-				 if(isset($value->wFname)) $wFname = $value->wFname; else  $wFname = null;
-				 if(isset($value->wLname)) $wLname = $value->wLname; else  $wLname = null;
-			}
-		 }
-		 
+		 if(isset($data->writers->fname)) $wFname = serialize($data->writers->fname); else  $wFname = null;
+		 if(isset($data->writers->lname)) $wLname = serialize($data->writers->lname); else  $wLname = null;
 		 if(isset($data->name)) $name = $data->name; else  $name = null;
 		 if(isset($data->year)) $year = $data->year; else  $year = null;
 		 if(isset($data->activeBiblist)) $BiblistID = $data->activeBiblist; else  $BiblistID = null;
