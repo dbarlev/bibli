@@ -9,6 +9,7 @@ import {
     FormGroup,
     FormControl,
     Col,
+    Alert,
     Checkbox,
     ControlLabel,
     HelpBlock,
@@ -25,25 +26,34 @@ class LoginForm extends Component {
             data: [],
             auth: false,
             usernameError: '',
-            passwordError: ''
+            passwordError: '',
+            EmptyUsernameError: ''
         }
         this.onSubmitLogin = this.onSubmitLogin.bind(this);
         this.onChange = this.onChange.bind(this);
     }
 
     validate = () => {
-        let isError = false;
         const errors = {};
+        let isError = false;
+        
 
+        //לא מצליח לייצר ולידציה כשאין שם משתמש
+        //משום מה לא מצליח לייצר ולידציה עבור תווים בעברית
         if(this.state.username == ''){
             isError = true;
-            errors.usernameError = 'לא הזנתם כתובת שם משתמש'
+            this.setState({EmptyUsernameError: 'לא הזנתם שם משתמש'});
+        }
+        if(this.state.auth == false){
+            isError = true;
+            this.setState({usernameError: 'אחד הפרטים שהזנתם שגוי'});
         }
         console.log('errors ',errors);
         return isError;
     }
 
     onSubmitLogin(event){
+        
         let auth = this.state.auth;
         event.preventDefault();
         fetch('http://127.0.0.1/bibli/api/user_switch/' + this.state.username + 
@@ -59,7 +69,15 @@ class LoginForm extends Component {
                 });
             }else{
                 let isError = true;
+                this.validate()
                 console.log('aaa');
+                this.setState({
+
+                    auth: false,
+                    data: {
+                        passwordError: true
+                    }
+                });
             }
            
         })
@@ -72,8 +90,13 @@ class LoginForm extends Component {
     onChange(event){
         this.setState({
             //משום מה לא הצלחתי לעבוד עם ref הבנתי ששאפשר רק בתוך lifecyclemethod...
-            [event.target.name]: event.target.value
+            [event.target.name]: event.target.value,
+            auth: false,
+            usernameError: '',
+            passwordError: '',
+            EmptyUsernameError: ''
         })
+        
 
         console.log(this.state);
     }
@@ -97,15 +120,30 @@ class LoginForm extends Component {
                             <FormGroup  controlId="formHorizontalusername">
                                 <Col xs={12} sm={4}>
                                     <FormControl ref="username" name="username" type="text" onChange={this.onChange} placeholder="הקלד דואר אלקטרוני"/>
+                                  
                                 </Col>
                                 <Col xs={12} sm={4}>
                                     <FormControl ref="password" name="password" type="password" onChange={this.onChange} placeholder="הקלד סיסמא"/>
+                                  
                                 </Col>
+                                
                                 <Col  xs={12} sm={4} >
                                     {this.redirectUser()}
                                     <Button onClick={this.onSubmitLogin} type="submit" className="full-width-btn" id="loginSubmit">התחבר</Button>
                                 </Col>
+
                             </FormGroup>
+                            {
+                                this.state.EmptyUsernameError ? 
+                                <Alert variant="danger"> {this.state.EmptyUsernameError} </Alert> :
+                                ''
+                            }
+
+                            {
+                                this.state.usernameError ? 
+                                <Alert variant="danger"> {this.state.usernameError} </Alert> :
+                                ''
+                            }
                             <Link to="/register">אינך רשום? הרשם!</Link>
                         </Form>
                     </Col>
