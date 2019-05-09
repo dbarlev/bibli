@@ -27,7 +27,7 @@ let store = createStore(
     )
 
 );
-//store.subscribe(() => console.log('store subscribe', store.getState()))
+store.subscribe(() => console.log('store subscribe', store.getState()))
 
 ReactDOM.render(
       <Provider store={store}>

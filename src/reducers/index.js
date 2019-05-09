@@ -2,12 +2,12 @@ import {
     CHOOSE_SUBSCRIPTION,
     DELETE_RECORD_FROM_USER,
     GET_BIBLIST_NAMES_FROM_DB,
-    INSERT_RECORD_TO_USER,
     SET_RETRIVED_DATE,
     ADD_USER,
     INSERT_USER_TO_DB,
     GET_BIBLIST_FROM_DB,
-    USER_MAIL_VERIFICATION
+    USER_MAIL_VERIFICATION,
+    ACTIVE_BIBLIST
 } from '../actions/consts';
 
 import { populateBookApa, populatePaperApa, populateArticleApa, populateWebisteApa, formatRecordsToApa, populateAPAData } from './functions.js';
@@ -26,6 +26,15 @@ function chooseSubscription(state = [], action) {
                 value: false,
                 name: "לא נבחרה חבילה"
             }
+    }
+}
+
+function activeBiblist(state = [], action){
+    switch (action.type) {
+        case ACTIVE_BIBLIST:
+            return action.value;
+        default:
+            return state;
     }
 }
 
@@ -54,6 +63,8 @@ function getBiblistFromDB(state = [], action) {
     switch (action.type) {
         case GET_BIBLIST_FROM_DB:
             let data = populateAPAData(action);
+            if(data == undefined)
+                data = [];   
             return data;
         default:
             return state;
@@ -107,6 +118,7 @@ const rootReducer = combineReducers({
     deleteRecordFromUser,
     retrivedDate,
     userReducer,
+    activeBiblist,
     getBiblistFromDB,
     getBiblistNamesFromDB
 });

@@ -1,11 +1,8 @@
 import React, {Component} from 'react';
-import ReactDOM from 'react-dom';
 import {connect} from 'react-redux';
 import {getRecordsFromDB} from '../../../actions/ajax';
-import Writers from '../writers/Writers';
 import BibListItem from './BibListItem'
 import { LinkContainer } from "react-router-bootstrap";
-
 
 import listImg from '../../img/list.png';
 
@@ -20,19 +17,18 @@ class BibList extends Component {
         deleteID: [],
         getBiblistFromDB: [],
         bibListName: "",
-        id: null
+        id: null,
+        activeBiblist: {}
     }
   }
 
   componentWillMount() 
   {
-    //this.props.getRecordsFromDB(19, 6);
-    this.props.getRecordsFromDB(19);
-      
+    this.props.getRecordsFromDB(19, 0);
   }
 
   componentWillReceiveProps(nextProps) {
-    
+      
       let records = this.state.allRecords;
       let recordsToDelete = this.state.deleteID;
       let bibListName = this.state.bibListName;
@@ -51,7 +47,8 @@ class BibList extends Component {
         allRecords: records,
         deleteID: recordsToDelete,
         getBiblistFromDB: getBiblistFromDB,
-        bibListName: bibListName
+        bibListName: bibListName,
+        activeBiblist: nextProps.activeBiblist
       })
   }
 
@@ -74,7 +71,7 @@ class BibList extends Component {
       return (
           <div>
             <img alt="" src={listImg} />
-            <h2>היי, אין לך עדיין רשימות...</h2>
+            <h2>היי, אין לך עדיין רשומות...</h2>
             <br />
             <LinkContainer className="topNavMenuItems white" to="/addRecord" >
                 <button className="btn btn-primary">ליצירת רשימה חדשה</button>
@@ -100,8 +97,8 @@ class BibList extends Component {
 
   renderBibListName()
   {
-    let bibListName = this.state.bibListName;
-    if(bibListName.length > 0)
+    let bibListName = this.state.activeBiblist && this.state.activeBiblist.Name;
+    if(bibListName && bibListName.length > 0)
     {
       return (
         <h2>ביבליוגרפיה של {bibListName}</h2>     
@@ -132,7 +129,8 @@ const mapStateToProps = (state) => {
     return {
         allRecords: state.getRecordsFromDB,
         deleteID: state.deleteRecordFromUser.value,
-        getBiblistFromDB: state.getBiblistFromDB
+        getBiblistFromDB: state.getBiblistFromDB,
+        activeBiblist: state.activeBiblist
     }
 }
 

@@ -19,12 +19,11 @@ export const getBibListNamesFromDB = (userID) => {
     }
 };
 
-export const getRecordsFromDB = (userID) => {
+export const getRecordsFromDB = (userID, biblistID, listName) => {
 
-    return (dispatch) => { axios.get('http://127.0.0.1/bibli/api/records/' + userID)
+    return (dispatch) => { axios.get('http://127.0.0.1/bibli/api/biblioRecords/Records.php?userid=' + userID + '&biblistID=' + biblistID)
         .then(function (response) {
-            
-            dispatch({ type: GET_BIBLIST_FROM_DB, value: response.data, userid: userID });
+            dispatch({ type: GET_BIBLIST_FROM_DB, value: response.data, userid: userID, listName });
         })
         .catch(function (error) {
             console.log(error);
@@ -45,7 +44,7 @@ export const DeleteRecordFromUser = (userID, recordID) => {
 
 };
 
-export const InsertRecordToDB = (data) => {
+export const InsertRecordToDB = (data, listID) => {
 
         return (dispatch) => { axios({
                 url: "http://127.0.0.1/bibli/api/biblioRecords/Records.php",

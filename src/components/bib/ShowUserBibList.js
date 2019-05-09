@@ -8,6 +8,16 @@ import '../App.css';
 
 
 class ShowUserBibList extends Component {
+
+  constructor()
+  {
+     super();
+     this.state = {
+       biblistID: -1
+     } 
+  }
+
+
   render() {
     return (
       <div className="App">
@@ -18,7 +28,7 @@ class ShowUserBibList extends Component {
                   <ListOfBiblist />           
               </div>
               <div className="col-md-6">               
-                  <BibList />    
+                  <BibList />
               </div>   
           </div>
       </div>

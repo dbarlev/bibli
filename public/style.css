@@ -2019,7 +2019,8 @@ h5 {
   #frontpage #secondline {
     background-color: #f2b500; }
   #frontpage #pricing-table {
-    background-color: #204260; }
+    background-color: #204260;
+    height: 100%; }
   #frontpage #pricing-table ul {
     display: flex;
     flex-direction: row;

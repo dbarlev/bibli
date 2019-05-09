@@ -6,6 +6,7 @@ import Login from '../auth/LoginForm';
 import Slider from './Slider';
 import InfoIcons from './InfoIcons';
 import PricingTable from './PricingTable';
+import Footer from '../footer/Footer';
 
 class FrontPage extends Component {
   render() {
@@ -16,6 +17,7 @@ class FrontPage extends Component {
         <Login />
         <InfoIcons />
         <PricingTable />
+        <Footer />
       </Grid>
     )
   }

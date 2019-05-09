@@ -28,7 +28,8 @@
 		{
 			case 'GET':
 				$userID = ($_GET["userid"]);
-				($_GET["names"]) == "true" ? getListsNames($db, $userID) : getLists($db, $userID);
+				//($_GET["names"]) == "true" ? getListsNames($db, $userID) : getLists($db, $userID);
+				getListsNames($db, $userID); 
 				break;
 			case 'POST':
 				createList($db);

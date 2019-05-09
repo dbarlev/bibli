@@ -28,7 +28,8 @@
 		{
 			case 'GET':
 				$userID = ($_GET["userid"]);
-				getRecords($db, $userID);
+				$biblistID = ($_GET["biblistID"]);
+				getRecords($db, $userID, $biblistID);
 				break;
 			case 'POST':
 				setRecords($db);
@@ -48,7 +49,7 @@
 		}
     }
 	
-	function getRecords($db, $userID)
+	function getRecords($db, $userID, $biblistID)
     {
 		//   $query = 'SELECT * FROM biblist 
 		//  			where userid = ?';
@@ -58,10 +59,12 @@
 							ON biblist.id = refactor_books_new.BiblistID 
 								INNER JOIN recordtype
 									ON (refactor_books_new.RecordType = recordtype.RecordID)
-																	WHERE biblist.Userid = ?';
+																	WHERE biblist.Userid = ?
+																	AND refactor_books_new.BiblistID = ?';
 							
 		 $stmt = $db->prepare($query);
 		 $stmt->bindParam(1, $userID);
+		 $stmt->bindParam(2, $biblistID);
 		 $stmt->execute();
 		
 		$records_row = $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -89,34 +92,43 @@
 		 if(isset($data->url)) $url = $data->url; else  $url = null;
 		 if(isset($data->title)) $title = $data->title; else  $title = null;
 		 if(isset($data->retrived)) $retrived = $data->retrived; else  $retrived = null;
-		 if(isset($data->wFname)) $wFname = $data->wFname; else  $wFname = null;
-		 if(isset($data->wLname)) $wLname = $data->wLname; else  $wLname = null;
+		 
+		 if(isset($data->writers)){
+			foreach($data->writers as $key => $value) 
+			{
+				 if(isset($value->wFname)) $wFname = $value->wFname; else  $wFname = null;
+				 if(isset($value->wLname)) $wLname = $value->wLname; else  $wLname = null;
+			}
+		 }
+		 
 		 if(isset($data->name)) $name = $data->name; else  $name = null;
 		 if(isset($data->year)) $year = $data->year; else  $year = null;
+		 if(isset($data->activeBiblist)) $BiblistID = $data->activeBiblist; else  $BiblistID = null;
 		 
-		 $query = "INSERT INTO refactor_books
-					(userid, chapter, pages, publishname, publishcity, kereh, RecordType, url, title, retrived,wFname, wLname, name, year) 
-					 VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+		 $query = "INSERT INTO refactor_books_new
+					(userid, BiblistID, chapter, pages, publishname, publishcity, kereh, RecordType, url, title, retrived,wFname, wLname, name, year) 
+					 VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
 
-					 
+		
 		 $stmt = $db->prepare($query);
 		 $stmt->bindParam(1, $userID);
-		 $stmt->bindParam(2, $chapter);
-		 $stmt->bindParam(3, $pages);
-		 $stmt->bindParam(4, $publishname);
-		 $stmt->bindParam(5, $publishcity);
-		 $stmt->bindParam(6, $kereh);
-		 $stmt->bindParam(7, $recordType);
-		 $stmt->bindParam(8, $url);
-		 $stmt->bindParam(9, $title);
-		 $stmt->bindParam(10, $retrived);
-		 $stmt->bindParam(11, $wFname);
-		 $stmt->bindParam(12, $wLname);
-		 $stmt->bindParam(13, $name);
-		 $stmt->bindParam(14, $year);
+		 $stmt->bindParam(2, $BiblistID);
+		 $stmt->bindParam(3, $chapter);
+		 $stmt->bindParam(4, $pages);
+		 $stmt->bindParam(5, $publishname);
+		 $stmt->bindParam(6, $publishcity);
+		 $stmt->bindParam(7, $kereh);
+		 $stmt->bindParam(8, $recordType);
+		 $stmt->bindParam(9, $url);
+		 $stmt->bindParam(10, $title);
+		 $stmt->bindParam(11, $retrived);
+		 $stmt->bindParam(12, $wFname);
+		 $stmt->bindParam(13, $wLname);
+		 $stmt->bindParam(14, $name);
+		 $stmt->bindParam(15, $year);
 		 $stmt->execute();
 		 
-		 getRecords($db, $userID);
+		 getRecords($db, $userID, $BiblistID);
     }
 
     function deleteRecordFromUser($db)

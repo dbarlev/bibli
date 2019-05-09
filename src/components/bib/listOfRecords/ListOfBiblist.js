@@ -1,7 +1,8 @@
 import React, {Component} from 'react';
 import ReactDOM from 'react-dom';
 import {connect} from 'react-redux';
-import {getBibListNamesFromDB} from '../../../actions/ajax';
+import {getBibListNamesFromDB, getRecordsFromDB} from '../../../actions/ajax';
+import {activeBiblist} from '../../../actions';
 import { LinkContainer, IndexLinkContainer  } from "react-router-bootstrap";
 import {Nav, Navbar, NavItem, MenuItem, NavDropdown, Button, FormGroup, FormControl } from 'react-bootstrap';
 
@@ -17,21 +18,27 @@ class ListOfBiblist extends Component {
     
  }
   
-  componentWillMount() 
+  componentDidMount() 
   {
       this.props.getBibListNamesFromDB(19);
   }
 
-  componentWillReceiveProps(nextProps) {
-    
+
+  componentWillReceiveProps(nextProps) 
+  {
     let allBiblist = this.state.allBiblist;
     allBiblist = nextProps.allBiblist;
 
     this.setState({
       allBiblist: allBiblist
     })
-}
+  }
 
+  onListClicked(item){
+    let userid = 19;
+    this.props.activeBiblist(item);
+    this.props.getRecordsFromDB(userid, item.id, item.Name);
+  }
 
  showList()
  {
@@ -66,9 +73,12 @@ class ListOfBiblist extends Component {
                       uniqueListId.push(item.Name);
                       return(
                         <li key={index}>
-                          <LinkContainer className="pointer sideMenuLinks black"  to={"/biblist/" + item.id}>
+                          {/* <LinkContainer className="pointer sideMenuLinks black" to={{ pathname: `/biblist/${item.id}`, id: item.id }}>
                             <span>{item.Name}</span>
-                          </LinkContainer>
+                          </LinkContainer> */}
+                          <div className="pointer sideMenuLinks black" onClick={this.onListClicked.bind(this,item)}>
+                            <span>{item.Name}</span>
+                          </div>
                         </li>
                       )
                     }
@@ -124,5 +134,5 @@ const mapStateToProps = (state) => {
     }
 }
 
-export default connect(mapStateToProps, {getBibListNamesFromDB})(ListOfBiblist);
+export default connect(mapStateToProps, {getBibListNamesFromDB, getRecordsFromDB, activeBiblist})(ListOfBiblist);
 

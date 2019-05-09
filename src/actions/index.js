@@ -2,7 +2,8 @@ import {
     CHOOSE_SUBSCRIPTION,
     SET_RETRIVED_DATE,
     ADD_USER,
-    USER_MAIL_VERIFICATION
+    USER_MAIL_VERIFICATION,
+    ACTIVE_BIBLIST
 } from './consts';
 
 export function chooseSubscription(value, name) {
@@ -10,6 +11,13 @@ export function chooseSubscription(value, name) {
         type: CHOOSE_SUBSCRIPTION,
         value,
         name
+    }
+}
+
+export function activeBiblist(biblistItem){
+    return {
+        type: ACTIVE_BIBLIST,
+        value: biblistItem
     }
 }
 

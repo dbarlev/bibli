@@ -10,7 +10,7 @@ class Footer extends Component {
             <Grid fluid className="footer">
                 <Grid className="show-grid">
                     <Row>
-                        <Col className="right" xs={6}>
+                        <Col className="col-xs-offset-2" xs={6}>
                             <h3>מעוניינים להצטרף לניוזלטר שלנו?</h3>
                             <p>השאירו פרטים ונשמח לעדכן אתכם בכל מידע חדש שיהיה לנו!</p>
                             <form horizontal>
@@ -29,7 +29,7 @@ class Footer extends Component {
                                 </FormGroup>
                             </form>
                         </Col>
-                        <Col className="left text-right" xs={6}>
+                        <Col className="text-right" xs={3}>
                             <Nav id="FooterNav" className="nav-noStyle">
                                 <li>
                                     <a href="https://www.facebook.com/biblio.co.il/" target="__blank" >עקבו אחרינו ב <i className="fab fa-facebook"></i></a>
