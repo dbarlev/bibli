@@ -171,7 +171,7 @@ class BibListItem extends Component {
                   <span data-id={this.props.recordID} role="button" aria-label="העתק"><i className="fas fa-paste"></i></span>
               </div>
               <div className="col-md-7">
-                  <div>{this.getRecord()}</div>
+                  <div className="recordQuery">{this.getRecord()}</div>
               </div>             
           </div>
       </div>
@@ -180,5 +180,11 @@ class BibListItem extends Component {
   }
 }
 
-export default connect (null, {DeleteRecordFromUser})(BibListItem);
+const mapStateToProps = (state) => {
+    return {
+        activeBiblist: state.activeBiblist
+    }
+}
+
+export default connect (mapStateToProps, {DeleteRecordFromUser})(BibListItem);
 

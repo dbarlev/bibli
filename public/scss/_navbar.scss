@@ -1,0 +1,29 @@
+
+#App-header {
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+    padding-top: 20px;
+    padding-bottom: 20px;
+
+    .user-menu {
+        background: #204260;
+    }
+
+    #TopNav {
+        margin-bottom: 40px;
+        border: none;
+    }
+    
+    #userNav {
+        margin-top: 10px;
+        background-color: $mainBlueColor;
+        border: none;
+    
+        .searchArea {
+            border: 1px solid white;
+        }
+    
+    
+    }
+}
+

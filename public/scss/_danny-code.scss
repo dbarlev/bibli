@@ -1,10 +1,15 @@
-body {
-    direction: rtl;
-}
 
 i.fa,
 i.fas {
     color: $mainBlueColor;
+}
+
+.sideMenuLinks{
+    i.fas{
+        font-size: 18px;
+        margin-top: 4px;
+        color: $mainBlueColor;
+    }
 }
 
 button,
@@ -29,15 +34,6 @@ button>i,
     list-style: none;
 }
 
-#register input[type=checkbox] {
-    margin-right: -20px;
-}
-
-#register form {
-    // border: 1px solid hsl(0, 1%, 87%);
-    padding: 0px 20px;
-}
-
 .apaForm form {
     margin: 5%;
     padding: 5% 5% 10% 13%;
@@ -49,46 +45,68 @@ button>i,
     float: right;
 }
 
-.bib_card {
-    margin-left: 10px;
-    margin-top: 20px;
+
+#bibRecords{
+    #record-config-buttons>span {
+        color: darkblue;
+        cursor: pointer;
+        margin-left: 20px;
+    }
+
+    .recordQuery{
+        text-align: right;
+    }
+}
+
+
+.list-inline{
+    display: inline-flex;
+}
+
+#biblist-heading-list{
+    margin-top: 25px;
     margin-bottom: 20px;
-    height: 30px;
+
+    li{
+        margin-left: 5px;
+    }
+}
+
+.padding-0{
+    padding: 0;
+}
+
+.edit-icon{
+    margin-left: 10px;
+    color: $mainBlueColor;
+}
+
+.edit-icon>i{
+    color: $mainBlueColor;
+}
+
+.sideMenuLinks> span{
+    font-size: 16px;
+    font-weight: normal;
+}
+
+.list-no-style{
+    list-style: none;
+}
+
+.align-right{
     text-align: right;
-}
-
-#record-config-buttons>span {
-    color: darkblue;
-    cursor: pointer;
-    margin-left: 20px;
-}
-
-#autoCompelte-options .row {
-    margin-left: 0 !important;
-    margin-right: 0 !important;
-}
-
-#autoCompelte-options {
-    margin-top: 10px;
-    z-index: 9999;
-    border: 2px solid hsl(0, 0%, 83%);
-    padding: 10px;
 }
 
 .row {
     margin-bottom: 10px;
 }
 
-.nav-noStyle {
-    background-color: transparent !important;
-    border-color: transparent !important;
-}
 
 .topNavMenuItems {
     font-size: 20px;
     padding-left: 30px;
     text-align: center;
-    font-family: 'Open Sans Hebrew', serif;
 }
 
 .seperator {
@@ -109,28 +127,7 @@ button>i,
     font-size: 18px;
 }
 
-#TopNav {
-    margin-bottom: 40px;
-}
 
-#userNav {
-    margin-top: 10px;
-}
-
-#userNav .searchArea {
-    border: 1px solid white;
-}
-
-#App-header {
-    padding-left: 0 !important;
-    padding-right: 0 !important;
-    padding-top: 20px;
-    padding-bottom: 20px;
-}
-
-#App-header .user-menu {
-    background: #204260;
-}
 
 input.searchRecord {
     width: 300px !important;
@@ -237,6 +234,7 @@ button.searchRecordBtn {
     width: 130px;
     height: 35px;
     border-radius: 0;
+    margin-bottom: 20px;
 }
 
 #addRecordBtn>i {
@@ -246,4 +244,9 @@ button.searchRecordBtn {
 .mainListOfBiblist li{
     list-style: none;
     float: right;
+}
+
+.biblistHeading{
+    font-size: 20px !important;
+    color: $mainBlueColor !important;
 }

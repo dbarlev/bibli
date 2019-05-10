@@ -17,18 +17,20 @@ class UserMenu extends Component {
     <Navbar id="userNav" className="nav-noStyle">
             <Navbar.Collapse >
                 <Nav pullRight>
-                    <LinkContainer className="topNavMenuItems white" to="/register" >
-                        <NavItem>עזרה</NavItem>
-                    </LinkContainer>
-                     <LinkContainer className="topNavMenuItems white"  to="/register" >
-                        <NavItem>ניהול רשימות ביבליוגרפיות</NavItem>
-                    </LinkContainer>
-                    <LinkContainer className="topNavMenuItems white" to="/login" >
-                        <NavItem>אזור אישי </NavItem>
-                    </LinkContainer>  
                     <li>
                        <a href="#" className="white"><Badge>2</Badge> <i className="far fa-bell"></i></a>
                     </li >
+                    <LinkContainer className="topNavMenuItems white" to="/login" >
+                        <NavItem>אזור אישי </NavItem>
+                    </LinkContainer> 
+                     <LinkContainer className="topNavMenuItems white"  to="/register" >
+                        <NavItem>ניהול רשימות ביבליוגרפיות</NavItem>
+                    </LinkContainer>
+                    <LinkContainer className="topNavMenuItems white" to="/register" >
+                        <NavItem>עזרה</NavItem>
+                    </LinkContainer>
+                     
+                    
                 </Nav>
                  <Navbar.Form>
                     <FormGroup className="searchArea">

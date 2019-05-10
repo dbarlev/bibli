@@ -1,7 +1,9 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {getRecordsFromDB} from '../../../actions/ajax';
-import BibListItem from './BibListItem'
+import BibListItem from './BibListItem';
+import BiblistHeading from './BiblistHeading';
+
 import { LinkContainer } from "react-router-bootstrap";
 
 import listImg from '../../img/list.png';
@@ -101,7 +103,7 @@ class BibList extends Component {
     if(bibListName && bibListName.length > 0)
     {
       return (
-        <h2>ביבליוגרפיה של {bibListName}</h2>     
+        <BiblistHeading bibListName={bibListName} />     
       )
     }
   }

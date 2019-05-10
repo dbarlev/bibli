@@ -49,23 +49,23 @@ class ListOfBiblist extends Component {
      if(allBiblist && allBiblist.length > 0)
      {
        return(
-          <div className="well">
+          <div>
             <div className="row">
-              <div className="col-sm-7">
-                  <strong aria-level="2" role="heading">הרשימות שלי</strong>
+              <div className="col-sm-6">
+                  <strong className="biblistHeading" aria-level="2" role="heading">הרשימות שלי</strong>
               </div>
               <div className="col-sm-2">
-                <LinkContainer className="pointer sideMenuLinks black"  to="/addNewList" >
+                <LinkContainer className="pointer sideMenuLinks"  to="/addNewList" >
                     <span aria-label="הוסף רשימה"><i className="fas fa-plus"></i></span>
                 </LinkContainer>
               </div>
                <div className="col-sm-2">
-               <LinkContainer className="pointer sideMenuLinks black"  to="/addNewList" >
-                    <span><i className="fas fa-search"></i></span>
+               <LinkContainer className="pointer sideMenuLinks"  to="/addNewList" >
+                    <span><i className="fas fa-pen"></i></span>
                 </LinkContainer>
               </div>
             </div>
-            <ul>
+            <ul className="list-no-style align-right padding-0">
               {
                 allBiblist.map((item,index) => {
                     if(uniqueListId.indexOf(item.Name) == -1)
@@ -73,11 +73,9 @@ class ListOfBiblist extends Component {
                       uniqueListId.push(item.Name);
                       return(
                         <li key={index}>
-                          {/* <LinkContainer className="pointer sideMenuLinks black" to={{ pathname: `/biblist/${item.id}`, id: item.id }}>
-                            <span>{item.Name}</span>
-                          </LinkContainer> */}
-                          <div className="pointer sideMenuLinks black" onClick={this.onListClicked.bind(this,item)}>
-                            <span>{item.Name}</span>
+                          <div className="pointer sideMenuLinks" onClick={this.onListClicked.bind(this,item)}>
+                            <span aria-label="edit" className="edit-icon"><i className="fas fa-pen"></i></span>
+                            <span className="black">{item.Name}</span>
                           </div>
                         </li>
                       )
@@ -92,10 +90,10 @@ class ListOfBiblist extends Component {
     else
     {
       return(
-          <div className="well">
+          <div>
             <div className="row">
               <div className="col-sm-7">
-                  <strong aria-level="2" role="heading">הרשימות שלי</strong>
+                  <strong className="biblistHeading" aria-level="2" role="heading">הרשימות שלי</strong>
               </div>
               <div className="col-sm-2">
                 <LinkContainer className="sideMenuLinks black"  to="/addNewList" >
