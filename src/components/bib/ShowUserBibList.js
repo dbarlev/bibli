@@ -23,14 +23,17 @@ class ShowUserBibList extends Component {
       <div className="App">
         <HeaderLogin />
         <br />
-          <div className="row">
-             <div className="col-md-2 col-md-offset-2">    
-                  <ListOfBiblist />           
-              </div>
-              <div className="col-md-6">               
-                  <BibList />
-              </div>   
+          <div className="mainArea userBiblist">
+            <div className="row">
+              <div className="col-md-2 col-md-offset-2">    
+                    <ListOfBiblist />           
+                </div>
+                <div className="col-md-6">               
+                    <BibList />
+                </div>   
+            </div>
           </div>
+          <Footer />
       </div>
     );
   }

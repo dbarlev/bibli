@@ -1885,6 +1885,12 @@ button.searchRecordBtn {
   font-size: 20px !important;
   color: #204260 !important; }
 
+.mainArea {
+  height: 60%; }
+
+.mainArea.userBiblist {
+  height: 50vh; }
+
 form input[type="text"],
 form input[type="password"],
 form input[type="email"],
