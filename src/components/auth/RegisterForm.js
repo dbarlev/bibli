@@ -55,12 +55,6 @@ class RegisterForm extends Component {
     }
   }
 
-
-  componentDidMount() {
-    this.props.mailExists;
-    console.log('mailExists componentDidMount', this.props.mailExists);
-  }
-
   componentDidUpdate() {
     this.props.mailExists;
     console.log('mailExists componentDidUpdate', this.props.mailExists);
@@ -132,13 +126,8 @@ console.log('dav123 ', this.props);
         display: 'error'
       });
       console.log('!mail', this.state);
-
-      // let mailVal = {...this.state.validation.email};
-      // mailVal.display = 'error';
-      // this.setState({mailVal});
-
-
     }else if(this.props.mailExists == 0){ //this value comes from register component
+      console.log('!mail exists', mail);
       this.setState({
         ...this.state.validation.email,
         display: 'exists'
@@ -246,14 +235,15 @@ console.log('dav123 ', this.props);
                  <Col xs={12}>
                   <FormControl ref="email" name="email" id="email" type="email" placeholder="הקלד דואר אלקטרוני"  aria-label="דואר אלקטרוני"/>
                     <HelpBlock role="status" aria-live="polite">
+                    {this.props.mailExists}
                       { _Validation.email.display === "error"
                       ? _Error.email
                       : null}
                       { _Validation.email.display === "exists"
                       ? _Error.emailExists
                       : null}
-                      </HelpBlock>
-                </Col>
+                    </HelpBlock>
+                  </Col>
               </FormGroup>
 
               <FormGroup controlId="formHorizontalUserName" validationState={this.state.validation.username.display}>
