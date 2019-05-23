@@ -7,7 +7,8 @@ import {
     INSERT_USER_TO_DB,
     GET_BIBLIST_FROM_DB,
     USER_MAIL_VERIFICATION,
-    ACTIVE_BIBLIST
+    ACTIVE_BIBLIST, 
+    LOGGED_IN
 } from '../actions/consts';
 
 import { populateBookApa, populatePaperApa, populateArticleApa, populateWebisteApa, formatRecordsToApa, populateAPAData } from './functions.js';
@@ -111,13 +112,30 @@ function userReducer(state = [], action) {
     }
 }
 
+function authReducer(state = [], action){
+    switch(action.type){
+        case LOGGED_IN:
+        console.log('LOGGED_IN_reducer');
+        console.log('LOGGED_IN_reducer action', action);
+        return{
+            ...state,
+            auth: true,
+            userdata: action
+        }
+      
 
+        default:
+            return state;
+
+    }
+}
 
 const rootReducer = combineReducers({
     chooseSubscription,
     deleteRecordFromUser,
     retrivedDate,
     userReducer,
+    authReducer,
     activeBiblist,
     getBiblistFromDB,
     getBiblistNamesFromDB

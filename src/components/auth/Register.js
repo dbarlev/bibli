@@ -16,6 +16,7 @@ class Register extends Component {
   onSubmitFormChild(obj)
   {
     // this.props.addUser(obj);
+    console.log(obj, 'objxx');
     this.props.InsertUserToDB(obj);
     // console.log(dav97@aaa.aaa);
   }
@@ -30,7 +31,7 @@ class Register extends Component {
         <RegisterForm 
           onSubmitForm={(this.onSubmitFormChild.bind(this))}
           chooseSubscription={this.props.chooseSubscription}
-          mailExists={this.props.user.registerSuccess} // sopouse to show if user mail already exists in the database or not
+          // mailExists={this.props.user.registerSuccess} // sopouse to show if user mail already exists in the database or not
         />
       </div>
 
@@ -39,7 +40,7 @@ class Register extends Component {
 }
 
 const mapStateToProps = (state) => {
-  console.log("state", state)
+  // console.log("state", state)
   return {
   chooseSubscription: state.chooseSubscription,
   user: state.userReducer

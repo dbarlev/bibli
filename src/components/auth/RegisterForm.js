@@ -9,55 +9,56 @@ import {
   Col,
   Checkbox,
   ControlLabel,
-  HelpBlock,
+  Alert,
   ButtonToolbar,
   ToggleButtonGroup,
   ToggleButton,
   Grid,
   Row
 } from 'react-bootstrap';
+import { connect } from 'react-redux';
+import PlansTable from './plansTable';
 import researcher from '../img/researcher.png';
 import student from '../img/student.png';
 import guest from '../img/guest.png';
  
 class RegisterForm extends Component {
 
-  constructor(props)
-  {
+  constructor(props){
     super(props);
   }
 
   state = {
-    validation: {
-      email: {
-        display: null
-      },
-      emailExists: {
-        display: null
-      },
-      username: {
-        display: null
-      },
-      password: {
-        display: null
-      },
-      confirmPassword: {
-        display: null
-      },
-      usernameErr: null
-    },
-    errorMessage: {
-      email: "אימייל הוא שדה חובה",
-      emailExists: 'כתובת המייל הזו כבר קיימת במערכת',
-      username: "שם משתמש הוא שדה חובה",
-      password: "סיסמה היא שדה חובה",
-      confirmPassword: "הסיסמאות אינן זהות"
-    }
+      email: '',
+      username: '',
+      password: '',
+      confirmPassword: '',
+      package: '',
+      mailExists: ''
+      
   }
+    //   email: "אימייל הוא שדה חובה",
+    //   emailExists: 'כתובת המייל הזו כבר קיימת במערכת',
+    //   username: "שם משתמש הוא שדה חובה",
+    //   password: "סיסמה היא שדה חובה",
+    //   confirmPassword: "הסיסמאות אינן זהות"
+    // }
+  // }
 
   componentDidUpdate() {
-    this.props.mailExists;
-    console.log('mailExists componentDidUpdate', this.props.mailExists);
+    console.log(' this.props.user.registerSuccess ',  this.props.user.registerSuccess);
+    this.props.user.userRegistered;
+  }
+
+
+  doesMailExists(){
+    if(this.props.user.registerSuccess == 'exists'){
+      
+      this.setState({mailExists: "כתובת דואר זו כבר קיימת במערכת"});
+    }else{
+     
+      this.setState({mailExists: ""});
+    }
   }
 
   populatePackagesCombobox(e) {
@@ -94,8 +95,10 @@ class RegisterForm extends Component {
           <FormGroup controlId="formHorizontalPackage">
 
             <Col md={12}>
-              <ButtonToolbar>
-                <ToggleButtonGroup type="radio" name="package" defaultValue={1} aria-label="בחר חבילה">
+              <ButtonToolbar
+              onChange={this.onChange.bind(this)}
+              >
+                <ToggleButtonGroup type="radio" name="package"  aria-label="בחר חבילה">
                   <ToggleButton className="third transparent no-border" value="1"><img src={guest} className="subscripsion-icon" alt="אורח" /></ToggleButton>
                   <ToggleButton className="third transparent no-border" value="2"><img src={student} className="subscripsion-icon" alt="סטודנט" /></ToggleButton>
                   <ToggleButton className="third transparent no-border" value="3"><img src={researcher} className="subscripsion-icon" alt="חוקר" /></ToggleButton>
@@ -108,64 +111,70 @@ class RegisterForm extends Component {
     }
   }
 
-  formsValidation(emailVal, userNameVal, passwordVal, confirmPassVal, mailExists){
+  onChange = e => {
+    this.setState({
+      [e.target.name]: e.target.value
+    })
+
+  }
+
+  formsValidation(){
     let isError = false;
+    const errors = {};
+
     
-console.log('dav123 ', this.props);
-    
-      const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-      let mail =  re.test(String(emailVal).toLowerCase());
+    const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    let mail =  re.test(String(this.state.email).toLowerCase());
     console.log(mail , ' mail');
 
 
     if(!mail){
-      console.log('!mail', mail);
-      console.log('this.state.validation.email', this.state.validation.email);
-      this.setState({
-        ...this.state.validation.email,
-        display: 'error'
-      });
-      console.log('!mail', this.state);
-    }else if(this.props.mailExists == 0){ //this value comes from register component
-      console.log('!mail exists', mail);
-      this.setState({
-        ...this.state.validation.email,
-        display: 'exists'
-      });
+      isError = true;
+      errors.noEmail = "חובה למלא את שדה דואר אלקטרוני";
     }else{
-      this.setState({
-        ...this.state.validation.email,
-        display: 'null'
-      });
+      isError = false;
+      errors.noEmail = "";
     }
+
+    
    
-    if(userNameVal.length < 5){  
+    if(this.state.username.length < 5){  
       isError =  true;
-      this.state.validation.username.display = "error";
+      errors.usernameError = "על שדה שם משתמש להיות לפחות 5 תווים";
+
     }else{
       isError =  false;
-      this.state.validation.username.display = "null";
+      errors.usernameError = ""
     }
     
-    if(passwordVal.length < 6){
+    if(this.state.password.length < 6){
       isError =  true;
-      this.state.validation.password.display = "error";
+      errors.passwordLengthError = "על הסיסמה להיות ארוכה מ 6 תווים"
     }else{
       isError =  false;
-      this.state.validation.password.display = "null";
+      errors.passwordLengthError = ""
     }
 
-    if( passwordVal !== confirmPassVal){
+    if( this.state.confirmPassword !==  this.state.password){
       isError =  true;
-      this.state.validation.confirmPassword.display = "error";
+      errors.passwordMatchError = "הסיסמאות לא תואמות"
+
     }else{
       isError =  false;
-      this.state.validation.confirmPassword.display = "null";
+      errors.passwordMatchError = ""
     }
 
+
+    if(this.state.package == ''){
+      isError =  true;
+      errors.packageError == "חובה לבחור סוג משתמש";
+    }else{
+      isError =  false;
+      errors.packageError = ""
+    }
     this.setState({
       ...this.state,
-      ...this.state.validation
+      ...errors
     });
     // console.log('val state', this.state);
     return isError
@@ -190,100 +199,125 @@ console.log('dav123 ', this.props);
       email: emailVal,
       username: userNameVal,
       password: passwordVal,
-      subscription: packageVal
+      subscription: packageVal, 
+
     }
     // console.log('this end onSubmitRegister ',this);
     // console.log('this end onSubmitRegister.props ',this.props);
     
-    const err = this.formsValidation(emailVal, userNameVal, passwordVal, confirmPassVal);
-   
-      if(!err){
-        this.props.onSubmitForm(obj)
-      } 
+    let err = this.formsValidation();
+   console.log('aaa');
+    if (!err){
+      this.props.onSubmitForm(this.state);
+    }
   }
 
 
-  onClick=()=>{
-    
-  }
   updateState(obj) {
     this.setState(obj);
   }
 
-  getElement(refs)
-  {
-    let element = ReactDOM.findDOMNode(refs);
-    return element.value;
-  }
-
 
   render() {
-
-    const _Validation = this.state.validation;
-    const _Error = this.state.errorMessage;
-
     return (
       <Grid id="registerForm">
         <Row>
-         
           <Col className="yellow-bg"  xs={12}  sm={6} mdOffset={4} md={4}  >
-          
             <Form horizontal className="no-border " onSubmit={this.onSubmitRegister.bind(this)}>
               <h3 className="text-right">תרשמו אותי לביבלי!</h3>
-              <FormGroup validationState={_Validation.email.display}>
+              <FormGroup>
+                <Col xs={12}>
+                  <FormControl 
+                    ref="email" 
+                    name="email" 
+                    id="email" 
+                    type="email" 
+                    placeholder="הקלד דואר אלקטרוני"  
+                    aria-label="דואר אלקטרוני"
+                    onChange={this.onChange.bind(this)}
+                  />
+                </Col>
                 
-                 <Col xs={12}>
-                  <FormControl ref="email" name="email" id="email" type="email" placeholder="הקלד דואר אלקטרוני"  aria-label="דואר אלקטרוני"/>
-                    <HelpBlock role="status" aria-live="polite">
-                    {this.props.mailExists}
-                      { _Validation.email.display === "error"
-                      ? _Error.email
-                      : null}
-                      { _Validation.email.display === "exists"
-                      ? _Error.emailExists
-                      : null}
-                    </HelpBlock>
-                  </Col>
-              </FormGroup>
-
-              <FormGroup controlId="formHorizontalUserName" validationState={this.state.validation.username.display}>
-                <Col xs={12}>
-                <FormControl 
-                  ref="username" 
-                  name="username" 
-                  type="text" 
-                  placeholder="הקלד שם משתמש" 
-                  aria-label="שם משתמש"
-                />
-                <HelpBlock role="status" aria-live="polite">
-                  { this.state.validation.username.display === "error"
-                    ? _Error.username
-                    : null
-                  }
-                </HelpBlock>
                 
-                </Col>
-
               </FormGroup>
 
-              <FormGroup  controlId="formHorizontalPassword" validationState={_Validation.password.display}>
+              {this.state.noEmail && 
+                <Alert variant="danger" className="text-right">
+                  {this.state.noEmail}
+                </Alert>
+              }
+              {this.state.mailExists && 
+                <Alert variant="danger" className="text-right">
+                  {this.state.mailExists}
+                </Alert>
+              }
+
+
+              
+              <FormGroup controlId="formHorizontalUserName">
                 <Col xs={12}>
-                  <FormControl ref="password"  name="password"  type="password" placeholder="הקלד סיסמה"  aria-label="סיסמה"/>
-                  <HelpBlock role="status" aria-live="polite">{_Validation.password.display === "error"
-                      ? _Error.password
-                      : null}</HelpBlock>
+                  <FormControl 
+                    ref="username" 
+                    name="username" 
+                    type="text" 
+                    placeholder="הקלד שם משתמש" 
+                    aria-label="שם משתמש"
+                    onChange={this.onChange.bind(this)}
+                  /> 
                 </Col>
+              
               </FormGroup>
-              <FormGroup controlId="formConfirmPassword" validationState={_Validation.confirmPassword.display}>
+
+              {this.state.usernameError && 
+                <Alert variant="danger" className="text-right">
+                  {this.state.usernameError}
+                </Alert>
+              }
+
+              <FormGroup  controlId="formHorizontalPassword">
                 <Col xs={12}>
-                  <FormControl ref="confirmPassword"   name="confirmPassword" type="password" placeholder="הקלד סיסמה שנית" aria-label="הקלד סיסמה שנית"/>
-                  <HelpBlock role="status" aria-live="polite">{_Validation.confirmPassword.display === "error"
-                      ? _Error.confirmPassword
-                      : null}</HelpBlock>
+                  <FormControl 
+                    ref="password"  
+                    name="password"  
+                    type="password" 
+                    placeholder="הקלד סיסמה"  
+                    aria-label="סיסמה"
+                    onChange={this.onChange.bind(this)}
+                  />
                 </Col>
+               
               </FormGroup>
+              {this.state.passwordLengthError && 
+                <Alert variant="danger" className="text-right">
+                  {this.state.passwordLengthError}
+                </Alert>
+              }
+              
+              <FormGroup controlId="formConfirmPassword">
+                <Col xs={12}>
+                  <FormControl 
+                    ref="confirmPassword"   
+                    name="confirmPassword" 
+                    type="password" 
+                    placeholder="הקלד סיסמה שנית" 
+                    aria-label="הקלד סיסמה שנית"
+                    onChange={this.onChange.bind(this)}
+                  />
+                </Col>
+              
+              </FormGroup>
+              {this.state.passwordMatchError && 
+                <Alert variant="danger" className="text-right">
+                  {this.state.passwordMatchError}
+                </Alert>
+              }
               {this.populatePackagesCombobox()}
               <FormGroup>
+              {this.state.packageError && 
+                <Alert variant="danger" className="text-right">
+                  {this.state.packageError}
+                </Alert>
+              }
                 <Col xs={12}>
                   <Checkbox>
                     אני מסכים לקבל עדכונים במייל
@@ -297,46 +331,8 @@ console.log('dav123 ', this.props);
               </FormGroup>
             </Form>
           </Col>
-          <Col className="grey-bg" xs={12} sm={6} md={4}>
-            <h3 className="text-right">התוכניות שלנו</h3>
-            <Row>
-              <Col className="" xs={4}>
-                <img src={guest} className="subscripsion-icon" alt="אורח" />
-              </Col>
-              <Col className="text-right" xs={8} >
-                <h4>ללא עלות</h4>    
-                <ul>
-                  <li>רשימות ביבליוגרפיות : 1</li>
-                  <li>מספר פריטים ברשימה: 7</li>
-                </ul>
-              </Col>
-            </Row>
-            <Row>
-              <Col className="" xs={4}>
-                <img src={student} className="subscripsion-icon" alt="סטודנט" />
-              </Col>
-              <Col className="text-right" xs={8} >
-                <h4>8 ש"ח בחודש</h4>    
-                <ul>
-                  <li>רשימות ביבליוגרפיות : 10</li>
-                  <li>מספר פריטים ברשימה: 20</li>
-                </ul>
-              </Col>
-            </Row>
-            <Row>
-              <Col className="" xs={4}>
-                <img src={researcher} className="subscripsion-icon" alt="חוקר" />
-              </Col>
-            
-              <Col className="text-right" xs={8} >
-                <h4>45 ש"ח בחודש</h4>    
-                <ul>
-                  <li><b>רשימות ביבליוגרפיות : </b>ללא הגבלה</li>
-                  <li>מספר פריטים ברשימה: ללא הגבלה</li>
-                </ul>
-              </Col>
-            </Row>
-          </Col>
+          <PlansTable />
+         
         </Row>
 
       </Grid>
@@ -345,6 +341,10 @@ console.log('dav123 ', this.props);
   }
 }
 
-
-export default RegisterForm;
+const mapStateToProps = (state)=>{
+  return {
+    user: state.userReducer
+  }
+}
+export default connect(mapStateToProps, null)(RegisterForm);
 

@@ -3,7 +3,6 @@ import ReactDOM from 'react-dom';
 import { connect } from 'react-redux';
 import { Redirect, Link } from 'react-router-dom';
 
-
 // import {connect} from 'react-redux';
 import {
     Button,
@@ -18,6 +17,8 @@ import {
     Grid,
     Row
 } from 'react-bootstrap';
+
+import { userLogedIn } from '../../actions'; 
 
 class LoginForm extends Component {
     constructor() {
@@ -36,18 +37,16 @@ class LoginForm extends Component {
         this.onChange = this.onChange.bind(this);
     }
 
+    componentWillMount(){
+        console.log('mount', this.props);
+    }
+    componentDidUpdate(){
+        console.log('Update', this.props);
+    }
 
-    validate = () => {
+    clientValidate = () => {
         let isError = false;
         
-
-        //לא מצליח לייצר ולידציה כשאין שם משתמש
-        //משום מה לא מצליח לייצר ולידציה עבור תווים בעברית
-        if(this.state.auth === false){
-            isError = true;
-            this.setState({usernameError: 'אחד הפרטים שהזנתם שגוי'});
-        }
-
         if(this.state.username === ''){
             isError = true;
             this.setState({EmptyUsernameError: 'לא הזנתם שם משתמש'});
@@ -61,21 +60,33 @@ class LoginForm extends Component {
         return isError;
     }
 
+    validate = () => {
+        let isError = false;
+
+        if(this.state.auth === false){
+            isError = true;
+            this.setState({usernameError: 'אחד הפרטים שהזנתם שגוי'});
+        }
+      
+        return isError;
+    }
+
     onSubmitLogin(event){
-        this.validate();
-        let auth = this.state.auth;
         event.preventDefault();
+    
+        if(this.clientValidate()){
+            this.clientValidate();
+        }else{
+        let auth = this.state.auth;
+       
         fetch('http://127.0.0.1/bibli/api/user_switch/' + this.state.username + 
         '/'+ this.state.password )
         .then(response => response.json())
         .then(json => {
-            console.log('json ',json)
             if(json.count > 0)
             {
-                this.setState({
-                    auth: true,
-                    data: json
-                });
+                this.setState({auth: true});
+                this.props.userLogedIn(json);
             }else{
                 let isError = true;
                 this.validate();
@@ -87,7 +98,7 @@ class LoginForm extends Component {
            
         })
         .catch(error => console.log('parsing faild', error))
-
+    }
 
     }
 
@@ -98,18 +109,20 @@ class LoginForm extends Component {
             [event.target.name]: event.target.value,
             auth: false,
             usernameError: '',
-            passwordError: '',
+            EmptyPasswordError: '',
             EmptyUsernameError: ''
         })
-        
 
-        console.log(this.state);
     }
 
     redirectUser()
     {
-        if(this.state.auth)
+        console.log('nauth', this.props);
+        if(this.props.auth)
         {
+            let auth = localStorage.setItem('auth', true);
+
+            console.log('auth', auth);
             return <Redirect to='/' />
 
         }
@@ -155,7 +168,7 @@ class LoginForm extends Component {
                                 <Alert variant="danger"> {this.state.usernameError} </Alert> :
                                 ''
                             }
-                            <Link to="/register">אינך רשום? הרשם!</Link>
+                            <small><Link to="/register">אינך רשום? הרשם!</Link></small>
                         </Form>
                     </Col>
                 </Row>
@@ -164,9 +177,18 @@ class LoginForm extends Component {
     }
 }
 
-const UserState = (state) =>{
-    console.log("state ", state)
-    return
+const mapDispatchToProps = dispatch => {
+    return {
+        userLogedIn: (params) => dispatch(userLogedIn(params))
+    };
+};
+
+
+const mapStateToProps = state => {
+    return {
+        userdata: state.userReducer.user,
+        auth: state.userReducer.auth
+    }
 }
 
-export default LoginForm;
+export default connect(mapStateToProps, mapDispatchToProps)(LoginForm);
