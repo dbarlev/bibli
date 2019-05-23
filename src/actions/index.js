@@ -52,7 +52,7 @@ export function userLogedIn(user){
 
     return{
         type: LOGGED_IN,
-        user
+        userid: user.userid
     }
     
 }

@@ -42,6 +42,8 @@ class LoginForm extends Component {
     }
     componentDidUpdate(){
         console.log('Update', this.props);
+        console.log('Update username',  this.props.userid);
+        
     }
 
     clientValidate = () => {
@@ -118,9 +120,10 @@ class LoginForm extends Component {
     redirectUser()
     {
         console.log('nauth', this.props);
-        if(this.props.auth)
+        if(this.state.auth)
         {
             let auth = localStorage.setItem('auth', true);
+            const name = localStorage.setItem('name', this.props.userdata);
 
             console.log('auth', auth);
             return <Redirect to='/' />
@@ -132,6 +135,7 @@ class LoginForm extends Component {
         
         return (
             <Grid fluid id="LoginForm" className="yellow-bg">
+               
                 <Row className="show-grid">
                     <Col xsOffset={2} xs={8} mdOffset={3} md={6}>
                         <h2 className="text-center">כבר רשומים? התחברו!</h2>
@@ -186,8 +190,8 @@ const mapDispatchToProps = dispatch => {
 
 const mapStateToProps = state => {
     return {
-        userdata: state.userReducer.user,
-        auth: state.userReducer.auth
+        userid: state.authReducer.userid,
+        auth: state.authReducer.auth
     }
 }
 

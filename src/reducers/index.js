@@ -120,7 +120,7 @@ function authReducer(state = [], action){
         return{
             ...state,
             auth: true,
-            userdata: action
+            userid: action.userid
         }
       
 

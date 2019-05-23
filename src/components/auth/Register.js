@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import {connect} from 'react-redux';
 import Header from '../header/Header.js';
 import RegisterForm from './RegisterForm.js';
-import { addUser } from '../../actions/index';
+import { userLogedIn } from '../../actions'; 
 import { InsertUserToDB } from '../../actions/ajax';
 
 
@@ -11,7 +11,6 @@ class Register extends Component {
   constructor(){
     super()
   }
-
   
   onSubmitFormChild(obj)
   {
@@ -44,7 +43,6 @@ const mapStateToProps = (state) => {
   return {
   chooseSubscription: state.chooseSubscription,
   user: state.userReducer
-
   }
 }
 
