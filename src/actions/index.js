@@ -3,7 +3,8 @@ import {
     SET_RETRIVED_DATE,
     ADD_USER,
     USER_MAIL_VERIFICATION,
-    ACTIVE_BIBLIST
+    ACTIVE_BIBLIST,
+    LOGGED_IN
 } from './consts';
 
 export function chooseSubscription(value, name) {
@@ -45,4 +46,14 @@ export function MailVerAction(obj) {
     }
 }
 
+export function userLogedIn(user){
+    console.log('LOGGED_IN action');
+    console.log('LOGGED_IN user', user);
+
+    return{
+        type: LOGGED_IN,
+        userid: user.userid
+    }
+    
+}
 

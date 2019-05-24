@@ -85,7 +85,7 @@
 		if(isset($data->email)) $email = $data->email; else  $email = null;
 		if(isset($data->username)) $username = $data->username; else  $username = null;
 		if(isset($data->password)) $password = $data->password; else  $password = null;
-		if(isset($data->subscription)) $subscription = $data->subscription; else  $subscription = null;
+		if(isset($data->package)) $package = $data->package; else  $package = null;
 		
 		$verificationCode = md5(uniqid($email, true));
 
@@ -96,7 +96,7 @@
 		$res->execute();
 		
 		if($res->fetchColumn()){
-			echo json_encode(array('userRegistered' => '0', 'username'=> $username, 'email'=> $email));
+			echo json_encode(array('userRegistered' => 'exists', 'username'=> $username, 'email'=> $email));
 			
 		}else{
 
@@ -111,7 +111,7 @@
 			$stmt->bindParam(4, $password);
 			$stmt->bindParam(5, $email);
 			$stmt->bindParam(6, $verificationCode);
-			$stmt->bindParam(7, $subscription);
+			$stmt->bindParam(7, $package);
 			
 
 			$stmt->execute();
