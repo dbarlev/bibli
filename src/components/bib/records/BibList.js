@@ -24,7 +24,7 @@ class BibList extends Component {
     }
   }
 
-  componentWillMount() 
+  componentDidMount() 
   {
     this.props.getRecordsFromDB(19, 0);
   }
