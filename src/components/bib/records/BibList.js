@@ -7,6 +7,7 @@ import BiblistHeading from './BiblistHeading';
 import { LinkContainer } from "react-router-bootstrap";
 
 import listImg from '../../img/list.png';
+import { userLogedIn } from '../../../actions'; 
 
 class BibList extends Component {
 
@@ -25,8 +26,10 @@ class BibList extends Component {
   }
 
   componentWillMount() 
+  
   {
-    this.props.getRecordsFromDB(19, 0);
+    console.log('userLogedIn', this.props.userid);
+    this.props.getRecordsFromDB(this.props.userid, 0);
   }
 
   componentWillReceiveProps(nextProps) {
@@ -132,7 +135,8 @@ const mapStateToProps = (state) => {
         allRecords: state.getRecordsFromDB,
         deleteID: state.deleteRecordFromUser.value,
         getBiblistFromDB: state.getBiblistFromDB,
-        activeBiblist: state.activeBiblist
+        activeBiblist: state.activeBiblist,
+        userid: state.authReducer.userid
     }
 }
 
