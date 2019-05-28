@@ -129,7 +129,7 @@
 		$userid = ($_GET["userid"]);
 		$recordID = ($_GET["recordID"]);
 		
-		$query = 'UPDATE refactor_books SET userid = 9000 WHERE bookid = ?';
+		$query = 'UPDATE refactor_books_new SET userid = 9000 WHERE bookid = ?';
 							
 		$stmt = $db->prepare($query);
 		$stmt->bindParam(1, $recordID);
