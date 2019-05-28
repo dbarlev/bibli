@@ -128,14 +128,15 @@
     {
 		$userid = ($_GET["userid"]);
 		$recordID = ($_GET["recordID"]);
-		
-		$query = 'UPDATE refactor_books_new SET userid = 9000 WHERE bookid = ?';
+		$biblistID = ($_GET["biblistID"]);
+
+		$query = 'UPDATE refactor_books_new SET userid = 9000, BiblistID = NULL WHERE bookid = ?';
 							
 		$stmt = $db->prepare($query);
 		$stmt->bindParam(1, $recordID);
 		$stmt->execute();
 
-		getRecords($db, $userid);
+		getRecords($db, $userid, $biblistID);
     }
 
 ?>

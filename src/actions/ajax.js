@@ -8,8 +8,10 @@ import {
 } from './consts';
 import axios from 'axios';
 
+const API_PATH = "http://127.0.0.1/bibli/api";
+
 export const getBibListNamesFromDB = (userID) => {
-    return (dispatch) => { axios.get('http://127.0.0.1/bibli/api/Biblist/' + userID)
+    return (dispatch) => { axios.get(`${API_PATH}/Biblist/${userID}`)
         .then(function (response) {
             dispatch({ type: GET_BIBLIST_NAMES_FROM_DB, value: response.data, userid: userID });
         })
@@ -21,7 +23,7 @@ export const getBibListNamesFromDB = (userID) => {
 
 export const getRecordsFromDB = (userID, biblistID, listName) => {
 
-    return (dispatch) => { axios.get('http://127.0.0.1/bibli/api/biblioRecords/Records.php?userid=' + userID + '&biblistID=' + biblistID)
+    return (dispatch) => { axios.get(`${API_PATH}/biblioRecords/Records.php?userid=${userID}&biblistID=${biblistID}`)
         .then(function (response) {
             dispatch({ type: GET_BIBLIST_FROM_DB, value: response.data, userid: userID, listName });
         })
@@ -31,9 +33,9 @@ export const getRecordsFromDB = (userID, biblistID, listName) => {
     }
 };
 
-export const DeleteRecordFromUser = (userID, recordID) => {
+export const DeleteRecordFromUser = (userID, recordID, biblistID) => {
 
-     return (dispatch) => { axios.put("http://127.0.0.1/bibli/api/biblioRecords/Records.php/?userid=" + userID + "&recordID=" + recordID)
+     return (dispatch) => { axios.put(`${API_PATH}/biblioRecords/Records.php/?userid=${userID}&recordID=${recordID}&biblistID=${biblistID}`)
         .then(function (response) {
             dispatch({ type: DELETE_RECORD_FROM_USER, value: response.data });
         })
@@ -47,7 +49,7 @@ export const DeleteRecordFromUser = (userID, recordID) => {
 export const InsertRecordToDB = (data, listID) => {
 
         return (dispatch) => { axios({
-                url: "http://127.0.0.1/bibli/api/biblioRecords/Records.php",
+                url: `${API_PATH}/biblioRecords/Records.php`,
                 method: 'post',
                 headers: {
                     'Accept': 'application/json',
@@ -67,7 +69,7 @@ export const InsertRecordToDB = (data, listID) => {
 export const InsertBibListToDB = (data) => {
 
     return (dispatch) => { axios({
-                url: "http://127.0.0.1/bibli/api/biblioRecords/Biblist.php",
+                url: `${API_PATH}/biblioRecords/Biblist.php`,
                 method: 'post',
                 headers: {
                     'Accept': 'application/json',
@@ -88,7 +90,7 @@ export const InsertBibListToDB = (data) => {
 export const InsertUserToDB = (data) => {
     
     return (dispatch) => { axios({
-                url: "http://127.0.0.1/bibli/api/users/User.php",
+                url: `${API_PATH}/users/User.php`,
                 method: 'post',
                 headers: {
                     'Accept': 'application/json',
@@ -108,7 +110,7 @@ export const InsertUserToDB = (data) => {
 export const MailVerAction = (data) => {
     console.log('data ', data);
     return (dispatch) => { axios({
-                url: 'http://127.0.0.1/bibli/api/users/mailconf.php?mailconf=' + data,
+                url: `${API_PATH}/users/mailconf.php?mailconf=${data}`,
                 method: 'PUT',
                 headers: {
                     'Accept': 'application/json',

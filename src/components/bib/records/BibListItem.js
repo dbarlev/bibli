@@ -155,9 +155,9 @@ class BibListItem extends Component {
   deleteRecord(event) 
   {
         var recordID = event.currentTarget.getAttribute("data-id");
+        var biblistID = this.props.activeBiblist.id;
         var userid = 19;
-        var self = this;
-        this.props.DeleteRecordFromUser(userid, recordID);
+        this.props.DeleteRecordFromUser(userid, recordID, biblistID);
   }
 
 
