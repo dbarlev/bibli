@@ -35,6 +35,7 @@ class LoginForm extends Component {
         }
         this.onSubmitLogin = this.onSubmitLogin.bind(this);
         this.onChange = this.onChange.bind(this);
+       
     }
 
     componentWillMount(){
@@ -73,14 +74,14 @@ class LoginForm extends Component {
         return isError;
     }
 
+
+
     onSubmitLogin(event){
         event.preventDefault();
     
         if(this.clientValidate()){
             this.clientValidate();
         }else{
-        let auth = this.state.auth;
-       
         fetch('http://127.0.0.1/bibli/api/user_switch/' + this.state.username + 
         '/'+ this.state.password )
         .then(response => response.json())
@@ -89,6 +90,7 @@ class LoginForm extends Component {
             {
                 this.setState({auth: true});
                 this.props.userLogedIn(json);
+                this.redirectUser(json);
             }else{
                 let isError = true;
                 this.validate();
@@ -104,6 +106,20 @@ class LoginForm extends Component {
 
     }
 
+    redirectUser = (json) => {
+        console.log('json', json);
+        console.log('state', this.state);
+        if(this.state.auth == true){
+            localStorage.setItem('userid', json.userid);
+            localStorage.setItem('auth', this.state.auth);
+            console.log('xxx');
+            return <Redirect to='/biblist' />
+            console.log('yyy');
+            debugger;
+
+        }
+    }
+
 
     onChange(event){
         this.setState({
@@ -117,19 +133,7 @@ class LoginForm extends Component {
 
     }
 
-    redirectUser()
-    {
-        console.log('nauth', this.props);
-        if(this.state.auth)
-        {
-            let auth = localStorage.setItem('auth', true);
-            const name = localStorage.setItem('name', this.props.userdata);
-
-            console.log('auth', auth);
-            return <Redirect to='/' />
-
-        }
-    }
+   
 
     render() {
         
@@ -151,9 +155,10 @@ class LoginForm extends Component {
                                 </Col>
                                 
                                 <Col  xs={12} sm={4} >
-                                    {this.redirectUser()}
+                                    
                                     <Button onClick={this.onSubmitLogin} type="submit" className="full-width-btn" id="loginSubmit">התחבר</Button>
-                                </Col>
+                                  
+                                    </Col>
 
                             </FormGroup>
                             {

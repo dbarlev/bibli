@@ -3,6 +3,7 @@ import {Nav, Navbar,Badge, NavItem,InputGroup, MenuItem, Button, FormGroup, Form
 import { LinkContainer, IndexLinkContainer  } from "react-router-bootstrap";
 import { Link  } from 'react-router-dom';
 
+
 const texts = {
     1: "התחבר/י",
     2: "התנתק/י"    
@@ -11,7 +12,7 @@ const texts = {
 
 class UserMenu extends Component {
 
-        
+
   render() {
     return (
     <Navbar id="userNav" className="nav-noStyle">
@@ -21,7 +22,7 @@ class UserMenu extends Component {
                        <a href="#" className="white"><Badge>2</Badge> <i className="far fa-bell"></i></a>
                     </li >
                     <LinkContainer className="topNavMenuItems white" to="/login" >
-                        <NavItem>אזור אישי </NavItem>
+                        <NavItem>אזור אישי  </NavItem>
                     </LinkContainer> 
                      <LinkContainer className="topNavMenuItems white"  to="/register" >
                         <NavItem>ניהול רשימות ביבליוגרפיות</NavItem>
@@ -49,5 +50,6 @@ class UserMenu extends Component {
     );
   }
 }
+
 
 export default UserMenu;
