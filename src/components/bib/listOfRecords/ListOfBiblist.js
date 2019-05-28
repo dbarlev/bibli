@@ -67,7 +67,7 @@ class ListOfBiblist extends Component {
             </div>
             <ul className="list-no-style align-right padding-0">
               {
-                allBiblist.map((item,index) => {
+                this.props.allBiblist.map((item,index) => {
                     if(uniqueListId.indexOf(item.Name) == -1)
                     {
                       uniqueListId.push(item.Name);

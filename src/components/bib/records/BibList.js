@@ -26,7 +26,6 @@ class BibList extends Component {
   }
 
   componentWillMount() 
-  
   {
     console.log('userLogedIn', this.props.userid);
     this.props.getRecordsFromDB(this.props.userid, 0);

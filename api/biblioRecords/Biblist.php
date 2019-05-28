@@ -106,7 +106,7 @@
 		 $stmt->bindParam(2, $name);
 		 $stmt->execute();
 		 
-		 return getLists($db, $userID);
+		 return getListsNames($db, $userID);
     }
 
     function deleteRecordFromUser($db)
