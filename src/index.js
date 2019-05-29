@@ -34,8 +34,8 @@ ReactDOM.render(
         <BrowserRouter>
             <Switch>
                 <Route exact path="/" component={FrontPage} />
-                <Route path="/biblist" component={ShowUserBibList} />
                 <Route path="/biblist/:id" component={ShowUserBibList} />
+                <Route path="/biblist" component={ShowUserBibList} />
                 <Route path="/register" component={Register} />
                 <Route path="/mailconf/:mailVer" component={MailVerification} />
                 <Route path="/login" component={Login} />

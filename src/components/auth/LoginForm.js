@@ -31,7 +31,8 @@ class LoginForm extends Component {
             usernameError: '',
             passwordError: '',
             EmptyUsernameError: '',
-            EmptyPasswordError: ''
+            EmptyPasswordError: '',
+            userid: ''
         }
         this.onSubmitLogin = this.onSubmitLogin.bind(this);
         this.onChange = this.onChange.bind(this);
@@ -88,9 +89,10 @@ class LoginForm extends Component {
         .then(json => {
             if(json.count > 0)
             {
-                this.setState({auth: true});
+               
                 this.props.userLogedIn(json);
-                this.redirectUser(json);
+                this.setState({auth: true, userid: json.userid});
+              
             }else{
                 let isError = true;
                 this.validate();
@@ -106,17 +108,15 @@ class LoginForm extends Component {
 
     }
 
-    redirectUser = (json) => {
-        console.log('json', json);
+    redirectUser = () => {
+        // console.log('json', json);
         console.log('state', this.state);
-        if(this.state.auth == true){
-            localStorage.setItem('userid', json.userid);
+        if(this.state.auth === true){
+            localStorage.setItem('userid', this.props.userid);
             localStorage.setItem('auth', this.state.auth);
             console.log('xxx');
+            // debugger
             return <Redirect to='/biblist' />
-            console.log('yyy');
-            debugger;
-
         }
     }
 
@@ -157,7 +157,7 @@ class LoginForm extends Component {
                                 <Col  xs={12} sm={4} >
                                     
                                     <Button onClick={this.onSubmitLogin} type="submit" className="full-width-btn" id="loginSubmit">התחבר</Button>
-                                  
+                                    {this.redirectUser()}
                                     </Col>
 
                             </FormGroup>

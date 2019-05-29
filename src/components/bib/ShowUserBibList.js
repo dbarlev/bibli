@@ -24,10 +24,12 @@ class ShowUserBibList extends Component {
   }
 
   componentWillMount(){
-    const userid = this.state.userid;
-    const auth = this.state.auth;
+    let userid = this.state.userid;
+    let auth = this.state.auth;
 
-    if(auth == true){
+   
+    if(auth){
+      console.log('ssddss');
       const json = {
         userid,
         auth
@@ -35,7 +37,7 @@ class ShowUserBibList extends Component {
       this.props.userLogedIn(json); 
     }else{
       // debugger;
-      return <Redirect to='/' />
+      this.props.history.push('/');
     }
   }
 
