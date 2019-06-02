@@ -109,6 +109,23 @@
 		 return getListsNames($db, $userID);
     }
 	
+	function updateList($db)
+	{
+		$data = json_decode(file_get_contents('php://input'));	
+		if(isset($data->userID)) $userID = $data->userID; else  $userID = null;
+		if(isset($data->name)) $name = $data->name; else  $name = null;
+		if(isset($data->biblistID)) $biblistID = $data->biblistID; else  $biblistID = null;
+		
+		$query = 'UPDATE biblist SET Name = ? WHERE id = ?';
+							
+		$stmt = $db->prepare($query);
+		$stmt->bindParam(1, $name);
+		$stmt->bindParam(2, $biblistID);
+		$stmt->execute();
+		
+		return getListsNames($db, $userID);
+	}
+	
 	 function deleteList($db)
     {
 		$userid = ($_GET["userid"]);
