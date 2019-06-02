@@ -30,7 +30,7 @@
                                 'userid' => $userid,
                                 'usertype' => $usertype,
                                 'count' => $num,
-                                'name' => $name
+                                'username' => $username
                             );
                         };
 

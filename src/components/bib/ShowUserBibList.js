@@ -8,6 +8,21 @@ import Footer from '../footer/Footer.js';
 
 import '../App.css';
 
+function getCookie(cname) {
+  var name = cname + "=";
+  var decodedCookie = decodeURIComponent(document.cookie);
+  var ca = decodedCookie.split(';');
+  for(var i = 0; i < ca.length; i++) {
+    var c = ca[i];
+    while (c.charAt(0) == ' ') {
+      c = c.substring(1);
+    }
+    if (c.indexOf(name) == 0) {
+      return c.substring(name.length, c.length);
+    }
+  }
+  return "";
+}
 
 class ShowUserBibList extends Component {
 
@@ -16,8 +31,9 @@ class ShowUserBibList extends Component {
      super();
      this.state = {
        biblistID: -1,
-       userid: localStorage.getItem('userid'),
-       auth: localStorage.getItem('auth')
+       userid: getCookie("userid"),
+       auth: getCookie("auth"),
+       username: getCookie("username")
      } 
   }
 

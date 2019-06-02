@@ -10,7 +10,7 @@ class InfoIcons extends Component {
     return (
       <Grid id="infoicons">
         <Row className="m50bottom">
-        <h2 className="text-center big-title">למה להשתמש בביבלי?</h2>
+        <h2 className="text-center big-title bold blue">למה להשתמש בביבלי?</h2>
             <Col className="text-center" xs={12} sm={6}>
                   <Image src={hat} />
                  <h3 className="text-">ביבליו יוצרת עבורך ביבליוגרפיה</h3>
