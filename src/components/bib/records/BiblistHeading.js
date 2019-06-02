@@ -28,12 +28,12 @@ class BiblistHeading extends Component {
     if(activeBiblistData.Name){
         return (
             <ul className="list-no-style list-inline" id="biblist-heading-list">
-                <li className="pointer" onClick={this.onDeleteList.bind(this)} >
+                <li aria-label="העתקת רשימה" title="העתקת רשימה"><i className="fas fa-copy"></i></li>
+                <li aria-label="מחיקת רשימה" title="מחיקת רשימה" className="pointer" onClick={this.onDeleteList.bind(this)} >
                     <i className="fas fa-trash-alt"></i>
                 </li>
-                <li><i className="fas fa-plus"></i></li>
-                <li><i className="fas fa-plus"></i></li>
-                <li><i className="fas fa-plus"></i></li>
+                <li aria-label="עריכת הרשימה" title="עריכת הרשימה"><i className="fas fa-edit"></i></li>
+                <li aria-label="ייצוא הרשימה" title="ייצוא הרשימה"><i className="fas fa-file-export"></i></li>
             </ul>
         )
     }

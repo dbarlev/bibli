@@ -84,8 +84,6 @@ function getBiblistFromDB(state = [], action) {
             if(data2 == undefined)
                 data2 = [];   
             return data2;
-        case DELETE_BIBLIST:
-            return [];
         case INSERT_RECORD_TO_USER:
             let data3 = populateAPAData(action);
             if(data3 == undefined)
