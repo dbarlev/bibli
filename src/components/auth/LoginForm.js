@@ -89,9 +89,9 @@ class LoginForm extends Component {
         .then(json => {
             if(json.count > 0)
             {
-               
+               console.log('json', json);
                 this.props.userLogedIn(json);
-                this.setState({auth: true, userid: json.userid});
+                this.setState({auth: true, userid: json.userid, username: json.username});
               
             }else{
                 let isError = true;
@@ -112,8 +112,19 @@ class LoginForm extends Component {
         // console.log('json', json);
         console.log('state', this.state);
         if(this.state.auth === true){
-            localStorage.setItem('userid', this.props.userid);
-            localStorage.setItem('auth', this.state.auth);
+            // localStorage.setItem('userid', this.props.userid);
+            // localStorage.setItem('auth', this.state.auth);
+            // localStorage.setItem('username', this.props.username);
+
+            const timestamp = new Date().getTime(); // current time
+            const exp = timestamp + (60 * 60 * 24 * 1000 * 7)                // add one week
+
+            let auth = `auth=${this.state.auth};expires=${exp}`;
+            let userid = `userid=${this.props.userid};expires=${exp}`;
+            let username = `username=${this.props.username};expires=${exp}`;
+            document.cookie = auth;
+            document.cookie = userid;
+            document.cookie = username;
             console.log('xxx');
             // debugger
             return <Redirect to='/biblist' />
@@ -142,7 +153,12 @@ class LoginForm extends Component {
                
                 <Row className="show-grid">
                     <Col xsOffset={2} xs={8} mdOffset={3} md={6}>
-                        <h2 className="text-center">כבר רשומים? התחברו!</h2>
+                        <h2 className="text-center">
+                            <span style={bold}>
+                                כבר רשומים? 
+                            </span> 
+                            התחברו!
+                        </h2>
                         <Form horizontal>
                             <FormGroup  controlId="formHorizontalusername">
                                 <Col xs={12} sm={4}>
@@ -185,7 +201,9 @@ class LoginForm extends Component {
         );
     }
 }
-
+const bold={
+    fontWeight: 'bolder'
+}
 const mapDispatchToProps = dispatch => {
     return {
         userLogedIn: (params) => dispatch(userLogedIn(params))
@@ -196,7 +214,8 @@ const mapDispatchToProps = dispatch => {
 const mapStateToProps = state => {
     return {
         userid: state.authReducer.userid,
-        auth: state.authReducer.auth
+        auth: state.authReducer.auth,
+        username: state.authReducer.username
     }
 }
 

@@ -1,23 +1,39 @@
 import React, { Component } from 'react';
 import {Nav, Navbar, NavItem, MenuItem, NavDropdown, Button, FormGroup, FormControl } from 'react-bootstrap';
 import { LinkContainer, IndexLinkContainer  } from "react-router-bootstrap";
-import { Link  } from 'react-router-dom';
+// import { Redirect } from "react-route-dom";
+import { Redirect  } from 'react-router-dom';
+import { connect  } from 'react-redux';
 
+import { userLogedIn } from '../../actions';
 
 import logoSrc from '../img/logo1.png';
 
 const texts = {
-    1: "התחבר/י",
-    2: "התנתק/י"    
+    null: "התחבר/י",
+    true: "התנתק/י"    
 }
 
+function eraseCookie(name) {   
+    document.cookie = name+'=; Max-Age=-99999999;';  
+}
 
 class TopMenu extends Component {
 
-        
+    logOut = () => {
+        eraseCookie('auth')
+        eraseCookie('userid')
+        eraseCookie('username')
+
+        this.props.userLogedIn();
+        return <Redirect to='/' />
+    }
+
   render() {
+      
     return (
     <Navbar id="TopNav" className="nav-noStyle">
+    {console.log('aaaaaa',this.props)}
             <Navbar.Header>
                 <Navbar.Brand >
                 <LinkContainer to="/" >
@@ -48,8 +64,8 @@ class TopMenu extends Component {
                     <li>
                        <a href="#"><i className="fas fa-search"></i><span className="seperator">|</span></a>
                     </li > 
-                    <LinkContainer className="btn-warning black topnav-login-logout-btn" to="/register" >
-                            <MenuItem> {texts[this.props.loginState]} </MenuItem>
+                    <LinkContainer className="btn-warning black topnav-login-logout-btn" to="/" >
+                            <MenuItem onClick={this.logOut}> {texts[this.props.loginState]} </MenuItem>
                     </LinkContainer>
 
                 </Nav>
@@ -59,4 +75,11 @@ class TopMenu extends Component {
   }
 }
 
-export default TopMenu;
+const mapDispatchToProps = dispatch => {
+    return {
+        userLogedIn: (params) => dispatch(userLogedIn(params))
+    };
+};
+
+
+export default connect(null, mapDispatchToProps)(TopMenu);
