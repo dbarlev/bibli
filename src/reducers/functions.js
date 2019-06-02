@@ -113,3 +113,10 @@ export function addUserDataTOdb(action)
 {    
     console.log('addUserDataTOdb ', action);
 }
+
+
+export function editListName(newList, currentActive){
+    return newList.filter((item) => {
+        return item.id == currentActive.id;
+    })[0];
+}

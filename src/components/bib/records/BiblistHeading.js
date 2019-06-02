@@ -32,7 +32,11 @@ class BiblistHeading extends Component {
                 <li aria-label="מחיקת רשימה" title="מחיקת רשימה" className="pointer" onClick={this.onDeleteList.bind(this)} >
                     <i className="fas fa-trash-alt"></i>
                 </li>
-                <li aria-label="עריכת הרשימה" title="עריכת הרשימה"><i className="fas fa-edit"></i></li>
+                <li aria-label="עריכת הרשימה" title="עריכת הרשימה">
+                    <LinkContainer className="pointer"  to="/editlist" >
+                        <span><i className="fas fa-edit"></i></span>
+                    </LinkContainer>
+                </li>
                 <li aria-label="ייצוא הרשימה" title="ייצוא הרשימה"><i className="fas fa-file-export"></i></li>
             </ul>
         )

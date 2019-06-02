@@ -47,6 +47,35 @@ export const DeleteRecordFromUser = (userID, recordID, biblistID) => {
 
 };
 
+export const EditBiblistName = (userID, biblistID, name) => {
+
+    let data = {
+        userID,
+        biblistID,
+        name
+    }
+
+    return (dispatch) => { 
+        axios(
+        {
+            url: `${API_PATH}/biblioRecords/biblist.php`,
+            method: 'put',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            data: JSON.stringify(data)
+        })
+        .then(function (response) {
+            dispatch({ type: GET_BIBLIST_NAMES_FROM_DB, value: response.data, editName: true });
+        })
+        .catch(function (error) {
+            console.log(error);
+        });
+    }
+};
+
+
 export const DeleteBibList = (userID, biblistID) => {
     return (dispatch) => { axios.delete(`${API_PATH}/biblioRecords/Biblist.php/?userid=${userID}&biblistID=${biblistID}`)
        .then(function (response) {

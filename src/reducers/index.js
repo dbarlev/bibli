@@ -13,7 +13,7 @@ import {
     INSERT_RECORD_TO_USER
 } from '../actions/consts';
 
-import { populateAPAData } from './functions.js';
+import { populateAPAData, editListName } from './functions.js';
 import { combineReducers } from 'redux';
 
 
@@ -40,7 +40,9 @@ function activeBiblist(state = [], action){
             return action.value;
         case GET_BIBLIST_NAMES_FROM_DB:
             if(state.id && action.newName)
-                return action.value[action.value.length - 1]
+                return action.value[action.value.length - 1];
+            else if(action.editName)
+                return editListName(action.value, state);
             else
                 return state;
         default:

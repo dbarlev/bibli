@@ -5,8 +5,6 @@ import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import { createStore, applyMiddleware, compose } from 'redux'
 import { Provider } from 'react-redux';
 import thunk from 'redux-thunk';
-import App from './components/App';
-import AboutUs from './components/AboutUs';
 import Register from './components/auth/Register';
 import Login from './components/auth/Login';
 import AddRecord from './components/bib/records/AddRecord';
@@ -16,9 +14,11 @@ import rootReducer from './reducers'
 import registerServiceWorker from './registerServiceWorker';
 import ShowUserBibList from './components/bib/ShowUserBibList';
 import AddBibList from './components/bib/listOfRecords/AddBibList';
+import EditBiblist from './components/bib/listOfRecords/EditBiblist';
 import MailVerification from './components/auth/MailVerification';
 
 import './index.css';
+
 
 let store = createStore(
     rootReducer,
@@ -36,6 +36,7 @@ ReactDOM.render(
                 <Route exact path="/" component={FrontPage} />
                 <Route path="/biblist/:id" component={ShowUserBibList} />
                 <Route path="/biblist" component={ShowUserBibList} />
+                <Route path="/editlist" component={EditBiblist} />
                 <Route path="/register" component={Register} />
                 <Route path="/mailconf/:mailVer" component={MailVerification} />
                 <Route path="/login" component={Login} />
