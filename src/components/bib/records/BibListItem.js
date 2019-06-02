@@ -97,11 +97,6 @@ class BibListItem extends Component {
 
   populatePaper()
   {
-  
-        // if(lang == "en")
-        // {
-        //     fullAPA = {apa: writers + "(" + dateOfPublish + "). " + papertHeadline + ". " + paperName + ", " + pagesNumber + " " + date + " From " + paperLink + ".", recordID, type};
-        // }
 
      let data = this.props.record;  
      if(data.url != null && data.url.trim() != "") 
@@ -151,10 +146,14 @@ class BibListItem extends Component {
 
   deleteRecord(event) 
   {
-        var recordID = event.currentTarget.getAttribute("data-id");
-        var biblistID = this.props.activeBiblist.id;
-        var {userid} = this.state;
-        this.props.DeleteRecordFromUser(userid, recordID, biblistID);
+        let confirmation = window.confirm("אתה בטוח שאתה רוצה למחוק את הרשומה?");
+        if(confirmation){
+            var recordID = event.currentTarget.getAttribute("data-id");
+            var biblistID = this.props.activeBiblist.id;
+            var {userid} = this.state;
+            this.props.DeleteRecordFromUser(userid, recordID, biblistID);
+        }
+        
   }
 
 

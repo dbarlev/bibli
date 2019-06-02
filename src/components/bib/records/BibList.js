@@ -4,8 +4,6 @@ import {getRecordsFromDB} from '../../../actions/ajax';
 import {activeBiblist} from '../../../actions/index';
 import BibListItem from './BibListItem';
 import BiblistHeading from './BiblistHeading';
-import { LinkContainer } from "react-router-bootstrap";
-import listImg from '../../img/list.png';
 
 class BibList extends Component {
 

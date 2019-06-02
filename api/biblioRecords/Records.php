@@ -23,13 +23,12 @@
     
 	function verifyRequestMethod($db)
     {
-		$request_method = $_SERVER["REQUEST_METHOD"];
+ 		$request_method = $_SERVER["REQUEST_METHOD"];
         switch($request_method)
 		{
 			case 'GET':
 				$userID = ($_GET["userid"]);
-				$biblistID = ($_GET["biblistID"]);
-				getRecords($db, $userID, $biblistID);
+				getRecords($db, $userID);
 				break;
 			case 'POST':
 				setRecords($db);
@@ -49,41 +48,18 @@
 		}
     }
 	
-	function getRecords($db, $userID, $biblistID)
+	function getRecords($db, $userID)
     {
-		//   $query = 'SELECT * FROM biblist 
-		//  			where userid = ?';
 		
-		if(empty($biblistID)){
-			$query = 'SELECT * FROM biblist 
+		$query = 'SELECT * FROM biblist 
 						LEFT JOIN refactor_books_new 
 							ON biblist.id = refactor_books_new.BiblistID 
 								INNER JOIN recordtype
 									ON (refactor_books_new.RecordType = recordtype.RecordID)
 																	WHERE biblist.Userid = ?';
-			 $stmt = $db->prepare($query);
-			 $stmt->bindParam(1, $userID);
-			 
-		}
-		else{
-			
-			$query = 'SELECT * FROM biblist 
-						LEFT JOIN refactor_books_new 
-							ON biblist.id = refactor_books_new.BiblistID 
-								INNER JOIN recordtype
-									ON (refactor_books_new.RecordType = recordtype.RecordID)
-																	WHERE biblist.Userid = ?
-																	AND refactor_books_new.BiblistID = ?';
-			
-			$stmt = $db->prepare($query);
-			$stmt->bindParam(1, $userID);
-			$stmt->bindParam(2, $biblistID);
-		}
-			
+		$stmt = $db->prepare($query);
+		$stmt->bindParam(1, $userID);
 
-		
-							
-		
 		$stmt->execute();
 		$records_row = $stmt->fetchAll(PDO::FETCH_ASSOC);
 		foreach($records_row as $key => &$value )
@@ -139,7 +115,7 @@
 		 $stmt->bindParam(15, $year);
 		 $stmt->execute();
 		 
-		 getRecords($db, $userID, $BiblistID);
+		 getRecords($db, $userID);
     }
 
     function deleteRecordFromUser($db)

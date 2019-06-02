@@ -9,7 +9,8 @@ import {
     USER_MAIL_VERIFICATION,
     ACTIVE_BIBLIST, 
     LOGGED_IN,
-    DELETE_BIBLIST
+    DELETE_BIBLIST,
+    INSERT_RECORD_TO_USER
 } from '../actions/consts';
 
 import { populateAPAData } from './functions.js';
@@ -85,6 +86,11 @@ function getBiblistFromDB(state = [], action) {
             return data2;
         case DELETE_BIBLIST:
             return [];
+        case INSERT_RECORD_TO_USER:
+            let data3 = populateAPAData(action);
+            if(data3 == undefined)
+                data3 = [];   
+            return data3;
         default:
             return state;
     }

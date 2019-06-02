@@ -51,7 +51,7 @@ class ApaWebsite extends Component {
     let retrived = new GetFormatDate().populateText(lang);
     let year = this.getElement(this.refs.publishYear);
     let recordType = 4;
-    let userid = 19;
+    let userid = localStorage.userid;
     let writers = this.state.writersHandler.formatWriters(this.state.names);
 
     var details = {
