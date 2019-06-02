@@ -17,7 +17,7 @@ class AddRecord extends Component {
                   <ListOfBiblist />           
               </div>   
               <div className="col-md-7">  
-                  <BiblistHeading />       
+                  <BiblistHeading addRecordBtn="false"/>       
                   <ApaTabControl />
               </div>
           </div>

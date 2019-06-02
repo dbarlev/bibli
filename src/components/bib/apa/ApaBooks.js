@@ -7,8 +7,6 @@ import {
   FormGroup,
   FormControl,
   Col,
-  Checkbox,
-  ControlLabel,
   HelpBlock
 } from 'react-bootstrap';
 import {InsertRecordToDB} from '../../../actions/ajax';
@@ -114,7 +112,7 @@ class ApaBooks extends Component {
               }
 
               <Writers onWriterChange={this.getWritersNames.bind(this)} />
-               <RedirectTo url="/biblist" allowRedirect={this.state.formSubmited}/>
+               <RedirectTo to="/biblist" redirect={this.state.formSubmited}/>
               <FormGroup className="pull-right">
                 <Col >
                   <Button className="left-10" onClick={(event) => this.onSubmitApa(event, true)} type="submit">צור רשומה</Button>
@@ -131,7 +129,6 @@ class ApaBooks extends Component {
 }
 
 const mapStateToProps = (state) => {
-  console.log("state1", state)
   return {
       activeBiblist: state.activeBiblist
   }

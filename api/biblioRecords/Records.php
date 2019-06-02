@@ -53,20 +53,38 @@
     {
 		//   $query = 'SELECT * FROM biblist 
 		//  			where userid = ?';
-
-		$query = 'SELECT * FROM biblist 
+		
+		if(empty($biblistID)){
+			$query = 'SELECT * FROM biblist 
+						LEFT JOIN refactor_books_new 
+							ON biblist.id = refactor_books_new.BiblistID 
+								INNER JOIN recordtype
+									ON (refactor_books_new.RecordType = recordtype.RecordID)
+																	WHERE biblist.Userid = ?';
+			 $stmt = $db->prepare($query);
+			 $stmt->bindParam(1, $userID);
+			 
+		}
+		else{
+			
+			$query = 'SELECT * FROM biblist 
 						LEFT JOIN refactor_books_new 
 							ON biblist.id = refactor_books_new.BiblistID 
 								INNER JOIN recordtype
 									ON (refactor_books_new.RecordType = recordtype.RecordID)
 																	WHERE biblist.Userid = ?
 																	AND refactor_books_new.BiblistID = ?';
-							
-		 $stmt = $db->prepare($query);
-		 $stmt->bindParam(1, $userID);
-		 $stmt->bindParam(2, $biblistID);
-		 $stmt->execute();
+			
+			$stmt = $db->prepare($query);
+			$stmt->bindParam(1, $userID);
+			$stmt->bindParam(2, $biblistID);
+		}
+			
+
 		
+							
+		
+		$stmt->execute();
 		$records_row = $stmt->fetchAll(PDO::FETCH_ASSOC);
 		foreach($records_row as $key => &$value )
 		{

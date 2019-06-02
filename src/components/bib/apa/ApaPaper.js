@@ -58,6 +58,7 @@ class ApaPaper extends Component {
   onSubmitApa(event, redirectUserToList)
   {
     event.preventDefault();
+    let { activeBiblist } = this.props;
     let selectedSourceOption = this.state.selectedSourceOption;
     let name = this.getElement(this.refs.paperName);
     let lang = new VerifyLang(name).checkLanguage();
@@ -83,7 +84,15 @@ class ApaPaper extends Component {
         writers
     }
 
-    this.props.InsertRecordToDB(details); // call to redux action that created the apa query
+    if(activeBiblist && activeBiblist.length == 0)
+    {
+      alert("Please choose a list first")
+    }
+    else
+    {
+      details["activeBiblist"] = activeBiblist.id;
+      this.props.InsertRecordToDB(details); // call to redux action that created the apa query
+    }
 
     if(redirectUserToList)
     {
@@ -169,7 +178,7 @@ class ApaPaper extends Component {
               }
 
               <Writers onWriterChange={this.getWritersNames.bind(this)} />
-              <RedirectTo url="/records" allowRedirect={this.state.formSubmited}/>
+              <RedirectTo to="/biblist" redirect={this.state.formSubmited}/>
               <FormGroup className="pull-right">
                 <Col >
                   <Button className="left-10" onClick={(event) => this.onSubmitApa(event,true)} type="submit">צור רשומה</Button>
@@ -185,5 +194,11 @@ class ApaPaper extends Component {
   }
 }
 
-export default connect(null, {InsertRecordToDB})(ApaPaper);
+const mapStateToProps = (state) => {
+  return {
+      activeBiblist: state.activeBiblist
+  }
+}
+
+export default connect(mapStateToProps, {InsertRecordToDB})(ApaPaper);
 

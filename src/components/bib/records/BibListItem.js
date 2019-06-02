@@ -1,10 +1,6 @@
 import React, {Component} from 'react';
-import ReactDOM from 'react-dom';
 import {connect} from 'react-redux';
-import { Card, CardImg, CardText, CardBody,
-  CardTitle, CardSubtitle, Button } from 'reactstrap';
 import {DeleteRecordFromUser} from '../../../actions/ajax';
-import Writers from '../writers/Writers';
 
 class BibListItem extends Component {
 
@@ -12,6 +8,7 @@ class BibListItem extends Component {
   {
     super();
     this.state = {
+        userid: localStorage.userid,
         record: "",
         allRecords: [],
         permission: false
@@ -156,7 +153,7 @@ class BibListItem extends Component {
   {
         var recordID = event.currentTarget.getAttribute("data-id");
         var biblistID = this.props.activeBiblist.id;
-        var userid = 19;
+        var {userid} = this.state;
         this.props.DeleteRecordFromUser(userid, recordID, biblistID);
   }
 
