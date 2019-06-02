@@ -1,5 +1,4 @@
 import React, {Component} from 'react';
-import ReactDOM from 'react-dom';
 import ApaBooks from './apa/ApaBooks';
 import ApaPaper from './apa/ApaPaper';
 import ApaArticle from './apa/ApaArticle';

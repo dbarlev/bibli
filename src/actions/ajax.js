@@ -4,7 +4,8 @@ import {
     INSERT_RECORD_TO_USER,
     INSERT_USER_TO_DB,
     GET_BIBLIST_FROM_DB, 
-    USER_MAIL_VERIFICATION
+    USER_MAIL_VERIFICATION,
+    DELETE_BIBLIST
 } from './consts';
 import axios from 'axios';
 
@@ -46,6 +47,17 @@ export const DeleteRecordFromUser = (userID, recordID, biblistID) => {
 
 };
 
+export const DeleteBibList = (userID, biblistID) => {
+    return (dispatch) => { axios.delete(`${API_PATH}/biblioRecords/Biblist.php/?userid=${userID}&biblistID=${biblistID}`)
+       .then(function (response) {
+           dispatch({ type: DELETE_BIBLIST, value: response.data });
+       })
+       .catch(function (error) {
+           console.log(error);
+       });
+   }
+};
+
 export const InsertRecordToDB = (data, listID) => {
 
         return (dispatch) => { axios({
@@ -78,7 +90,7 @@ export const InsertBibListToDB = (data) => {
                 data: JSON.stringify(data)
         })
         .then(function (response) {
-            dispatch({ type: GET_BIBLIST_NAMES_FROM_DB, value: response.data });
+            dispatch({ type: GET_BIBLIST_NAMES_FROM_DB, value: response.data, newName: true });
         })
         .catch(function (error) {
             console.log(error);

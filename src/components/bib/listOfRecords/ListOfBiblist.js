@@ -1,49 +1,43 @@
 import React, {Component} from 'react';
-import ReactDOM from 'react-dom';
 import {connect} from 'react-redux';
 import {getBibListNamesFromDB, getRecordsFromDB} from '../../../actions/ajax';
 import {activeBiblist} from '../../../actions';
-import { LinkContainer, IndexLinkContainer  } from "react-router-bootstrap";
-import {Nav, Navbar, NavItem, MenuItem, NavDropdown, Button, FormGroup, FormControl } from 'react-bootstrap';
+import { LinkContainer} from "react-router-bootstrap";
+import { Redirect } from 'react-router-dom'
 
 
 class ListOfBiblist extends Component {
 
- constructor()
- {
+
+  constructor(){
     super();
     this.state = {
-      allBiblist: []
+      userid: localStorage.userid,
+      redirect: false,
+      redirectTo: "/"
     }
-    
- }
-  
-  componentDidMount() 
-  {
-      this.props.getBibListNamesFromDB(19);
   }
 
-
-  componentWillReceiveProps(nextProps) 
+  componentDidMount() 
   {
-    let allBiblist = this.state.allBiblist;
-    allBiblist = nextProps.allBiblist;
-
-    this.setState({
-      allBiblist: allBiblist
-    })
+      console.log("listOfBiblist component is called!")
+      this.props.getBibListNamesFromDB(this.state.userid);
   }
 
   onListClicked(item){
-    let userid = 19;
     this.props.activeBiblist(item);
-    this.props.getRecordsFromDB(userid, item.id, item.Name);
+    //this.props.getRecordsFromDB(this.state.userid, item.id, item.Name);
+    this.setState({
+      ...this.state,
+      redirect: true,
+      redirectTo: "/biblist"
+    })
   }
 
  showList()
  {
 
-     let {allBiblist} = this.state;
+     let {allBiblist} = this.props;
      let uniqueListId = [];
 
      if(allBiblist && allBiblist.length > 0)
@@ -74,7 +68,6 @@ class ListOfBiblist extends Component {
                       return(
                         <li key={index}>
                           <div className="pointer sideMenuLinks" onClick={this.onListClicked.bind(this,item)}>
-                            <span aria-label="edit" className="edit-icon"><i className="fas fa-pen"></i></span>
                             <span className="black">{item.Name}</span>
                           </div>
                         </li>
@@ -112,13 +105,20 @@ class ListOfBiblist extends Component {
 
  }
 
-  render() {
-    
+  redirectTo(){
+      let {redirect, redirectTo} = this.state;
+      if(redirect)
+        return <Redirect to={redirectTo} />
+  }
 
+  render() {
     return (
         <div id="recordsListContainer">
           {
             this.showList()
+          }
+          {
+            this.redirectTo()
           }
        </div>
     );

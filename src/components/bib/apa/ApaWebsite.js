@@ -44,6 +44,7 @@ class ApaWebsite extends Component {
   onSubmitApa(event, redirectUserToList)
   {
     event.preventDefault();
+    let { activeBiblist } = this.props;
     let url = this.getElement(this.refs.linkToPage);
     let title = this.getElement(this.refs.articleHeadline);
     let lang = new VerifyLang(title).checkLanguage();
@@ -63,7 +64,17 @@ class ApaWebsite extends Component {
         writers
     }
 
-    this.props.InsertRecordToDB(details); // call to redux action that created the apa query
+   
+    if(activeBiblist && activeBiblist.length == 0)
+    {
+      alert("Please choose a list first")
+    }
+    else
+    {
+      details["activeBiblist"] = activeBiblist.id;
+      this.props.InsertRecordToDB(details); // call to redux action that created the apa query
+    }
+
 
     if(redirectUserToList)
     {
@@ -100,7 +111,7 @@ class ApaWebsite extends Component {
               }
 
               <Writers onWriterChange={this.getWritersNames.bind(this)} />
-               <RedirectTo url="/records" allowRedirect={this.state.formSubmited}/>
+               <RedirectTo to="/biblist" redirect={this.state.formSubmited}/>
               <FormGroup className="pull-right">
                 <Col >
                   <Button className="left-10" onClick={(event) => this.onSubmitApa(event,true)} type="submit">צור רשומה</Button>
@@ -116,6 +127,11 @@ class ApaWebsite extends Component {
   }
 }
 
+const mapStateToProps = (state) => {
+  return {
+      activeBiblist: state.activeBiblist
+  }
+}
 
-export default connect(null, {InsertRecordToDB})(ApaWebsite);
+export default connect(mapStateToProps, {InsertRecordToDB})(ApaWebsite);
 

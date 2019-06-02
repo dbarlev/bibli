@@ -67,11 +67,11 @@ class ShowUserBibList extends Component {
           <div className="mainArea userBiblist">
             <div className="row">
               <div className="col-md-2 col-md-offset-2">    
-                    <ListOfBiblist />  
+                    <ListOfBiblist userid={Number(this.state.userid)}/>  
                           
                 </div>
-                <div className="col-md-6">               
-                    <BibList />
+                <div className="col-md-7">               
+                    <BibList userid={Number(this.state.userid)}/>
                 </div>   
             </div>
           </div>

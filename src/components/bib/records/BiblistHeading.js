@@ -1,25 +1,74 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-
+import { LinkContainer } from "react-router-bootstrap";
+import { DeleteBibList } from '../../../actions/ajax';
+import { activeBiblist } from '../../../actions';
 
 class BiblistHeading extends Component {
+
+
+  onDeleteList(){
+    const {activeBiblistData} = this.props;
+    let confirmation = window.confirm("Are you sure you want to delete the whole list?")
+    if(confirmation)
+    {
+        this.props.DeleteBibList(activeBiblistData.Userid, activeBiblistData.id);
+    }
+  }
+
+  renderBibListTitle(){
+    const {activeBiblistData} = this.props;
+    if(activeBiblistData.Name){
+        return <h2>ביבליוגרפיה של <strong>{activeBiblistData.Name}</strong></h2>    
+    }
+  } 
+
+  renderConfigBtns(){
+    const {activeBiblistData} = this.props;
+    if(activeBiblistData.Name){
+        return (
+            <ul className="list-no-style list-inline" id="biblist-heading-list">
+                <li className="pointer" onClick={this.onDeleteList.bind(this)} >
+                    <i className="fas fa-trash-alt"></i>
+                </li>
+                <li><i className="fas fa-plus"></i></li>
+                <li><i className="fas fa-plus"></i></li>
+                <li><i className="fas fa-plus"></i></li>
+            </ul>
+        )
+    }
+  }
+
+  renderAddItemBtn(){
+    const {activeBiblistData, addRecordBtn} = this.props;
+    if(activeBiblistData.Name && addRecordBtn != "false"){
+        return (
+            <LinkContainer to="/addRecord" >
+                <button className="btn pull-right" id="addRecordBtn"><i className="fas fa-plus"></i> הוספת פריט </button>
+            </LinkContainer>
+        )    
+    }
+  }
 
   render() {
     return (
        <div className="biblistHeading align-right">
+           
             <div className="row">
                 <div className="col-sm-5">
-                    <h2>ביבליוגרפיה של <strong>{this.props.activeBiblist.Name}</strong></h2>
+                    {
+                        this.renderBibListTitle()
+                    }
                 </div>
                 <div className="col-sm-5">
-                    <ul className="list-no-style list-inline" id="biblist-heading-list">
-                        <li><i className="fas fa-plus"></i></li>
-                        <li><i className="fas fa-plus"></i></li>
-                        <li><i className="fas fa-plus"></i></li>
-                        <li><i className="fas fa-plus"></i></li>
-                    </ul>
+                    {
+                        this.renderConfigBtns()
+                    }
                 </div>
             </div>  
+            {
+                this.renderAddItemBtn()
+            }
       </div>
     );
   }
@@ -27,9 +76,10 @@ class BiblistHeading extends Component {
 
 const mapStateToProps = (state) => {
     return {
-        activeBiblist: state.activeBiblist
+        activeBiblistData: state.activeBiblist,
+        getBiblistNamesFromDB: state.getBiblistNamesFromDB
     }
 }
 
-export default connect(mapStateToProps, {})(BiblistHeading);
+export default connect(mapStateToProps, {DeleteBibList, activeBiblist})(BiblistHeading);
 

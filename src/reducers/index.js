@@ -8,10 +8,11 @@ import {
     GET_BIBLIST_FROM_DB,
     USER_MAIL_VERIFICATION,
     ACTIVE_BIBLIST, 
-    LOGGED_IN
+    LOGGED_IN,
+    DELETE_BIBLIST
 } from '../actions/consts';
 
-import { populateBookApa, populatePaperApa, populateArticleApa, populateWebisteApa, formatRecordsToApa, populateAPAData } from './functions.js';
+import { populateAPAData } from './functions.js';
 import { combineReducers } from 'redux';
 
 
@@ -34,6 +35,13 @@ function activeBiblist(state = [], action){
     switch (action.type) {
         case ACTIVE_BIBLIST:
             return action.value;
+        case DELETE_BIBLIST:
+            return action.value;
+        case GET_BIBLIST_NAMES_FROM_DB:
+            if(state.id && action.newName)
+                return action.value[action.value.length - 1]
+            else
+                return state;
         default:
             return state;
     }
@@ -51,9 +59,12 @@ function deleteRecordFromUser(state = [], action) {
     }
 }
 
+
 function getBiblistNamesFromDB(state = [], action) {
     switch (action.type) {
         case GET_BIBLIST_NAMES_FROM_DB:
+            return action.value;
+        case DELETE_BIBLIST:
             return action.value;
         default:
             return state;
@@ -67,6 +78,13 @@ function getBiblistFromDB(state = [], action) {
             if(data == undefined)
                 data = [];   
             return data;
+        case DELETE_RECORD_FROM_USER:
+            let data2 = populateAPAData(action);
+            if(data2 == undefined)
+                data2 = [];   
+            return data2;
+        case DELETE_BIBLIST:
+            return [];
         default:
             return state;
     }
@@ -123,8 +141,6 @@ function authReducer(state = [], action){
             userid: action.userid,
             username: action.username
         }
-      
-
         default:
             return state;
 

@@ -38,7 +38,7 @@
 				updateList($db);
 				break;
 			case 'DELETE':
-				removeList($db);
+				deleteList($db);
 				break;
 			case 'OPTIONS':
 				break;
@@ -108,19 +108,24 @@
 		 
 		 return getListsNames($db, $userID);
     }
-
-    function deleteRecordFromUser($db)
+	
+	 function deleteList($db)
     {
 		$userid = ($_GET["userid"]);
-		$recordID = ($_GET["recordID"]);
+		$listID = ($_GET["biblistID"]);
 		
-		$query = 'UPDATE refactor_books_new SET userid = 9000 WHERE bookid = ?';
-							
-		$stmt = $db->prepare($query);
-		$stmt->bindParam(1, $recordID);
-		$stmt->execute();
+		$queryUpdate = 'UPDATE refactor_books_new set userid = 9000 where BiblistID = ?';
+		$queryDelete = 'DELETE from biblist where id = ?';
+		
+		$stmt0 = $db->prepare($queryUpdate);
+		$stmt0->bindParam(1, $listID);
+		$stmt0->execute();
 
-		getRecords($db, $userid);
+		$stmt1 = $db->prepare($queryDelete);
+		$stmt1->bindParam(1, $listID);
+		$stmt1->execute();
+
+		getListsNames($db, $userid);
     }
 
 ?>

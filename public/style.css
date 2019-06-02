@@ -1704,10 +1704,10 @@ i.fa,
 i.fas {
   color: #204260; }
 
-.sideMenuLinks i.fas {
-  font-size: 18px;
-  margin-top: 4px;
-  color: #204260; }
+.sideMenuLinks span {
+  font-size: 18px !important;
+  font-weight: bold;
+  margin-right: 15px; }
 
 button,
 .btn {

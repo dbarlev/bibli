@@ -10,34 +10,32 @@ class RedirectTo extends Component {
   {
       super(props);
       this.state = {
-          allowRedirect: this.props.allowRedirect
+          redirect: this.props.redirect
       }
   }
 
   componentWillReceiveProps(nextProps){
       this.setState({
-          redirectTo: nextProps.url,
-          allowRedirect: nextProps.allowRedirect
+          redirect: nextProps.redirect,
+          to: nextProps.to
       })
   }
 
   redirect() {
-      let {allowRedirect, redirectTo} = this.state;
+      let {redirect, to} = this.state;
 
-      if(allowRedirect && redirectTo != null)
-      {
-            return <Redirect to={redirectTo} /> 
-      }
+      if(redirect)
+        return <Redirect to={to} />   
   }
 
   render() {
     return (
-      <div className="RedirectTo">
+        <div>
             {
                 this.redirect()
-            }     
-      </div>
-    );
+            }
+        </div>
+    )
   }
 }
 
