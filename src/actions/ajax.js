@@ -5,7 +5,8 @@ import {
     INSERT_USER_TO_DB,
     GET_BIBLIST_FROM_DB, 
     USER_MAIL_VERIFICATION,
-    DELETE_BIBLIST
+    DELETE_BIBLIST,
+    BIB_SEARCH
 } from './consts';
 import axios from 'axios';
 
@@ -167,3 +168,25 @@ export const MailVerAction = (data) => {
         });
     }
 };
+
+export const BibSearchAction = (q) => {
+    console.log('q ajax', q);
+    return(dispatch) => { axios({
+            url: `${API_PATH}/biblioRecords/Bibsearch.php`,
+            method: 'GET',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            q: JSON.stringify(q)
+        })
+        .then(function (response) {
+            console.log('aaa', response.q);
+            dispatch({ type: BIB_SEARCH, value: response.q });
+        })
+        .catch(function (error) {
+            console.log(error);
+        });
+    }
+}
+

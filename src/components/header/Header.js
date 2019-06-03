@@ -42,6 +42,7 @@ class Header extends Component {
         <Grid className="show-grid">
         <div id="App-header">
             <TopMenu loginState={this.state.auth}  />
+            {console.log('this.state.auth', this.state.auth )}
             <div>
                 <h1 className="App-title">{this.props.headline}</h1>
             </div>

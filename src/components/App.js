@@ -11,8 +11,8 @@ import './App.css';
 class App extends Component {
   state = {
        biblistID: -1,
-       userid: localStorage.getItem('userid'),
-       auth: localStorage.getItem('auth')
+       userid: '',
+       auth: ''
      } 
   
 
