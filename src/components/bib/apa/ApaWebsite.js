@@ -7,8 +7,6 @@ import {
   FormGroup,
   FormControl,
   Col,
-  Checkbox,
-  ControlLabel,
   HelpBlock
 } from 'react-bootstrap';
 import {InsertRecordToDB} from '../../../actions/ajax';
@@ -51,7 +49,7 @@ class ApaWebsite extends Component {
     let retrived = new GetFormatDate().populateText(lang);
     let year = this.getElement(this.refs.publishYear);
     let recordType = 4;
-    let userid = localStorage.userid;
+    let userid = this.props.userid;
     let writers = this.state.writersHandler.formatWriters(this.state.names);
 
     var details = {
@@ -129,7 +127,8 @@ class ApaWebsite extends Component {
 
 const mapStateToProps = (state) => {
   return {
-      activeBiblist: state.activeBiblist
+      activeBiblist: state.activeBiblist,
+      userid: state.authReducer.userid
   }
 }
 

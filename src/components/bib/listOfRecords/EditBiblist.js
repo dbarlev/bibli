@@ -17,7 +17,6 @@ class EditBiblist extends Component {
   constructor(){
     super();
     this.state = {
-      userid: localStorage.userid,
       redirect: false,
       redirectTo: "/biblist",
       inputValue: ""
@@ -28,7 +27,7 @@ class EditBiblist extends Component {
     event.preventDefault();
 
     let name = event.target.form.elements.editListName.value;
-    let userID = this.state.userid;
+    let userID = this.props.userid;
     let biblistID = this.props.activeBiblistData.id;
     if(name.trim() == "")
     {
@@ -74,7 +73,8 @@ class EditBiblist extends Component {
 
 const mapStateToProps = (state) => {
   return {
-      activeBiblistData: state.activeBiblist
+      activeBiblistData: state.activeBiblist,
+      userid: state.authReducer.userid
   }
 }
 

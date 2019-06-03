@@ -8,7 +8,6 @@ class BibListItem extends Component {
   {
     super();
     this.state = {
-        userid: localStorage.userid,
         record: "",
         allRecords: [],
         permission: false
@@ -150,7 +149,7 @@ class BibListItem extends Component {
         if(confirmation){
             var recordID = event.currentTarget.getAttribute("data-id");
             var biblistID = this.props.activeBiblist.id;
-            var {userid} = this.state;
+            var {userid} = this.props;
             this.props.DeleteRecordFromUser(userid, recordID, biblistID);
         }
         
@@ -178,7 +177,8 @@ class BibListItem extends Component {
 
 const mapStateToProps = (state) => {
     return {
-        activeBiblist: state.activeBiblist
+        activeBiblist: state.activeBiblist,
+        userid: state.authReducer.userid
     }
 }
 

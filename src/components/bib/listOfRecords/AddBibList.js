@@ -18,7 +18,6 @@ class AddBibList extends Component {
   constructor(){
     super();
     this.state = {
-      userid: localStorage.userid,
       redirect: false,
       redirectTo: "/biblist"
     }
@@ -28,7 +27,7 @@ class AddBibList extends Component {
   {
     event.preventDefault();
     let name = event.target.form.elements.newListFeild.value;
-    let userid = this.state.userid;
+    let userid = this.props.userid;
     if(name.trim() == "")
     {
       alert("הכנס שם לרשימה")
@@ -74,7 +73,8 @@ class AddBibList extends Component {
 
 const mapStateToProps = (state) => {
   return {
-      activeBiblistData: state.activeBiblist
+      activeBiblistData: state.activeBiblist,
+      userid: state.authReducer.userid
   }
 }
 

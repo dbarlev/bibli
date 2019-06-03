@@ -12,7 +12,6 @@ class ListOfBiblist extends Component {
   constructor(){
     super();
     this.state = {
-      userid: localStorage.userid,
       redirect: false,
       redirectTo: "/"
     }
@@ -21,7 +20,7 @@ class ListOfBiblist extends Component {
   componentDidMount() 
   {
       console.log("listOfBiblist component is called!")
-      this.props.getBibListNamesFromDB(this.state.userid);
+      this.props.getBibListNamesFromDB(this.props.userid);
   }
 
   onListClicked(item){
@@ -129,6 +128,7 @@ class ListOfBiblist extends Component {
 const mapStateToProps = (state) => {
     return {
         allBiblist: state.getBiblistNamesFromDB,
+        userid: state.authReducer.userid
     }
 }
 

@@ -67,7 +67,7 @@ class ApaPaper extends Component {
     let pages = this.getElement(this.refs.pagesNumber);
     let year = this.getElement(this.refs.dateOfPublish);
     let recordType = 3;
-    let userid = localStorage.userid;
+    let userid = this.props.userid;
     let url = this.refs.paperLink != null ? this.getElement(this.refs.paperLink) : null;
     let writers = this.state.writersHandler.formatWriters(this.state.names);
 
@@ -196,7 +196,8 @@ class ApaPaper extends Component {
 
 const mapStateToProps = (state) => {
   return {
-      activeBiblist: state.activeBiblist
+      activeBiblist: state.activeBiblist,
+      userid: state.authReducer.userid
   }
 }
 

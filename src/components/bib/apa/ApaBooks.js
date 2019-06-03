@@ -54,7 +54,7 @@ class ApaBooks extends Component {
     let publishcity = this.getElement(this.refs.publisherLocation);
     let year = this.getElement(this.refs.publishyear);
     let recordType = 1;
-    let userid = localStorage.userid;
+    let userid = this.props.userid;
     let writers = this.state.writersHandler.formatWriters(this.state.names);
 
     var details = {
@@ -130,7 +130,8 @@ class ApaBooks extends Component {
 
 const mapStateToProps = (state) => {
   return {
-      activeBiblist: state.activeBiblist
+      activeBiblist: state.activeBiblist,
+      userid: state.authReducer.userid
   }
 }
 

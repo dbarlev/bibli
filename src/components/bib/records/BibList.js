@@ -6,13 +6,15 @@ import BibListItem from './BibListItem';
 import BiblistHeading from './BiblistHeading';
 import { LinkContainer } from "react-router-bootstrap";
 import listImg from '../../img/list.png';
+import { getCookie } from '../../Services/GetCookies';
 
 class BibList extends Component {
 
 
   componentDidMount() 
   {
-      this.props.getRecordsFromDB(localStorage.userid, 0);
+      let userid = getCookie("userid");
+      this.props.getRecordsFromDB(userid, 0);
   }
 
   renderRecords()

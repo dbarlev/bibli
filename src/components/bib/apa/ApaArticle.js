@@ -70,7 +70,7 @@ class ApaArticle extends Component {
     let year = this.getElement(this.refs.publishYear);
     let url = this.refs.paperLink != null ? this.getElement(this.refs.paperLink) : null;
     let recordType = 2;
-    let userid = localStorage.userid;
+    let userid = this.props.userid;
     let writers = this.state.writersHandler.formatWriters(this.state.names);
     
     var details = {
@@ -199,7 +199,8 @@ class ApaArticle extends Component {
 
 const mapStateToProps = (state) => {
   return {
-      activeBiblist: state.activeBiblist
+      activeBiblist: state.activeBiblist,
+      userid: state.authReducer.userid
   }
 }
 
