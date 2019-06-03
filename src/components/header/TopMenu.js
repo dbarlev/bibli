@@ -10,7 +10,7 @@ import { userLogedIn } from '../../actions';
 import logoSrc from '../img/logo1.png';
 
 const texts = {
-    null: "התחבר/י",
+    '': "התחבר/י",
     true: "התנתק/י"    
 }
 

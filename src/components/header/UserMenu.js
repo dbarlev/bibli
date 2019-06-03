@@ -1,13 +1,8 @@
 import React, { Component } from 'react';
 import {Nav, Navbar,Badge, NavItem,InputGroup, MenuItem, Button, FormGroup, FormControl } from 'react-bootstrap';
 import { LinkContainer, IndexLinkContainer  } from "react-router-bootstrap";
+import BibSearch from './BibSearch';
 import { Link  } from 'react-router-dom';
-
-
-const texts = {
-    1: "התחבר/י",
-    2: "התנתק/י"    
-}
 
 
 class UserMenu extends Component {
@@ -34,14 +29,9 @@ class UserMenu extends Component {
                     
                 </Nav>
                  <Navbar.Form>
-                    <FormGroup className="searchArea">
-                        <InputGroup>
-                            <FormControl className="searchRecord" placeholder="חיפוש מאמר" type="text" />
-                            <InputGroup.Button>
-                                <Button className="searchRecordBtn"><i className="fas fa-search"></i></Button>
-                            </InputGroup.Button>
-                        </InputGroup>
-                    </FormGroup>            
+                   
+                            <BibSearch />
+                           
                 </Navbar.Form>
             </Navbar.Collapse>
       </Navbar>
