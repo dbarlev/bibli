@@ -2106,3 +2106,12 @@ h5 {
     border: none; }
     #App-header #userNav .searchArea {
       border: 1px solid white; }
+
+ul#searchresults {
+  background-color: #fff;
+  max-width: 343px;
+  position: absolute;
+  overflow-x: hidden;
+  max-height: 500px;
+  z-index: 999;
+  border: 1px solid goldenrod; }

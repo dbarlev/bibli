@@ -169,24 +169,16 @@ export const MailVerAction = (data) => {
     }
 };
 
+
 export const BibSearchAction = (q) => {
     console.log('q ajax', q);
-    return(dispatch) => { axios({
-            url: `${API_PATH}/biblioRecords/Bibsearch.php`,
-            method: 'GET',
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json'
-            },
-            q: JSON.stringify(q)
-        })
+    return (dispatch) => { axios.get(`${API_PATH}/biblioRecords/Bibsearch.php?q=${q}`)
         .then(function (response) {
-            console.log('aaa', response.q);
-            dispatch({ type: BIB_SEARCH, value: response.q });
+            dispatch({ type: BIB_SEARCH, value: response.data});
+            console.log('response.q', response.data);
         })
         .catch(function (error) {
             console.log(error);
         });
     }
-}
-
+};

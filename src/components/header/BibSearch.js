@@ -1,41 +1,63 @@
 import React, { Component } from 'react'
 import {Nav, Navbar,Badge, NavItem,InputGroup, MenuItem, Button, FormGroup, FormControl } from 'react-bootstrap';
 import { BibSearchAction } from '../../actions/ajax';
+
 import { connect } from 'react-redux';
 
 class BibSearch extends Component {
 
     state = {
-        q: ''
+        q: '',
+        r: ''
     }
 
+    //shows search results after response comes back from the api
+    handleFetchResults = async results => {
+        await this.props.BibSearchAction(results);  
+        this.setState({r: this.props.searcResults})
+    }
 
     onChange = (e) =>{
         e.preventDefault();
         this.setState({q: e.target.value})
         console.log('q', this.state)
+
+        // this.viewResults(this.props.searcResults);
+        this.handleFetchResults(this.state.q)
+
     }
     render() {
+        const sr = this.props.searcResults.map(res => {
+                return(
+                    <li key={res && res.bookid}>{res.title}</li>
+                );
+        });
 
         return (
-         
+         <div>
             <FormGroup className="searchArea">
-            {console.log('pr ',this.props)}
+            {console.log('this.state.r ',this.state.r)}
+            
+                
                 <InputGroup>
                     <FormControl className="searchRecord" name="bibsearch" onChange={this.onChange} placeholder="חיפוש מאמר" type="text" />
                     <InputGroup.Button>
                         <Button className="searchRecordBtn"><i className="fas fa-search"></i></Button>
                     </InputGroup.Button>
                 </InputGroup>
+                <ul id="searchresults">
+                {sr}
+            </ul>
             </FormGroup>            
+           
+        </div>
         )
     }
 }
 
-const mapDispatchToProps = dispatch => {
+const MapStateToProps = state => {
     return {
-        BibSearchAction: (params) => dispatch(BibSearchAction(params))
-    };
-};
-
-export default connect(null, mapDispatchToProps)(BibSearch);
+        searcResults: state.searcResultsReducer
+    }
+}
+export default connect(MapStateToProps, {BibSearchAction})(BibSearch);

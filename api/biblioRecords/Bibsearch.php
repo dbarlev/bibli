@@ -27,8 +27,9 @@
         switch($request_method)
 		{
 			case 'GET':
-				$q = ($_GET["q"]);
-				getSearchResults($db, $q );
+			$q = $_GET['q'];
+			$ql = "%{".$q."}%";
+				getSearchResults($db, $q);
 				break;
 			case 'POST':
 				break;
@@ -46,21 +47,22 @@
 		}
     }
 	
-	function getSearchResults($db, $q)
+	function getSearchResults($db, $ql)
     {
-		
-		$query = 'SELECT * FROM refactor_books_new WHERE title = ?';
+    
+		$query = "SELECT * FROM refactor_books_new WHERE title LIKE ? LIMIT 15";
+		$ql = array("%$ql%");
 		$stmt = $db->prepare($query);
-		$stmt->bindParam(1, $q);
+		// $stmt->bindParam(1, $ql);
 
-		$stmt->execute();
-		$records_row = $stmt->fetchAll(PDO::FETCH_ASSOC);
-		foreach($records_row as $key => &$value )
-		{
-			$records_row[$key]["wFname"] = unserialize($value["wFname"]);
-			$records_row[$key]["wLname"] = unserialize($value["wLname"]);
-		}
-		unset($value);
+		$stmt->execute($ql);
+		$records_row = $stmt->fetchAll();
+		// foreach($records_row as $key => &$value )
+		// {
+		// 	$records_row[$key]["wFname"] = unserialize($value["wFname"]);
+		// 	$records_row[$key]["wLname"] = unserialize($value["wLname"]);
+		// }
+		// unset($value);
 
 		echo json_encode($records_row);
     }

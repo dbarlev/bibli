@@ -10,7 +10,8 @@ import {
     ACTIVE_BIBLIST, 
     LOGGED_IN,
     DELETE_BIBLIST,
-    INSERT_RECORD_TO_USER
+    INSERT_RECORD_TO_USER,
+    BIB_SEARCH
 } from '../actions/consts';
 
 import { populateAPAData, editListName } from './functions.js';
@@ -153,6 +154,16 @@ function authReducer(state = [], action){
     }
 }
 
+function searcResultsReducer(state = [{searchRes: []}], action){
+    console.log('action.value', action.value);
+    switch(action.type){
+        case BIB_SEARCH:
+            return action.value
+        default:
+            return state;
+    }
+}
+
 const rootReducer = combineReducers({
     chooseSubscription,
     deleteRecordFromUser,
@@ -161,7 +172,8 @@ const rootReducer = combineReducers({
     authReducer,
     activeBiblist,
     getBiblistFromDB,
-    getBiblistNamesFromDB
+    getBiblistNamesFromDB,
+    searcResultsReducer
 });
 
 export default rootReducer;
