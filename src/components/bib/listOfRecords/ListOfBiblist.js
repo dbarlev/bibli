@@ -112,7 +112,7 @@ class ListOfBiblist extends Component {
 
   render() {
     return (
-        <div id="recordsListContainer">
+        <div class="well" id="recordsListContainer">
           {
             this.showList()
           }

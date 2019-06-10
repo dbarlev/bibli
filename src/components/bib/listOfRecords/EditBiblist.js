@@ -4,6 +4,7 @@ import RedirectTo from '../../RedirectTo';
 import {EditBiblistName} from '../../../actions/ajax';
 import ListOfBiblist from './ListOfBiblist';
 import HeaderLogin from '../../header/HeaderLogin';
+import Alert from '../../Modal/Alert';
 import {
   Form,
   FormGroup,
@@ -19,7 +20,8 @@ class EditBiblist extends Component {
     this.state = {
       redirect: false,
       redirectTo: "/biblist",
-      inputValue: ""
+      inputValue: "",
+      show: false
     }
   }
 
@@ -31,7 +33,11 @@ class EditBiblist extends Component {
     let biblistID = this.props.activeBiblistData.id;
     if(name.trim() == "")
     {
-      alert("שם של רשימה לא יכול להיות ריק");
+      //alert("שם של רשימה לא יכול להיות ריק");
+      this.setState({
+        ...this.state,
+        show: true
+      });
     }
     else
     {
@@ -44,6 +50,8 @@ class EditBiblist extends Component {
   }
 
   render() {
+    let modalClose = () => this.setState({ ...this.state, show: false });
+
     return (
        <div className="App">
             <HeaderLogin />
@@ -66,6 +74,7 @@ class EditBiblist extends Component {
                 <RedirectTo redirect={this.state.redirect} to={this.state.redirectTo} />
               </div>   
           </div>
+          <Alert onHide={modalClose} msg="השדה הוא שדה חובה!" title="שגיאה במילוי הטופס" show={this.state.show}/>
       </div>
     );
   }

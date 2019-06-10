@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {DeleteRecordFromUser} from '../../../actions/ajax';
+import Confirm from '../../Modal/Confirm';
 
 class BibListItem extends Component {
 
@@ -10,7 +11,8 @@ class BibListItem extends Component {
     this.state = {
         record: "",
         allRecords: [],
-        permission: false
+        permission: false,
+        show: false
     }
   }
 
@@ -145,14 +147,11 @@ class BibListItem extends Component {
 
   deleteRecord(event) 
   {
-        let confirmation = window.confirm("אתה בטוח שאתה רוצה למחוק את הרשומה?");
-        if(confirmation){
-            var recordID = event.currentTarget.getAttribute("data-id");
+            var recordID = this.props.recordID;
             var biblistID = this.props.activeBiblist.id;
             var {userid} = this.props;
-            this.props.DeleteRecordFromUser(userid, recordID, biblistID);
-        }
-        
+            this.setState({...this.state, show: false})  
+            this.props.DeleteRecordFromUser(userid, recordID, biblistID);           
   }
 
 
@@ -162,12 +161,13 @@ class BibListItem extends Component {
       <div className="bib_card"> 
           <div className="row">
               <div className="col-md-2" id="record-config-buttons">
-                  <span onClick={this.deleteRecord.bind(this)} data-id={this.props.recordID} role="button" aria-label="מחק"><i className="fas fa-trash-alt"></i></span>
+                  <span onClick={() => this.setState({...this.state, show: true})} data-id={this.props.recordID} role="button" aria-label="מחק"><i className="fas fa-trash-alt"></i></span>
                   <span data-id={this.props.recordID} role="button" aria-label="העתק"><i className="fas fa-paste"></i></span>
               </div>
               <div className="col-md-7">
                   <div className="recordQuery">{this.getRecord()}</div>
-              </div>             
+              </div>  
+              <Confirm onHide={() => this.setState({...this.state, show: false})} msg="האם ברצונך למחוק את הרשומה?" show={this.state.show} onConfirm={this.deleteRecord.bind(this)} />        
           </div>
       </div>
     

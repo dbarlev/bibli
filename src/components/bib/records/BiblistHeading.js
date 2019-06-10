@@ -3,17 +3,21 @@ import {connect} from 'react-redux';
 import { LinkContainer } from "react-router-bootstrap";
 import { DeleteBibList } from '../../../actions/ajax';
 import { activeBiblist } from '../../../actions';
+import Confirm from '../../Modal/Confirm';
 
 class BiblistHeading extends Component {
 
+  constructor(){
+    super();
+    this.state = {
+        show: false
+    }
+  }   
 
   onDeleteList(){
     const {activeBiblistData} = this.props;
-    let confirmation = window.confirm("Are you sure you want to delete the whole list?")
-    if(confirmation)
-    {
-        this.props.DeleteBibList(activeBiblistData.Userid, activeBiblistData.id);
-    }
+    this.props.DeleteBibList(activeBiblistData.Userid, activeBiblistData.id);
+    this.setState({...this.state, show: false});
   }
 
   renderBibListTitle(){
@@ -29,7 +33,7 @@ class BiblistHeading extends Component {
         return (
             <ul className="list-no-style list-inline" id="biblist-heading-list">
                 <li aria-label="העתקת רשימה" title="העתקת רשימה"><i className="fas fa-copy"></i></li>
-                <li aria-label="מחיקת רשימה" title="מחיקת רשימה" className="pointer" onClick={this.onDeleteList.bind(this)} >
+                <li aria-label="מחיקת רשימה" title="מחיקת רשימה" className="pointer" onClick={() => this.setState({...this.state, show: true})} >
                     <i className="fas fa-trash-alt"></i>
                 </li>
                 <li aria-label="עריכת הרשימה" title="עריכת הרשימה">
@@ -73,7 +77,8 @@ class BiblistHeading extends Component {
             {
                 this.renderAddItemBtn()
             }
-      </div>
+            <Confirm onHide={() => this.setState({...this.state, show: false})} msg="האם ברצונך למחוק את כל הרשימה?" show={this.state.show} onConfirm={this.onDeleteList.bind(this)} /> 
+      </div> 
     );
   }
 }

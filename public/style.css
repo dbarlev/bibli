@@ -2018,6 +2018,14 @@ h5 {
     -moz-filter: grayscale(20%);
     filter: opacity(20%); } }
 
+.confirmModal .btn {
+  min-width: 60px;
+  border-radius: 5px; }
+
+.alertModal .btn {
+  min-width: 60px;
+  border-radius: 5px; }
+
 /*
  * Components
  */
