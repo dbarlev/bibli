@@ -1,9 +1,46 @@
 ul#searchresults {
-    background-color: #fff;
-    max-width: 343px;
+    /* background-color: #fff; */
+    width: 500px;
     position: absolute;
     overflow-x: hidden;
     max-height: 500px;
     z-index: 999;
-    border: 1px solid goldenrod;
+    /* border: 1px solid goldenrod; */
+    margin-top: 35px;
+    background-color: #F5F5F5;
+    list-style: none;
+    padding: 15px;
+    li{ 
+        border-bottom: 1px solid darkgrey;
+        .col-xs-3,.col-xs-9{
+            padding: 0;
+        }
+        .addToList{
+            display: flex;
+            height: 100px;
+            flex-direction: row-reverse;
+        }
+        button.addToListBtn {
+            background-color: $mainYellow;
+            border: 0;
+            color: #000;
+            align-self: center;
+            padding: 10px 8px;
+            i{
+                position: relative;
+                right: 7px;
+
+            }
+            &:hover{
+                
+                background-color: $mainBlueColor;
+               
+                color: $mainYellow;
+            }
+        }
+        .resultBookTitle{
+            font-weight: bold;
+        }
+       
+    }
 }

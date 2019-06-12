@@ -7,6 +7,9 @@
 .blue {
   color: #204260; }
 
+.black {
+  color: #000 !important; }
+
 * {
   direction: rtl; }
 
@@ -2116,10 +2119,36 @@ h5 {
       border: 1px solid white; }
 
 ul#searchresults {
-  background-color: #fff;
-  max-width: 343px;
+  /* background-color: #fff; */
+  width: 500px;
   position: absolute;
   overflow-x: hidden;
   max-height: 500px;
   z-index: 999;
-  border: 1px solid goldenrod; }
+  /* border: 1px solid goldenrod; */
+  margin-top: 35px;
+  background-color: #F5F5F5;
+  list-style: none;
+  padding: 15px; }
+  ul#searchresults li {
+    border-bottom: 1px solid darkgrey; }
+    ul#searchresults li .col-xs-3, ul#searchresults li .col-xs-9 {
+      padding: 0; }
+    ul#searchresults li .addToList {
+      display: flex;
+      height: 100px;
+      flex-direction: row-reverse; }
+    ul#searchresults li button.addToListBtn {
+      background-color: #f2b500;
+      border: 0;
+      color: #000;
+      align-self: center;
+      padding: 10px 8px; }
+      ul#searchresults li button.addToListBtn i {
+        position: relative;
+        right: 7px; }
+      ul#searchresults li button.addToListBtn:hover {
+        background-color: #204260;
+        color: #f2b500; }
+    ul#searchresults li .resultBookTitle {
+      font-weight: bold; }
