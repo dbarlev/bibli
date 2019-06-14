@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {Nav, Navbar, NavItem, MenuItem, NavDropdown, Button, FormGroup, FormControl } from 'react-bootstrap';
+import {Nav, Navbar, NavItem, MenuItem} from 'react-bootstrap';
 import { LinkContainer, IndexLinkContainer  } from "react-router-bootstrap";
 // import { Redirect } from "react-route-dom";
 import { Redirect  } from 'react-router-dom';
@@ -32,8 +32,7 @@ class TopMenu extends Component {
   render() {
       
     return (
-    <Navbar id="TopNav" className="nav-noStyle">
-    {console.log('aaaaaa',this.props)}
+    <Navbar id="TopNav" className="nav-noStyle" >
             <Navbar.Header>
                 <Navbar.Brand >
                 <LinkContainer to="/" >

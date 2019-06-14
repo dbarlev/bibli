@@ -9,6 +9,12 @@
         height: 100%;
     }
 
+    #infoicons{
+        padding-top: 2%;
+        padding-bottom: 2%;
+    }   
+    
+
     #pricing-table{
         ul{
             display: flex;
@@ -47,6 +53,10 @@
 
                 }
             }
+        }
+
+        .large{
+            font-size: 18px;
         }
     }
 }

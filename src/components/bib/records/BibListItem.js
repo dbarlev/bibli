@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {DeleteRecordFromUser} from '../../../actions/ajax';
 import Confirm from '../../Modal/Confirm';
+import { LinkContainer } from "react-router-bootstrap";
 
 class BibListItem extends Component {
 
@@ -162,7 +163,10 @@ class BibListItem extends Component {
           <div className="row">
               <div className="col-md-2" id="record-config-buttons">
                   <span onClick={() => this.setState({...this.state, show: true})} data-id={this.props.recordID} role="button" aria-label="מחק"><i className="fas fa-trash-alt"></i></span>
-                  <span data-id={this.props.recordID} role="button" aria-label="העתק"><i className="fas fa-paste"></i></span>
+                  <LinkContainer className="pointer" to="/editlist" >
+                        <span data-id={this.props.recordID} role="button" aria-label="עריכה"><i className="fas fa-edit"></i></span>
+                  </LinkContainer>
+                  <span data-id={this.props.recordID} role="button" title="העתק" aria-label="העתק"><i className="fas fa-paste"></i></span>
               </div>
               <div className="col-md-7">
                   <div className="recordQuery">{this.getRecord()}</div>

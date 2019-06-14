@@ -194,7 +194,6 @@ class LoginForm extends Component {
                                 <Alert variant="danger"> {this.state.usernameError} </Alert> :
                                 ''
                             }
-                            <small><Link to="/register">אינך רשום? הרשם!</Link></small>
                         </Form>
                     </Col>
                 </Row>

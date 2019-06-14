@@ -12,56 +12,55 @@ export class PricingTable extends Component {
 
         <ul>
             <li className="text-center">
-                <Image src={researcher} />
+                <Image src={researcher} alt="משתמש מסוג אורח"/>
                 <Row>
-                    <span className="big-text">45</span>
-                    <span className="smallNum">ש"ח</span>
+                    <span className="big-text large">ללא</span>
                     <br />
-                    <span className="bigNum">לחודש</span>
+                    <span className="big-text large">עלות</span>
                 </Row>
 
                 <Row>
-                    <p className="">רשומות ביבליוגרפיות</p>
-                    <p className="bold">ללא הגבלה</p>
+                    <p className="large">רשומות ביבליוגרפיות:</p>
+                    <p>1</p>
                 </Row>
                 <Row>
-                    <p className="">פריטים ביבליוגרפיים</p>
-                    <p className="bold">ללא הגבלה</p>
+                    <p className="large">פריטים ביבליוגרפיים:</p>
+                    <p>7</p>
                 </Row>
             </li>
             <li className="text-center">
-                <Image src={researcher} />
+                <Image src={researcher} alt="משתמש מסוג סטודנט"/>
                 <Row>
-                    <span className="big-text">45</span>
-                    <span className="smallNum">ש"ח</span>
+                    <span className="big-text large">8</span>
+                    <span className="smallNum large">ש"ח</span>
                     <br />
                     <span className="bigNum">לחודש</span>
                 </Row>
 
                 <Row>
-                    <p className="">רשומות ביבליוגרפיות</p>
-                    <p className="bold">ללא הגבלה</p>
+                    <p className="large bold">רשומות ביבליוגרפיות:</p>
+                    <p className="bold">200</p>
                 </Row>
                 <Row>
-                    <p className="">פריטים ביבליוגרפיים</p>
+                    <p className="large bold">פריטים ביבליוגרפיים:</p>
                     <p className="bold">ללא הגבלה</p>
                 </Row>
             </li>    
             <li className="text-center">
-                <Image src={researcher} />
+                <Image src={researcher} alt="משתמש מסוג חוקר"/>
                 <Row>
-                    <span className="big-text">45</span>
+                    <span className="big-text large">45</span>
                     <span className="smallNum">ש"ח</span>
                     <br />
                     <span className="bigNum">לחודש</span>
                 </Row>
 
                 <Row>
-                    <p className="">רשומות ביבליוגרפיות</p>
+                    <p className="large bold">רשומות ביבליוגרפיות:</p>
                     <p className="bold">ללא הגבלה</p>
                 </Row>
                 <Row>
-                    <p className="">פריטים ביבליוגרפיים</p>
+                    <p className="large bold">פריטים ביבליוגרפיים:</p>
                     <p className="bold">ללא הגבלה</p>
                 </Row>
             </li>
