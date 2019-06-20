@@ -27,11 +27,28 @@ class BibSearch extends Component {
 
     }
     render() {
+    
         const sr = this.props.searcResults.map(res => {
-                return(
-                    <li key={res && res.bookid}>{res.title}</li>
-                );
-        });
+            return(
+                
+                <li key={res && res.bookid}>
+               
+                    <div className="row">
+
+                        <div className="col-xs-9 text-right">
+                            <h5 className="resultBookTitle">{res.articleHeadline}</h5>
+                      
+                            <div>מחבר:  <span>{res.writers}</span></div>
+                            <div>שנת פרסום: {res.year}</div>
+                        </div>
+                        <div className="col-xs-3 addToList">
+                        <button className="addToListBtn">הוסף לרשימה<i class="fa fa-chevron-left black" aria-hidden="true"></i></button>
+                    </div>
+                    </div>
+
+                </li>
+            );
+    });
 
         return (
          <div>
@@ -46,7 +63,7 @@ class BibSearch extends Component {
                     </InputGroup.Button>
                 </InputGroup>
                 <ul id="searchresults">
-                {sr}
+                {this.state.q ? sr : ''}
             </ul>
             </FormGroup>            
            

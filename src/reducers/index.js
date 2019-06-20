@@ -158,7 +158,11 @@ function searcResultsReducer(state = [{searchRes: []}], action){
     console.log('action.value', action.value);
     switch(action.type){
         case BIB_SEARCH:
-            return action.value
+            //return action.value
+            let data = populateAPAData(action);
+            if(data == undefined)
+                data = [];   
+            return data;
         default:
             return state;
     }

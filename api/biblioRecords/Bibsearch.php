@@ -28,7 +28,6 @@
 		{
 			case 'GET':
 			$q = $_GET['q'];
-			$ql = "%{".$q."}%";
 				getSearchResults($db, $q);
 				break;
 			case 'POST':
@@ -47,22 +46,22 @@
 		}
     }
 	
-	function getSearchResults($db, $ql)
+	function getSearchResults($db, $q)
     {
     
 		$query = "SELECT * FROM refactor_books_new WHERE title LIKE ? LIMIT 15";
-		$ql = array("%$ql%");
+		$q = array("%$q%");
 		$stmt = $db->prepare($query);
 		// $stmt->bindParam(1, $ql);
 
-		$stmt->execute($ql);
+		$stmt->execute($q);
 		$records_row = $stmt->fetchAll();
-		// foreach($records_row as $key => &$value )
-		// {
-		// 	$records_row[$key]["wFname"] = unserialize($value["wFname"]);
-		// 	$records_row[$key]["wLname"] = unserialize($value["wLname"]);
-		// }
-		// unset($value);
+		foreach($records_row as $key => &$value )
+		{	
+			$records_row[$key]["wFname"] = unserialize($value["wFname"]);
+			$records_row[$key]["wLname"] = unserialize($value["wLname"]);
+		}
+		unset($value);
 
 		echo json_encode($records_row);
     }

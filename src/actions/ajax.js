@@ -171,14 +171,13 @@ export const MailVerAction = (data) => {
 
 
 export const BibSearchAction = (q) => {
-    console.log('q ajax', q);
     return (dispatch) => { axios.get(`${API_PATH}/biblioRecords/Bibsearch.php?q=${q}`)
         .then(function (response) {
             dispatch({ type: BIB_SEARCH, value: response.data});
-            console.log('response.q', response.data);
         })
         .catch(function (error) {
             console.log(error);
         });
     }
 };
+
