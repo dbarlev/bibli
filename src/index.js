@@ -16,6 +16,7 @@ import ShowUserBibList from './components/bib/ShowUserBibList';
 import AddBibList from './components/bib/listOfRecords/AddBibList';
 import EditBiblist from './components/bib/listOfRecords/EditBiblist';
 import MailVerification from './components/auth/MailVerification';
+import Contact from './components/contact/contact';
 
 import './index.css';
 
@@ -44,6 +45,7 @@ ReactDOM.render(
                 <Route path="/front" component={FrontPage} />
                 <Route path="/addNewList" component={AddBibList} />
                 <Route path="/faq" component={Faq} />
+                <Route path="/contact" component={Contact} />
             </Switch>
         </BrowserRouter>
     </Provider>

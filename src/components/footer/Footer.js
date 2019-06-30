@@ -5,9 +5,14 @@ import { LinkContainer } from "react-router-bootstrap";
 import logoSrc from '../img/logo.jpg';
 
 class Footer extends Component {
+
+
     render() {
+
+        let pos = this.props.className;
+
         return (
-            <Grid fluid className="footer">
+            <Grid fluid className={"footer" + " " + pos}>
                 <Grid className="show-grid">
                     <Row>
                         <Col className="col-xs-offset-2" xs={6}>

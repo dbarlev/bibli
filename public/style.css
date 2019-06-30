@@ -10,6 +10,10 @@
 .black {
   color: #000 !important; }
 
+.pull-bottom {
+  position: absolute !important;
+  bottom: 0 !important; }
+
 * {
   direction: rtl; }
 
@@ -1913,11 +1917,15 @@ form select {
 
 form .form-control {
   border-radius: 0;
-  border: 1px solid #204260; }
+  border: 1px solid #204260;
+  margin-bottom: 7px !important; }
 
 form .form-control:focus {
   border-color: #204260;
   box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px #204260; }
+
+form #contactBtn {
+  padding: 10px 60px; }
 
 form .btn-default {
   border: 1px solid #000; }
@@ -2182,3 +2190,42 @@ ul#searchresults {
     border: none; }
     #App-header #userNav .searchArea {
       border: 1px solid white; }
+
+#contact input {
+  border: 1px solid black;
+  border-radius: 0;
+  height: 40px; }
+
+#contact textarea {
+  border: 1px solid black;
+  border-radius: 0; }
+
+#contact .center-footer {
+  right: 22%; }
+
+#contact .row {
+  margin-bottom: 0; }
+
+#contact .contact-form {
+  margin-top: 20px;
+  margin-left: 60px; }
+
+#contact button.send {
+  font-size: 20px;
+  width: 60%; }
+
+#contact ::-webkit-input-placeholder {
+  /* Chrome/Opera/Safari */
+  color: black; }
+
+#contact ::-moz-placeholder {
+  /* Firefox 19+ */
+  color: black; }
+
+#contact :-ms-input-placeholder {
+  /* IE 10+ */
+  color: black; }
+
+#contact :-moz-placeholder {
+  /* Firefox 18- */
+  color: black; }

@@ -1,0 +1,45 @@
+#contact{
+
+    input{
+        border: 1px solid black;
+        border-radius: 0;
+        height:40px;
+    }
+
+    textarea{
+        border: 1px solid black;
+        border-radius: 0;
+    }
+
+    .center-footer{
+        right: 22%;
+    }
+
+    .row{
+        margin-bottom: 0;
+    }
+
+    .contact-form{
+        margin-top: 20px;
+        margin-left: 60px;
+    }
+
+    button.send{
+        font-size: 20px;
+        width: 60%;
+    }
+
+    ::-webkit-input-placeholder { /* Chrome/Opera/Safari */
+        color: black;  
+      }
+      ::-moz-placeholder { /* Firefox 19+ */
+        color: black;
+      }
+      :-ms-input-placeholder { /* IE 10+ */
+        color: black;
+      }
+      :-moz-placeholder { /* Firefox 18- */
+        color: black;
+      }
+}
+

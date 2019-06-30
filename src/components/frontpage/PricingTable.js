@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Image, Row, Button } from 'react-bootstrap';
+import { Image, Row, Button, FormGroup, Col, ButtonToolbar, ToggleButtonGroup, ToggleButton } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import researcher from '../img/researcher.png';
 import student from '../img/student.png';
@@ -44,9 +44,9 @@ export class PricingTable extends Component {
             <li className="text-center price-regular">
                 <Image src={guest} alt="משתמש מסוג אורח"/>
                 <Row>
-                    <span className="large">ללא</span>
+                    <span className="">ללא</span>
                     <br />
-                    <span className="large">עלות</span>
+                    <span className="">עלות</span>
                 </Row>
 
                 <Row>
