@@ -7,8 +7,6 @@ import {
   FormGroup,
   FormControl,
   Col,
-  Checkbox,
-  ControlLabel,
   HelpBlock
 } from 'react-bootstrap';
 import Select from 'react-select';
@@ -36,7 +34,7 @@ class ApaArticle extends Component {
             ],
             label: "סוג מקור"
         },
-        {id: "noteName", label: "שם כתב העת"},
+        {id: "name", label: "שם כתב העת"},
         {id: "articleName", label: "שם המאמר"},
         {id: "episode", label: "כרך"},
         {id: "pages", label: "עמודים"},
@@ -46,7 +44,8 @@ class ApaArticle extends Component {
       hiddenFeilds: ["paperLink"],
       selectedSourceOption: { value: 1, label: 'בדפוס' },
       writersHandler: new FormatWriters(),
-      formSubmited: false
+      formSubmited: false,
+      inputValue: ""
     }
   }
 
@@ -152,10 +151,17 @@ class ApaArticle extends Component {
       }
       else
       {
+          let value = "";
+          let placeholder = feild.label;
+          if(this.props.editRecord){
+            value = this.props.getEditRecord[0][feild.id];
+            //document.getElementByID("apa-" + feild.id).value = value;
+            placeholder = "";
+          }
           return (
                 <div>
                     <Col>
-                      <FormControl className="apa" placeholder={feild.label} ref={feild.id} type="text" />
+                      <FormControl className="apa" aria-label="feild.label" id={'apa-' + feild.id} placeholder={feild.label} ref={feild.id} type="text" />
                       <HelpBlock role="status" aria-live="polite"></HelpBlock>
                     </Col>
                 </div>
@@ -200,7 +206,8 @@ class ApaArticle extends Component {
 const mapStateToProps = (state) => {
   return {
       activeBiblist: state.activeBiblist,
-      userid: state.authReducer.userid
+      userid: state.authReducer.userid,
+      getEditRecord: state.getEditRecord
   }
 }
 

@@ -8,6 +8,7 @@ import thunk from 'redux-thunk';
 import Register from './components/auth/Register';
 import Login from './components/auth/Login';
 import AddRecord from './components/bib/records/AddRecord';
+import EditRecord from './components/bib/records/EditRecord';
 import FrontPage from './components/frontpage/FrontPage';
 import Faq from './components/frontpage/Faq';
 import rootReducer from './reducers'
@@ -42,6 +43,7 @@ ReactDOM.render(
                 <Route path="/mailconf/:mailVer" component={MailVerification} />
                 <Route path="/login" component={Login} />
                 <Route path="/addRecord" component={AddRecord} />
+                <Route path="/editRecord/:id" component={EditRecord} />
                 <Route path="/front" component={FrontPage} />
                 <Route path="/addNewList" component={AddBibList} />
                 <Route path="/faq" component={Faq} />

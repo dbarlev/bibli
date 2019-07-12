@@ -45,7 +45,6 @@ class ShowUserBibList extends Component {
 
         <HeaderLogin />
         <br />
-       
           <div className="mainArea userBiblist">
             <div className="row">
               <div className="col-md-2 col-md-offset-2">    

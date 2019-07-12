@@ -6,7 +6,8 @@ import {
     GET_BIBLIST_FROM_DB, 
     USER_MAIL_VERIFICATION,
     DELETE_BIBLIST,
-    BIB_SEARCH
+    BIB_SEARCH,
+    GET_RECORD
 } from './consts';
 import axios from 'axios';
 
@@ -33,6 +34,17 @@ export const getRecordsFromDB = (userID, biblistID, listName) => {
             console.log(error);
         });
     }
+};
+
+export const getSingleRecord = (recordID) => {
+    return (dispatch) => { axios.get(`${API_PATH}/biblioRecords/Records.php?recordID=${recordID}`)
+        .then(function (response) {
+            dispatch({ type: GET_RECORD, value: response.data});
+        })
+        .catch(function (error) {
+            console.log(error);
+        });
+    } 
 };
 
 export const DeleteRecordFromUser = (userID, recordID, biblistID) => {

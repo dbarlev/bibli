@@ -27,8 +27,15 @@
         switch($request_method)
 		{
 			case 'GET':
-				$userID = ($_GET["userid"]);
-				getRecords($db, $userID);
+				
+				if(isset($_GET["recordID"])){
+					getSingleRecord($db, $_GET["recordID"]);
+				}
+				else if(isset($_GET["userid"])){
+					$userID = ($_GET["userid"]);
+					getRecords($db, $userID);
+				}
+				
 				break;
 			case 'POST':
 				setRecords($db);
@@ -50,7 +57,7 @@
 	
 	function getRecords($db, $userID)
     {
-		
+					
 		$query = 'SELECT * FROM biblist 
 						LEFT JOIN refactor_books_new 
 							ON biblist.id = refactor_books_new.BiblistID 
@@ -59,6 +66,29 @@
 																	WHERE biblist.Userid = ?';
 		$stmt = $db->prepare($query);
 		$stmt->bindParam(1, $userID);
+
+		$stmt->execute();
+		$records_row = $stmt->fetchAll(PDO::FETCH_ASSOC);
+		foreach($records_row as $key => &$value )
+		{
+			$records_row[$key]["wFname"] = unserialize($value["wFname"]);
+			$records_row[$key]["wLname"] = unserialize($value["wLname"]);
+		}
+		unset($value);
+
+		echo json_encode($records_row);
+	}
+	
+	function getSingleRecord($db, $recordID)
+    {
+		
+		$query = 'SELECT * FROM recordtype 
+						LEFT JOIN refactor_books_new 
+							ON refactor_books_new.RecordType = recordtype.RecordID
+								WHERE refactor_books_new.bookid = ?';
+
+		$stmt = $db->prepare($query);
+		$stmt->bindParam(1, $recordID);
 
 		$stmt->execute();
 		$records_row = $stmt->fetchAll(PDO::FETCH_ASSOC);

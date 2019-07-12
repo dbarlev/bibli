@@ -11,7 +11,8 @@ import {
     LOGGED_IN,
     DELETE_BIBLIST,
     INSERT_RECORD_TO_USER,
-    BIB_SEARCH
+    BIB_SEARCH,
+    GET_RECORD
 } from '../actions/consts';
 
 import { populateAPAData, editListName } from './functions.js';
@@ -69,6 +70,15 @@ function getBiblistNamesFromDB(state = [], action) {
         case GET_BIBLIST_NAMES_FROM_DB:
             return action.value;
         case DELETE_BIBLIST:
+            return action.value;
+        default:
+            return state;
+    }
+}
+
+function getEditRecord(state = [], action){
+    switch (action.type) {
+        case GET_RECORD:
             return action.value;
         default:
             return state;
@@ -177,7 +187,8 @@ const rootReducer = combineReducers({
     activeBiblist,
     getBiblistFromDB,
     getBiblistNamesFromDB,
-    searcResultsReducer
+    searcResultsReducer,
+    getEditRecord
 });
 
 export default rootReducer;

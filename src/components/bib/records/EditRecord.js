@@ -4,8 +4,18 @@ import HeaderLogin from '../../header/HeaderLogin.js';
 import ListOfBiblist from '../listOfRecords/ListOfBiblist';
 import BiblistHeading from './BiblistHeading';
 import Footer from '../../footer/Footer.js';
+import {connect} from 'react-redux';
+import {getSingleRecord} from '../../../actions/ajax';
 
 class EditRecord extends Component {
+
+  componentWillMount(){
+    this.props.getSingleRecord(this.props.match.params.id); 
+  }  
+
+  showLoading(){
+    
+  }
 
   render() {
     return (
@@ -18,7 +28,7 @@ class EditRecord extends Component {
               </div>   
               <div className="col-md-7">  
                   <BiblistHeading addRecordBtn="false"/>       
-                  <ApaTabControl />
+                  <ApaTabControl editRecord="true"/>
               </div>
           </div>
           <Footer />
@@ -27,5 +37,5 @@ class EditRecord extends Component {
   }
 }
 
-export default EditRecord;
+export default connect(null, {getSingleRecord})(EditRecord);
 

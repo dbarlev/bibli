@@ -14,7 +14,6 @@ class ApaTabControl extends Component {
     this.state = {
       activePanel: "book"
     }
-
   }
 
   changeTab(event)
@@ -27,20 +26,24 @@ class ApaTabControl extends Component {
 
   showTabPanel()
   {
-      switch(this.state.activePanel)
+      let {editRecord, activePanel} = this.props;
+      activePanel = editRecord && editRecord.type ? editRecord.type : this.state.activePanel;
+      switch(activePanel)
       {
           case "book":
-            return <ApaBooks />
+            return <ApaBooks editRecord={editRecord} />
           case "paper":
-            return <ApaPaper />
+            return <ApaPaper editRecord={editRecord} />
           case "article":
-            return <ApaArticle />
+            return <ApaArticle editRecord={editRecord} />
           case "website":
-            return <ApaWebsite />
+            return <ApaWebsite editRecord={editRecord} />
           default:
-            return <ApaBooks />
+            return <ApaBooks editRecord={editRecord} />
       }
   }
+
+
 
   render() {
     return (            

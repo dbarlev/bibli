@@ -77,7 +77,8 @@ const mapStateToProps = (state) => {
         getBiblistFromDB: state.getBiblistFromDB,
         activeBiblistData: state.activeBiblist,
         userid: state.authReducer.userid,
-        getBiblistNamesFromDB: state.getBiblistNamesFromDB
+        getBiblistNamesFromDB: state.getBiblistNamesFromDB,
+        getEditRecord: state.getEditRecord,
     }
 }
 
