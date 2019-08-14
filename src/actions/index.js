@@ -4,7 +4,8 @@ import {
     ADD_USER,
     USER_MAIL_VERIFICATION,
     ACTIVE_BIBLIST,
-    LOGGED_IN
+    LOGGED_IN, 
+    PASS_RECOVERY
 } from './consts';
 
 export function chooseSubscription(value, name) {
@@ -58,3 +59,11 @@ export function userLogedIn(user){
     
 }
 
+
+export function PassRecovery(data) {
+    console.log('PassRecovery', data);
+    return{
+        type: PASS_RECOVERY,
+        email: data
+    }
+}

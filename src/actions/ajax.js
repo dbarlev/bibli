@@ -6,11 +6,12 @@ import {
     GET_BIBLIST_FROM_DB, 
     USER_MAIL_VERIFICATION,
     DELETE_BIBLIST,
-    BIB_SEARCH
+    BIB_SEARCH,
+    PASS_RECOVERY
 } from './consts';
 import axios from 'axios';
 
-const API_PATH = "http://127.0.0.1/bibli/api";
+const API_PATH = "http://localhost/bibli/api";
 
 export const getBibListNamesFromDB = (userID) => {
     return (dispatch) => { axios.get(`${API_PATH}/Biblist/${userID}`)
@@ -167,7 +168,8 @@ export const MailVerAction = (data) => {
             console.log(error);
         });
     }
-};
+}
+
 
 
 export const BibSearchAction = (q) => {
@@ -181,3 +183,15 @@ export const BibSearchAction = (q) => {
     }
 };
 
+export const PassRecoveryAction = (email) => {
+  
+    console.log('PassRecoveryAction  email ajax', email);
+        return (dispatch) => { axios.post(`${API_PATH}/users/mailconf.php?email=${email}`)
+        .then(function (response) {
+            dispatch({ type: PASS_RECOVERY, value: response.data});
+        })
+        .catch(function (error) {
+            console.log(error);
+        });
+    }
+};
