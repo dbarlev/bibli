@@ -18,6 +18,7 @@ import AddBibList from './components/bib/listOfRecords/AddBibList';
 import EditBiblist from './components/bib/listOfRecords/EditBiblist';
 import MailVerification from './components/auth/MailVerification';
 import Contact from './components/contact/contact';
+import PasswordRecovery from './components/auth/PasswordRecovery';
 
 import './index.css';
 
@@ -48,6 +49,7 @@ ReactDOM.render(
                 <Route path="/addNewList" component={AddBibList} />
                 <Route path="/faq" component={Faq} />
                 <Route path="/contact" component={Contact} />
+                <Route path="/passwordrecovery" component={PasswordRecovery} />
             </Switch>
         </BrowserRouter>
     </Provider>

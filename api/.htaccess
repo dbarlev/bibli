@@ -5,4 +5,5 @@ RewriteRule ^records/([0-9a-zA-Z]+)/([0-9a-zA-Z]+)/?$ biblioRecords/records.php?
 RewriteRule ^biblist/([0-9a-zA-Z]+)/?$ biblioRecords/biblist.php?userid=$1 [NC,L]
 RewriteRule ^mailconf/([0-9a-zA-Z]+)/?$ users/mailconf.php?mailconf=$1 [NC,L]
 RewriteRule ^biblist/([0-9a-zA-Z]+)/?$ biblioRecords/Bibsearch.php?q=$1 [NC,L]
+RewriteRule ^passwordrecovery/([a-zA-Z0-9_\-.@]+)/?$ users/mailconf.php?email=$1 [NC,L]
 

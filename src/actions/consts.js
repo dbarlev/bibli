@@ -14,3 +14,4 @@ export const BIB_SEARCH = "BIB_SEARCH";
 export const GET_RECORD = "GET_RECORD";
 
 
+export const PASS_RECOVERY = "PASS_RECOVERY";

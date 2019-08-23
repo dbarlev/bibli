@@ -136,12 +136,13 @@
 	}
 	
 
+	
 	function send_conf_mail_to_user($email, $name){
 		// generate verification code, acts as the "key"
 		$verificationCode = md5(uniqid($email, true));
 		
 		// send the email verification
-		$verificationLink = "https://bibli.co.il/activate?code=" . $verificationCode;
+		$verificationLink = "https://bibli.co.il/mailconf?code=" . $verificationCode;
 
 		$htmlStr = "";
 		$htmlStr .= "היי " . $name . ",<br /><br />";

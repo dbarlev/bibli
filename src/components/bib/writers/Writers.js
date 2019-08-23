@@ -1,16 +1,5 @@
 import React, {Component} from 'react';
-import ReactDOM from 'react-dom';
 import {connect} from 'react-redux';
-import {
-  Button,
-  Form,
-  FormGroup,
-  FormControl,
-  Col,
-  Checkbox,
-  ControlLabel,
-  HelpBlock
-} from 'react-bootstrap';
 import WritersForm from "./WritersForm";
 
 
@@ -25,9 +14,24 @@ class Writers extends Component {
     }
   }
 
+  componentWillMount(){
+    let {editMode, editValues} = this.props;
+    if(editMode && editValues && editValues.length > 0){
+      let length = editValues[0].wFname.length;
+      if(length > 1)
+      {
+        for(let i = 1; i < length; i++)
+        {
+          this.addWriter();
+        }
+      }
+    }
+  } 
+
   createWriterFeilds(name,index)
   {
-        return <WritersForm key={index} name={name} onRemoveWriter={this.removeWriter.bind(this)} onWriterChange={this.getWritersNames.bind(this)}/>      
+        let {editValues, editMode} = this.props;
+        return <WritersForm editMode={editMode} editValues={editValues} key={index} name={name} onRemoveWriter={this.removeWriter.bind(this)} onWriterChange={this.getWritersNames.bind(this)}/>      
   }
 
   addWriter()
@@ -66,7 +70,6 @@ class Writers extends Component {
     );
   }
 }
-
 
 
 export default Writers;

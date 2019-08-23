@@ -22,6 +22,7 @@
     "redux": "^4.0.0",
     "redux-thunk": "^2.3.0"
   },
+  "homepage": "./",
   "scripts": {
     "build-css": "node-sass-chokidar --include-path ./public --include-path ./node_modules public/ -o public/",
     "watch-css": "npm run build-css && node-sass-chokidar --include-path ./public --include-path ./node_modules public/ -o public/ --watch --recursive",

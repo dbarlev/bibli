@@ -24,6 +24,7 @@ class ApaArticle extends Component {
     super();
     this.state = {
       names: [],
+      type: "article",
       formFeilds:[
         {
             id: "sourceType",
@@ -32,15 +33,29 @@ class ApaArticle extends Component {
               { value: "print", label: 'בדפוס' },
               { value: "online", label: 'מקוון' }
             ],
-            label: "סוג מקור"
+            label: "סוג מקור",
+            value: "",
+            edited: false
         },
         {id: "name", label: "שם כתב העת"},
         {id: "articleName", label: "שם המאמר"},
         {id: "episode", label: "כרך"},
         {id: "pages", label: "עמודים"},
-        {id: "publishYear", label: "שנת פרסום"},
+        {id: "year", label: "שנת פרסום"},
         {id: "paperLink", label: "קישור לכתבה"}
       ],
+      nameValue: "",
+      articleNameValue:"",
+      episodeValue: "",
+      pagesValue: "",
+      yearValue: "",
+      paperLinkValue: "",
+      nameEdited: false,
+      articleNameEdited: false,
+      episodeEdited: false,
+      pagesEdited: false,
+      yearEdited: false,
+      paperLinkEdited: false,
       hiddenFeilds: ["paperLink"],
       selectedSourceOption: { value: 1, label: 'בדפוס' },
       writersHandler: new FormatWriters(),
@@ -49,10 +64,9 @@ class ApaArticle extends Component {
     }
   }
 
-  getElement(refs)
+  getElementValue(fieldName)
   {
-    let element = ReactDOM.findDOMNode(refs);
-    return element.value;
+    return this.state[fieldName];
   }
 
   onSubmitApa(event, redirectUserToList)
@@ -60,14 +74,14 @@ class ApaArticle extends Component {
     event.preventDefault();
     let activeBiblist = this.props.activeBiblist;
     let selectedSourceOption = this.state.selectedSourceOption;
-    let name = this.getElement(this.refs.noteName);
+    let name = this.getElementValue("nameValue");
     let lang = new VerifyLang(name).checkLanguage();
     let retrived = new GetFormatDate().populateText(lang);
-    let title = this.getElement(this.refs.articleName);
-    let kereh = this.getElement(this.refs.episode);
-    let pages = this.getElement(this.refs.pages);
-    let year = this.getElement(this.refs.publishYear);
-    let url = this.refs.paperLink != null ? this.getElement(this.refs.paperLink) : null;
+    let title = this.getElementValue("articleNameValue");
+    let kereh = this.getElementValue("episodeValue");
+    let pages = this.getElementValue("pagesValue");
+    let year = this.getElementValue("yearValue");
+    let url = this.getElementValue("paperLinkValue");
     let recordType = 2;
     let userid = this.props.userid;
     let writers = this.state.writersHandler.formatWriters(this.state.names);
@@ -128,6 +142,30 @@ class ApaArticle extends Component {
     });
   }
 
+  onChangeValue(id, event){
+    let newValue = event.target.value;
+    this.setState({
+      [id]: newValue
+    });
+  }
+
+  editMode(feild) {
+    let value = "";
+    let { type } = this.state;
+    let {editRecord, getEditRecord} = this.props;
+
+    if(getEditRecord.length > 0 && type === getEditRecord[0].type)
+    {
+      if(editRecord && !this.state[feild.id + "Edited"]){
+        value = getEditRecord[0][feild.id];
+        this.setState({
+          [feild.id + "Value"]: value,
+          [feild.id + "Edited"]: true
+        });
+      } 
+    }
+  }
+  
   validateFeildType(feild, className)
   {
       if(this.state.hiddenFeilds.indexOf(feild.id) > -1)
@@ -151,32 +189,26 @@ class ApaArticle extends Component {
       }
       else
       {
-          let value = "";
-          let placeholder = feild.label;
-          if(this.props.editRecord){
-            value = this.props.getEditRecord[0][feild.id];
-            //document.getElementByID("apa-" + feild.id).value = value;
-            placeholder = "";
-          }
+          this.editMode(feild);
           return (
-                <div>
-                    <Col>
-                      <FormControl className="apa" aria-label="feild.label" id={'apa-' + feild.id} placeholder={feild.label} ref={feild.id} type="text" />
-                      <HelpBlock role="status" aria-live="polite"></HelpBlock>
-                    </Col>
-                </div>
+            <div>
+                <Col>
+                  <FormControl className="apa" onChange={this.onChangeValue.bind(this, feild.id + "Value")} value={this.state[feild.id + "Value"]} aria-label="feild.label" id={'apa-' + feild.id} placeholder={feild.label} ref={feild.id} type="text" />
+                  <HelpBlock role="status" aria-live="polite"></HelpBlock>
+                </Col>
+            </div>
           );
       }
   }
 
   render() {
-
     return (
       <div id="apaPaperForm" className="apaForm">
         <div className="row">
             <Form horizontal>   
               {
                 this.state.formFeilds.map((feild,index) => {
+                  console.log("index", index);
                     return (
                       <FormGroup key={index} controlId={feild.id}>
                           {this.validateFeildType(feild, "sourceTypeCombobox")}
@@ -185,7 +217,7 @@ class ApaArticle extends Component {
                 })
               }
 
-              <Writers onWriterChange={this.getWritersNames.bind(this)} />
+              <Writers editMode={this.props.editRecord} editValues={this.props.getEditRecord} onWriterChange={this.getWritersNames.bind(this)} />
               <RedirectTo to="/biblist" redirect={this.state.formSubmited}/>
 
               <FormGroup className="pull-right">
