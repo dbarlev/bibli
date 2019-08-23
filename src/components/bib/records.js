@@ -1,5 +1,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { Route } from 'react-router-dom';
+import AddBibList from './listOfRecords/AddBibList';
+import EditRecord from './records/EditRecord';
+import AddRecord from './records/AddRecord';
 import HeaderLogin from '../header/HeaderLogin.js';
 import BibList from './records/BibList';
 import ListOfBiblist from './listOfRecords/ListOfBiblist';
@@ -8,7 +12,7 @@ import Footer from '../footer/Footer.js';
 import { getCookie } from '../Services/GetCookies';
 import '../App.css';
 
-class ShowUserBibList extends Component {
+class Records extends Component {
 
   constructor()
   {
@@ -48,11 +52,13 @@ class ShowUserBibList extends Component {
           <div className="mainArea userBiblist">
             <div className="row">
               <div className="col-md-2 col-md-offset-2">    
-                    <ListOfBiblist userid={Number(this.state.userid)}/>  
-                          
+                    <ListOfBiblist userid={Number(this.state.userid)}/>          
                 </div>
-                <div className="col-md-7">               
-                    <BibList userid={Number(this.state.userid)}/>
+                <div className="col-md-7"> 
+                  <Route path="/records/biblist" component={BibList} />
+                  <Route path="/records/addNewList" component={AddBibList}/>
+                  <Route path="/records/addRecord" component={AddRecord} />
+                  <Route path="/records/editRecord/:id" component={EditRecord} />
                 </div>   
             </div>
           </div>
@@ -76,5 +82,5 @@ const mapStateToProps = state => {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(ShowUserBibList);
+export default connect(mapStateToProps, mapDispatchToProps)(Records);
 

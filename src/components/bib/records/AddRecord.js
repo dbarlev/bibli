@@ -10,18 +10,13 @@ class AddRecord extends Component {
   render() {
     return (
        <div className="App">
-        <HeaderLogin />
         <br />
-          <div className="row mainArea main-area">
-              <div className="col-md-2 col-md-offset-2">    
-                  <ListOfBiblist />           
-              </div>   
+          <div className="row mainArea main-area">  
               <div className="col-md-7">  
                   <BiblistHeading addRecordBtn="false"/>       
                   <ApaTabControl />
               </div>
           </div>
-          <Footer />
       </div>
     );
   }

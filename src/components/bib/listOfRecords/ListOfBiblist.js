@@ -3,34 +3,22 @@ import {connect} from 'react-redux';
 import {getBibListNamesFromDB, getRecordsFromDB} from '../../../actions/ajax';
 import {activeBiblist} from '../../../actions';
 import { LinkContainer} from "react-router-bootstrap";
-import { Redirect } from 'react-router-dom'
+import { Redirect, withRouter } from 'react-router-dom';
 
 
 class ListOfBiblist extends Component {
-
-
-  constructor(){
-    super();
-    this.state = {
-      redirect: false,
-      redirectTo: "/"
-    }
+  constructor(props){
+    super(props);
   }
 
   componentDidMount() 
   {
-      console.log("listOfBiblist component is called!")
       this.props.getBibListNamesFromDB(this.props.userid);
   }
 
   onListClicked(item){
     this.props.activeBiblist(item);
-    //this.props.getRecordsFromDB(this.state.userid, item.id, item.Name);
-    this.setState({
-      ...this.state,
-      redirect: true,
-      redirectTo: "/biblist"
-    })
+    this.props.history.push("/records/biblist");
   }
 
  showList()
@@ -48,12 +36,12 @@ class ListOfBiblist extends Component {
                   <strong className="biblistHeading" aria-level="2" role="heading">הרשימות שלי</strong>
               </div>
               <div className="col-sm-2">
-                <LinkContainer className="pointer sideMenuLinks"  to="/addNewList" >
+                <LinkContainer className="pointer sideMenuLinks"  to="/records/addNewList" >
                     <span aria-label="הוסף רשימה"><i className="fas fa-plus"></i></span>
                 </LinkContainer>
               </div>
                <div className="col-sm-2">
-               <LinkContainer className="pointer sideMenuLinks"  to="/addNewList" >
+               <LinkContainer className="pointer sideMenuLinks"  to="/records/addNewList" >
                     <span><i className="fas fa-pen"></i></span>
                 </LinkContainer>
               </div>
@@ -88,12 +76,12 @@ class ListOfBiblist extends Component {
                   <strong className="biblistHeading" aria-level="2" role="heading">הרשימות שלי</strong>
               </div>
               <div className="col-sm-2">
-                <LinkContainer className="sideMenuLinks black"  to="/addNewList" >
+                <LinkContainer className="sideMenuLinks black"  to="/records/addNewList" >
                     <span aria-label="הוסף רשימה"><i className="fas fa-plus"></i></span>
                 </LinkContainer>
               </div>
                <div className="col-sm-2">
-               <LinkContainer className="sideMenuLinks black"  to="/addNewList" >
+               <LinkContainer className="sideMenuLinks black"  to="/records/addNewList" >
                     <span><i className="fas fa-search"></i></span>
                 </LinkContainer>
               </div>
@@ -104,20 +92,11 @@ class ListOfBiblist extends Component {
 
  }
 
-  redirectTo(){
-      let {redirect, redirectTo} = this.state;
-      if(redirect)
-        return <Redirect to={redirectTo} />
-  }
-
   render() {
     return (
         <div class="well" id="recordsListContainer">
           {
             this.showList()
-          }
-          {
-            this.redirectTo()
           }
        </div>
     );
@@ -132,5 +111,11 @@ const mapStateToProps = (state) => {
     }
 }
 
-export default connect(mapStateToProps, {getBibListNamesFromDB, getRecordsFromDB, activeBiblist})(ListOfBiblist);
+export default 
+  connect(mapStateToProps, 
+          {
+            getBibListNamesFromDB,
+            getRecordsFromDB,
+            activeBiblist
+          })(withRouter(ListOfBiblist));
 

@@ -19,19 +19,14 @@ class EditRecord extends Component {
 
   render() {
     return (
-       <div className="App">
-        <HeaderLogin />
+       <div className="editRecord">
         <br />
-          <div className="row mainArea main-area">
-              <div className="col-md-2 col-md-offset-2">    
-                  <ListOfBiblist />           
-              </div>   
+          <div className="row mainArea main-area">  
               <div className="col-md-7">  
                   <BiblistHeading addRecordBtn="false"/>       
                   <ApaTabControl editRecord="true"/>
               </div>
           </div>
-          <Footer />
       </div>
     );
   }

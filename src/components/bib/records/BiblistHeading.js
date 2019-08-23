@@ -37,7 +37,7 @@ class BiblistHeading extends Component {
                     <i className="fas fa-trash-alt"></i>
                 </li>
                 <li aria-label="עריכת הרשימה" title="עריכת הרשימה">
-                    <LinkContainer className="pointer"  to="/editlist" >
+                    <LinkContainer className="pointer"  to="/records/editlist" >
                         <span><i className="fas fa-edit"></i></span>
                     </LinkContainer>
                 </li>
@@ -51,7 +51,7 @@ class BiblistHeading extends Component {
     const {activeBiblistData, addRecordBtn} = this.props;
     if(activeBiblistData.Name && addRecordBtn != "false"){
         return (
-            <LinkContainer to="/addRecord" >
+            <LinkContainer to="/records/addRecord" >
                 <button className="btn pull-right" id="addRecordBtn"><i className="fas fa-plus"></i> הוספת פריט </button>
             </LinkContainer>
         )    

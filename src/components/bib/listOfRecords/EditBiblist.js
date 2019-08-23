@@ -54,12 +54,8 @@ class EditBiblist extends Component {
 
     return (
        <div className="App">
-            <HeaderLogin />
             <br />
             <div className="row">
-             <div className="col-md-2 col-md-offset-2">    
-                  <ListOfBiblist showBibList="false" />           
-              </div>
               <div className="col-md-3 col-sm-6"> 
               <h2>עריכת רשימה</h2>
               <br />

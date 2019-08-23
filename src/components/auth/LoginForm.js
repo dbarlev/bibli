@@ -1,9 +1,6 @@
 import React, { Component } from 'react';
-import ReactDOM from 'react-dom';
 import { connect } from 'react-redux';
-import { Redirect, Link } from 'react-router-dom';
-
-// import {connect} from 'react-redux';
+import { Redirect } from 'react-router-dom';
 import {
     Button,
     Form,
@@ -11,9 +8,6 @@ import {
     FormControl,
     Col,
     Alert,
-    Checkbox,
-    ControlLabel,
-    HelpBlock,
     Grid,
     Row
 } from 'react-bootstrap';
@@ -128,7 +122,7 @@ class LoginForm extends Component {
             document.cookie = username;
             console.log('xxx');
             // debugger
-            return <Redirect to='/biblist' />
+            return <Redirect to='/records/biblist' />
         }
     }
 

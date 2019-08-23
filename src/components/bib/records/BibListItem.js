@@ -163,7 +163,7 @@ class BibListItem extends Component {
           <div className="row">
               <div className="col-md-2" id="record-config-buttons">
                   <span onClick={() => this.setState({...this.state, show: true})} data-id={this.props.recordID} role="button" aria-label="מחק"><i className="fas fa-trash-alt"></i></span>
-                  <LinkContainer className="pointer" to={'/editrecord/' + this.props.recordID} >
+                  <LinkContainer className="pointer" to={'editRecord/' + this.props.recordID} >
                         <span data-id={this.props.recordID} role="button" aria-label="עריכה"><i className="fas fa-edit"></i></span>
                   </LinkContainer>
                   <span data-id={this.props.recordID} role="button" title="העתק" aria-label="העתק"><i className="fas fa-paste"></i></span>

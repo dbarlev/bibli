@@ -7,15 +7,11 @@ import { Provider } from 'react-redux';
 import thunk from 'redux-thunk';
 import Register from './components/auth/Register';
 import Login from './components/auth/Login';
-import AddRecord from './components/bib/records/AddRecord';
-import EditRecord from './components/bib/records/EditRecord';
 import FrontPage from './components/frontpage/FrontPage';
 import Faq from './components/frontpage/Faq';
 import rootReducer from './reducers'
 import registerServiceWorker from './registerServiceWorker';
-import ShowUserBibList from './components/bib/ShowUserBibList';
-import AddBibList from './components/bib/listOfRecords/AddBibList';
-import EditBiblist from './components/bib/listOfRecords/EditBiblist';
+import Records from './components/bib/records';
 import MailVerification from './components/auth/MailVerification';
 import Contact from './components/contact/contact';
 import PasswordRecovery from './components/auth/PasswordRecovery';
@@ -37,6 +33,17 @@ ReactDOM.render(
         <BrowserRouter>
             <Switch>
                 <Route exact path="/" component={FrontPage} />
+                <Route path="/register" component={Register} />
+                <Route path="/mailconf/:mailVer" component={MailVerification} />
+                <Route path="/login" component={Login} />
+                <Route path="/front" component={FrontPage} />
+                <Route path="/faq" component={Faq} />
+                <Route path="/contact" component={Contact} />
+                <Route path="/passwordrecovery" component={PasswordRecovery} />
+                <Route path="/records" component={Records} />
+            </Switch>
+            {/* <Switch>
+                <Route exact path="/" component={FrontPage} />
                 <Route path="/biblist/:id" component={ShowUserBibList} />
                 <Route path="/biblist" component={ShowUserBibList} />
                 <Route path="/editlist" component={EditBiblist} />
@@ -50,7 +57,7 @@ ReactDOM.render(
                 <Route path="/faq" component={Faq} />
                 <Route path="/contact" component={Contact} />
                 <Route path="/passwordrecovery" component={PasswordRecovery} />
-            </Switch>
+            </Switch> */}
         </BrowserRouter>
     </Provider>
     ,
