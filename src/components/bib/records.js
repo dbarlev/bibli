@@ -7,6 +7,7 @@ import AddRecord from './records/AddRecord';
 import HeaderLogin from '../header/HeaderLogin.js';
 import BibList from './records/BibList';
 import ListOfBiblist from './listOfRecords/ListOfBiblist';
+import EditBiblist from './listOfRecords/EditBiblist';
 import { userLogedIn } from '../../actions';
 import Footer from '../footer/Footer.js';
 import { getCookie } from '../Services/GetCookies';
@@ -58,6 +59,7 @@ class Records extends Component {
                   <Route path="/records/biblist" component={BibList} />
                   <Route path="/records/addNewList" component={AddBibList}/>
                   <Route path="/records/addRecord" component={AddRecord} />
+                  <Route path="/records/editList" component={EditBiblist} />
                   <Route path="/records/editRecord/:id" component={EditRecord} />
                 </div>   
             </div>
