@@ -62,7 +62,7 @@ class BibSearch extends Component {
                         <Button className="searchRecordBtn"><i className="fas fa-search"></i></Button>
                     </InputGroup.Button>
                 </InputGroup>
-                <ul id="searchresults">
+                <ul id="searchresults" className={this.props.searcResults.length > 1 ? 'open' : ''}>
                 {this.state.q ? sr : ''}
             </ul>
             </FormGroup>            

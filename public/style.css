@@ -2145,7 +2145,6 @@ ul#searchresults {
   z-index: 999;
   /* border: 1px solid goldenrod; */
   margin-top: 35px;
-  background-color: #F5F5F5;
   list-style: none;
   padding: 15px; }
   ul#searchresults li {
@@ -2170,6 +2169,9 @@ ul#searchresults {
         color: #f2b500; }
     ul#searchresults li .resultBookTitle {
       font-weight: bold; }
+
+ul#searchresults.open {
+  background-color: #F5F5F5; }
 
 #App-header {
   padding-left: 0 !important;

@@ -1,10 +1,8 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import RedirectTo from '../../RedirectTo';
+import { withRouter } from 'react-router-dom';
 import {InsertBibListToDB} from '../../../actions/ajax';
 import {activeBiblist} from '../../../actions';
-import ListOfBiblist from './ListOfBiblist';
-import HeaderLogin from '../../header/HeaderLogin';
 import {
   Form,
   FormGroup,
@@ -17,10 +15,6 @@ class AddBibList extends Component {
 
   constructor(){
     super();
-    this.state = {
-      redirect: false,
-      redirectTo: "/biblist"
-    }
   }
 
   addNewList(event)
@@ -35,10 +29,7 @@ class AddBibList extends Component {
     else
     {
         this.props.InsertBibListToDB({userid, name});
-        this.setState({
-          ...this.state,
-          redirect: true
-        });
+        this.props.history.push("/records/biblist");
     }
   }
 
@@ -56,7 +47,6 @@ class AddBibList extends Component {
               </FormGroup>
                   <button className="btn pull-right" onClick={this.addNewList.bind(this)} >צור רשימה</button>
             </Form>
-            <RedirectTo redirect={this.state.redirect} to={this.state.redirectTo} />
       </div>   
     );
   }
@@ -70,5 +60,5 @@ const mapStateToProps = (state) => {
 }
 
 
-export default connect(mapStateToProps, {InsertBibListToDB, activeBiblist})(AddBibList);
+export default connect(mapStateToProps, {InsertBibListToDB, activeBiblist})(withRouter(AddBibList));
 
