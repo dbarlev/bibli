@@ -1,11 +1,10 @@
 import React, {Component} from 'react';
-import ReactDOM from 'react-dom';
 import {connect} from 'react-redux';
-import {InsertRecordToDB} from '../../../actions/ajax';
-import {GetFormatDate} from '../services/GetFormatDate';
-import {FormatWriters} from '../services/FormatWriters';
-import {VerifyLang} from '../services/VerifyLang';
-import  ApaForm from './ApaForm';
+import {InsertRecordToDB} from '../../../../actions/ajax';
+import {GetFormatDate} from '../../services/GetFormatDate';
+import {FormatWriters} from '../../services/FormatWriters';
+import {VerifyLang} from '../../services/VerifyLang';
+import  ApaForm from '../ApaForm/ApaForm';
 import { withRouter } from 'react-router-dom';
 
 

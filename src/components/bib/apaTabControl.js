@@ -1,8 +1,8 @@
 import React, {Component} from 'react';
-import ApaBooks from './apa/ApaBooks';
-import ApaPaper from './apa/ApaPaper';
-import ApaArticle from './apa/ApaArticle';
-import ApaWebsite from './apa/ApaWebsite';
+import ApaBooks from './apa/ApaTypes/ApaBooks';
+import ApaPaper from './apa/ApaTypes/ApaPaper';
+import ApaArticle from './apa/ApaTypes/ApaArticle';
+import ApaWebsite from './apa/ApaTypes/ApaWebsite';
 
 
 

@@ -1,51 +1,47 @@
 import React, {Component} from 'react';
+import ReactDOM from 'react-dom';
 import {connect} from 'react-redux';
-import {InsertRecordToDB} from '../../../actions/ajax';
-import {GetFormatDate} from '../services/GetFormatDate';
-import {FormatWriters} from '../services/FormatWriters';
-import {VerifyLang} from '../services/VerifyLang';
-import  ApaForm from './ApaForm';
+import {InsertRecordToDB} from '../../../../actions/ajax';
+import {GetFormatDate} from '../../services/GetFormatDate';
+import {FormatWriters} from '../../services/FormatWriters';
+import {VerifyLang} from '../../services/VerifyLang';
+import  ApaForm from '../ApaForm/ApaForm';
 import { withRouter } from 'react-router-dom';
 
-class ApaArticle extends Component {
+class ApaPaper extends Component {
 
   constructor()
   {
     super();
     this.state = {
       names: [],
-      type: "article",
-      combobox: {
+      combobox:  {
         id: "sourceType",
         type: "select", 
         options: [
           { value: "print", label: 'בדפוס' },
           { value: "online", label: 'מקוון' }
         ],
-        label: "סוג מקור",
-        value: "",
-        edited: false
+        label: "סוג מקור"
       },
       formFeilds:[
-        {id: "name", label: "שם כתב העת"},
-        {id: "articleName", label: "שם המאמר"},
-        {id: "episode", label: "כרך"},
-        {id: "pages", label: "עמודים"},
-        {id: "year", label: "שנת פרסום"},
+        {id: "paperName", label: "שם העיתון"},
+        {id: "papertHeadline", label: "כותרת הכתבה"},
+        {id: "pagesNumber", label: "עמודים"},
+        {id: "dateOfPublish", label: "תאריך פרסום"},
         {id: "paperLink", label: "קישור לכתבה"}
       ],
       hiddenFeilds: ["paperLink"],
       selectedSourceOption: { value: 1, label: 'בדפוס' },
       writersHandler: new FormatWriters(),
-      formSubmited: false,
-      inputValue: ""
+      formSubmited: false
     }
   }
-  
-  getWritersNames(name)
-  {   
-      var names = this.state.writersHandler.getTypedName(name, this.state.names)
-      this.setState({names});
+
+  getElement(refs)
+  {
+    let element = ReactDOM.findDOMNode(refs);
+    return element.value;
   }
 
   onSubmitApa(event)
@@ -59,30 +55,36 @@ class ApaArticle extends Component {
       return;     
     }
 
-    let name = formElements.namedItem("name").value;
+    let name = formElements.namedItem("paperName").value;
     let lang = new VerifyLang(name).checkLanguage();
-    
+
     var details = {
-        name,
-        userid: this.props.userid,
-        recordType: 2,
-        retrived: new GetFormatDate().populateText(lang),
         selectedSourceOption: this.state.selectedSourceOption,
-        title: formElements.namedItem("articleName").value,
-        kereh: formElements.namedItem("episode").value,
-        pages: formElements.namedItem("pages").value,
-        year: formElements.namedItem("year").value,
-        url: formElements.namedItem("paperLink").value,
-        writers: this.state.writersHandler.formatWriters(this.state.names),
+        userid: this.props.userid,
+        recordType: 3,
+        name,
+        title: formElements.namedItem("papertHeadline").value,
+        retrived: new GetFormatDate().populateText(lang),
+        pages: formElements.namedItem("pagesNumber").value,
+        year: formElements.namedItem("dateOfPublish").value,
+        url: this.refs.paperLink ? formElements.namedItem("paperLink").value : null,
+        writers:  this.state.writersHandler.formatWriters(this.state.names),
         activeBiblist: activeBiblist.id
     }
 
-    this.props.InsertRecordToDB(details);
+    this.props.InsertRecordToDB(details); 
     this.props.history.push("/records/biblist");
   }
 
 
+  getWritersNames(name)
+  {   
+      var names = this.state.writersHandler.getTypedName(name, this.state.names)
+      this.setState({names});
+  }
+
   render() {
+
     return (
       <div id="apaPaperForm" className="apaForm">
         <div className="row">
@@ -106,11 +108,9 @@ class ApaArticle extends Component {
 const mapStateToProps = (state) => {
   return {
       activeBiblist: state.activeBiblist,
-      userid: state.authReducer.userid,
-      getEditRecord: state.getEditRecord
+      userid: state.authReducer.userid
   }
 }
 
-
-export default connect(mapStateToProps, {InsertRecordToDB})(withRouter(ApaArticle));
+export default connect(mapStateToProps, {InsertRecordToDB})(withRouter(ApaPaper));
 

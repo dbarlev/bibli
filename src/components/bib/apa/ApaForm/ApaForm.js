@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import {InsertRecordToDB} from '../../../actions/ajax';
-import Writers from '../writers/Writers';
+import {InsertRecordToDB} from '../../../../actions/ajax';
+import Writers from '../../writers/Writers';
 import {
     Button,
     Form,
