@@ -2,8 +2,6 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import RedirectTo from '../../RedirectTo';
 import {EditBiblistName} from '../../../actions/ajax';
-import ListOfBiblist from './ListOfBiblist';
-import HeaderLogin from '../../header/HeaderLogin';
 import Alert from '../../Modal/Alert';
 import {
   Form,

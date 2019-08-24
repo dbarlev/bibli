@@ -1,20 +1,12 @@
 import React, {Component} from 'react';
 import ReactDOM from 'react-dom';
 import {connect} from 'react-redux';
-import {
-  Button,
-  Form,
-  FormGroup,
-  FormControl,
-  Col,
-  HelpBlock
-} from 'react-bootstrap';
 import {InsertRecordToDB} from '../../../actions/ajax';
-import Writers from '../writers/Writers';
 import {GetFormatDate} from '../services/GetFormatDate';
 import {FormatWriters} from '../services/FormatWriters';
 import {VerifyLang} from '../services/VerifyLang';
-import  RedirectTo from '../../RedirectTo';
+import  ApaForm from './ApaForm';
+import { withRouter } from 'react-router-dom';
 
 
 class ApaBooks extends Component {
@@ -35,56 +27,34 @@ class ApaBooks extends Component {
     }
   }
 
-  getElement(refs)
-  {
-    let element = ReactDOM.findDOMNode(refs);
-    return element.value;
-  }
-
-  onSubmitApa(event, redirectUserToList)
+  onSubmitApa(event)
   {
     event.preventDefault();
-
+    let formElements = event.target.form.elements;
     let activeBiblist = this.props.activeBiblist;
-
-    let name = this.getElement(this.refs.bookName);
-    let lang = new VerifyLang(name).checkLanguage();
-    let retrived = new GetFormatDate().populateText(lang);
-    let publishname = this.getElement(this.refs.publisherName);
-    let publishcity = this.getElement(this.refs.publisherLocation);
-    let year = this.getElement(this.refs.publishyear);
-    let recordType = 1;
-    let userid = this.props.userid;
-    let writers = this.state.writersHandler.formatWriters(this.state.names);
-
-    var details = {
-        userid,
-        recordType,
-        name,
-        publishname,
-        publishcity,
-        year,
-        writers,
-        retrived
-    }
-
     if(activeBiblist && activeBiblist.length == 0)
     {
-      alert("Please choose a list first")
-    }
-    else
-    {
-      details["activeBiblist"] = activeBiblist.id;
-      this.props.InsertRecordToDB(details); // call to redux action that created the apa query
+      alert("Please choose a list first");
+      return;     
     }
 
-    if(redirectUserToList)
-    {
-        this.setState({
-          formSubmited: true
-        })    
+    let name = formElements.namedItem("bookName").value;
+    let lang = new VerifyLang(name).checkLanguage();
+    var details = {
+        userid: this.props.userid,
+        recordType: 1,
+        name,
+        publishname: formElements.namedItem("publisherName").value,
+        publishcity: formElements.namedItem("publisherLocation").value,
+        year: formElements.namedItem("publishyear").value,
+        writers: this.state.writersHandler.formatWriters(this.state.names),
+        retrived: new GetFormatDate().populateText(lang),
+        activeBiblist: activeBiblist.id
     }
+      this.props.InsertRecordToDB(details);
+      this.props.history.push("/records/biblist");
   }
+
 
   
   getWritersNames(name)
@@ -97,29 +67,11 @@ class ApaBooks extends Component {
     return (
       <div id="apaBooksForm" className="apaForm">
         <div className="row">
-            <Form horizontal>
-              {
-                this.state.formFeilds.map((feild,index) => {
-                    return (
-                      <FormGroup key={index} controlId={feild.id}>
-                        <Col>
-                          <FormControl className="apa" placeholder={feild.label} ref={feild.id} type="text" />
-                          <HelpBlock role="status" aria-live="polite"></HelpBlock>
-                        </Col>
-                      </FormGroup>
-                    );
-                })
-              }
-
-              <Writers onWriterChange={this.getWritersNames.bind(this)} />
-               <RedirectTo to="/biblist" redirect={this.state.formSubmited}/>
-              <FormGroup className="pull-right">
-                <Col >
-                  <Button className="left-10" onClick={(event) => this.onSubmitApa(event, true)} type="submit">צור רשומה</Button>
-                  <Button onClick={(event) => this.onSubmitApa(event)} type="submit">אישור והוספת פריט נוסף</Button>
-                </Col>
-              </FormGroup>
-            </Form>
+          <ApaForm 
+            formFeilds={this.state.formFeilds}
+            onSubmitForm={(e) => this.onSubmitApa(e)}
+            onWriterNameChanged={(name) => this.getWritersNames(name)}
+          />
         </div>
 
       </div>
@@ -135,6 +87,6 @@ const mapStateToProps = (state) => {
   }
 }
 
-export default connect(mapStateToProps, {InsertRecordToDB})(ApaBooks);
+export default connect(mapStateToProps, {InsertRecordToDB})(withRouter(ApaBooks));
 
 
