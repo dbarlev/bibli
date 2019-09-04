@@ -47,18 +47,21 @@ class RegisterForm extends Component {
 
   componentDidUpdate() {
     console.log(' this.props.user.registerSuccess ',  this.props.user.registerSuccess);
-    this.props.user.userRegistered;
+    this.props.user.userRegistered; 
   }
 
-
   doesMailExists(){
+    //debugger;
     if(this.props.user.registerSuccess == 'exists'){
       
       this.setState({mailExists: "כתובת דואר זו כבר קיימת במערכת"});
-    }else{
+    }
+   /* else{
      
       this.setState({mailExists: ""});
-    }
+    }*/
+
+    //console.log('doesMailExists', this.state);
   }
 
   populatePackagesCombobox(e) {
@@ -125,12 +128,18 @@ class RegisterForm extends Component {
     
     const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     let mail =  re.test(String(this.state.email).toLowerCase());
-    console.log(mail , ' mail');
+    
 
 
     if(!mail){
       isError = true;
       errors.noEmail = "חובה למלא את שדה דואר אלקטרוני";
+    }else if(this.props.user.registerSuccess == 'exists'){
+      //debugger;
+      isError = true;
+      //this.setState({mailExists: "כתובת דואר זו כבר קיימת במערכת"});
+      errors.noEmail = "כתובת דואר זו כבר קיימת במערכת";
+      console.log('state ', this.state);
     }else{
       isError = false;
       errors.noEmail = "";
@@ -219,7 +228,9 @@ class RegisterForm extends Component {
 
 
   render() {
+   
     return (
+      
       <Grid id="registerForm">
         <Row>
           <Col className="yellow-bg"  xs={12}  sm={6} mdOffset={4} md={4}  >
@@ -240,12 +251,14 @@ class RegisterForm extends Component {
                 
                 
               </FormGroup>
-
+            
               {this.state.noEmail && 
                 <Alert variant="danger" className="text-right">
                   {this.state.noEmail}
                 </Alert>
               }
+             
+              
               {this.state.mailExists && 
                 <Alert variant="danger" className="text-right">
                   {this.state.mailExists}
