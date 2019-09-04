@@ -21,6 +21,18 @@ class ApaFormField extends Component {
     }
   }
 
+  componentDidMount(){
+
+    let { getEditRecord, field} = this.props;
+
+    if(getEditRecord.length > 0)
+    {
+      this.setState({
+        value: getEditRecord[0][field.id]
+      })
+    }
+  }
+
   getElementValue(fieldName)
   {
     return this.state[fieldName];
@@ -32,24 +44,6 @@ class ApaFormField extends Component {
       value: newValue
     });
   }
-
-  editMode(feild) {
-    let value = "";
-    let { type } = this.state;
-    let {editRecord, getEditRecord} = this.props;
-
-    if(getEditRecord.length > 0 && type === getEditRecord[0].type)
-    {
-      if(editRecord && !this.state[feild.id + "Edited"]){
-        value = getEditRecord[0][feild.id];
-        this.setState({
-          [feild.id + "Value"]: value,
-          [feild.id + "Edited"]: true
-        });
-      } 
-    }
-  }
-  
 
   render() {
 
@@ -71,15 +65,12 @@ class ApaFormField extends Component {
                 <HelpBlock role="status" aria-live="polite"></HelpBlock>
             </Col>
       </div>
-
     );
   }
 }
 
 const mapStateToProps = (state) => {
   return {
-      activeBiblist: state.activeBiblist,
-      userid: state.authReducer.userid,
       getEditRecord: state.getEditRecord
   }
 }

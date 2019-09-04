@@ -30,11 +30,8 @@ class BibSearch extends Component {
     
         const sr = this.props.searcResults.map(res => {
             return(
-                
                 <li key={res && res.bookid}>
-               
                     <div className="row">
-
                         <div className="col-xs-9 text-right">
                             <h5 className="resultBookTitle">{res.articleHeadline}</h5>
                       
@@ -45,7 +42,6 @@ class BibSearch extends Component {
                         <button className="addToListBtn">הוסף לרשימה<i class="fa fa-chevron-left black" aria-hidden="true"></i></button>
                     </div>
                     </div>
-
                 </li>
             );
     });
