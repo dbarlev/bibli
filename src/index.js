@@ -15,6 +15,7 @@ import Records from './components/bib/records';
 import MailVerification from './components/auth/MailVerification';
 import Contact from './components/contact/contact';
 import PasswordRecovery from './components/auth/PasswordRecovery';
+import PasswordRecoveryEdit from './components/auth/PasswordRecoveryEdit';
 
 import './index.css';
 
@@ -39,7 +40,8 @@ ReactDOM.render(
                 <Route path="/front" component={FrontPage} />
                 <Route path="/faq" component={Faq} />
                 <Route path="/contact" component={Contact} />
-                <Route path="/passwordrecovery" component={PasswordRecovery} />
+                <Route path="/passwordrecovery" component={PasswordRecovery} /> //טופס הזנת כתובת מייל לשחזור סיסמא
+                <Route path="/passwordrecoveryedit/:token" component={PasswordRecoveryEdit} /> //שינוי של הסיסמא
                 <Route path="/records" component={Records} />
             </Switch>
             {/* <Switch>

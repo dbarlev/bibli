@@ -93,7 +93,9 @@
         $res = $res1->rowCount();
         if(!$res){
             //verification code does not exist in the database
-            $json = 0;
+            echo json_encode(array('mailexists' => 0, 'email'=> $email));
+
+         
         }else{
             
             $verificationCode = md5(uniqid($email, true));
@@ -104,11 +106,13 @@
             $stmt->execute();
 
             send_passrecovery_mail($email, $verificationCode);
+
+            echo json_encode(array('mailexists' => 1, 'email'=> $email));
         }
 		
     }
     
 
     function send_passrecovery_mail($email, $verificationCode){
-        echo $email;
+        //echo $email;
     }

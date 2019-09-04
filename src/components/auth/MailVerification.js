@@ -20,7 +20,7 @@ class MailVerification extends Component {
 
     componentDidMount() {
         this.props.MailVerAction(this.props.match.params.mailVer);
-        // {console.log('all MailVerAction props ', this.props.match.params.mailVer)}
+         {console.log('all MailVerAction props ', this.props.match.params.mailVer)}
     }
 
     isVerified = (mailVer) => {
