@@ -163,7 +163,7 @@ class RegisterForm extends Component {
 
     if(this.state.package == ''){
       isError =  true;
-      errors.packageError == "חובה לבחור סוג משתמש";
+      errors.packageError == "חובה לבחור חבילה";
     }else{
       isError =  false;
       errors.packageError = ""
