@@ -12,6 +12,5 @@ export const LOGGED_IN = "LOGGED_IN";
 export const DELETE_BIBLIST = "DELETE_BIBLIST";
 export const BIB_SEARCH = "BIB_SEARCH";
 export const GET_RECORD = "GET_RECORD";
-
-
 export const PASS_RECOVERY = "PASS_RECOVERY";
+export const PASS_RECOVERY_EDIT = "PASS_RECOVERY_EDIT";

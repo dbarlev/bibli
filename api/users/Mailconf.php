@@ -32,7 +32,6 @@
                 echo json_encode($arr);
 				break;
             case 'POST':
-                pass_recovery($db);
 				break;
             case 'PUT':
                 $mailconf = $_GET['mailconf'];
@@ -72,7 +71,10 @@
                 $stmt->bindParam(1, $mailconf);
                 $stmt->execute();
                 //verification code does exist in the database and active changed from 0 to 1
+
                 $json = 1;
+
+                
             }else{
                  //verification code does exist in the database and active is at 1 allready
                 $json = 2;
@@ -82,33 +84,3 @@
     }
 
 
-    function pass_recovery($db)
-	{
-        $email = ($_GET["email"]);
-
-        $q1 = "SELECT * FROM users WHERE email = ?";
-        $res1 = $db->prepare($q1);
-		$res1->bindParam(1, $email);
-        $res1->execute();
-        $res = $res1->rowCount();
-        if(!$res){
-            //verification code does not exist in the database
-            $json = 0;
-        }else{
-            
-            $verificationCode = md5(uniqid($email, true));
-            $q2 = 'UPDATE users SET verification_code = ? WHERE email = ?';
-            $stmt = $db->prepare($q2);
-            $stmt->bindParam(1, $verificationCode);
-            $stmt->bindParam(2, $email);
-            $stmt->execute();
-
-            send_passrecovery_mail($email, $verificationCode);
-        }
-		
-    }
-    
-
-    function send_passrecovery_mail($email, $verificationCode){
-        echo $email;
-    }

@@ -2,7 +2,6 @@ import React, { Component } from 'react'
 import {Form, FormGroup, Col, Button, FormControl, Grid} from 'react-bootstrap';
 import {connect} from 'react-redux';
 import Header from '../header/Header';
-import { PassRecovery } from '../../actions';
 import { PassRecoveryAction } from '../../actions/ajax';
 
 class PasswordRecovery extends Component {
@@ -13,8 +12,10 @@ class PasswordRecovery extends Component {
         }
       }
 
-   
+    componentDidUpdate(){
+        console.log('passRecoveryData', this.props.passRecoveryData);
 
+    }
     onChange = e => {
         this.setState({[e.target.name]: e.target.value});
 
@@ -24,6 +25,7 @@ class PasswordRecovery extends Component {
         e.preventDefault();
         this.props.PassRecoveryAction(this.state.email);
     }
+
 
 
     render() {
@@ -47,10 +49,24 @@ class PasswordRecovery extends Component {
                     </FormGroup>
                     </Form>
                     
+                    {this.props.passRecoveryData && 
+                        <div variant="danger" className="text-right">
+                          {this.props.passRecoveryData.mailexists == 1 ? 'הודעה נשלחה לתיבת הדואר שלך' : 'תיבת הדואר שהוזנה לא קיימת במערכת'}
+                        </div>
+                      }
                 </Grid>
             </div>
         )
     }
 }
 
-export default connect(null, {PassRecoveryAction})(PasswordRecovery)
+
+
+const mapStateToProps = state => {
+    
+    return{
+        passRecoveryData: state.userReducer.passRecoveryData
+    }
+}
+
+export default connect(mapStateToProps, {PassRecoveryAction})(PasswordRecovery)

@@ -34,7 +34,7 @@ class RegisterForm extends Component {
       password: '',
       confirmPassword: '',
       package: '',
-      mailExists: ''
+      mailExists: 'כתובת דואר זו כבר קיימת במערכת'
       
   }
     //   email: "אימייל הוא שדה חובה",
@@ -50,19 +50,6 @@ class RegisterForm extends Component {
     this.props.user.userRegistered; 
   }
 
-  doesMailExists(){
-    //debugger;
-    if(this.props.user.registerSuccess == 'exists'){
-      
-      this.setState({mailExists: "כתובת דואר זו כבר קיימת במערכת"});
-    }
-   /* else{
-     
-      this.setState({mailExists: ""});
-    }*/
-
-    //console.log('doesMailExists', this.state);
-  }
 
   populatePackagesCombobox(e) {
     let value = this.props.chooseSubscription.value;
@@ -176,7 +163,7 @@ class RegisterForm extends Component {
 
     if(this.state.package == ''){
       isError =  true;
-      errors.packageError == "חובה לבחור סוג משתמש";
+      errors.packageError == "חובה לבחור חבילה";
     }else{
       isError =  false;
       errors.packageError = ""
@@ -259,7 +246,7 @@ class RegisterForm extends Component {
               }
              
               
-              {this.state.mailExists && 
+              {this.props.user.registerSuccess && 
                 <Alert variant="danger" className="text-right">
                   {this.state.mailExists}
                 </Alert>

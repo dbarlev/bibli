@@ -12,7 +12,8 @@ import {
     DELETE_BIBLIST,
     INSERT_RECORD_TO_USER,
     BIB_SEARCH,
-    GET_RECORD
+    GET_RECORD,
+    PASS_RECOVERY
 } from '../actions/consts';
 
 import { populateAPAData, editListName } from './functions.js';
@@ -120,28 +121,28 @@ function retrivedDate(state = [], action) {
 function userReducer(state = [], action) {
     switch (action.type) {
         case ADD_USER:
-            console.log('action user', action);
             return [
                 action.user
             ];
             break;
         case INSERT_USER_TO_DB: //comes back from the ajax file response
-            console.log('User exits', action);
             return {
                     registerSuccess: action.value.userRegistered,
                     username: action.value.username,
                     email: action.value.email
 
             };
-            console.log('User exits value', action.value);
             break;
         case USER_MAIL_VERIFICATION: //comes back from the ajax file response
-        console.log('User mailver is', action.value);
-        return {
+            return {
                 mailver: action.value
-        };
-        console.log('user test mailver', action.value);
-        break;
+            };
+            break;
+        case PASS_RECOVERY: //password recovery
+            console.log('action.value', action);
+            return {
+                passRecoveryData: action.value
+            };
         default:
             return state
     }
@@ -165,7 +166,6 @@ function authReducer(state = [], action){
 }
 
 function searcResultsReducer(state = [{searchRes: []}], action){
-    console.log('action.value', action.value);
     switch(action.type){
         case BIB_SEARCH:
             //return action.value

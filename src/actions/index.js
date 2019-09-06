@@ -67,3 +67,5 @@ export function PassRecovery(data) {
         email: data
     }
 }
+
+

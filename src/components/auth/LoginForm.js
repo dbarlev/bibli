@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Redirect } from 'react-router-dom';
+import { Redirect, Link  } from 'react-router-dom';
 import {
     Button,
     Form,
@@ -189,6 +189,11 @@ class LoginForm extends Component {
                                 ''
                             }
                         </Form>
+                    </Col>
+                </Row>
+                <Row className="show-grid">
+                    <Col xsOffset={2} xs={8} mdOffset={3} md={6}>
+                        <Link to="/passwordrecovery">שכחתי את הסיסמא</Link>
                     </Col>
                 </Row>
             </Grid>

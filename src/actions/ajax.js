@@ -8,7 +8,8 @@ import {
     DELETE_BIBLIST,
     BIB_SEARCH,
     GET_RECORD,
-    PASS_RECOVERY
+    PASS_RECOVERY,
+    PASS_RECOVERY_EDIT
 } from './consts';
 import axios from 'axios';
 
@@ -198,7 +199,7 @@ export const BibSearchAction = (q) => {
 export const PassRecoveryAction = (email) => {
   
     console.log('PassRecoveryAction  email ajax', email);
-        return (dispatch) => { axios.post(`${API_PATH}/users/mailconf.php?email=${email}`)
+        return (dispatch) => { axios.post(`${API_PATH}/users/Passrecovery.php?email=${email}`)
         .then(function (response) {
             dispatch({ type: PASS_RECOVERY, value: response.data});
         })
@@ -207,3 +208,20 @@ export const PassRecoveryAction = (email) => {
         });
     }
 };
+
+export const PassRecoveryEdit = (data) => {
+    console.log('data is', data);
+    let dat = JSON.stringify(data)
+    let url = `${API_PATH}/users/Passrecovery.php?data=${dat}`;
+
+    return (dispatch) => { axios.put(url)
+        .then(function(response){
+            dispatch({ type: PASS_RECOVERY_EDIT, value: response.data});
+        })
+        .catch(function (error) {
+            console.log(error);
+        });
+     }
+}
+
+

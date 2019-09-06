@@ -14,10 +14,7 @@ class Register extends Component {
   
   onSubmitFormChild(obj)
   {
-    // this.props.addUser(obj);
-    console.log(obj, 'objxx');
     this.props.InsertUserToDB(obj);
-    // console.log(dav97@aaa.aaa);
   }
 
   render(){

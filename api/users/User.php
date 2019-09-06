@@ -142,7 +142,7 @@
 		$verificationCode = md5(uniqid($email, true));
 		
 		// send the email verification
-		$verificationLink = "https://bibli.co.il/mailconf?code=" . $verificationCode;
+		$verificationLink = "https://bibli.co.il/mailconf/" . $verificationCode;
 
 		$htmlStr = "";
 		$htmlStr .= "היי " . $name . ",<br /><br />";
