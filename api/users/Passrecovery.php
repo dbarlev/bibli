@@ -2,7 +2,7 @@
 
     include_once '../config/Database.php';
     init();
-
+    $GLOBAL['url'] = 'http://localhost:3000';
 
     function init()
     {
@@ -54,6 +54,8 @@
         $res1 = $db->prepare($q1);
 		$res1->bindParam(1, $email);
         $res1->execute();
+        $row = $res1->fetch(PDO::FETCH_ASSOC);
+        $username = $row['username'];
         $res = $res1->rowCount();
         if(!$res){
             //verification code does not exist in the database
@@ -69,26 +71,76 @@
             $stmt->bindParam(2, $email);
             $stmt->execute();
 
-            send_passrecovery_mail($email, $verificationCode);
+            send_passrecovery_mail($email, $verificationCode, $username);
 
-            echo json_encode(array('mailexists' => 1, 'email'=> $email));
+           
         }
 		
     }
     
 
-    function send_passrecovery_mail($email, $verificationCode){
-        echo $email;
+    function send_passrecovery_mail($email, $verificationCode, $username){
+       
+		
+		// send the email verification
+		$verificationLink = "https://bibli.co.il/passwordrecoveryedit/" . $verificationCode;
+
+		$htmlStr = "";
+		$htmlStr .= "היי " . $username . ",<br /><br />";
+
+		$htmlStr .= "נא לחץ על הכפתור כדי לאשר את הרשמתך לאתר.<br /><br /><br />";
+		$htmlStr .= "<a href='{$verificationLink}' target='_blank' style='padding:1em; font-weight:bold; background-color:blue; color:#fff;'>אשר רישום</a><br /><br /><br />";
+
+		$htmlStr .= "בהצלחה!,<br />";
+		$htmlStr .= "<a href='https://bibli.co.il/' target='_blank'>ביבלי</a><br />";
+
+
+		$name = "דוד מצוות ביבלי";
+		$email_sender = "no-reply@bibli.co.il";
+		$subject = "אישור הרשמה | ביבלי";
+		$recipient_email = $email;
+
+		$headers  = "MIME-Version: 1.0\r\n";
+		$headers .= "Content-type: text/html; charset=iso-8859-1\r\n";
+		$headers .= "From: {$name} <{$email_sender}> \n";
+
+		$body = $htmlStr;
+            
+        //DELETE WHEN PASSING TO PRODUVTION
+        echo json_encode(array('mailexists' => 1, 'email'=> $email));
+
+
+		// send email using the mail function, you can also use php mailer library if you want
+		if( mail($recipient_email, $subject, $body, $headers) ){
+
+			// tell the user a verification email were sent
+		
+            echo json_encode(array('mailexists' => 1, 'email'=> $email));
+
+        }
+        
+
     }
 
 
     function edit_password($db, $data){
         $data = json_decode($data);	
-
-		var_dump($data);
+		
 		if(isset($data->token)) $token = $data->token; else  $token = null;
 		if(isset($data->password)) $password = $data->password; else  $password = null;
 	
-        echo $token;
-        echo $password;
+        $q = 'UPDATE users SET password = ? WHERE verification_code = ?';
+        $stmt = $db->prepare($q);
+        $stmt->bindParam(1, $password);
+        $stmt->bindParam(2, $token);
+        $stmt->execute();
+        $count = $stmt->rowCount();
+
+        if($count !='0'){
+            echo json_encode(array('password_changed' => 1));
+        }
+        
+
+        
+      
     };

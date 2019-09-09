@@ -1,34 +1,27 @@
 import React, { Component } from 'react';
 import {Form, Alert, FormGroup, Col, Button, FormControl, Grid} from 'react-bootstrap';
 import {connect} from 'react-redux';
+import {Link} from 'react-router-dom';
 import Header from '../header/Header';
 import { PassRecoveryEdit } from '../../actions/ajax';
-
-
-
 
 class PasswordRecoveryEdit extends Component {
     constructor(props){
         super(props);
-        
+        this.state ={
+            password: '',
+            confirmPassword: '',
+        } 
     }
 
-    state ={
-        password: '',
-        confirmPassword: '',
-    }
-
-    componentDidMount(){
-        console.log('this.state', this.state);
-        console.log('this.props', this.props);
+    componentDidUpdate(){
+        console.log('passRecoveryEditSuccess', this.props.passRecoveryEditSuccess);
     }
 
     onChange = (e) => {
        this.setState({
             [e.target.name]: e.target.value
-        })
-
-        
+        })  
     }
 
 
@@ -124,10 +117,22 @@ class PasswordRecoveryEdit extends Component {
                         </Col>
                       </FormGroup>
                     </Form>
+
+                    {this.props.passRecoveryEditSuccess && 
+                        <div variant="danger" className="text-right">
+                          {(this.props.passRecoveryEditSuccess.password_changed == 1 ? 'עדכון הסיסמה התבצע בהצלחה. לחץ על כפתור התחבר כדי להכנס למערכת'+<Link to="/">aaa</Link>+'ssss' : 'עדכון הסיסמה לא התבצע בהצלחה.פנה לתמיכה כדי לפתור את התקלה או נסה שנית במועד מאוחר יותר')}                        </div>
+                      }
                 </Grid>
             </div>
         )
     }
 }
 
-export default connect(null, {PassRecoveryEdit})(PasswordRecoveryEdit)
+const mapStateToProps = state => {
+    return{
+            passRecoveryEditSuccess: state.userReducer.passRecoveryedit
+    }
+}
+
+
+export default connect(mapStateToProps, {PassRecoveryEdit})(PasswordRecoveryEdit)

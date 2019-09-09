@@ -13,7 +13,8 @@ import {
     INSERT_RECORD_TO_USER,
     BIB_SEARCH,
     GET_RECORD,
-    PASS_RECOVERY
+    PASS_RECOVERY,
+    PASS_RECOVERY_EDIT
 } from '../actions/consts';
 
 import { populateAPAData, editListName } from './functions.js';
@@ -124,7 +125,6 @@ function userReducer(state = [], action) {
             return [
                 action.user
             ];
-            break;
         case INSERT_USER_TO_DB: //comes back from the ajax file response
             return {
                     registerSuccess: action.value.userRegistered,
@@ -132,16 +132,19 @@ function userReducer(state = [], action) {
                     email: action.value.email
 
             };
-            break;
         case USER_MAIL_VERIFICATION: //comes back from the ajax file response
             return {
                 mailver: action.value
             };
-            break;
         case PASS_RECOVERY: //password recovery
             console.log('action.value', action);
             return {
                 passRecoveryData: action.value
+            };
+        case PASS_RECOVERY_EDIT: //password recovery edit
+            console.log('reducer PASS_RECOVERY_EDIT', action);
+            return {
+                passRecoveryEdit: action.value
             };
         default:
             return state

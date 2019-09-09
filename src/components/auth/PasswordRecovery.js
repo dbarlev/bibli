@@ -13,7 +13,7 @@ class PasswordRecovery extends Component {
       }
 
     componentDidUpdate(){
-        console.log('passRecoveryData', this.props.passRecoveryData);
+        console.log('passRecoveryData z', this.props.passRecoveryData);
 
     }
     onChange = e => {
