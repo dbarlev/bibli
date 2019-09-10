@@ -136,7 +136,7 @@
         $stmt->execute();
         $count = $stmt->rowCount();
 
-        if($count !='0'){
+        if($count != 0){
             echo json_encode(array('password_changed' => 1));
         }
         

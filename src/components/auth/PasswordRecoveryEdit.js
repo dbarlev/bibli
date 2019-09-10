@@ -15,7 +15,7 @@ class PasswordRecoveryEdit extends Component {
     }
 
     componentDidUpdate(){
-        console.log('passRecoveryEditSuccess', this.props.passRecoveryEditSuccess);
+       // console.log('passRecoveryEditSuccess', this.props.passRecoveryEditSuccess);
     }
 
     onChange = (e) => {
@@ -55,8 +55,8 @@ class PasswordRecoveryEdit extends Component {
 
     onSubmit = (e) => {
         e.preventDefault();
-        console.log('onSubmit');
-        console.log('this.state', this.state);
+        //console.log('onSubmit');
+        //console.log('this.state', this.state);
 
         let obj = {
             password: this.state.password,
@@ -65,11 +65,21 @@ class PasswordRecoveryEdit extends Component {
     let err = this.formValidation();
         if(!err){
             this.props.PassRecoveryEdit(obj);
-            console.log('success');
+        // console.log('success');
         }
 
     }
 
+    massage = () => {
+        console.log('massage function');
+        let msg = '';
+        if(this.props.passRecoveryEditSuccess.password_changed == 1){
+            msg = 'aaaa';
+        }else{
+            msg = 'bbbb';
+        }
+        return msg;
+    }
 
 
     render() {
@@ -119,9 +129,14 @@ class PasswordRecoveryEdit extends Component {
                     </Form>
 
                     {this.props.passRecoveryEditSuccess && 
-                        <div variant="danger" className="text-right">
-                          {(this.props.passRecoveryEditSuccess.password_changed == 1 ? 'עדכון הסיסמה התבצע בהצלחה. לחץ על כפתור התחבר כדי להכנס למערכת'+<Link to="/">aaa</Link>+'ssss' : 'עדכון הסיסמה לא התבצע בהצלחה.פנה לתמיכה כדי לפתור את התקלה או נסה שנית במועד מאוחר יותר')}                        </div>
-                      }
+                   
+                        this.massage()
+                    }
+                    {this.props.passRecoveryEditSuccess && 
+                   
+                        (this.props.passRecoveryEditSuccess.password_changed == 1 ? 'a': 'b')
+                    }
+                    dav
                 </Grid>
             </div>
         )
