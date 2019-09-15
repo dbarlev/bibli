@@ -9,7 +9,8 @@ import {
     BIB_SEARCH,
     GET_RECORD,
     PASS_RECOVERY,
-    PASS_RECOVERY_EDIT
+    PASS_RECOVERY_EDIT,
+    CONTACT_US_MASSAGE
 } from './consts';
 import axios from 'axios';
 
@@ -217,6 +218,23 @@ export const PassRecoveryEdit = (data) => {
     return (dispatch) => { axios.put(url)
         .then(function(response){
             dispatch({ type: PASS_RECOVERY_EDIT, value: response.data});
+        })
+        .catch(function (error) {
+            console.log(error);
+        });
+     }
+}
+
+
+export const sendMassage = (data) => {
+    
+    let dat = JSON.stringify(data)
+    console.log('sendMassage is', dat);
+    let url = `${API_PATH}/users/Massage.php?data=${dat}`;
+
+    return (dispatch) => { axios.post(url)
+        .then(function(response){
+            dispatch({ type: CONTACT_US_MASSAGE, value: response.data});
         })
         .catch(function (error) {
             console.log(error);

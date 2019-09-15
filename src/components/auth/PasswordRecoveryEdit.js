@@ -11,17 +11,20 @@ class PasswordRecoveryEdit extends Component {
         this.state ={
             password: '',
             confirmPassword: '',
+            msg: ''
         } 
     }
 
-    componentDidUpdate(){
-       // console.log('passRecoveryEditSuccess', this.props.passRecoveryEditSuccess);
+    componentDidUpdate(prevProps){
+        if(this.props.passRecoveryEditSuccess !== prevProps.passRecoveryEditSuccess){
+            this.massage()
+        }
     }
-
     onChange = (e) => {
        this.setState({
             [e.target.name]: e.target.value
-        })  
+        }) 
+        this.setState({msg:''});
     }
 
 
@@ -57,7 +60,7 @@ class PasswordRecoveryEdit extends Component {
         e.preventDefault();
         //console.log('onSubmit');
         //console.log('this.state', this.state);
-
+      
         let obj = {
             password: this.state.password,
             token: this.props.match.params.token
@@ -71,14 +74,14 @@ class PasswordRecoveryEdit extends Component {
     }
 
     massage = () => {
-        console.log('massage function');
-        let msg = '';
         if(this.props.passRecoveryEditSuccess.password_changed == 1){
-            msg = 'aaaa';
+            this.setState({msg: 'הסיסמה עודכנה בהצלחה '});
+            return this.state.msg + '<Link to="/">to link</Link>';
         }else{
-            msg = 'bbbb';
+            this.setState({msg: 'הסיסמה לא עודכנה בהצלחה'});
+            return this.state.msg
         }
-        return msg;
+   
     }
 
 
@@ -128,15 +131,14 @@ class PasswordRecoveryEdit extends Component {
                       </FormGroup>
                     </Form>
 
-                    {this.props.passRecoveryEditSuccess && 
-                   
-                        this.massage()
+                    {this.state.msg && 
+
+                        <Alert variant="success" className="text-right">
+                        
+                        {this.state.msg}
+                      
+                    </Alert>   
                     }
-                    {this.props.passRecoveryEditSuccess && 
-                   
-                        (this.props.passRecoveryEditSuccess.password_changed == 1 ? 'a': 'b')
-                    }
-                    dav
                 </Grid>
             </div>
         )
@@ -145,7 +147,7 @@ class PasswordRecoveryEdit extends Component {
 
 const mapStateToProps = state => {
     return{
-            passRecoveryEditSuccess: state.userReducer.passRecoveryedit
+            passRecoveryEditSuccess: state.userReducer.passRecoveryEdit
     }
 }
 
