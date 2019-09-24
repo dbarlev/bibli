@@ -14,7 +14,8 @@ import {
     BIB_SEARCH,
     GET_RECORD,
     PASS_RECOVERY,
-    PASS_RECOVERY_EDIT
+    PASS_RECOVERY_EDIT,
+    CONTACT_US_MASSAGE
 } from '../actions/consts';
 
 import { populateAPAData, editListName } from './functions.js';
@@ -151,6 +152,23 @@ function userReducer(state = [], action) {
     }
 }
 
+function emailMassageReducer(state = [], action) {
+    switch (action.type) {
+        case CONTACT_US_MASSAGE:
+            console.log('reducer CONTACT_US_MASSAGE', action);
+            return {
+                massageSent: action.value
+            };
+        default:
+            return state
+    }
+}
+
+
+
+
+
+
 function authReducer(state = [], action){
     switch(action.type){
         case LOGGED_IN:
@@ -191,7 +209,8 @@ const rootReducer = combineReducers({
     getBiblistFromDB,
     getBiblistNamesFromDB,
     searcResultsReducer,
-    getEditRecord
+    getEditRecord,
+    emailMassageReducer
 });
 
 export default rootReducer;

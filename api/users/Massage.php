@@ -80,7 +80,7 @@
 			$stmt->bindParam(3, $cb);
             $stmt->execute();
             
-            echo json_encode(array('mailexists' => 0, 'email'=> $email));
+            echo json_encode(array('contactussent' => 0, 'email'=> $email));
         }
         
         
@@ -94,16 +94,28 @@
 		$htmlStr .= "<a href='https://bibli.co.il/' target='_blank'>ביבלי</a><br />";
 
 
-		$name = "דוד מצוות ביבלי";
-		$email_sender = "no-reply@bibli.co.il";
-		$subject = "אישור הרשמה | ביבלי";
+		$email_sender = "contact@bibli.co.il";
+		$subject = "צור קשר | ביבלי";
 		$recipient_email = $email;
 
 		$headers  = "MIME-Version: 1.0\r\n";
 		$headers .= "Content-type: text/html; charset=iso-8859-1\r\n";
 		$headers .= "From: {$name} <{$email_sender}> \n";
 
-		$body = $htmlStr;
+        $body = $htmlStr;
+        
+        //echo json_encode(array('contactussent' => 1, 'email'=> $email));
+
+
+        if( @mail($recipient_email, $subject, $body, $headers) ){
+
+			// tell the user a verification email were sent
+		
+            echo json_encode(array('contactussent' => 1, 'email'=> $email));
+
+        }else{
+            echo json_encode(array('contactussent' => 2, 'email'=> $email));
+        }
 
     }
     

@@ -914,14 +914,8 @@ th {
 .radio label,
 .checkbox label {
   padding-left: initial;
-  padding-right: 20px; 
-}
+  padding-right: 20px; }
 
-label{
-  display: flex;
-  align-items: center;
-  margin-bottom: 7px;
-}
 .radio input[type="radio"],
 .radio-inline input[type="radio"],
 .checkbox input[type="checkbox"],
@@ -1924,7 +1918,7 @@ form select {
 form .form-control {
   border-radius: 0;
   border: 1px solid #204260;
- /*margin-bottom: 7px !important;*/ }
+  margin-bottom: 7px !important; }
 
 form .form-control:focus {
   border-color: #204260;
@@ -2204,11 +2198,6 @@ ul#searchresults.open {
   border-radius: 0;
   height: 40px; }
 
-  #contact input[type="checkbox"]{
-    width: 20px;
-    margin: 0 0 0 10px;
-    display: inline;
-  }
 #contact textarea {
   border: 1px solid black;
   border-radius: 0; }

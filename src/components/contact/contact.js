@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Grid, Row, Col, FormGroup, FormControl, Button, FormCheck } from 'react-bootstrap';
+import { Grid, Row, Col, FormGroup, FormControl, Button, FormCheck, Alert, Form } from 'react-bootstrap';
 import { connect } from 'react-redux';
 import { sendMassage } from '../../actions/ajax';
 import Header from '../header/Header';
@@ -17,14 +17,17 @@ class Contact extends Component {
             email: '',
             phone: '',
             massage: '',
-            checkbox: ''
+            checkbox: '',
+            msg: ''
         }
     }
 
-
-    componentDidMount(){
-        console.log('sendMassage', this.props.sendMassage);
+    componentDidUpdate(prevProps){
+        if(this.props.massageSent !== prevProps.massageSent){
+            this.massage()
+        }
     }
+
     onChange = (e) =>{
         const value = e.target.type === 'checkbox' ? e.target.checked : e.target.value;
         this.setState({ [e.target.name]: value });
@@ -38,6 +41,18 @@ class Contact extends Component {
         this.props.sendMassage(this.state)
         
     }
+
+    massage = () => {
+        if(this.props.massageSent.contactussent == 1){
+            this.setState({msg: 'ההודעה נשלחה בהצלחה '});
+            return this.state.msg;
+        }else{
+            this.setState({msg: 'ההודעה לא נשלחה, נסה שנית מאוחר יותר'});
+            return this.state.msg
+        }
+   
+    }
+
 
     formValidation = () => {
             let isError = false;
@@ -84,10 +99,10 @@ class Contact extends Component {
                             </h2>
                         </div>
                     </div>
-                    <form className="contact-form" onSubmit={this.onSubmit.bind(this)}>
-                        <div className="col-md-offset-5">
+                    <Form horizontal onSubmit={this.onSubmit.bind(this)}>
+                        <div className="col-xs-12 col-md-offset-4">
                             <div className="row">
-                                <div className="col-md-4">
+                                <div className="col-xs-12 col-md-4">
                                     <div className="form-group">
                                         <input 
                                             required 
@@ -104,7 +119,7 @@ class Contact extends Component {
                                 </div>  
                             </div>
                             <div className="row">
-                                <div className="col-md-4">
+                                <div className="col-xs-12 col-md-4">
                                     <div className="form-group">
                                         <input 
                                             required 
@@ -121,7 +136,7 @@ class Contact extends Component {
                                 </div>  
                             </div>
                             <div className="row">
-                                <div className="col-md-4">
+                                <div className="col-xs-12 col-md-4">
                                     <div className="form-group">
                                         <input 
                                             className="form-control" 
@@ -137,7 +152,7 @@ class Contact extends Component {
                                 </div>  
                             </div>
                             <div className="row">
-                                <div className="col-md-4">
+                                <div className="col-xs-12 col-md-4">
                                     <div className="form-group">
                                         <textarea 
                                         rows="7" 
@@ -154,39 +169,53 @@ class Contact extends Component {
                                 </div>  
                             </div> 
                             <div className="row">
-                            <div className="col-md-4">
+                            <div className="col-xs-12 col-md-4">
                                 <div className="form-group">
-                                    <label>
-                                        <input 
-                                        aria-label="תוכן ההודעה, במה נוכל לעזור" 
-                                        className="form-control" 
-                                        Placeholder="כתוב לנו במה נוכל לעזור..."
-                                        ref="checkbox" 
-                                        name="checkbox" 
-                                        id="checkbox"  
-                                        type="checkbox"
-                                        onChange={this.onChange.bind(this)}
-                                        />
-                                        מעוניין להצטרף לרשימת התפוצה
+                                    <label className="row ">
+                                        <div className="col-xs-3 pad-0">
+                                            <input 
+                                            aria-label="תוכן ההודעה, במה נוכל לעזור" 
+                                            className="form-control" 
+                                            Placeholder="כתוב לנו במה נוכל לעזור..."
+                                            ref="checkbox" 
+                                            name="checkbox" 
+                                            id="checkbox"  
+                                            type="checkbox"
+                                            onChange={this.onChange.bind(this)}
+                                            />
+                                        </div>
+                                        <div className="col-xs-9 pad-0">
+                                            מעוניין להצטרף לרשימת התפוצה
+                                        </div>
                                     </label>
                                 </div>
                             </div>  
                         </div> 
                             <div className="row">
-                                <div className="col-md-4 text-center">
+                                <div className="col-xs-12 col-md-4 text-center">
                                     <div className="form-group">
                                         <button className="btn send" >שלח</button>
                                     </div>
                                 </div>  
                             </div>
                         </div>  
-                    </form>   
+                    </Form>  
+
                 </div>
+                {this.state.msg && 
+                    <div className="alert alert-info text-right" role="alert">
+                    {this.state.msg}
+                </div>   
+                } 
                 <Footer className="center-footer" />
             </div>
 
         )
     }
 }
-
-export default connect(null, {sendMassage})(Contact);
+const mapStateToProps = state => {
+    return{
+        massageSent: state.emailMassageReducer.massageSent
+    }
+}
+export default connect(mapStateToProps, {sendMassage})(Contact);
