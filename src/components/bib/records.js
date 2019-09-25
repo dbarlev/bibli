@@ -22,7 +22,6 @@ class Records extends Component {
        biblistID: -1,
        userid: getCookie("userid"),
        auth: getCookie("auth"),
-       username: getCookie("username")
      } 
   }
 

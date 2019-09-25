@@ -51,7 +51,7 @@ class ApaFormField extends Component {
                     className="apa" 
                     onChange={this.onChangeValue.bind(this)}
                     value={this.state.value}
-                    aria-label="field.label"
+                    aria-label={field.label}
                     id={'apa-' + field.id}
                     placeholder={field.label}
                     ref={field.id}

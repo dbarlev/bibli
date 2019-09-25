@@ -54,17 +54,17 @@ class ApaTabControl extends Component {
                           <div name="website" className="iconText">אתר</div>
                       </Link>
                     </li>
-                    <li className="pull-right" name="website">
-                      <Link to="/" >
+                    <li className="pull-right notApplicable" name="movie">
+                      <a>
                           <i name="website" class="fas fa-video"></i>
                           <div name="website" className="iconText">סרט</div>
-                      </Link>
+                      </a>
                     </li>
-                    <li className="pull-right" name="website">
-                      <Link to="/" >
+                    <li className="pull-right notApplicable" name="audio" >
+                      <a>
                           <i name="website" class="fas fa-microphone"></i>
                           <div name="website" className="iconText">אודיו</div>
-                      </Link>
+                      </a>
                     </li>
                 </ul> 
             </div>

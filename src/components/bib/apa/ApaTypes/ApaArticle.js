@@ -29,12 +29,12 @@ class ApaArticle extends Component {
       formFeilds:[
         {id: "name", label: "שם כתב העת"},
         {id: "title", label: "שם המאמר"},
-        {id: "episode", label: "כרך"},
+        {id: "kereh", label: "כרך"},
         {id: "pages", label: "עמודים"},
         {id: "year", label: "שנת פרסום"},
-        {id: "paperLink", label: "קישור לכתבה"}
+        {id: "url", label: "קישור לכתבה"}
       ],
-      hiddenFeilds: ["paperLink"],
+      hiddenFeilds: ["url"],
       selectedSourceOption: { value: 1, label: 'בדפוס' },
       writersHandler: new FormatWriters(),
       formSubmited: false,
@@ -68,11 +68,11 @@ class ApaArticle extends Component {
         recordType: 2,
         retrived: new GetFormatDate().populateText(lang),
         selectedSourceOption: this.state.selectedSourceOption,
-        title: formElements.namedItem("articleName").value,
-        kereh: formElements.namedItem("episode").value,
+        title: formElements.namedItem("title").value,
+        kereh: formElements.namedItem("kereh").value,
         pages: formElements.namedItem("pages").value,
         year: formElements.namedItem("year").value,
-        url: formElements.namedItem("paperLink").value,
+        url: formElements.namedItem("url").value,
         writers: this.state.writersHandler.formatWriters(this.state.names),
         activeBiblist: activeBiblist.id
     }

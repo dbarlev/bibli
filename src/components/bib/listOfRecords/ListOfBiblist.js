@@ -32,17 +32,12 @@ class ListOfBiblist extends Component {
        return(
           <div>
             <div className="row">
-              <div className="col-sm-6">
+              <div className="col-sm-8">
                   <strong className="biblistHeading" aria-level="2" role="heading">הרשימות שלי</strong>
               </div>
               <div className="col-sm-2">
-                <LinkContainer className="pointer sideMenuLinks"  to="/records/addNewList" >
-                    <span aria-label="הוסף רשימה"><i className="fas fa-plus"></i></span>
-                </LinkContainer>
-              </div>
-               <div className="col-sm-2">
-               <LinkContainer className="pointer sideMenuLinks"  to="/records/addNewList" >
-                    <span><i className="fas fa-pen"></i></span>
+              <LinkContainer className="sideMenuLinks black"  to="/records/addNewList" >
+                    <a aria-label="הוסף רשימה"><i className="fas fa-plus"></i></a>
                 </LinkContainer>
               </div>
             </div>
@@ -77,12 +72,7 @@ class ListOfBiblist extends Component {
               </div>
               <div className="col-sm-2">
                 <LinkContainer className="sideMenuLinks black"  to="/records/addNewList" >
-                    <span aria-label="הוסף רשימה"><i className="fas fa-plus"></i></span>
-                </LinkContainer>
-              </div>
-               <div className="col-sm-2">
-               <LinkContainer className="sideMenuLinks black"  to="/records/addNewList" >
-                    <span><i className="fas fa-search"></i></span>
+                    <a aria-label="הוסף רשימה"><i className="fas fa-plus"></i></a>
                 </LinkContainer>
               </div>
             </div>

@@ -1,14 +1,9 @@
 import React, {Component} from 'react';
-import ReactDOM from 'react-dom';
 import {connect} from 'react-redux';
 import {
-  Button,
-  Form,
   FormGroup,
   FormControl,
   Col,
-  Checkbox,
-  ControlLabel,
   HelpBlock
 } from 'react-bootstrap';
 
@@ -22,6 +17,18 @@ class WritersForm extends Component {
     this.state = {
       firstName: "",
       lastName: ""
+    }
+  }
+
+  componentWillReceiveProps(props)
+  {
+
+    if(window.location.href.indexOf("editRecord") > -1)
+    {
+       this.setState({
+         firstName: this.props.name.firstName,
+         lastName: this.props.name.lastName
+       });
     }
   }
 
@@ -59,13 +66,13 @@ class WritersForm extends Component {
       <div id="writersForm">
             <FormGroup controlId={"firstName" + this.props.name}>
                 <Col>
-                    <FormControl className="apa" placeholder="שם פרטי"  value={this.state.names} onChange={ this.firstNameChange.bind(this) } ref="editorPrivateName" type="text" />
+                    <FormControl className="apa" placeholder="שם פרטי"  value={this.state.firstName} onChange={ this.firstNameChange.bind(this) } ref="editorPrivateName" type="text" />
                     <HelpBlock role="status" aria-live="polite"></HelpBlock>
                 </Col>
             </FormGroup>
             <FormGroup  controlId={"lastName" + this.props.name}>
                 <Col>
-                    <FormControl className="apa" placeholder="שם משפחה" onChange={ this.lastNameChange.bind(this) } ref="editorLastName" type="text" />
+                    <FormControl className="apa" placeholder="שם משפחה" onChange={ this.lastNameChange.bind(this) } value={this.state.lastName} ref="editorLastName" type="text" />
                     <HelpBlock role="status" aria-live="polite"></HelpBlock>
                 </Col>
             </FormGroup>
@@ -75,7 +82,10 @@ class WritersForm extends Component {
   }
 }
 
+const mapStateToProps = (state) => {
+  return {
+      getEditRecord: state.getEditRecord
+  }
+}
 
-
-export default WritersForm;
-
+export default connect(mapStateToProps)(WritersForm);

@@ -1907,6 +1907,12 @@ button.searchRecordBtn {
 .mainArea.userBiblist {
   height: 60vh; }
 
+.notApplicable a {
+  cursor: default; }
+
+.notApplicable i {
+  color: #d0d0d0 !important; }
+
 form input[type="text"],
 form input[type="password"],
 form input[type="email"],

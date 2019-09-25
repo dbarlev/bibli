@@ -10,36 +10,40 @@ class Writers extends Component {
   {
     super();
     this.state = {
-      writers: ["field"]
+      writers: [{firstName: "", lastName: ""}]
     }
   }
 
-  componentWillMount(){
-    let {editMode, editValues} = this.props;
-    if(editMode && editValues && editValues.length > 0){
-      let length = editValues[0].wFname.length;
-      if(length > 1)
+  componentDidMount()
+  {
+    let { getEditRecord } = this.props;
+    let writers = [];
+    if(getEditRecord.length > 0 && window.location.href.indexOf("editRecord") > -1)
+    {
+      let length = getEditRecord[0]["wFname"].length;
+      
+      for(let i = 0; i < length; i ++)
       {
-        for(let i = 1; i < length; i++)
-        {
-          this.addWriter();
-        }
+        let firstName =  getEditRecord[0]["wFname"][i];
+        let lastName =  getEditRecord[0]["wLname"][i];
+        let writersObj = {firstName, lastName};
+        writers.push(writersObj);
       }
+       this.setState({writers});
     }
-  } 
+  }
 
   createWriterFeilds(name,index)
   {
         let {editValues, editMode} = this.props;
-        return <WritersForm editMode={editMode} editValues={editValues} key={index} name={name} onRemoveWriter={this.removeWriter.bind(this)} onWriterChange={this.getWritersNames.bind(this)}/>      
+        return <WritersForm key={index} name={name} onRemoveWriter={this.removeWriter.bind(this)} onWriterChange={this.getWritersNames.bind(this)}/>      
   }
 
   addWriter()
   {
     var writers = this.state.writers;
-    let name = "field" + (writers.length + 1);
-    writers.push(name);
-    this.setState({ writers: writers });
+    writers.push({firstName: "", lastName: ""});
+    this.setState({ writers });
   }
 
   getWritersNames(name)
@@ -72,5 +76,11 @@ class Writers extends Component {
 }
 
 
-export default Writers;
+const mapStateToProps = (state) => {
+  return {
+      getEditRecord: state.getEditRecord
+  }
+}
+
+export default connect(mapStateToProps)(Writers);
 

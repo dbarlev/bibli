@@ -31,7 +31,7 @@ class ApaPaper extends Component {
         {id: "year", label: "תאריך פרסום"},
         {id: "url", label: "קישור לכתבה"}
       ],
-      hiddenFeilds: ["paperLink"],
+      hiddenFeilds: ["url"],
       selectedSourceOption: { value: 1, label: 'בדפוס' },
       writersHandler: new FormatWriters(),
       formSubmited: false
