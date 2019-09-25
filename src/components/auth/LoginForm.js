@@ -13,12 +13,14 @@ import {
 } from 'react-bootstrap';
 
 import { userLogedIn } from '../../actions'; 
+import { userLogin } from '../../actions/ajax'; 
 
 
 class LoginForm extends Component {
     constructor() {
         super();
         this.state={
+            email: '',
             username: '',
             password: '',
             data: [],
@@ -40,15 +42,16 @@ class LoginForm extends Component {
     componentDidUpdate(){
         console.log('Update', this.props);
         console.log('Update username',  this.props.userid);
+
         
     }
 
     clientValidate = () => {
         let isError = false;
         
-        if(this.state.username === ''){
+        if(this.state.email === ''){
             isError = true;
-            this.setState({EmptyUsernameError: 'לא הזנתם שם משתמש'});
+            this.setState({EmptyUsernameError: 'לא הזנתם דואר אלקטרוני'});
         }
         if(this.state.password === ''){
             isError = true;
@@ -78,35 +81,19 @@ class LoginForm extends Component {
         if(this.clientValidate()){
             this.clientValidate();
         }else{
-        fetch('http://127.0.0.1/bibli/api/user_switch/' + this.state.username + 
-        '/'+ this.state.password )
-        .then(response => response.json())
-        .then(json => {
-            if(json.count > 0)
-            {
-               console.log('json', json);
-                this.props.userLogedIn(json);
-                this.setState({auth: true, userid: json.userid, username: json.username});
-              
-            }else{
-                let isError = true;
-                this.validate();
-                this.setState({
-                    auth: false,
-                    data: null
-                });
+            let userData ={
+                email: this.state.email,
+                password: this.state.password
             }
-           
-        })
-        .catch(error => console.log('parsing faild', error))
+            this.props.userLogin(userData);
     }
 
     }
 
     redirectUser = () => {
-        // console.log('json', json);
+
         console.log('state', this.state);
-        if(this.state.auth === true){
+        if(this.props.auth === true){
             // localStorage.setItem('userid', this.props.userid);
             // localStorage.setItem('auth', this.state.auth);
             // localStorage.setItem('username', this.props.username);
@@ -114,14 +101,12 @@ class LoginForm extends Component {
             const timestamp = new Date().getTime(); // current time
             const exp = timestamp + (60 * 60 * 24 * 1000 * 7)                // add one week
 
-            let auth = `auth=${this.state.auth};expires=${exp}`;
+            let auth = `auth=${this.props.auth};expires=${exp}`;
             let userid = `userid=${this.props.userid};expires=${exp}`;
-            let username = `username=${this.props.username};expires=${exp}`;
+           
             document.cookie = auth;
             document.cookie = userid;
-            document.cookie = username;
-            console.log('xxx');
-            // debugger
+            
             return <Redirect to='/records/biblist' />
         }
     }
@@ -139,10 +124,13 @@ class LoginForm extends Component {
 
     }
 
-   
+    isLoggedIn = () =>{
+        console.log(' this.props.auth ',  this.props);
+       
+    }
 
     render() {
-        
+        this.isLoggedIn();
         return (
             <Grid fluid id="LoginForm" className="yellow-bg">
                
@@ -157,11 +145,11 @@ class LoginForm extends Component {
                         <Form horizontal>
                             <FormGroup  controlId="formHorizontalusername">
                                 <Col xs={12} sm={4}>
-                                    <FormControl ref="username" name="username" type="text" onChange={this.onChange} placeholder="הקלד דואר אלקטרוני"/>
+                                    <FormControl ref="email" name="email" type="email" onChange={this.onChange} placeholder="הקלד דואר אלקטרוני"/>
                                   
                                 </Col>
                                 <Col xs={12} sm={4}>
-                                    <FormControl ref="password" name="password" type="password" onChange={this.onChange} placeholder="הקלד סיסמא"/>
+                                    <FormControl ref="password" name="password" type="password" onChange={this.onChange} placeholder="הקלד סיסמה"/>
                                   
                                 </Col>
                                 
@@ -193,7 +181,7 @@ class LoginForm extends Component {
                 </Row>
                 <Row className="show-grid">
                     <Col xsOffset={2} xs={8} mdOffset={3} md={6}>
-                        <Link to="/passwordrecovery">שכחתי את הסיסמא</Link>
+                        <Link to="/passwordrecovery">שכחתי את הסיסמה</Link>
                     </Col>
                 </Row>
             </Grid>
@@ -214,8 +202,8 @@ const mapStateToProps = state => {
     return {
         userid: state.authReducer.userid,
         auth: state.authReducer.auth,
-        username: state.authReducer.username
+        email: state.authReducer.email
     }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(LoginForm);
+export default connect(mapStateToProps, {userLogedIn, userLogin})(LoginForm);
