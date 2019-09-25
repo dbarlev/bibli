@@ -20,23 +20,6 @@ class ApaForm extends Component {
 
     }
   }
-
-  editMode(feild) {
-    let value = "";
-    let { type } = this.state;
-    let {editRecord, getEditRecord} = this.props;
-
-    if(getEditRecord.length > 0 && type === getEditRecord[0].type)
-    {
-      if(editRecord && !this.state[feild.id + "Edited"]){
-        value = getEditRecord[0][feild.id];
-        this.setState({
-          [feild.id + "Value"]: value,
-          [feild.id + "Edited"]: true
-        });
-      } 
-    }
-  }
   
   renderComobox() {
 
@@ -98,8 +81,6 @@ class ApaForm extends Component {
 
 const mapStateToProps = (state) => {
   return {
-      activeBiblist: state.activeBiblist,
-      userid: state.authReducer.userid,
       getEditRecord: state.getEditRecord
   }
 }

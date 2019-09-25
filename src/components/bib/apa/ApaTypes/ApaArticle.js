@@ -28,7 +28,7 @@ class ApaArticle extends Component {
       },
       formFeilds:[
         {id: "name", label: "שם כתב העת"},
-        {id: "articleName", label: "שם המאמר"},
+        {id: "title", label: "שם המאמר"},
         {id: "episode", label: "כרך"},
         {id: "pages", label: "עמודים"},
         {id: "year", label: "שנת פרסום"},

@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import { Route, Link } from 'react-router-dom';
 import ApaBooks from './apa/ApaTypes/ApaBooks';
 import ApaPaper from './apa/ApaTypes/ApaPaper';
 import ApaArticle from './apa/ApaTypes/ApaArticle';
@@ -24,46 +25,61 @@ class ApaTabControl extends Component {
     })
   }
 
-  showTabPanel()
-  {
-      let {editRecord, activePanel} = this.props;
-      activePanel = editRecord && editRecord.type ? editRecord.type : this.state.activePanel;
-      switch(activePanel)
-      {
-          case "book":
-            return <ApaBooks editRecord={editRecord} />
-          case "paper":
-            return <ApaPaper editRecord={editRecord} />
-          case "article":
-            return <ApaArticle editRecord={editRecord} />
-          case "website":
-            return <ApaWebsite editRecord={editRecord} />
-          default:
-            return <ApaBooks editRecord={editRecord} />
-      }
-  }
-
-
-
   render() {
     return (            
         <div id="apaTabcontrol">
             <div className="row">
                 <ul className="nav tabControlIcons">
-                    <li className="pull-right" name="book"><a name="book" href="#book" onClick={this.changeTab.bind(this)}><i name="book" className="fas fa-book"></i><div name="book" className="iconText">ספר</div></a></li>
-                    <li className="pull-right" name="paper"><a name="paper" href="#paper" onClick={this.changeTab.bind(this)}><i name="paper" className="fas fa-book-open"></i><div name="paper" className="iconText">עיתון</div></a></li>
-                    <li className="pull-right" name="article"><a name="article" href="#article" onClick={this.changeTab.bind(this)}><i name="article" className="fas fa-graduation-cap"></i><div name="article" className="iconText">כתב עת</div></a></li>
-                    <li className="pull-right" name="website"><a name="website" href="#website" onClick={this.changeTab.bind(this)}><i name="website" className="fab fa-chrome"></i><div name="website" className="iconText">אתר</div></a></li>
-                    <li className="pull-right" name="website"><a name="website" href="#website" onClick={this.changeTab.bind(this)}><i name="website" class="fas fa-video"></i><div name="website" className="iconText">סרט</div></a></li>
-                    <li className="pull-right" name="website"><a name="website" href="#website" onClick={this.changeTab.bind(this)}><i name="website" class="fas fa-microphone"></i><div name="website" className="iconText">אודיו</div></a></li>
+                    <li className="pull-right" name="book">
+                      <Link to="/records/addRecord/ApaBooks" >
+                        <i name="book" className="fas fa-book"></i>
+                        <div name="book" className="iconText">ספר</div>
+                      </Link>
+                    </li>
+                    <li className="pull-right" name="paper">
+                      <Link to="/records/addRecord/ApaPaper" >
+                          <i name="paper" className="fas fa-book-open"></i>
+                          <div name="paper" className="iconText">עיתון</div>
+                      </Link>
+                    </li>
+                    <li className="pull-right" name="article">
+                        <Link to="/records/addRecord/ApaArticle" >
+                          <i name="article" className="fas fa-graduation-cap"></i>
+                          <div name="article" className="iconText">כתב עת</div>
+                        </Link>
+                    </li>
+                    <li className="pull-right" name="website">
+                      <Link to="/records/addRecord/ApaWebsite" >
+                          <i name="website" className="fab fa-chrome"></i>
+                          <div name="website" className="iconText">אתר</div>
+                      </Link>
+                    </li>
+                    <li className="pull-right" name="website">
+                      <Link to="/" >
+                          <i name="website" class="fas fa-video"></i>
+                          <div name="website" className="iconText">סרט</div>
+                      </Link>
+                    </li>
+                    <li className="pull-right" name="website">
+                      <Link to="/" >
+                          <i name="website" class="fas fa-microphone"></i>
+                          <div name="website" className="iconText">אודיו</div>
+                      </Link>
+                    </li>
                 </ul> 
             </div>
             <div className="row">
-                    <div className="col-md-9">  
-                        {
-                        this.showTabPanel()
-                        } 
-                    </div>
+                <div className="col-md-9">  
+                  <Route path="/records/addRecord/ApaBooks" component={ApaBooks} />
+                  <Route path="/records/addRecord/ApaWebsite" component={ApaWebsite}/>
+                  <Route path="/records/addRecord/ApaArticle" component={ApaArticle} />
+                  <Route path="/records/addRecord/ApaPaper" component={ApaPaper} />
+
+                  <Route path="/records/editRecord/book/:id" component={ApaBooks} />
+                  <Route path="/records/editRecord/website/:id" component={ApaWebsite}/>
+                  <Route path="/records/editRecord/article/:id" component={ApaArticle} />
+                  <Route path="/records/editRecord/paper/:id" component={ApaPaper} />
+                </div>
             </div>         
         </div>
     );

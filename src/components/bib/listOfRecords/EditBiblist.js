@@ -17,7 +17,7 @@ class EditBiblist extends Component {
     super();
     this.state = {
       redirect: false,
-      redirectTo: "/biblist",
+      redirectTo: "/records/biblist",
       inputValue: "",
       show: false
     }

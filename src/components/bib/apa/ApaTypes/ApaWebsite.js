@@ -16,9 +16,9 @@ class ApaWebsite extends Component {
     this.state = {
       names: [],
       formFeilds:[
-        {id: "linkToPage", label: "קישור לכתבה"},
-        {id: "articleHeadline", label: "כותרת הכתבה"},
-        {id: "publishYear", label: "תאריך פרסום"}
+        {id: "url", label: "קישור לכתבה"},
+        {id: "title", label: "כותרת הכתבה"},
+        {id: "year", label: "תאריך פרסום"}
       ],
       writersHandler: new FormatWriters(),
       formSubmited: false
@@ -42,16 +42,16 @@ class ApaWebsite extends Component {
       return;     
     }
 
-    let title = formElements.namedItem("articleHeadline").value;
+    let title = formElements.namedItem("title").value;
     let lang = new VerifyLang(title).checkLanguage();
 
     var details = {
         recordType: 4,
         userid: this.props.userid,
-        url: formElements.namedItem("linkToPage").value,
+        url: formElements.namedItem("url").value,
         title,
         retrived: new GetFormatDate().populateText(lang),
-        year: formElements.namedItem("publishYear").value,
+        year: formElements.namedItem("year").value,
         writers: this.state.writersHandler.formatWriters(this.state.names),
         activeBiblist: activeBiblist.id
     }
@@ -68,8 +68,8 @@ class ApaWebsite extends Component {
       this.setState({names});
   }
 
+  
   render() {
-
     return (
       <div id="apaWebsiteForm" className="apaForm">
         <div className="row">

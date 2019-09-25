@@ -51,7 +51,7 @@ class BiblistHeading extends Component {
     const {activeBiblistData, addRecordBtn} = this.props;
     if(activeBiblistData.Name && addRecordBtn != "false"){
         return (
-            <LinkContainer to="/records/addRecord" >
+            <LinkContainer to="/records/addRecord/ApaBooks" >
                 <button className="btn pull-right" id="addRecordBtn"><i className="fas fa-plus"></i> הוספת פריט </button>
             </LinkContainer>
         )    

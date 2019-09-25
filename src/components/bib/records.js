@@ -60,7 +60,7 @@ class Records extends Component {
                   <Route path="/records/addNewList" component={AddBibList}/>
                   <Route path="/records/addRecord" component={AddRecord} />
                   <Route path="/records/editList" component={EditBiblist} />
-                  <Route path="/records/editRecord/:id" component={EditRecord} />
+                  <Route path="/records/editRecord/:type/:id" component={EditRecord} />
                 </div>   
             </div>
           </div>
