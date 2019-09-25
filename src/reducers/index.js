@@ -7,8 +7,9 @@ import {
     INSERT_USER_TO_DB,
     GET_BIBLIST_FROM_DB,
     USER_MAIL_VERIFICATION,
-    ACTIVE_BIBLIST, 
+    ACTIVE_BIBLIST,
     LOGGED_IN,
+    USER_LOGIN,
     DELETE_BIBLIST,
     INSERT_RECORD_TO_USER,
     BIB_SEARCH,
@@ -37,16 +38,16 @@ function chooseSubscription(state = [], action) {
     }
 }
 
-function activeBiblist(state = [], action){
+function activeBiblist(state = [], action) {
     switch (action.type) {
         case ACTIVE_BIBLIST:
             return action.value;
         case DELETE_BIBLIST:
             return action.value;
         case GET_BIBLIST_NAMES_FROM_DB:
-            if(state.id && action.newName)
+            if (state.id && action.newName)
                 return action.value[action.value.length - 1];
-            else if(action.editName)
+            else if (action.editName)
                 return editListName(action.value, state);
             else
                 return state;
@@ -79,7 +80,7 @@ function getBiblistNamesFromDB(state = [], action) {
     }
 }
 
-function getEditRecord(state = [], action){
+function getEditRecord(state = [], action) {
     switch (action.type) {
         case GET_RECORD:
             return action.value;
@@ -92,18 +93,18 @@ function getBiblistFromDB(state = [], action) {
     switch (action.type) {
         case GET_BIBLIST_FROM_DB:
             let data = populateAPAData(action);
-            if(data == undefined)
-                data = [];   
+            if (data == undefined)
+                data = [];
             return data;
         case DELETE_RECORD_FROM_USER:
             let data2 = populateAPAData(action);
-            if(data2 == undefined)
-                data2 = [];   
+            if (data2 == undefined)
+                data2 = [];
             return data2;
         case INSERT_RECORD_TO_USER:
             let data3 = populateAPAData(action);
-            if(data3 == undefined)
-                data3 = [];   
+            if (data3 == undefined)
+                data3 = [];
             return data3;
         default:
             return state;
@@ -128,9 +129,9 @@ function userReducer(state = [], action) {
             ];
         case INSERT_USER_TO_DB: //comes back from the ajax file response
             return {
-                    registerSuccess: action.value.userRegistered,
-                    username: action.value.username,
-                    email: action.value.email
+                registerSuccess: action.value.userRegistered,
+                username: action.value.username,
+                email: action.value.email
 
             };
         case USER_MAIL_VERIFICATION: //comes back from the ajax file response
@@ -169,30 +170,38 @@ function emailMassageReducer(state = [], action) {
 
 
 
-function authReducer(state = [], action){
-    switch(action.type){
+function authReducer(state = [], action) {
+    switch (action.type) {
         case LOGGED_IN:
-        console.log('LOGGED_IN_reducer');
-        console.log('LOGGED_IN_reducer action', action);
-        return{
-            ...state,
-            auth: true,
-            userid: action.userid,
-            username: action.username
-        }
+            console.log('LOGGED_IN_reducer');
+            console.log('LOGGED_IN_reducer action', action);
+            return {
+                ...state,
+                auth: true,
+                userid: action.userid,
+                email: action.email
+            }
+        case USER_LOGIN:
+            console.log('USER_LOGIN');
+            console.log('USER_LOGIN_reducer action', action);
+            return {
+                ...state,
+                auth: true,
+                userid: action.value.userid
+            }
         default:
             return state;
 
     }
 }
 
-function searcResultsReducer(state = [{searchRes: []}], action){
-    switch(action.type){
+function searcResultsReducer(state = [{ searchRes: [] }], action) {
+    switch (action.type) {
         case BIB_SEARCH:
             //return action.value
             let data = populateAPAData(action);
-            if(data == undefined)
-                data = [];   
+            if (data == undefined)
+                data = [];
             return data;
         default:
             return state;
