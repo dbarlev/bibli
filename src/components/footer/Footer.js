@@ -5,8 +5,25 @@ import { LinkContainer } from "react-router-bootstrap";
 import logoSrc from '../img/logo.jpg';
 
 class Footer extends Component {
+    constructor(props){
+        super(props);
 
+        this.state = {
+            email: '',
+            fullName: ''
+        }
+    }
 
+    onChange = (e) => {
+        this.setState({
+            [e.target.name]: e.target.value
+        })
+    }
+
+    onSubmitEmailList = (e) =>{
+        e.preventDefault();
+        
+    }
     render() {
 
         let pos = this.props.className;
@@ -18,13 +35,27 @@ class Footer extends Component {
                         <Col className="col-xs-offset-2" xs={6}>
                             <h3>מעוניינים להצטרף לניוזלטר שלנו?</h3>
                             <p>השאירו פרטים ונשמח לעדכן אתכם בכל מידע חדש שיהיה לנו!</p>
-                            <form horizontal>
-                                <FormGroup className="margin-bottom" controlId="">
+                            <form horizontal onSubmit={this.onSubmitEmailList.bind(this)}>
+                                <FormGroup className="margin-bottom">
                                     <Col xs={12} sm={4}>
-                                        <FormControl ref="fullName" name="fullName" type="text" onChange={this.onChange} placeholder="הקלד שם מלא" />
+                                        <FormControl 
+                                            ref="fullName" 
+                                            name="fullName" 
+                                            type="text" 
+                                            id="fullName"
+                                            onChange={this.onChange.bind(this)} 
+                                            placeholder="הקלד שם מלא" 
+                                        />
                                     </Col>
                                     <Col xs={12} sm={8}>
-                                        <FormControl ref="email" name="email" type="email" onChange={this.onChange} placeholder="הקלד דואר אלקטרוני" />
+                                        <FormControl 
+                                            ref="email" 
+                                            name="email" 
+                                            id="email" 
+                                            type="email" 
+                                            onChange={this.onChange.bind(this)} 
+                                            placeholder="הקלד דואר אלקטרוני" 
+                                        />
                                     </Col>
                                 </FormGroup>
                                 <FormGroup>

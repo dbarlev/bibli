@@ -30,7 +30,8 @@
             case 'GET':
 				break;
             case 'POST':
-                pass_recovery($db);
+                $data = ($_GET['data']);
+                sned_contact_us_massage($db, $data);
 				break;
             case 'PUT':
                 $data = ($_GET['data']);
@@ -46,11 +47,21 @@
     }
     
 
-    function pass_recovery($db)
+    function sned_contact_us_massage($db, $data)
 	{
-        $email = ($_GET["email"]);
+        $data = json_decode($data);	
+		
+		if(isset($data->name)) $name = $data->name; else  $name = null;
+        if(isset($data->email)) $email = $data->email; else  $email = null;
+        if(isset($data->phone)) $phone = $data->phone; else  $phone = null;
+        if(isset($data->massage)) $massage = $data->massage; else  $massage = null;
+        if(isset($data->checkbox)) $cb = 'checked'; else  $cb = null;
+        
 
-        $q1 = "SELECT * FROM users WHERE email = ?";
+    
+      
+
+        $q1 = "SELECT * FROM mailinglist WHERE email = ?";
         $res1 = $db->prepare($q1);
 		$res1->bindParam(1, $email);
         $res1->execute();
@@ -58,28 +69,58 @@
         $username = $row['username'];
         $res = $res1->rowCount();
         if(!$res){
-            //verification code does not exist in the database
-            echo json_encode(array('mailexists' => 0, 'email'=> $email));
-
-         
-        }else{
-            
-            $verificationCode = md5(uniqid($email, true));
-            $q2 = 'UPDATE users SET verification_code = ? WHERE email = ?';
-            $stmt = $db->prepare($q2);
-            $stmt->bindParam(1, $verificationCode);
-            $stmt->bindParam(2, $email);
-            $stmt->execute();
-
-            send_passrecovery_mail($email, $verificationCode, $username);
-
            
+            $query = "INSERT INTO mailinglist
+				(name, email, mailinglist) 
+						VALUES (?,?,?)";
+						
+			$stmt = $db->prepare($query);
+			$stmt->bindParam(1, $name);
+			$stmt->bindParam(2, $email);
+			$stmt->bindParam(3, $cb);
+            $stmt->execute();
+            
+            echo json_encode(array('contactussent' => 0, 'email'=> $email));
         }
+        
+        
+        $htmlStr = "";
+		$htmlStr .= "מאת " . $name . ",<br /><br />";
+        $htmlStr .= "כתובת דואר אלקטרוני" . $email . ",<br /><br />";
+        $htmlStr .= "מספר טלפון" . $phone . ",<br /><br />";
+        $htmlStr .= "ההודעה היא: " . $massage . ",<br /><br />";
 		
+		$htmlStr .= "בהצלחה!,<br />";
+		$htmlStr .= "<a href='https://bibli.co.il/' target='_blank'>ביבלי</a><br />";
+
+
+		$email_sender = "contact@bibli.co.il";
+		$subject = "צור קשר | ביבלי";
+		$recipient_email = $email;
+
+		$headers  = "MIME-Version: 1.0\r\n";
+		$headers .= "Content-type: text/html; charset=iso-8859-1\r\n";
+		$headers .= "From: {$name} <{$email_sender}> \n";
+
+        $body = $htmlStr;
+        
+        //echo json_encode(array('contactussent' => 1, 'email'=> $email));
+
+
+        if( @mail($recipient_email, $subject, $body, $headers) ){
+
+			// tell the user a verification email were sent
+		
+            echo json_encode(array('contactussent' => 1, 'email'=> $email));
+
+        }else{
+            echo json_encode(array('contactussent' => 2, 'email'=> $email));
+        }
+
     }
     
 
-    function send_passrecovery_mail($email, $verificationCode, $username){
+    function send_contact_us_mail($email, $name){
        
 		
 		// send the email verification

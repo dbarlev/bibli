@@ -1,34 +1,30 @@
 import React, { Component } from 'react';
 import {Form, Alert, FormGroup, Col, Button, FormControl, Grid} from 'react-bootstrap';
 import {connect} from 'react-redux';
+import {Link} from 'react-router-dom';
 import Header from '../header/Header';
 import { PassRecoveryEdit } from '../../actions/ajax';
-
-
-
 
 class PasswordRecoveryEdit extends Component {
     constructor(props){
         super(props);
-        
+        this.state ={
+            password: '',
+            confirmPassword: '',
+            msg: ''
+        } 
     }
 
-    state ={
-        password: '',
-        confirmPassword: '',
+    componentDidUpdate(prevProps){
+        if(this.props.passRecoveryEditSuccess !== prevProps.passRecoveryEditSuccess){
+            this.massage()
+        }
     }
-
-    componentDidMount(){
-        console.log('this.state', this.state);
-        console.log('this.props', this.props);
-    }
-
     onChange = (e) => {
        this.setState({
             [e.target.name]: e.target.value
-        })
-
-        
+        }) 
+        this.setState({msg:''});
     }
 
 
@@ -62,9 +58,9 @@ class PasswordRecoveryEdit extends Component {
 
     onSubmit = (e) => {
         e.preventDefault();
-        console.log('onSubmit');
-        console.log('this.state', this.state);
-
+        //console.log('onSubmit');
+        //console.log('this.state', this.state);
+      
         let obj = {
             password: this.state.password,
             token: this.props.match.params.token
@@ -72,11 +68,21 @@ class PasswordRecoveryEdit extends Component {
     let err = this.formValidation();
         if(!err){
             this.props.PassRecoveryEdit(obj);
-            console.log('success');
+        // console.log('success');
         }
 
     }
 
+    massage = () => {
+        if(this.props.passRecoveryEditSuccess.password_changed == 1){
+            this.setState({msg: 'הסיסמה עודכנה בהצלחה '});
+            return this.state.msg + '<Link to="/">to link</Link>';
+        }else{
+            this.setState({msg: 'הסיסמה לא עודכנה בהצלחה'});
+            return this.state.msg
+        }
+   
+    }
 
 
     render() {
@@ -124,10 +130,26 @@ class PasswordRecoveryEdit extends Component {
                         </Col>
                       </FormGroup>
                     </Form>
+
+                    {this.state.msg && 
+
+                        <Alert variant="success" className="text-right">
+                        
+                        {this.state.msg}
+                      
+                    </Alert>   
+                    }
                 </Grid>
             </div>
         )
     }
 }
 
-export default connect(null, {PassRecoveryEdit})(PasswordRecoveryEdit)
+const mapStateToProps = state => {
+    return{
+            passRecoveryEditSuccess: state.userReducer.passRecoveryEdit
+    }
+}
+
+
+export default connect(mapStateToProps, {PassRecoveryEdit})(PasswordRecoveryEdit)
