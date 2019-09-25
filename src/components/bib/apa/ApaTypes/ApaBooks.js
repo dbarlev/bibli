@@ -16,10 +16,10 @@ class ApaBooks extends Component {
     this.state = {
       names: [],
       formFeilds:[
-        {id: "bookName", label: "שם הספר"},
-        {id: "publisherName", label: "שם ההוצאה לאור"},
-        {id: "publisherLocation", label: "מיקום ההוצאה לאור"},
-        {id: "publishyear", label: "שנת ההוצאה"}
+        {id: "name", label: "שם הספר"},
+        {id: "publishname", label: "שם ההוצאה לאור"},
+        {id: "publishcity", label: "מיקום ההוצאה לאור"},
+        {id: "year", label: "שנת ההוצאה"}
       ],
       formSubmited: false,
       writersHandler: new FormatWriters()
@@ -37,15 +37,15 @@ class ApaBooks extends Component {
       return;     
     }
 
-    let name = formElements.namedItem("bookName").value;
+    let name = formElements.namedItem("name").value;
     let lang = new VerifyLang(name).checkLanguage();
     var details = {
         userid: this.props.userid,
         recordType: 1,
         name,
-        publishname: formElements.namedItem("publisherName").value,
-        publishcity: formElements.namedItem("publisherLocation").value,
-        year: formElements.namedItem("publishyear").value,
+        publishname: formElements.namedItem("publishname").value,
+        publishcity: formElements.namedItem("publishcity").value,
+        year: formElements.namedItem("year").value,
         writers: this.state.writersHandler.formatWriters(this.state.names),
         retrived: new GetFormatDate().populateText(lang),
         activeBiblist: activeBiblist.id

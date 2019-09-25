@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {DeleteRecordFromUser} from '../../../actions/ajax';
 import Confirm from '../../Modal/Confirm';
-import { LinkContainer } from "react-router-bootstrap";
+import { Redirect, withRouter } from 'react-router-dom';
 
 class BibListItem extends Component {
 
@@ -155,17 +155,18 @@ class BibListItem extends Component {
             this.props.DeleteRecordFromUser(userid, recordID, biblistID);           
   }
 
+  onEditRecord(){
+    const {type} = this.props;
+    this.props.history.push(`editRecord/${type}/${this.props.recordID}`);
+  }
 
   render() {
-
     return (
       <div className="bib_card"> 
           <div className="row">
               <div className="col-md-2" id="record-config-buttons">
                   <span onClick={() => this.setState({...this.state, show: true})} data-id={this.props.recordID} role="button" aria-label="מחק"><i className="fas fa-trash-alt"></i></span>
-                  <LinkContainer className="pointer" to={'editRecord/' + this.props.recordID} >
-                        <span data-id={this.props.recordID} role="button" aria-label="עריכה"><i className="fas fa-edit"></i></span>
-                  </LinkContainer>
+                  <span onClick={() => this.onEditRecord()} className="pointer" data-id={this.props.recordID} role="button" aria-label="עריכה"><i className="fas fa-edit"></i></span>
                   <span data-id={this.props.recordID} role="button" title="העתק" aria-label="העתק"><i className="fas fa-paste"></i></span>
               </div>
               <div className="col-md-7">
@@ -182,9 +183,10 @@ class BibListItem extends Component {
 const mapStateToProps = (state) => {
     return {
         activeBiblist: state.activeBiblist,
-        userid: state.authReducer.userid
+        userid: state.authReducer.userid,
+        getEditRecord: state.getEditRecord[0]
     }
 }
 
-export default connect (mapStateToProps, {DeleteRecordFromUser})(BibListItem);
+export default withRouter(connect (mapStateToProps, {DeleteRecordFromUser})(BibListItem));
 

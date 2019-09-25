@@ -1,11 +1,7 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {InsertRecordToDB} from '../../../../actions/ajax';
-import Writers from '../../writers/Writers';
 import {
-    Button,
-    Form,
-    FormGroup,
     FormControl,
     Col,
     HelpBlock
@@ -21,15 +17,15 @@ class ApaFormField extends Component {
     }
   }
 
-  componentDidMount(){
-
+  componentDidMount()
+  {
     let { getEditRecord, field} = this.props;
 
-    if(getEditRecord.length > 0)
+    if(getEditRecord.length > 0 && window.location.href.indexOf("editRecord") > -1)
     {
       this.setState({
         value: getEditRecord[0][field.id]
-      })
+      });
     }
   }
 
