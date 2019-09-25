@@ -25,11 +25,11 @@ class ApaPaper extends Component {
         label: "סוג מקור"
       },
       formFeilds:[
-        {id: "paperName", label: "שם העיתון"},
-        {id: "papertHeadline", label: "כותרת הכתבה"},
-        {id: "pagesNumber", label: "עמודים"},
-        {id: "dateOfPublish", label: "תאריך פרסום"},
-        {id: "paperLink", label: "קישור לכתבה"}
+        {id: "name", label: "שם העיתון"},
+        {id: "title", label: "כותרת הכתבה"},
+        {id: "pages", label: "עמודים"},
+        {id: "year", label: "תאריך פרסום"},
+        {id: "url", label: "קישור לכתבה"}
       ],
       hiddenFeilds: ["paperLink"],
       selectedSourceOption: { value: 1, label: 'בדפוס' },
@@ -55,7 +55,7 @@ class ApaPaper extends Component {
       return;     
     }
 
-    let name = formElements.namedItem("paperName").value;
+    let name = formElements.namedItem("name").value;
     let lang = new VerifyLang(name).checkLanguage();
 
     var details = {
@@ -63,11 +63,11 @@ class ApaPaper extends Component {
         userid: this.props.userid,
         recordType: 3,
         name,
-        title: formElements.namedItem("papertHeadline").value,
+        title: formElements.namedItem("title").value,
         retrived: new GetFormatDate().populateText(lang),
-        pages: formElements.namedItem("pagesNumber").value,
-        year: formElements.namedItem("dateOfPublish").value,
-        url: this.refs.paperLink ? formElements.namedItem("paperLink").value : null,
+        pages: formElements.namedItem("pages").value,
+        year: formElements.namedItem("year").value,
+        url: this.refs.paperLink ? formElements.namedItem("url").value : null,
         writers:  this.state.writersHandler.formatWriters(this.state.names),
         activeBiblist: activeBiblist.id
     }
