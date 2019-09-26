@@ -60,11 +60,10 @@ class TopMenu extends Component {
                     <li>
                        <a href="#"> <i className="fab fa-facebook-f"></i></a>
                     </li > 
-                    <li>
-                       <a href="#"><i className="fas fa-search"></i><span className="seperator">|</span></a>
-                    </li > 
+                    
+                    
                     <LinkContainer className="btn-warning black topnav-login-logout-btn" to="/" >
-                            <MenuItem onClick={this.logOut}> {texts[this.props.loginState]} </MenuItem>
+                            <MenuItem onClick={this.logOut}> {texts[this.props.loginState] = '' ? 'התחברי': 'התנתקי'} </MenuItem>
                     </LinkContainer>
 
                 </Nav>

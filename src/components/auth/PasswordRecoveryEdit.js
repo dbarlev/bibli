@@ -3,6 +3,7 @@ import {Form, Alert, FormGroup, Col, Button, FormControl, Grid} from 'react-boot
 import {connect} from 'react-redux';
 import {Link} from 'react-router-dom';
 import Header from '../header/Header';
+import Footer from '../footer/Footer';
 import { PassRecoveryEdit } from '../../actions/ajax';
 
 class PasswordRecoveryEdit extends Component {
@@ -89,7 +90,7 @@ class PasswordRecoveryEdit extends Component {
         return (
             <div>
                 <Header headline="הזינו סיסמה חדשה"/>
-                <Grid>
+                <Grid className="page-wrap">
                     <Form horizontal onSubmit={this.onSubmit.bind(this)}>  
                         <FormGroup>
                             <FormControl 
@@ -140,6 +141,7 @@ class PasswordRecoveryEdit extends Component {
                     </Alert>   
                     }
                 </Grid>
+                <Footer className="site-footer"/>
             </div>
         )
     }

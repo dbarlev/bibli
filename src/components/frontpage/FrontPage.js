@@ -16,7 +16,7 @@ class FrontPage extends Component {
         <Slider />
         <Login />
         <InfoIcons />
-        <PricingTable />
+        // <PricingTable />
         <Footer />
       </Grid>
     )
