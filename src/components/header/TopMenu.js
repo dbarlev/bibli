@@ -30,7 +30,7 @@ class TopMenu extends Component {
     }
 
   render() {
-      
+    {console.log('this.props.loginState ', this.props.loginState)}
     return (
     <Navbar id="TopNav" className="nav-noStyle" >
             <Navbar.Header>
@@ -59,13 +59,12 @@ class TopMenu extends Component {
                     </LinkContainer>
                     <li>
                        <a href="#"> <i className="fab fa-facebook-f"></i></a>
-                    </li > 
-                    
+                    </li> 
+                   
                     
                     <LinkContainer className="btn-warning black topnav-login-logout-btn" to="/" >
-                            <MenuItem onClick={this.logOut}> {texts[this.props.loginState] = '' ? 'התחברי': 'התנתקי'} </MenuItem>
+                            <MenuItem onClick={this.logOut}> {this.props.loginState  ?  'התנתק/י' : 'התחבר/י'} </MenuItem>
                     </LinkContainer>
-
                 </Nav>
             </Navbar.Collapse>
       </Navbar>

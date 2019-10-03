@@ -37,11 +37,11 @@ class LoginForm extends Component {
     }
 
     componentWillMount(){
-        console.log('mount', this.props);
+        //console.log('mount', this.props);
     }
     componentDidUpdate(){
-        console.log('Update', this.props);
-        console.log('Update username',  this.props.userid);
+        //console.log('Update', this.props);
+//        console.log('Update username',  this.props.userid);
 
         
     }
@@ -92,7 +92,7 @@ class LoginForm extends Component {
 
     redirectUser = () => {
 
-        console.log('state', this.state);
+        //console.log('state', this.state);
         if(this.props.auth === true){
             // localStorage.setItem('userid', this.props.userid);
             // localStorage.setItem('auth', this.state.auth);
