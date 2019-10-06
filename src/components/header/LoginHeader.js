@@ -1,11 +1,10 @@
 import React, { Component } from 'react'
+import Login from '../auth/Login';
 
-export class LoginHeader extends Component {
+class LoginHeader extends Component {
     render() {
         return (
-            <div>
-                dav
-            </div>
+<div>dav</div>
         )
     }
 }

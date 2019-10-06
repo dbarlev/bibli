@@ -132,33 +132,34 @@ class LoginForm extends Component {
     render() {
         this.isLoggedIn();
         return (
-            <Grid fluid id="LoginForm" className="yellow-bg">
-               
-                <Row className="show-grid">
-                    <Col xsOffset={2} xs={8} mdOffset={3} md={6}>
-                        <h2 className="text-center">
-                            <span style={bold}>
-                                כבר רשומים? 
-                            </span> 
-                            התחברו!
-                        </h2>
+            
                         <Form horizontal>
                             <FormGroup  controlId="formHorizontalusername">
-                                <Col xs={12} sm={4}>
+                                <Col xs={4} sm={5} style={ColPadd}>
+                                <Row>
+                                דואר אלקטרוני
+                                </Row>
+                                <Row style={marginBottomZero}>
                                     <FormControl ref="email" name="email" type="email" onChange={this.onChange} placeholder="הקלד דואר אלקטרוני"/>
-                                  
+                                </Row>
                                 </Col>
-                                <Col xs={12} sm={4}>
+                                <Col xs={4} sm={4} style={ColPadd}>
+                                <Row>
+                              סיסמה
+                                </Row>
+                                <Row style={marginBottomZero}>
                                     <FormControl ref="password" name="password" type="password" onChange={this.onChange} placeholder="הקלד סיסמה"/>
-                                  
+                                    </Row>
                                 </Col>
                                 
-                                <Col  xs={12} sm={4} >
+                                <Col  xs={4} sm={3} style={TopMarginLoginBtn} >
                                     
                                     <Button onClick={this.onSubmitLogin} type="submit" className="full-width-btn" id="loginSubmit">התחבר</Button>
                                     {this.redirectUser()}
                                     </Col>
-
+                                    <Col xsOffset={4} xs={4} smOffset={5} sm={7}>
+                                    <Link to="/passwordrecovery">שכחתי את הסיסמה</Link>
+                                </Col>
                             </FormGroup>
                             {
                                 this.state.EmptyUsernameError ? 
@@ -176,15 +177,13 @@ class LoginForm extends Component {
                                 <Alert variant="danger"> {this.state.usernameError} </Alert> :
                                 ''
                             }
+                            <Row className="show-grid">
+                          
+                        </Row>
                         </Form>
-                    </Col>
-                </Row>
-                <Row className="show-grid">
-                    <Col xsOffset={2} xs={8} mdOffset={3} md={6}>
-                        <Link to="/passwordrecovery">שכחתי את הסיסמה</Link>
-                    </Col>
-                </Row>
-            </Grid>
+                  
+
+           
         );
     }
 }
@@ -207,3 +206,17 @@ const mapStateToProps = state => {
 }
 
 export default connect(mapStateToProps, {userLogedIn, userLogin})(LoginForm);
+
+
+const TopMarginLoginBtn = {
+    marginTop: "31px",
+    padding: "5px"
+  };
+
+const ColPadd = {
+    padding: "5px"
+};
+
+const marginBottomZero = {
+    marginBottom: "0px"
+};

@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { Redirect  } from 'react-router-dom';
-import { MenuItem} from 'react-bootstrap';
+import { MenuItem, Button } from 'react-bootstrap';
+import { LinkContainer, IndexLinkContainer  } from "react-router-bootstrap";
 import { connect } from 'react-redux';
 import { userLogedIn } from '../../actions';
 
@@ -15,9 +16,8 @@ export class LogOut extends Component {
     logOut = () => {
         eraseCookie('auth')
         eraseCookie('userid')
-        eraseCookie('username')
 
-       
+        this.props.userLogedIn();
         return <Redirect to='/' />
     }
 
@@ -26,8 +26,9 @@ export class LogOut extends Component {
 
        
         return (
-           
-            <MenuItem onClick={this.logOut}> התנתקי</MenuItem>
+            <LinkContainer className="btn-warning black topnav-login-logout-btn" style={TopMargin} to="/" >
+                <Button onClick={this.logOut}> התנתק/י</Button>
+            </LinkContainer>
             
         )
     }
@@ -41,3 +42,8 @@ const mapDispatchToProps = dispatch => {
 
 
 export default connect(null, mapDispatchToProps)(LogOut);
+
+
+const TopMargin = {
+    marginTop: "27px"
+  };

@@ -1797,7 +1797,7 @@ button > i,
 
 .topNavMenuItems {
   font-size: 20px;
-  padding-left: 30px;
+  padding-left: 8px;
   text-align: center; }
 
 .seperator {
@@ -2054,6 +2054,18 @@ h5 {
 .alertModal .btn {
   min-width: 60px;
   border-radius: 5px; }
+
+#TopNav .nav li {
+  background-color: white;
+  transition: 0.3s; }
+
+#TopNav .nav a:active {
+  background-color: #f2b500;
+  transition: 0.3s; }
+
+#TopNav .nav a:hover {
+  background-color: #f2b500;
+  transition: 0.3s; }
 
 /*
  * Components

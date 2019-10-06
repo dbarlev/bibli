@@ -5,7 +5,7 @@ import Header from '../header/Header';
 import Login from '../auth/LoginForm';
 import Slider from './Slider';
 import InfoIcons from './InfoIcons';
-import PricingTable from './PricingTable';
+import Register from '../auth/Register';
 import Footer from '../footer/Footer';
 
 class FrontPage extends Component {
@@ -14,9 +14,9 @@ class FrontPage extends Component {
       <Grid fluid id="frontpage" className="jumbotron-main">
         <Header headline=""/>
         <Slider />
-        <Login />
+        <shortRegister />
         <InfoIcons />
-        // <PricingTable />
+       
         <Footer />
       </Grid>
     )

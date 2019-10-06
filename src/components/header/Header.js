@@ -40,12 +40,12 @@ class Header extends Component {
 
     return (
         <Grid className="show-grid">
-        <div id="App-header">
+          <div id="App-header">
             <TopMenu loginState={this.state.auth}  />
             <div>
                 <h1 className="App-title">{this.props.headline}</h1>
             </div>
-        </div>
+          </div>
         </Grid>
     );
   }
