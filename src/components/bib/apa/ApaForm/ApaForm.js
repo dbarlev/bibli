@@ -17,8 +17,29 @@ class ApaForm extends Component {
   {
     super();
     this.state = {
-
+      mode: "add",
+      buttonText: "צור רשומה",
+      fieldValue: "",
+      modeChange: false
     }
+  }
+
+  checkFormMode()
+  {
+    if(this.state.modeChange)
+        return;
+
+      let { getEditRecord} = this.props;
+
+      if(getEditRecord.length > 0 && window.location.href.indexOf("editRecord") > -1)
+      {
+        this.setState({
+          mode: "edit",
+          buttonText: "ערוך רשומה",
+          modeChange: true
+        });
+      }
+    
   }
   
   renderComobox() {
@@ -63,16 +84,20 @@ class ApaForm extends Component {
                 })
               }
 
-              <Writers editMode={this.props.editRecord} editValues={this.props.getEditRecord} onWriterChange={(name) => this.props.onWriterNameChanged(name)} />
+              <Writers onWriterChange={(name) => this.props.onWriterNameChanged(name)} />
 
               <FormGroup className="pull-right">
                 <Col >
-                    <Button className="left-10"  onClick={(event) => this.props.onSubmitForm(event)} type="submit">צור רשומה</Button>
-                    <Button onClick={(event) => this.onSubmitApa(event)} type="submit">אישור והוספת פריט נוסף</Button>
+                    <Button className="left-10"  onClick={(event) => this.props.onSubmitForm(event)} type="submit">
+                      {this.state.buttonText}
+                    </Button>
                 </Col>
               </FormGroup>
             </Form>
         </div>
+        {
+              this.checkFormMode()
+        }
       </div>
 
     );

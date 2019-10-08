@@ -62,10 +62,9 @@ class ApaWebsite extends Component {
   }
 
 
-  getWritersNames(name)
+  getWritersNames(newName)
   {   
-      var names = this.state.writersHandler.getTypedName(name, this.state.names)
-      this.setState({names});
+      this.setState({names: newName});
   }
 
   

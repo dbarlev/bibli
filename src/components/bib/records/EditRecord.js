@@ -5,16 +5,16 @@ import ListOfBiblist from '../listOfRecords/ListOfBiblist';
 import BiblistHeading from './BiblistHeading';
 import Footer from '../../footer/Footer.js';
 import {connect} from 'react-redux';
-import {getSingleRecord} from '../../../actions/ajax';
+import {getSingleRecord, removeSingleRecordFromStore} from '../../../actions/ajax';
 
 class EditRecord extends Component {
 
-  componentWillMount(){
+  componentDidMount(){
     this.props.getSingleRecord(this.props.match.params.id); 
   }  
 
-  showLoading(){
-    
+  componentWillUnmount() {
+    this.props.removeSingleRecordFromStore(); 
   }
 
   render() {
@@ -32,5 +32,5 @@ class EditRecord extends Component {
   }
 }
 
-export default connect(null, {getSingleRecord})(EditRecord);
+export default connect(null, {getSingleRecord, removeSingleRecordFromStore})(EditRecord);
 

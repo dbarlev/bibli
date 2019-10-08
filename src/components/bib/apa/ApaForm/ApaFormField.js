@@ -13,20 +13,25 @@ class ApaFormField extends Component {
   {
     super();
     this.state = {
-        value: ""
+        value: "",
+        modeChange: false
     }
   }
 
-  componentDidMount()
+  checkFormMode()
   {
-    let { getEditRecord, field} = this.props;
+    if(this.state.modeChange)
+      return;
 
-    if(getEditRecord.length > 0 && window.location.href.indexOf("editRecord") > -1)
-    {
-      this.setState({
-        value: getEditRecord[0][field.id]
-      });
-    }
+      let { getEditRecord, field} = this.props;
+
+      if(getEditRecord.length > 0 && window.location.href.indexOf("editRecord") > -1)
+      {
+        this.setState({
+          value: getEditRecord[0][field.id],
+          modeChange: true
+        });
+      } 
   }
 
   getElementValue(fieldName)
@@ -60,6 +65,9 @@ class ApaFormField extends Component {
                 />
                 <HelpBlock role="status" aria-live="polite"></HelpBlock>
             </Col>
+            {
+              this.checkFormMode()
+            }
       </div>
     );
   }

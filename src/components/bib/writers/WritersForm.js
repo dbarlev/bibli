@@ -16,44 +16,51 @@ class WritersForm extends Component {
     super();
     this.state = {
       firstName: "",
-      lastName: ""
+      lastName: "",
+      writerID: "",
+      modeChanged: false
     }
   }
 
-  componentWillReceiveProps(props)
+  checkFormMode()
   {
+    let name = this.props.name;
+
+    if(name.firstName === "" || name.lastName === "" || name.writerID === "")
+      return;
+
+    if(this.state.modeChanged)
+      return;
+
+    
 
     if(window.location.href.indexOf("editRecord") > -1)
     {
        this.setState({
-         firstName: this.props.name.firstName,
-         lastName: this.props.name.lastName
+         modeChanged: true
        });
+      this.firstNameChange(name.firstName);
+      this.lastNameChange(name.lastName);
     }
   }
 
-  firstNameChange(event)
-  {
-        
-        this.setState({
-          firstName: event.target.value,
-          elementID: event.target.id
-        },()=>{
-            //console.log("current state: ", this.state.names) 
-            this.props.onWriterChange({key: "firstName", elementID: this.state.elementID, "data": this.state.firstName});   
-        });       
+  firstNameChange(value)
+  {    
+    this.setState({
+      firstName: value,
+      writerID: "writerName" + this.props.index
+    }); 
+    this.props.onWriterChange(this.state);   
   }
 
-  lastNameChange(event)
+  lastNameChange(value)
   {
-        
-        this.setState({
-          lastName: event.target.value,
-          elementID: event.target.id
-        },()=>{
-            //console.log("current state: ", this.state.names) 
-            this.props.onWriterChange({key: "lastName", elementID: this.state.elementID, "data": this.state.lastName});   
-        });       
+    this.setState({
+      lastName: value,
+      writerID: "writerName" + this.props.index
+    }); 
+    
+    this.props.onWriterChange(this.state);   
   }
 
   removeWriter(event)
@@ -64,18 +71,21 @@ class WritersForm extends Component {
   render() {
     return (
       <div id="writersForm">
-            <FormGroup controlId={"firstName" + this.props.name}>
+            <FormGroup controlId={"firstName" + this.props.index}>
                 <Col>
-                    <FormControl className="apa" placeholder="שם פרטי"  value={this.state.firstName} onChange={ this.firstNameChange.bind(this) } ref="editorPrivateName" type="text" />
+                    <FormControl className="apa" placeholder="שם פרטי"  value={this.state.firstName} onChange={ (event) => this.firstNameChange(event.target.value) } ref="editorPrivateName" type="text" />
                     <HelpBlock role="status" aria-live="polite"></HelpBlock>
                 </Col>
             </FormGroup>
-            <FormGroup  controlId={"lastName" + this.props.name}>
+            <FormGroup controlId={"lastName" + this.props.index}>
                 <Col>
-                    <FormControl className="apa" placeholder="שם משפחה" onChange={ this.lastNameChange.bind(this) } value={this.state.lastName} ref="editorLastName" type="text" />
+                    <FormControl className="apa" placeholder="שם משפחה" onChange={ (event) => this.lastNameChange(event.target.value)  } value={this.state.lastName} ref="editorLastName" type="text" />
                     <HelpBlock role="status" aria-live="polite"></HelpBlock>
                 </Col>
             </FormGroup>
+            {
+              this.checkFormMode()
+            }
       </div>
 
     );

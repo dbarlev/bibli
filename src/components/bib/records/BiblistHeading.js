@@ -32,16 +32,16 @@ class BiblistHeading extends Component {
     if(activeBiblistData.Name){
         return (
             <ul className="list-no-style list-inline" id="biblist-heading-list">
-                <li role="button" tabindex="0" aria-label="העתקת רשימה" title="העתקת רשימה"><i className="fas fa-copy"></i></li>
-                <li role="button" tabindex="0"  aria-label="מחיקת רשימה" title="מחיקת רשימה" className="pointer" onClick={() => this.setState({...this.state, show: true})} >
+                <li role="button" tabIndex="0" aria-label="העתקת רשימה" title="העתקת רשימה"><i className="fas fa-copy"></i></li>
+                <li role="button" tabIndex="0"  aria-label="מחיקת רשימה" title="מחיקת רשימה" className="pointer" onClick={() => this.setState({...this.state, show: true})} >
                     <i className="fas fa-trash-alt"></i>
                 </li>
-                <li role="link" tabindex="0"  aria-label="עריכת הרשימה" title="עריכת הרשימה">
+                <li role="link" tabIndex="0"  aria-label="עריכת הרשימה" title="עריכת הרשימה">
                     <LinkContainer className="pointer"  to="/records/editlist" >
                         <a><i className="fas fa-edit"></i></a>
                     </LinkContainer>
                 </li>
-                <li role="button" tabindex="0"  aria-label="ייצוא הרשימה" title="ייצוא הרשימה"><i className="fas fa-file-export"></i></li>
+                <li role="button" tabIndex="0"  aria-label="ייצוא הרשימה" title="ייצוא הרשימה"><i className="fas fa-file-export"></i></li>
             </ul>
         )
     }

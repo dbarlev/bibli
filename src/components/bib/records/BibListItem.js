@@ -165,9 +165,9 @@ class BibListItem extends Component {
       <div className="bib_card"> 
           <div className="row">
               <div className="col-md-2" id="record-config-buttons">
-                  <span onClick={() => this.setState({...this.state, show: true})} data-id={this.props.recordID} role="button" tabindex="0"  aria-label="מחק"><i className="fas fa-trash-alt"></i></span>
-                  <span onClick={() => this.onEditRecord()} className="pointer" data-id={this.props.recordID} role="link" tabindex="0"  aria-label="עריכה"><i className="fas fa-edit"></i></span>
-                  <span data-id={this.props.recordID} role="button" tabindex="0" title="העתק" aria-label="העתק"><i className="fas fa-paste"></i></span>
+                  <span onClick={() => this.setState({...this.state, show: true})} data-id={this.props.recordID} role="button" tabIndex="0"  aria-label="מחק"><i className="fas fa-trash-alt"></i></span>
+                  <span onClick={() => this.onEditRecord()} className="pointer" data-id={this.props.recordID} role="link" tabIndex="0"  aria-label="עריכה"><i className="fas fa-edit"></i></span>
+                  <span data-id={this.props.recordID} role="button" tabIndex="0" title="העתק" aria-label="העתק"><i className="fas fa-paste"></i></span>
               </div>
               <div className="col-md-7">
                   <div className="recordQuery">{this.getRecord()}</div>

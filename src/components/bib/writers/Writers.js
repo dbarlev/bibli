@@ -10,45 +10,66 @@ class Writers extends Component {
   {
     super();
     this.state = {
-      writers: [{firstName: "", lastName: ""}]
+      writers: [{firstName: "", lastName: "", writerID: "writerName0"}],
+      modeChange: false
     }
   }
 
-  componentDidMount()
+  checkFormMode()
   {
-    let { getEditRecord } = this.props;
-    let writers = [];
-    if(getEditRecord.length > 0 && window.location.href.indexOf("editRecord") > -1)
-    {
-      let length = getEditRecord[0]["wFname"].length;
-      
-      for(let i = 0; i < length; i ++)
+
+      if(this.state.modeChange)
+        return;
+
+      let { getEditRecord} = this.props;
+
+      if(getEditRecord.length > 0 && window.location.href.indexOf("editRecord") > -1)
       {
-        let firstName =  getEditRecord[0]["wFname"][i];
-        let lastName =  getEditRecord[0]["wLname"][i];
-        let writersObj = {firstName, lastName};
-        writers.push(writersObj);
+        getEditRecord = getEditRecord[0];
+        let length = getEditRecord.wFname.length;
+        let writers = [];
+        if(length >= 1)
+        {
+          writers = [{firstName: getEditRecord.wFname[0], lastName: getEditRecord.wLname[0], writerID: "writerName0"}];
+        }
+        for(let i = 1; i < getEditRecord.wFname.length; i++){
+          writers.push({firstName: getEditRecord.wFname[i], lastName: getEditRecord.wLname[i], writerID: "writerName" + i})
+        }
+
+        this.setState({writers, modeChange: true})
       }
-       this.setState({writers});
-    }
   }
 
-  createWriterFeilds(name,index)
+  createWriterFeilds(writer,index)
   {
         let {editValues, editMode} = this.props;
-        return <WritersForm key={index} name={name} onRemoveWriter={this.removeWriter.bind(this)} onWriterChange={this.getWritersNames.bind(this)}/>      
+        return <WritersForm key={index} index={index} name={writer} onRemoveWriter={this.removeWriter.bind(this)} onWriterChange={this.getWritersNames.bind(this)}/>      
   }
 
   addWriter()
   {
     var writers = this.state.writers;
-    writers.push({firstName: "", lastName: ""});
+    writers.push({firstName: "", lastName: "", writerID: "writerName" + writers.length});
     this.setState({ writers });
   }
 
-  getWritersNames(name)
+  getWritersNames(newWriter)
   {
-    this.props.onWriterChange({key: name.key, elementID: name.elementID, "data": name.data});  
+    if(newWriter.writerID == "") return;
+    
+    let currentWriters = this.state.writers;
+
+    let index = false;
+    currentWriters.forEach((writer, i) => {
+      if(writer.writerID == newWriter.writerID) {
+        index = i;
+      }
+    });
+
+      currentWriters[index] = newWriter;
+    
+    this.setState({writers: currentWriters})
+    this.props.onWriterChange(currentWriters);  
   }
 
   // not finished, currently it's remove the writer, should be given a name to delete.
@@ -67,10 +88,12 @@ class Writers extends Component {
               <span className="button" onClick={this.addWriter.bind(this)}><i class="fas fa-plus"></i></span>
           </div> 
             {
-              this.state.writers.map((name,index) => this.createWriterFeilds(name,index))   
+              this.state.writers.map((writer,index) => this.createWriterFeilds(writer,index))   
             } 
+            {
+              this.checkFormMode()
+            }
       </div>
-
     );
   }
 }

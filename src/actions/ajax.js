@@ -55,6 +55,12 @@ export const getSingleRecord = (recordID) => {
     }
 };
 
+export const removeSingleRecordFromStore = () => {
+    return (dispatch) => {
+        dispatch({ type: GET_RECORD, value: [] });
+    }
+};
+
 export const DeleteRecordFromUser = (userID, recordID, biblistID) => {
 
     return (dispatch) => {
