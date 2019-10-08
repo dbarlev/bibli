@@ -18,8 +18,7 @@ class Header extends Component {
     let userid = this.state.userid;
     let auth = this.state.auth;
     let username = this.state.username;
-
-    console.log('this auth', this.state.auth);
+    //debugger;
     if(auth){
       console.log('logged in');
       const json = {
@@ -29,9 +28,10 @@ class Header extends Component {
       }
       this.props.userLogedIn(json); 
     }else{
-      // debugger;
+      this.setState({auth: false})
     console.log('no session');
     }
+    console.log('this.state ',this.state);
   }
 
  
@@ -40,13 +40,12 @@ class Header extends Component {
 
     return (
         <Grid className="show-grid">
-        <div id="App-header">
+          <div id="App-header">
             <TopMenu loginState={this.state.auth}  />
-            {console.log('this.state.auth', this.state.auth )}
             <div>
                 <h1 className="App-title">{this.props.headline}</h1>
             </div>
-        </div>
+          </div>
         </Grid>
     );
   }

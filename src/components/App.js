@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import {Button, Grid} from 'react-bootstrap';
 import Header from './header/Header.js';
 import SubOptions from './subscription/SubOptions';
 import Search from './bib/search/Search';
@@ -34,12 +35,12 @@ class App extends Component {
 
   render() {
     return (
-      <div className="App">
+      <Grid className="App">
         <Header headline="1ברוכים הבאים לביבלי"/>
         <SubOptions />
         <br />
         <Footer />
-      </div>
+      </Grid>
     );
   }
 }

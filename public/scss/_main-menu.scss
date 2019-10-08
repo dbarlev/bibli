@@ -1,0 +1,22 @@
+#TopNav{
+    .nav{
+        li{
+           
+            background-color: white;
+            transition: 0.3s;    
+        }
+
+
+        a:active{
+            background-color: $mainYellow;
+             
+            transition: 0.3s;                                                                   
+        }
+
+        a:hover{
+            background-color: $mainYellow;
+             
+            transition: 0.3s;                                                                   
+        }
+    }
+}
