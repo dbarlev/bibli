@@ -55,6 +55,11 @@ class ApaBooks extends Component {
       let recordToEdit = getEditRecord[0];
       let bookid = recordToEdit.bookid;
       details["bookid"] = bookid;
+      if(details.writers.fname.length === 0)
+      {
+        let writers = { fname: recordToEdit.wFname, lname: recordToEdit.wLname}
+        details.writers = writers;
+      }
       this.props.EditRecord(details);
     } 
     else{

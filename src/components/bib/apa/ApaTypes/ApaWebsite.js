@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import ReactDOM from 'react-dom';
 import {connect} from 'react-redux';
-import {InsertRecordToDB} from '../../../../actions/ajax';
+import {InsertRecordToDB, EditRecord} from '../../../../actions/ajax';
 import {GetFormatDate} from '../../services/GetFormatDate';
 import {FormatWriters} from '../../services/FormatWriters';
 import  ApaForm from '../ApaForm/ApaForm';
@@ -34,8 +34,9 @@ class ApaWebsite extends Component {
   onSubmitApa(event)
   {
     event.preventDefault();
+    const { getEditRecord, activeBiblist} = this.props;
+    let editMode = window.location.href.indexOf("editRecord") > -1;
     let formElements = event.target.form.elements;
-    let activeBiblist = this.props.activeBiblist;
     if(activeBiblist && activeBiblist.length == 0)
     {
       alert("Please choose a list first");
@@ -56,7 +57,20 @@ class ApaWebsite extends Component {
         activeBiblist: activeBiblist.id
     }
 
-      this.props.InsertRecordToDB(details); 
+    if(editMode){
+      let recordToEdit = getEditRecord[0];
+      let bookid = recordToEdit.bookid;
+      details["bookid"] = bookid;
+      if(details.writers.fname.length === 0)
+      {
+        let writers = { fname: recordToEdit.wFname, lname: recordToEdit.wLname}
+        details.writers = writers;
+      }
+      this.props.EditRecord(details);
+    } 
+    else{
+      this.props.InsertRecordToDB(details);
+    } 
       this.props.history.push("/records/biblist");
 
   }
@@ -92,5 +106,5 @@ const mapStateToProps = (state) => {
   }
 }
 
-export default connect(mapStateToProps, {InsertRecordToDB})(withRouter(ApaWebsite));
+export default connect(mapStateToProps, {InsertRecordToDB, EditRecord})(withRouter(ApaWebsite));
 

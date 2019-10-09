@@ -49,8 +49,9 @@ class WritersForm extends Component {
     this.setState({
       firstName: value,
       writerID: "writerName" + this.props.index
+    }, () => {
+      this.props.onWriterChange(this.state);   
     }); 
-    this.props.onWriterChange(this.state);   
   }
 
   lastNameChange(value)
@@ -58,9 +59,9 @@ class WritersForm extends Component {
     this.setState({
       lastName: value,
       writerID: "writerName" + this.props.index
-    }); 
-    
-    this.props.onWriterChange(this.state);   
+    }, () => {
+      this.props.onWriterChange(this.state); 
+    });    
   }
 
   removeWriter(event)
