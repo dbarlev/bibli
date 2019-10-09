@@ -75,6 +75,27 @@ export const DeleteRecordFromUser = (userID, recordID, biblistID) => {
 
 };
 
+export const EditRecord = (data) => {
+
+    return (dispatch) => {
+        axios({
+                url: `${API_PATH}/biblioRecords/Records.php`,
+                method: 'put',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                },
+                data: JSON.stringify(data)
+            })
+            .then(function(response) {
+                dispatch({ type: INSERT_RECORD_TO_USER, value: response.data });
+            })
+            .catch(function(error) {
+                console.log(error);
+            });
+    }
+};
+
 export const EditBiblistName = (userID, biblistID, name) => {
 
     let data = {

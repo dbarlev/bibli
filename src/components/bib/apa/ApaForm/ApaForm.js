@@ -20,7 +20,8 @@ class ApaForm extends Component {
       mode: "add",
       buttonText: "צור רשומה",
       fieldValue: "",
-      modeChange: false
+      modeChange: false,
+      bookid: false
     }
   }
 
@@ -88,7 +89,7 @@ class ApaForm extends Component {
 
               <FormGroup className="pull-right">
                 <Col >
-                    <Button className="left-10"  onClick={(event) => this.props.onSubmitForm(event)} type="submit">
+                    <Button className="left-10" onClick={(event) => this.props.onSubmitForm(event)} type="submit">
                       {this.state.buttonText}
                     </Button>
                 </Col>

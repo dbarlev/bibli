@@ -41,7 +41,13 @@
 				setRecords($db);
 				break;
 			case 'PUT':
-				deleteRecordFromUser($db);
+				$data = json_decode(file_get_contents('php://input'));
+				if(isset($data->bookid)){
+					updateRecord($db);
+				}
+				else {
+					deleteRecordFromUser($db);
+				}	
 				break;
 			case 'DELETE':
 				break;
@@ -161,6 +167,52 @@
 		$stmt->execute();
 
 		getRecords($db, $userid, $biblistID);
+	}
+	
+	function updateRecord($db)
+    {
+		 $data = json_decode(file_get_contents('php://input'));	
+		 if(isset($data->userid)) $userID = $data->userid; else  $userID = null;
+		 if(isset($data->chapter)) $chapter = $data->chapter; else  $chapter = null;
+		 if(isset($data->pages)) $pages = $data->pages; else  $pages = null;
+		 if(isset($data->publishname)) $publishname = $data->publishname; else  $publishname = null;
+		 if(isset($data->publishcity)) $publishcity = $data->publishcity; else  $publishcity = null;
+		 if(isset($data->kereh)) $kereh = $data->kereh; else  $kereh = null;
+		 if(isset($data->recordType)) $recordType = $data->recordType; else  $recordType = null;
+		 if(isset($data->url)) $url = $data->url; else  $url = null;
+		 if(isset($data->title)) $title = $data->title; else  $title = null;
+		 if(isset($data->retrived)) $retrived = $data->retrived; else  $retrived = null;
+		 if(isset($data->writers->fname)) $wFname = serialize($data->writers->fname); else  $wFname = null;
+		 if(isset($data->writers->lname)) $wLname = serialize($data->writers->lname); else  $wLname = null;
+		 if(isset($data->name)) $name = $data->name; else  $name = null;
+		 if(isset($data->year)) $year = $data->year; else  $year = null;
+		 if(isset($data->activeBiblist)) $BiblistID = $data->activeBiblist; else  $BiblistID = null;
+		 if(isset($data->bookid)) $bookid = $data->bookid; else  $bookid = null;
+		 
+		 $query = "UPDATE refactor_books_new
+		 			SET userid = ?, BiblistID = ?, chapter = ?, pages = ?, publishname = ?, publishcity = ?, kereh = ?, RecordType = ?, url = ?, title = ?, retrived = ?, wFname = ?, wLname = ?, name = ?, year = ?
+						WHERE bookid = ?";
+		
+		 $stmt = $db->prepare($query);
+		 $stmt->bindParam(1, $userID);
+		 $stmt->bindParam(2, $BiblistID);
+		 $stmt->bindParam(3, $chapter);
+		 $stmt->bindParam(4, $pages);
+		 $stmt->bindParam(5, $publishname);
+		 $stmt->bindParam(6, $publishcity);
+		 $stmt->bindParam(7, $kereh);
+		 $stmt->bindParam(8, $recordType);
+		 $stmt->bindParam(9, $url);
+		 $stmt->bindParam(10, $title);
+		 $stmt->bindParam(11, $retrived);
+		 $stmt->bindParam(12, $wFname);
+		 $stmt->bindParam(13, $wLname);
+		 $stmt->bindParam(14, $name);
+		 $stmt->bindParam(15, $year);
+		 $stmt->bindParam(16, $bookid);
+		 $stmt->execute();
+		 
+		 getRecords($db, $userID);
     }
 
 ?>
