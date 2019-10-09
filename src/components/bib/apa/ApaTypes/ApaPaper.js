@@ -7,6 +7,8 @@ import {FormatWriters} from '../../services/FormatWriters';
 import {VerifyLang} from '../../services/VerifyLang';
 import  ApaForm from '../ApaForm/ApaForm';
 import { withRouter } from 'react-router-dom';
+import {SELECT_PRINT_TYPE, SELECT_ONLINE_TYPE} from './consts';
+
 
 class ApaPaper extends Component {
 
@@ -19,8 +21,8 @@ class ApaPaper extends Component {
         id: "sourceType",
         type: "select", 
         options: [
-          { value: "print", label: 'בדפוס' },
-          { value: "online", label: 'מקוון' }
+          SELECT_PRINT_TYPE,
+          SELECT_ONLINE_TYPE
         ],
         label: "סוג מקור"
       },
@@ -29,13 +31,33 @@ class ApaPaper extends Component {
         {id: "title", label: "כותרת הכתבה"},
         {id: "pages", label: "עמודים"},
         {id: "year", label: "תאריך פרסום"},
-        {id: "url", label: "קישור לכתבה"}
       ],
-      hiddenFeilds: ["url"],
-      selectedSourceOption: { value: 1, label: 'בדפוס' },
+      selectedSourceOption: SELECT_PRINT_TYPE,
       writersHandler: new FormatWriters(),
-      formSubmited: false
+      formSubmited: false,
+      modeChange: false
     }
+  }
+
+  checkFormMode()
+  {
+    if(this.state.modeChange)
+        return;
+
+      let { getEditRecord} = this.props;
+      let selectedSourceOption = SELECT_PRINT_TYPE;
+      if(getEditRecord && getEditRecord.length > 0 && window.location.href.indexOf("editRecord") > -1)
+      {
+        if(getEditRecord[0].url.trim() !== ""){
+          selectedSourceOption = SELECT_ONLINE_TYPE;
+        }
+        this.setState({
+          modeChange: true
+        });
+
+        this.onComboboxChange(selectedSourceOption.id);
+      }
+    
   }
 
   getElement(refs)
@@ -68,7 +90,7 @@ class ApaPaper extends Component {
         retrived: new GetFormatDate().populateText(lang),
         pages: formElements.namedItem("pages").value,
         year: formElements.namedItem("year").value,
-        url: this.refs.paperLink ? formElements.namedItem("url").value : null,
+        url: formElements.namedItem("url") ? formElements.namedItem("url").value : "",
         writers:  this.state.writersHandler.formatWriters(this.state.names),
         activeBiblist: activeBiblist.id
     }
@@ -96,6 +118,28 @@ class ApaPaper extends Component {
       this.setState({names: newName});
   }
 
+  onComboboxChange(value){
+
+    let fields = this.state.formFeilds;
+    let selectedSourceOption = SELECT_PRINT_TYPE;
+    if(value === "online"){
+      if(fields[fields.length - 1].id !== "url"){
+        fields.push(SELECT_ONLINE_TYPE);
+        selectedSourceOption = SELECT_ONLINE_TYPE;
+      }  
+    }
+    else {
+      if(fields[fields.length - 1].id === "url"){
+        fields.pop();
+      }
+    }
+
+    this.setState({
+      formFeilds: fields,
+      selectedSourceOption
+    })
+  }
+
   render() {
 
     return (
@@ -103,15 +147,16 @@ class ApaPaper extends Component {
         <div className="row">
           <ApaForm 
             formFeilds={this.state.formFeilds}
+            defaultValue={this.state.selectedSourceOption}
             onSubmitForm={(e) => this.onSubmitApa(e)}
             combobox={this.state.combobox}
-            handleComboboxChange={(changedState) => this.setState({
-              selectedSourceOption: changedState.value
-            })}
+            handleComboboxChange={(value) => this.onComboboxChange(value)}
             onWriterNameChanged={(name) => this.getWritersNames(name)}
           />
         </div>
-
+        {
+          this.checkFormMode()
+        }
       </div>
 
     );

@@ -1925,6 +1925,10 @@ button.searchRecordBtn {
 .notApplicable i {
   color: #d0d0d0 !important; }
 
+.selectDropdown * {
+  background: white !important;
+  color: black !important; }
+
 form input[type="text"],
 form input[type="password"],
 form input[type="email"],

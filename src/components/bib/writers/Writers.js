@@ -23,7 +23,7 @@ class Writers extends Component {
 
       let { getEditRecord} = this.props;
 
-      if(getEditRecord.length > 0 && window.location.href.indexOf("editRecord") > -1)
+      if(getEditRecord && getEditRecord.length > 0 && window.location.href.indexOf("editRecord") > -1)
       {
         getEditRecord = getEditRecord[0];
         let length = getEditRecord.wFname.length;

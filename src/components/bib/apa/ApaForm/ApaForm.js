@@ -10,6 +10,8 @@ import {
 } from 'react-bootstrap';
 import ApaFormField from './ApaFormField';
 import Select from 'react-select';
+import {SELECT_PRINT_TYPE, SELECT_ONLINE_TYPE} from '../ApaTypes/consts';
+
 
 class ApaForm extends Component {
 
@@ -21,9 +23,12 @@ class ApaForm extends Component {
       buttonText: "צור רשומה",
       fieldValue: "",
       modeChange: false,
-      bookid: false
+      bookid: false,
+      selectValue: "בדפוס",
+      selectChanged: false
     }
   }
+
 
   checkFormMode()
   {
@@ -32,7 +37,7 @@ class ApaForm extends Component {
 
       let { getEditRecord} = this.props;
 
-      if(getEditRecord.length > 0 && window.location.href.indexOf("editRecord") > -1)
+      if(getEditRecord && getEditRecord.length > 0 && window.location.href.indexOf("editRecord") > -1)
       {
         this.setState({
           mode: "edit",
@@ -43,9 +48,21 @@ class ApaForm extends Component {
     
   }
   
+  onComboChange(e){
+
+    this.setState({
+      selectValue: e.label,
+      selectChanged: true
+    })
+    this.props.handleComboboxChange(e.id);
+    
+  }
+
   renderComobox() {
 
     let { combobox } = this.props;
+    let defaultValue  = this.props.defaultValue ? this.props.defaultValue.label : SELECT_PRINT_TYPE;
+    let selectValue = this.state.selectChanged ? this.state.selectValue : defaultValue;
     if(combobox && combobox.type == "select")
     {
         return (
@@ -55,8 +72,8 @@ class ApaForm extends Component {
                         aria-label={combobox.label}
                         className="sourceTypeCombobox"
                         options={combobox.options}
-                        onChange={changedState => this.props.handleComboboxChange(changedState)}
-                        value={this.state.selectedSourceOption}     
+                        onChange={e => this.onComboChange(e)}
+                        value={combobox.options.filter(option => option.label === selectValue)}    
                     />
                 </Col>
                 <br />
