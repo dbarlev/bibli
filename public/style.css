@@ -26,6 +26,9 @@ html, body {
   position: absolute !important;
   bottom: 0 !important; }
 
+.recordQuery.en * {
+  direction: ltr; }
+
 * {
   direction: rtl; }
 

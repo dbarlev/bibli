@@ -58,6 +58,7 @@ class BibListItem extends Component {
             <span>. </span>
             <span>{data.location}: </span>
             <span>{data.publisherName}</span>
+            <span>.</span>
          </div>
      )
   }
@@ -161,6 +162,7 @@ class BibListItem extends Component {
   }
 
   render() {
+
     return (
       <div className="bib_card"> 
           <div className="row">
@@ -170,7 +172,7 @@ class BibListItem extends Component {
                   <span data-id={this.props.recordID} role="button" tabIndex="0" title="העתק" aria-label="העתק"><i className="fas fa-paste"></i></span>
               </div>
               <div className="col-md-7">
-                  <div className="recordQuery">{this.getRecord()}</div>
+                  <div className={'recordQuery ' + this.props.record.lang}>{this.getRecord()}</div>
               </div>  
               <Confirm onHide={() => this.setState({...this.state, show: false})} msg="האם ברצונך למחוק את הרשומה?" show={this.state.show} onConfirm={this.deleteRecord.bind(this)} />        
           </div>

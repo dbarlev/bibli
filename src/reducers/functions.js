@@ -41,69 +41,78 @@ function checkLanguage(text)
 }
 
 function getWriters(writers, lang)
-{
-    // if there is no writers, exit the function
-    if(writers.wFname == false)
-        return "";
+{   
+    if(writers.wFname.length !== writers.wLname.length)
+        return;
+    
+    let length = writers.wFname.length;
+    let combinedWritersName = [];
+    let printedWriter = "";
 
-    // retrive from db
-    if(writers.wFname != undefined)
-    {
-        var data = writers;
-        var fname = data.wFname.join().split(",");
-        var lname = data.wLname.join().split(",");
-        var length = fname.length;
-        writers = [];
-
-        for(var i = 0; i < length; i++)
-        {
-            let writerFname = {
-                firstNamefield: fname[i].trim()
-            }
-            let writerLname = {
-                lastNamefield: lname[i].trim()
-            }
-            writers.push(writerFname);
-	        writers.push(writerLname);
-        }
+    for(let i = 0; i < length; i++){
+        let fname = writers.wFname[i].substr(0,1); 
+        let lname = writers.wLname[i];
+        combinedWritersName.push({fname,lname})
     }
-    
-    
-    var nameStr = "";
-    var seperator = " ו";
-    if(lang == "en") seperator = " & ";
 
-    writers.forEach(function(writer,i){
-        i++;
-        let keys = Object.keys(writer);
-        let name = writer[keys[0]];
-        if(i == writers.length - 1) // first name of the last editor
+    for(let index = 0; index < combinedWritersName.length; index++) {
+        let writer = combinedWritersName[index];
+        let HEseperatorStart = "";
+        let HEseperatorEnd = "";
+        let ENseperatorStart = "";
+        let ENseperatorEnd = "";
+
+        if(index == 0) // first writer
         {
-            if(writers.length < 3) // in case there is only one writer
-            {
-                nameStr += " " + name + ",";
-            }
-            else
-            {
-                nameStr += seperator + name + ",";
+            HEseperatorStart = "";
+            ENseperatorStart = "";
+            if(combinedWritersName.length === 1){
+                HEseperatorEnd = "'";
+                ENseperatorEnd = "";
             } 
+            else{
+                HEseperatorEnd = "'.";
+                ENseperatorEnd = ".";
+            }      
         }
-        else if(i == writers.length) // last name of the last editor
+        else if( index > 5 ){
+            if(lang === "en")
+                printedWriter += "at all";
+            else
+                printedWriter += " ואחרים";   
+
+            break;
+        }
+        else if(index === combinedWritersName.length - 1) // last writer
         {
-            name = name.substr(0,1);
-            nameStr += " " + name + "' ";
+            HEseperatorStart = " ו";
+            ENseperatorStart = " & ";
+
+            HEseperatorEnd = "'";
+            ENseperatorEnd = ".";
         }
-        else if(i % 2 == 0) // last name
+        else if(index === combinedWritersName.length - 2) // before last writer
         {
-            name = name.substr(0,1);
-            nameStr += " " + name + ".";
+            HEseperatorStart = "";
+            ENseperatorStart = "";
+
+            HEseperatorEnd = "'";
+            ENseperatorEnd = "";
         }
-        else // first name
-        {
-            nameStr += " " + name + ",";
+        else{
+            HEseperatorStart = "";
+            ENseperatorStart = "";
+
+            HEseperatorEnd = "'.";
+            ENseperatorEnd = ".";
         }
-    });
-    return nameStr;
+        if(lang == "en")
+            printedWriter += `${ENseperatorStart}${writer.lname}, ${writer.fname}${ENseperatorEnd} `	
+        else
+            printedWriter += `${HEseperatorStart}${writer.lname}, ${writer.fname}${HEseperatorEnd} `	
+    }
+
+    return printedWriter;
 }
 
 
