@@ -54,10 +54,10 @@ class BibListItem extends Component {
          <div>
             <span>{data.writers}</span>
             <span>( {data.year} ). </span>
-            <span style={{ fontWeight: "bold" }}>{data.name}</span>
+            <span style={{ fontWeight: "bold" }}>{this.verifyLangAndCapitalize(data.name)}</span>
             <span>. </span>
-            <span>{data.location}: </span>
-            <span>{data.publisherName}</span>
+            <span>{this.verifyLangAndCapitalize(data.location)}: </span>
+            <span>{this.verifyLangAndCapitalize(data.publisherName)}</span>
             <span>.</span>
          </div>
      )
@@ -66,19 +66,20 @@ class BibListItem extends Component {
   populateArticle()
   {
      let data = this.props.record;  
+     let preUrlSeperator = data.lang === "en" ? "from" : "מ";
      if(data.url != null && data.url.trim() != "") 
      {  
         return (
             <div>
                 <span>{data.writers}</span>
                 <span>( {data.year} ). </span>
-                <span style={{ fontWeight: "bold" }}>{data.articleHeadline}</span>
+                <span style={{ fontWeight: "bold" }}>{this.verifyLangAndCapitalize(data.articleHeadline)}</span>
                 <span>. </span>
-                <span>{data.name}, </span>
+                <span>{this.verifyLangAndCapitalize(data.name)}, </span>
                 <span>{data.kereh}, </span>
-                <span>{data.pages}, </span>
+                <span>{data.pages}. </span>
                 <span>{data.date} </span>
-                <span>{data.url}. </span>        
+                <span>{`${preUrlSeperator} ${data.url}`}. </span>        
             </div>
         )
      }
@@ -88,9 +89,9 @@ class BibListItem extends Component {
             <div>
                 <span>{data.writers}</span>
                 <span>( {data.year} ). </span>
-                <span style={{ fontWeight: "bold" }}>{data.articleHeadline}</span>
+                <span style={{ fontWeight: "bold" }}>{this.verifyLangAndCapitalize(data.articleHeadline)}</span>
                 <span>. </span>
-                <span>{data.name}, </span>
+                <span>{this.verifyLangAndCapitalize(data.name)}, </span>
                 <span>{data.kereh}, </span>
                 <span>{data.pages}.</span>     
             </div>
@@ -102,18 +103,19 @@ class BibListItem extends Component {
   {
 
      let data = this.props.record;  
+     let preUrlSeperator = data.lang === "en" ? "from" : "מ";
      if(data.url != null && data.url.trim() != "") 
      {  
         return (
             <div>
                 <span>{data.writers}</span>
                 <span>( {data.year} ). </span>
-                <span style={{ fontWeight: "bold" }}>{data.articleHeadline}</span>
+                <span style={{ fontWeight: "bold" }}>{this.verifyLangAndCapitalize(data.articleHeadline)}</span>
                 <span>. </span>
-                <span>{data.name}, </span>
-                <span>{data.pages}, </span>
+                <span>{this.verifyLangAndCapitalize(data.name)}, </span>
+                <span>{data.pages}. </span>
                 <span>{data.date} </span>
-                <span>{data.url}. </span>        
+                <span>{`${preUrlSeperator} ${data.url}`}. </span>       
             </div>
         )
      }
@@ -123,7 +125,7 @@ class BibListItem extends Component {
             <div>
                 <span>{data.writers}</span>
                 <span>( {data.year} ). </span>
-                <span style={{ fontWeight: "bold" }}>{data.articleHeadline}</span>
+                <span style={{ fontWeight: "bold" }}>{this.verifyLangAndCapitalize(data.articleHeadline)}</span>
                 <span>. </span>
                 <span>{data.pages}.</span>     
             </div>
@@ -139,7 +141,7 @@ class BibListItem extends Component {
              <div>
                 <span>{data.writers}</span>
                 <span>( {data.year} ). </span>
-                <span style={{ fontWeight: "bold" }}>{data.articleHeadline}</span>
+                <span style={{ fontWeight: "bold" }}>{this.verifyLangAndCapitalize(data.articleHeadline)}</span>
                 <span>. </span>
                 <span>{data.date} </span>
                 <span>{data.url}. </span>        
@@ -161,14 +163,19 @@ class BibListItem extends Component {
     this.props.history.push(`editRecord/${type}/${this.props.recordID}`);
   }
 
+  verifyLangAndCapitalize(string){
+    if (typeof string !== 'string' || this.props.record.lang === "he" ) return string;
+    return string.charAt(0).toUpperCase() + string.slice(1)
+  }
+
   render() {
 
     return (
       <div className="bib_card"> 
           <div className="row">
               <div className="col-md-2" id="record-config-buttons">
-                  <span onClick={() => this.setState({...this.state, show: true})} data-id={this.props.recordID} role="button" tabIndex="0"  aria-label="מחק"><i className="fas fa-trash-alt"></i></span>
-                  <span onClick={() => this.onEditRecord()} className="pointer" data-id={this.props.recordID} role="link" tabIndex="0"  aria-label="עריכה"><i className="fas fa-edit"></i></span>
+                  <span onClick={() => this.setState({...this.state, show: true})} data-id={this.props.recordID} role="button" tabIndex="0"  title="מחק" aria-label="מחק"><i className="fas fa-trash-alt"></i></span>
+                  <span onClick={() => this.onEditRecord()} className="pointer" data-id={this.props.recordID} role="link" title="עריכה" tabIndex="0"  aria-label="עריכה"><i className="fas fa-edit"></i></span>
                   <span data-id={this.props.recordID} role="button" tabIndex="0" title="העתק" aria-label="העתק"><i className="fas fa-paste"></i></span>
               </div>
               <div className="col-md-7">
