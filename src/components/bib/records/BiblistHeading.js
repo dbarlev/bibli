@@ -4,10 +4,11 @@ import { LinkContainer } from "react-router-bootstrap";
 import { DeleteBibList } from '../../../actions/ajax';
 import { activeBiblist } from '../../../actions';
 import Confirm from '../../Modal/Confirm';
-import { Document, Packer, Paragraph, TextRun } from 'docx';
+import { Document, Packer, Paragraph, TextRun, AlignmentType, HeadingLevel, Header,Media } from 'docx';
 import { saveAs } from 'file-saver';
 import * as fs from 'fs';
 
+import { base64Logo } from './const';
 
 class BiblistHeading extends Component {
 
@@ -34,41 +35,51 @@ class BiblistHeading extends Component {
   
   exportDocx(){
     const doc = new Document();
-    let HeRecordElements = document.querySelectorAll(".recordQuery.he");
-    let EnRecordElements = document.querySelectorAll(".recordQuery.en");
-    let allrecords = [];
-    if(HeRecordElements.length == 0 && EnRecordElements.length == 0)
+    let listOfElements = document.querySelectorAll(".recordQuery");
+    let allrecordsTexts = [];
+    let heading = new Paragraph({
+        text: "ביבליוגרפיה",
+        heading: HeadingLevel.HEADING_1,
+        spacing: {
+            after: 400,
+        },
+        alignment: AlignmentType.RIGHT,
+    });
+    let logo = Media.addImage(doc, base64Logo, 150, 50);
+    let paragraphs = [heading];
+    if(listOfElements.length == 0)
         return;
 
-    EnRecordElements.forEach((record) => {
-        
-        let text = new Paragraph({
-            children: [
-                new TextRun(record.textContent),
-            ],
-            spacing: {
-                before: 200,
-            }
-        });
-        allrecords.push(text);
+    listOfElements.forEach((record) => {
+        allrecordsTexts.push(record.textContent);
     });
 
-    HeRecordElements.forEach((record) => {
-        
-        let text = new Paragraph({
+    allrecordsTexts.sort();
+
+    allrecordsTexts.forEach((text) => {
+        let lang = this.checkLanguage(text);
+        let alignment = lang === "en" ? AlignmentType.LEFT : AlignmentType.RIGHT;
+        let paragraph = new Paragraph({
             children: [
-                new TextRun(record.textContent),
+                new TextRun(text),
             ],
             spacing: {
-                before: 200,
-            }
+                after: 400,
+            },
+            alignment,
+            bidirectional: lang === "he"
         });
-        allrecords.push(text);
+        paragraphs.push(paragraph);
     });
-    
+
     doc.addSection({
         properties: {},
-        children: allrecords,
+        headers: {
+            default: new Header({
+                children: [new Paragraph(logo)],
+            }),
+        },
+        children: paragraphs,
     });
 
     Packer.toBlob(doc).then(blob => {
@@ -77,6 +88,16 @@ class BiblistHeading extends Component {
         console.log("Document created successfully");
     });
   }
+
+    checkLanguage(text)
+    {
+        var lang = "he";
+        if(/^[a-zA-Z]+$/.test(text[0]))
+        {
+            lang = "en";
+        }
+        return lang;
+    }
 
   renderConfigBtns(){
     const {activeBiblistData} = this.props;
