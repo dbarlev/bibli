@@ -45,8 +45,17 @@ class BiblistHeading extends Component {
         },
         alignment: AlignmentType.RIGHT,
     });
+    let listName = new Paragraph({
+        text: this.props.activeBiblistData.Name,
+        heading: HeadingLevel.HEADING_2,
+        spacing: {
+            after: 400,
+        },
+        bidirectional: true,
+        alignment: AlignmentType.LEFT,
+    });
     let logo = Media.addImage(doc, base64Logo, 150, 50);
-    let paragraphs = [heading];
+    let paragraphs = [heading, listName];
     if(listOfElements.length == 0)
         return;
 
