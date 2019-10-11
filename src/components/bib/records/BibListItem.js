@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {DeleteRecordFromUser} from '../../../actions/ajax';
+import {exportRecordData} from '../../../actions';
 import Confirm from '../../Modal/Confirm';
 import { Redirect, withRouter } from 'react-router-dom';
 
@@ -13,13 +14,14 @@ class BibListItem extends Component {
         record: "",
         allRecords: [],
         permission: false,
-        show: false
+        show: false    
     }
+
   }
 
   componentDidMount()
   {
-      this.setState({permission: true})
+    this.setState({permission: true})
   }
 
   getRecord()
@@ -173,7 +175,7 @@ class BibListItem extends Component {
     return (
       <div className="bib_card"> 
           <div className="row">
-              <div className="col-md-2" id="record-config-buttons">
+              <div className="col-md-2 record-config-buttons">
                   <span onClick={() => this.setState({...this.state, show: true})} data-id={this.props.recordID} role="button" tabIndex="0"  title="מחק" aria-label="מחק"><i className="fas fa-trash-alt"></i></span>
                   <span onClick={() => this.onEditRecord()} className="pointer" data-id={this.props.recordID} role="link" title="עריכה" tabIndex="0"  aria-label="עריכה"><i className="fas fa-edit"></i></span>
                   <span data-id={this.props.recordID} role="button" tabIndex="0" title="העתק" aria-label="העתק"><i className="fas fa-paste"></i></span>
@@ -184,7 +186,6 @@ class BibListItem extends Component {
               <Confirm onHide={() => this.setState({...this.state, show: false})} msg="האם ברצונך למחוק את הרשומה?" show={this.state.show} onConfirm={this.deleteRecord.bind(this)} />        
           </div>
       </div>
-    
     );
   }
 }
@@ -197,5 +198,5 @@ const mapStateToProps = (state) => {
     }
 }
 
-export default withRouter(connect (mapStateToProps, {DeleteRecordFromUser})(BibListItem));
+export default withRouter(connect (mapStateToProps, {DeleteRecordFromUser, exportRecordData})(BibListItem));
 

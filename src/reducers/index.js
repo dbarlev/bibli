@@ -16,12 +16,25 @@ import {
     GET_RECORD,
     PASS_RECOVERY,
     PASS_RECOVERY_EDIT,
-    CONTACT_US_MASSAGE
+    CONTACT_US_MASSAGE,
+    EXPORT_RECORD_TO_WORD
 } from '../actions/consts';
 
 import { populateAPAData, editListName } from './functions.js';
 import { combineReducers } from 'redux';
 
+
+
+function recordsDataForExport(state = [], action) {
+    switch (action.type) {
+        case EXPORT_RECORD_TO_WORD:
+            return {
+                value: action.value
+            }
+        default:
+            return state
+    }
+}
 
 function chooseSubscription(state = [], action) {
     switch (action.type) {
@@ -219,7 +232,8 @@ const rootReducer = combineReducers({
     getBiblistNamesFromDB,
     searcResultsReducer,
     getEditRecord,
-    emailMassageReducer
+    emailMassageReducer,
+    recordsDataForExport
 });
 
 export default rootReducer;

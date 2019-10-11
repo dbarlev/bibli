@@ -1758,7 +1758,7 @@ button > i,
 .tabs .nav-item {
   float: right; }
 
-#bibRecords #record-config-buttons > span {
+#bibRecords .record-config-buttons > span {
   color: darkblue;
   cursor: pointer;
   margin-left: 20px; }

@@ -4,13 +4,18 @@ import { LinkContainer } from "react-router-bootstrap";
 import { DeleteBibList } from '../../../actions/ajax';
 import { activeBiblist } from '../../../actions';
 import Confirm from '../../Modal/Confirm';
+import { Document, Packer, Paragraph, TextRun } from 'docx';
+import { saveAs } from 'file-saver';
+import * as fs from 'fs';
+
 
 class BiblistHeading extends Component {
 
   constructor(){
     super();
     this.state = {
-        show: false
+        show: false,
+        export: false
     }
   }   
 
@@ -25,7 +30,53 @@ class BiblistHeading extends Component {
     if(activeBiblistData.Name){
         return <h2>ביבליוגרפיה של <strong>{activeBiblistData.Name}</strong></h2>    
     }
-  } 
+  }
+  
+  exportDocx(){
+    const doc = new Document();
+    let HeRecordElements = document.querySelectorAll(".recordQuery.he");
+    let EnRecordElements = document.querySelectorAll(".recordQuery.en");
+    let allrecords = [];
+    if(HeRecordElements.length == 0 && EnRecordElements.length == 0)
+        return;
+
+    EnRecordElements.forEach((record) => {
+        
+        let text = new Paragraph({
+            children: [
+                new TextRun(record.textContent),
+            ],
+            spacing: {
+                before: 200,
+            }
+        });
+        allrecords.push(text);
+    });
+
+    HeRecordElements.forEach((record) => {
+        
+        let text = new Paragraph({
+            children: [
+                new TextRun(record.textContent),
+            ],
+            spacing: {
+                before: 200,
+            }
+        });
+        allrecords.push(text);
+    });
+    
+    doc.addSection({
+        properties: {},
+        children: allrecords,
+    });
+
+    Packer.toBlob(doc).then(blob => {
+        console.log(blob);
+        saveAs(blob, "bibli.docx");
+        console.log("Document created successfully");
+    });
+  }
 
   renderConfigBtns(){
     const {activeBiblistData} = this.props;
@@ -41,7 +92,8 @@ class BiblistHeading extends Component {
                         <a><i className="fas fa-edit"></i></a>
                     </LinkContainer>
                 </li>
-                <li role="button" tabIndex="0"  aria-label="ייצוא הרשימה" title="ייצוא הרשימה"><i className="fas fa-file-export"></i></li>
+                <li role="button" tabIndex="0"  onClick={() => this.exportDocx()} aria-label="ייצוא הרשימה" title="ייצוא הרשימה"><i className="fas fa-file-export"></i></li>
+                
             </ul>
         )
     }
@@ -86,7 +138,8 @@ class BiblistHeading extends Component {
 const mapStateToProps = (state) => {
     return {
         activeBiblistData: state.activeBiblist,
-        getBiblistNamesFromDB: state.getBiblistNamesFromDB
+        getBiblistNamesFromDB: state.getBiblistNamesFromDB,
+        exportData: state.recordsDataForExport
     }
 }
 

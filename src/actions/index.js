@@ -5,8 +5,17 @@ import {
     USER_MAIL_VERIFICATION,
     ACTIVE_BIBLIST,
     LOGGED_IN, 
-    PASS_RECOVERY
+    PASS_RECOVERY,
+    EXPORT_RECORD_TO_WORD
 } from './consts';
+
+
+export function exportRecordData(value){
+    return {
+        type: EXPORT_RECORD_TO_WORD,
+        value
+    }
+}
 
 export function chooseSubscription(value, name) {
     return {
