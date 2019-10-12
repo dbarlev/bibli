@@ -102,7 +102,8 @@ class ApaWebsite extends Component {
 const mapStateToProps = (state) => {
   return {
       activeBiblist: state.activeBiblist,
-      userid: state.authReducer.userid
+      userid: state.authReducer.userid,
+      getEditRecord: state.getEditRecord
   }
 }
 

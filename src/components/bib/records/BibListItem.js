@@ -115,7 +115,7 @@ class BibListItem extends Component {
                 <span style={{ fontWeight: "bold" }}>{this.verifyLangAndCapitalize(data.articleHeadline)}</span>
                 <span>. </span>
                 <span>{this.verifyLangAndCapitalize(data.name)}, </span>
-                <span>{data.pages}. </span>
+                <span style={{ fontWeight: "bold" }}>{data.pages}. </span>
                 <span>{data.date} </span>
                 <span>{`${preUrlSeperator} ${data.url}`}. </span>       
             </div>
@@ -128,8 +128,8 @@ class BibListItem extends Component {
                 <span>{data.writers}</span>
                 <span>( {data.year} ). </span>
                 <span style={{ fontWeight: "bold" }}>{this.verifyLangAndCapitalize(data.articleHeadline)}</span>
-                <span>. </span>
-                <span>{data.pages}.</span>     
+                <span>. {this.verifyLangAndCapitalize(data.name)}, </span>
+                <span style={{ fontWeight: "bold" }}>{data.pages}.</span>     
             </div>
         )
      }

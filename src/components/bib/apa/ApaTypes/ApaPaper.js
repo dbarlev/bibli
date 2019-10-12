@@ -122,7 +122,7 @@ class ApaPaper extends Component {
 
     let fields = this.state.formFeilds;
     let selectedSourceOption = SELECT_PRINT_TYPE;
-    if(value === "online"){
+    if(value === "url"){
       if(fields[fields.length - 1].id !== "url"){
         fields.push(SELECT_ONLINE_TYPE);
         selectedSourceOption = SELECT_ONLINE_TYPE;
@@ -139,7 +139,7 @@ class ApaPaper extends Component {
       selectedSourceOption
     })
   }
-
+  
   render() {
 
     return (
@@ -166,7 +166,8 @@ class ApaPaper extends Component {
 const mapStateToProps = (state) => {
   return {
       activeBiblist: state.activeBiblist,
-      userid: state.authReducer.userid
+      userid: state.authReducer.userid,
+      getEditRecord: state.getEditRecord
   }
 }
 
