@@ -67,7 +67,6 @@ class BiblistHeading extends Component {
 
     allrecordsTexts.forEach((text) => {
         let lang = this.checkLanguage(text);
-        let alignment = lang === "en" ? AlignmentType.LEFT : AlignmentType.RIGHT;
         let paragraph = new Paragraph({
             children: [
                 new TextRun(text),
@@ -75,7 +74,7 @@ class BiblistHeading extends Component {
             spacing: {
                 after: 400,
             },
-            alignment,
+            alignment: AlignmentType.LEFT,
             bidirectional: lang === "he"
         });
         paragraphs.push(paragraph);
