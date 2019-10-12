@@ -1885,6 +1885,12 @@ button.searchRecordBtn {
   font-size: 22px;
   color: black; }
 
+.tabControlIcons .is-active i {
+  color: #1d63a0 !important; }
+
+.tabControlIcons a:hover i {
+  color: #1d63a0 !important; }
+
 .iconText {
   color: black;
   font-weight: normal; }

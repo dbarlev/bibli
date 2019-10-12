@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import { Route, Link } from 'react-router-dom';
+import { Route, NavLink } from 'react-router-dom';
 import ApaBooks from './apa/ApaTypes/ApaBooks';
 import ApaPaper from './apa/ApaTypes/ApaPaper';
 import ApaArticle from './apa/ApaTypes/ApaArticle';
@@ -25,34 +25,41 @@ class ApaTabControl extends Component {
     })
   }
 
+  checkActiveLink(routeToCheck){
+    let href = window.location.href;
+    if(href.indexOf("editRecord") === -1) return;
+
+    return href.indexOf(routeToCheck) > -1 ? "is-active" : "";
+  }
+
   render() {
     return (            
         <div id="apaTabcontrol">
             <div className="row">
                 <ul className="nav tabControlIcons">
                     <li className="pull-right" name="book">
-                      <Link to="/records/addRecord/ApaBooks" >
+                      <NavLink className={this.checkActiveLink("book")} activeClassName='is-active' to="/records/addRecord/ApaBooks" >
                         <i name="book" className="fas fa-book"></i>
                         <div name="book" className="iconText">ספר</div>
-                      </Link>
+                      </NavLink>
                     </li>
                     <li className="pull-right" name="paper">
-                      <Link to="/records/addRecord/ApaPaper" >
+                      <NavLink className={this.checkActiveLink("paper")} activeClassName='is-active' to="/records/addRecord/ApaPaper" >
                           <i name="paper" className="fas fa-book-open"></i>
                           <div name="paper" className="iconText">עיתון</div>
-                      </Link>
+                      </NavLink>
                     </li>
-                    <li className="pull-right" name="article">
-                        <Link to="/records/addRecord/ApaArticle" >
+                    <li  className="pull-right" name="article">
+                        <NavLink className={this.checkActiveLink("article")} activeClassName='is-active' to="/records/addRecord/ApaArticle" >
                           <i name="article" className="fas fa-graduation-cap"></i>
                           <div name="article" className="iconText">כתב עת</div>
-                        </Link>
+                        </NavLink>
                     </li>
                     <li className="pull-right" name="website">
-                      <Link to="/records/addRecord/ApaWebsite" >
+                      <NavLink className={this.checkActiveLink("website")} activeClassName='is-active' to="/records/addRecord/ApaWebsite" >
                           <i name="website" className="fab fa-chrome"></i>
                           <div name="website" className="iconText">אתר</div>
-                      </Link>
+                      </NavLink>
                     </li>
                     <li className="pull-right notApplicable" name="movie">
                       <a>
