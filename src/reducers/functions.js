@@ -8,7 +8,7 @@ export function populateAPAData(action)
      var records = []; 
      action.value.map((data,index)=>{
         let name = data.name,
-        lang = checkLanguage(name);
+        lang = checkLanguage(name ? name : data.title);
         records.push({
             location: data.publishcity,
             publisherName: data.publishname,

@@ -139,6 +139,7 @@ class BibListItem extends Component {
   populateWebsite()
   {
       let data = this.props.record;  
+      let preUrlSeperator = data.lang === "en" ? "from" : "מ";
       return (
              <div>
                 <span>{data.writers}</span>
@@ -146,7 +147,7 @@ class BibListItem extends Component {
                 <span style={{ fontWeight: "bold" }}>{this.verifyLangAndCapitalize(data.articleHeadline)}</span>
                 <span>. </span>
                 <span>{data.date} </span>
-                <span>{data.url}. </span>        
+                <span>{`${preUrlSeperator} ${data.url}`}. </span>        
             </div>
         )
   }
