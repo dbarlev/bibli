@@ -115,7 +115,7 @@
 			
 
 			$stmt->execute();
-			send_conf_mail_to_user($email, $name);
+			send_conf_mail_to_user($email);
 			getRecords($db, $email);
 		}
 		
@@ -137,7 +137,7 @@
 	
 
 	
-	function send_conf_mail_to_user($email, $name){
+	function send_conf_mail_to_user($email){
 		// generate verification code, acts as the "key"
 		$verificationCode = md5(uniqid($email, true));
 		
@@ -145,7 +145,7 @@
 		$verificationLink = "https://bibli.co.il/mailconf/" . $verificationCode;
 
 		$htmlStr = "";
-		$htmlStr .= "היי " . $name . ",<br /><br />";
+		$htmlStr .= "היי <br /><br />";
 
 		$htmlStr .= "נא לחץ על הכפתור כדי לאשר את הרשמתך לאתר.<br /><br /><br />";
 		$htmlStr .= "<a href='{$verificationLink}' target='_blank' style='padding:1em; font-weight:bold; background-color:blue; color:#fff;'>אשר רישום</a><br /><br /><br />";

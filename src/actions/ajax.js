@@ -181,8 +181,9 @@ export const InsertBibListToDB = (data) => {
 
 
 export const InsertUserToDB = (data) => {
-
+    console.log('data ff',data);
     return (dispatch) => {
+        
         axios({
                 url: `${API_PATH}/users/User.php`,
                 method: 'post',
