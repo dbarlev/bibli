@@ -293,3 +293,8 @@ button.searchRecordBtn {
     height: 60vh;
     border: none;
 }
+
+.topNavMenuItems.active a{
+    background: orange !important;
+    color: black !important;
+}

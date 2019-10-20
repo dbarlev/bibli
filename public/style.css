@@ -1944,6 +1944,10 @@ button.searchRecordBtn {
   height: 60vh;
   border: none; }
 
+.topNavMenuItems.active a {
+  background: orange !important;
+  color: black !important; }
+
 form input[type="text"],
 form input[type="password"],
 form input[type="email"],

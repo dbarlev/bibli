@@ -16,13 +16,13 @@ class UserMenu extends Component {
                     <li>
                        <a href="#" className="white"><Badge>2</Badge> <i className="far fa-bell"></i></a>
                     </li >
-                    <LinkContainer className="topNavMenuItems white" to="/login" >
+                    <LinkContainer className="topNavMenuItems white" to="#" >
                         <NavItem>אזור אישי  </NavItem>
                     </LinkContainer> 
-                     <LinkContainer className="topNavMenuItems white"  to="/register" >
+                     <LinkContainer className="topNavMenuItems white"  to="/records/biblist" >
                         <NavItem>ניהול רשימות ביבליוגרפיות</NavItem>
                     </LinkContainer>
-                    <LinkContainer className="topNavMenuItems white" to="/register" >
+                    <LinkContainer className="topNavMenuItems white" to="/faq" >
                         <NavItem>עזרה</NavItem>
                     </LinkContainer>
                      
