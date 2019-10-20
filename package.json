@@ -18,13 +18,13 @@
     "react-redux": "^5.0.7",
     "react-router-bootstrap": "^0.24.4",
     "react-router-dom": "^4.3.1",
-    "react-scripts": "1.1.4",
+    "react-scripts": "2.0.3",
     "react-select": "^2.0.0",
     "reactstrap": "^6.4.0",
     "redux": "^4.0.0",
     "redux-thunk": "^2.3.0"
   },
-  "homepage": "./",
+  "homepage": "/",
   "scripts": {
     "build-css": "node-sass-chokidar --include-path ./public --include-path ./node_modules public/ -o public/",
     "watch-css": "npm run build-css && node-sass-chokidar --include-path ./public --include-path ./node_modules public/ -o public/ --watch --recursive",
@@ -36,5 +36,11 @@
   },
   "devDependencies": {
     "case-sensitive-paths-webpack-plugin": "^2.1.2"
-  }
+  },
+  "browserslist": [
+    ">0.2%",
+    "not dead",
+    "not ie <= 11",
+    "not op_mini all"
+  ]
 }

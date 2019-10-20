@@ -42,7 +42,11 @@ ReactDOM.render(
                 <Route path="/contact" component={Contact} />
                 <Route path="/passwordrecovery" component={PasswordRecovery} /> //טופס הזנת כתובת מייל לשחזור סיסמא
                 <Route path="/passwordrecoveryedit/:token" component={PasswordRecoveryEdit} /> //שינוי של הסיסמא
-                <Route path="/records/:types" component={Records} />
+                <Route path="/records/biblist" component={Records} />
+                <Route path="/records/addNewList" component={Records}/>
+                <Route path="/records/addRecord" component={Records} />
+                <Route path="/records/editList" component={Records} />
+                <Route path="/records/editRecord" component={Records} />
             </Switch>
         </BrowserRouter>
     </Provider>

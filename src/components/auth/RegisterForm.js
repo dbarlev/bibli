@@ -37,19 +37,6 @@ class RegisterForm extends Component {
       mailExists: 'כתובת דואר זו כבר קיימת במערכת'
       
   }
-    //   email: "אימייל הוא שדה חובה",
-    //   emailExists: 'כתובת המייל הזו כבר קיימת במערכת',
-    //   username: "שם משתמש הוא שדה חובה",
-    //   password: "סיסמה היא שדה חובה",
-    //   confirmPassword: "הסיסמאות אינן זהות"
-    // }
-  // }
-
-  componentDidUpdate() {
-    console.log(' this.props.user.registerSuccess ',  this.props.user.registerSuccess);
-    this.props.user.userRegistered; 
-  }
-
 
   populatePackagesCombobox(e) {
     let value = this.props.chooseSubscription.value;
@@ -163,7 +150,7 @@ class RegisterForm extends Component {
 
     if(this.state.package == ''){
       isError =  true;
-      errors.packageError == "חובה לבחור חבילה";
+      errors.packageError = "חובה לבחור חבילה";
     }else{
       isError =  false;
       errors.packageError = ""
@@ -172,7 +159,6 @@ class RegisterForm extends Component {
       ...this.state,
       ...errors
     });
-    // console.log('val state', this.state);
     return isError
   }
 
