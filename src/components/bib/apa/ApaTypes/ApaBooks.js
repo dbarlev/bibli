@@ -28,6 +28,7 @@ class ApaBooks extends Component {
 
   onSubmitApa(event)
   {
+
     event.preventDefault();
     const { getEditRecord, activeBiblist} = this.props;
     let editMode = window.location.href.indexOf("editRecord") > -1;
@@ -37,7 +38,6 @@ class ApaBooks extends Component {
       alert("Please choose a list first");
       return;     
     }
-
     let name = formElements.namedItem("name").value;
     let lang = new VerifyLang(name).checkLanguage();
     var details = {

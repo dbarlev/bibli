@@ -1,9 +1,6 @@
 import React, {Component} from 'react';
 import ApaTabControl from '../apaTabControl.js';
-import HeaderLogin from '../../header/HeaderLogin.js';
-import ListOfBiblist from '../listOfRecords/ListOfBiblist';
 import BiblistHeading from './BiblistHeading';
-import Footer from '../../footer/Footer.js';
 
 class AddRecord extends Component {
 

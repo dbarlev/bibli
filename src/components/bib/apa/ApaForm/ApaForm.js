@@ -7,6 +7,7 @@ import {
     Form,
     FormGroup,
     Col,
+    Alert
 } from 'react-bootstrap';
 import ApaFormField from './ApaFormField';
 import Select from 'react-select';
@@ -25,7 +26,9 @@ class ApaForm extends Component {
       modeChange: false,
       bookid: false,
       selectValue: "בדפוס",
-      selectChanged: false
+      selectChanged: false,
+      validationError: false,
+      validationErrorText: "חובה למלא את כל השדות בטופס"
     }
   }
 
@@ -82,11 +85,34 @@ class ApaForm extends Component {
     }   
   }
 
+  formValidation(event){
+    event.preventDefault();
+
+    let inputElements = event.target.form.querySelectorAll(".form-group input");
+    let isValid = true;
+    inputElements.forEach((el) => {
+      if(el.value.trim() === "")
+        isValid = false;
+    });
+
+    if(!isValid) 
+    {
+      this.setState({validationError: true });
+      return;
+    }
+
+    this.props.onSubmitForm(event)
+
+  }
 
   render() {
     return (
       <div id="apaPaperForm" className="apaForm">
         <div className="row">
+            {
+              this.state.validationError && <Alert className="alert alert-danger">{this.state.validationErrorText}</Alert>
+            }
+            
             <Form horizontal>
               {
                   this.renderComobox()
@@ -106,7 +132,7 @@ class ApaForm extends Component {
 
               <FormGroup className="pull-right">
                 <Col >
-                    <Button className="left-10" onClick={(event) => this.props.onSubmitForm(event)} type="submit">
+                    <Button className="left-10" onClick={(event) => this.formValidation(event)} type="submit">
                       {this.state.buttonText}
                     </Button>
                 </Col>

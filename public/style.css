@@ -1884,15 +1884,15 @@ button.searchRecordBtn {
 .fa-bell {
   font-size: 18px; }
 
-.tabControlIcons a > i {
-  font-size: 22px;
-  color: black; }
-
-.tabControlIcons .is-active i {
-  color: #1d63a0 !important; }
-
-.tabControlIcons a:hover i {
-  color: #1d63a0 !important; }
+.tabControlIcons {
+  margin-right: 5%; }
+  .tabControlIcons a > i {
+    font-size: 22px;
+    color: black; }
+  .tabControlIcons .is-active i {
+    color: #1d63a0 !important; }
+  .tabControlIcons a:hover i {
+    color: #1d63a0 !important; }
 
 .iconText {
   color: black;
@@ -1923,13 +1923,12 @@ button.searchRecordBtn {
 
 .biblistHeading {
   font-size: 20px !important;
-  color: #204260 !important; }
+  color: #204260 !important;
+  margin-right: 4%; }
 
 .mainArea {
-  height: 60%; }
-
-.mainArea.userBiblist {
-  height: 60vh; }
+  height: 60%;
+  margin-bottom: 20px; }
 
 .notApplicable a {
   cursor: default; }
@@ -1940,6 +1939,10 @@ button.searchRecordBtn {
 .selectDropdown * {
   background: white !important;
   color: black !important; }
+
+#recordsListContainer {
+  height: 60vh;
+  border: none; }
 
 form input[type="text"],
 form input[type="password"],

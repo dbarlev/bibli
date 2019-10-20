@@ -208,6 +208,8 @@ button.searchRecordBtn {
 }
 
 .tabControlIcons {
+    margin-right: 5%;
+
     a > i {
         font-size: 22px;
         color: black;
@@ -259,14 +261,12 @@ button.searchRecordBtn {
 .biblistHeading{
     font-size: 20px !important;
     color: $mainBlueColor !important;
+    margin-right: 4%;
 }
 
 .mainArea{
     height: 60%;
-}
-
-.mainArea.userBiblist{
-    height: 60vh;
+    margin-bottom: 20px;
 }
 
 .notApplicable{
@@ -287,4 +287,9 @@ button.searchRecordBtn {
         background: white !important;
         color: black !important;
     }
+}
+
+#recordsListContainer{
+    height: 60vh;
+    border: none;
 }

@@ -31,7 +31,7 @@ store.subscribe(() => console.log('store subscribe', store.getState()))
 
 ReactDOM.render(
       <Provider store={store}>
-        <BrowserRouter>
+        <BrowserRouter basename='/'>
             <Switch>
                 <Route exact path="/" component={FrontPage} />
                 <Route path="/register" component={Register} />
@@ -42,24 +42,8 @@ ReactDOM.render(
                 <Route path="/contact" component={Contact} />
                 <Route path="/passwordrecovery" component={PasswordRecovery} /> //טופס הזנת כתובת מייל לשחזור סיסמא
                 <Route path="/passwordrecoveryedit/:token" component={PasswordRecoveryEdit} /> //שינוי של הסיסמא
-                <Route path="/records" component={Records} />
+                <Route path="/records/:types" component={Records} />
             </Switch>
-            {/* <Switch>
-                <Route exact path="/" component={FrontPage} />
-                <Route path="/biblist/:id" component={ShowUserBibList} />
-                <Route path="/biblist" component={ShowUserBibList} />
-                <Route path="/editlist" component={EditBiblist} />
-                <Route path="/register" component={Register} />
-                <Route path="/mailconf/:mailVer" component={MailVerification} />
-                <Route path="/login" component={Login} />
-                <Route path="/addRecord" component={AddRecord} />
-                <Route path="/editRecord/:id" component={EditRecord} />
-                <Route path="/front" component={FrontPage} />
-                <Route path="/addNewList" component={AddBibList} />
-                <Route path="/faq" component={Faq} />
-                <Route path="/contact" component={Contact} />
-                <Route path="/passwordrecovery" component={PasswordRecovery} />
-            </Switch> */}
         </BrowserRouter>
     </Provider>
     ,

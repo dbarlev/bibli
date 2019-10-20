@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Route } from 'react-router-dom';
+import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import AddBibList from './listOfRecords/AddBibList';
 import EditRecord from './records/EditRecord';
 import AddRecord from './records/AddRecord';
@@ -55,11 +55,11 @@ class Records extends Component {
                     <ListOfBiblist userid={Number(this.state.userid)}/>          
                 </div>
                 <div className="col-md-7"> 
-                  <Route path="/records/biblist" component={BibList} />
-                  <Route path="/records/addNewList" component={AddBibList}/>
-                  <Route path="/records/addRecord" component={AddRecord} />
-                  <Route path="/records/editList" component={EditBiblist} />
-                  <Route path="/records/editRecord/:type/:id" component={EditRecord} />
+                    <Route path="/records/biblist" component={BibList} />
+                    <Route path="/records/addNewList" component={AddBibList}/>
+                    <Route path="/records/addRecord" component={AddRecord} />
+                    <Route path="/records/editList" component={EditBiblist} />
+                    <Route path="/records/editRecord/:type/:id" component={EditRecord} />
                 </div>   
             </div>
           </div>
