@@ -125,7 +125,7 @@ class LoginForm extends Component {
     }
 
     isLoggedIn = () =>{
-        console.log(' this.props.auth ',  this.props);
+        console.log(' this.props.auth ',  this.props.auth);
        
     }
 
@@ -175,6 +175,11 @@ class LoginForm extends Component {
                             {
                                 this.state.usernameError ? 
                                 <Alert variant="danger"> {this.state.usernameError} </Alert> :
+                                ''
+                            }
+                            {
+                                this.props.auth == false ? 
+                                <Alert variant="danger"> לא קיים משתמש </Alert> :
                                 ''
                             }
                             <Row className="show-grid">

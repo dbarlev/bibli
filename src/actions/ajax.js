@@ -203,7 +203,7 @@ export const InsertUserToDB = (data) => {
 }
 
 export const userLogin = (userData) => {
-    console.log('userLogin', userData)
+    //console.log('userLogin', userData)
     return (dispatch) => {
         axios({
                 url: `${API_PATH}/users/Login.php`,

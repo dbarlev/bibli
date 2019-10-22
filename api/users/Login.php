@@ -63,6 +63,8 @@
 
         if($result > 0) {
             echo json_encode(array('userid' => $user_row['userid'], 'auth'=> true));
+        }else {
+            echo json_encode(array('auth'=> false));
         }
     }
 

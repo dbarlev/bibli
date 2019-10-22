@@ -190,7 +190,7 @@ function authReducer(state = [], action) {
             console.log('LOGGED_IN_reducer action', action);
             return {
                 ...state,
-                auth: true,
+                auth: action.auth,
                 userid: action.userid,
                 email: action.email
             }
@@ -199,7 +199,7 @@ function authReducer(state = [], action) {
             console.log('USER_LOGIN_reducer action', action);
             return {
                 ...state,
-                auth: true,
+                auth: action.value.auth,
                 userid: action.value.userid
             }
         default:

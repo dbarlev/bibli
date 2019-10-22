@@ -9,7 +9,6 @@ import { userLogedIn } from "../../actions";
 
 import logoSrc from "../img/logo1.png";
 import { LogOut } from "./LogOut";
-import LoginHeader from "./LoginHeader";
 import LoginForm from "../auth/LoginForm";
 
 const texts = {
