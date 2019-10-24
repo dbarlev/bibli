@@ -7,7 +7,8 @@ import {
   Col,
   Alert,
   Grid,
-  Row
+  Row,
+  ControlLabel
 } from "react-bootstrap";
 import { connect } from "react-redux";
 
@@ -83,10 +84,11 @@ class FrontRegister extends Component {
     return (
       <Form style={YellowBg}>
         <Grid>
-          <FormGroup className="flex" controlId="formHorizontalRegister">
-            <Col xs={12} sm={5} style={ColPadd}>
-              <Row>דואר אלקטרוני</Row>
-              <Row style={marginBottomZero}>
+          <FormGroup className="" controlId="formHorizontalRegister">
+          
+            <div  style={ColPadd}>
+            <ControlLabel>דואר אלקטרוני</ControlLabel>
+              <div style={marginBottomZero}>
                 <FormControl
                   ref="email"
                   name="email"
@@ -94,9 +96,11 @@ class FrontRegister extends Component {
                   onChange={this.onChange}
                   placeholder="הקלד דואר אלקטרוני"
                 />
-              </Row>
-            </Col>
-            <Col xs={12} sm={5} style={ColPadd}>
+              </div>
+            </div>
+        
+          <Row>
+            <Col xs={12} style={ColPadd}>
               <Row>סיסמה</Row>
               <Row style={marginBottomZero}>
                 <FormControl
@@ -108,8 +112,9 @@ class FrontRegister extends Component {
                 />
               </Row>
             </Col>
-
-            <Col xs={12} sm={2} style={TopMarginLoginBtn}>
+          </Row>
+          <Row>
+            <Col xs={12} style={TopMarginLoginBtn}>
               <Button
                 onClick={this.onSubmitRegister}
                 type="submit"
@@ -119,6 +124,8 @@ class FrontRegister extends Component {
                 רישום
               </Button>
             </Col>
+          </Row>
+          
           </FormGroup>
             
           {this.state.noEmail && (

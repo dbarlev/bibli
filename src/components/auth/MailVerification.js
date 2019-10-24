@@ -1,16 +1,23 @@
 import React, { Component } from 'react'
 import {connect} from 'react-redux';
-import {Grid, Row} from 'react-bootstrap'; 
+import {Grid, Row, Button} from 'react-bootstrap'; 
 import {Link} from 'react-router-dom'; 
+import {Animated} from "react-animated-css";
 
 import {MailVerAction} from '../../actions/ajax';
 import Header from '../header/Header';
 import Footer from '../footer/Footer';
+import LoginForm from './LoginForm';
+
 
 class MailVerification extends Component {
     constructor(props){
         super(props);
         console.log('props ', props);
+
+        this.state={
+            showLogin: false
+        }
     }
 
     // MailVerAction(data){
@@ -36,7 +43,7 @@ class MailVerification extends Component {
             break;
 
             case 2:
-            ans =<div><p>החשבון אושר בעבר</p><Link to="/login" className="btn btn-warning"> התחברו <i class="fas fa-chevron-left "></i></Link></div>;
+            ans =<div><p>החשבון אושר בעבר</p><Button onClick={this.displayLogin} className="btn btn-warning"> התחברו <i class="fas fa-chevron-left "></i></Button></div>;
              break;
 
             default:
@@ -45,14 +52,27 @@ class MailVerification extends Component {
         }
         return ans;
     }
+
+    displayLogin = () => {
+        this.setState({showLogin: true});
+        console.log('displayLogin', this.state)
+    }
     render() {
         return (
         <Grid fluid className="jumbotron-main">
             <Row>
             <Header headline="אישור רישום"/>
+
             <Grid style={footer}>
                { this.isVerified(this.props.user.mailver)}
+               {this.state.showLogin &&
+                <Animated animationIn="bounceInLeft" animationOut="fadeOut" isVisible={true}>
+                <LoginForm onLoginForm={this}/>
+                </Animated>
+               }
             </Grid>
+
+            
             <Footer />
             </Row>
         </Grid>
