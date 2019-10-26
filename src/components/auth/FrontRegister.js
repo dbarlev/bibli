@@ -82,14 +82,18 @@ class FrontRegister extends Component {
 
   render() {
     return (
-      <Form style={YellowBg}>
-        <Grid>
+      <Form>
+        <h2 className="text-center bold">רוצים להצטרף אלינו?
+          <br />
+          הצטרפו עכשיו        </h2>
+          
           <FormGroup className="" controlId="formHorizontalRegister">
           
+          
             <div  style={ColPadd}>
-            <ControlLabel>דואר אלקטרוני</ControlLabel>
               <div style={marginBottomZero}>
                 <FormControl
+                  aria-label="דואר אלקטרוני"
                   ref="email"
                   name="email"
                   type="email"
@@ -101,9 +105,9 @@ class FrontRegister extends Component {
         
           <Row>
             <Col xs={12} style={ColPadd}>
-              <Row>סיסמה</Row>
               <Row style={marginBottomZero}>
                 <FormControl
+                  aria-label="סיסמה"
                   ref="password"
                   name="password"
                   type="password"
@@ -118,7 +122,8 @@ class FrontRegister extends Component {
               <Button
                 onClick={this.onSubmitRegister}
                 type="submit"
-                className="full-width-btn"
+                className="full-width-btn" 
+                style={SCbutton}
                 id="registerSubmit"
               >
                 רישום
@@ -145,7 +150,7 @@ class FrontRegister extends Component {
                 {this.state.mailExists}
             </div>
           )}
-        </Grid>
+       
       </Form>
     );
   }
@@ -163,7 +168,7 @@ export default connect(
 )(FrontRegister);
 
 const TopMarginLoginBtn = {
-  marginTop: "31px",
+  marginTop: "0px",
   padding: "5px"
 };
 
@@ -176,5 +181,9 @@ const marginBottomZero = {
 };
 
 const YellowBg = {
+  backgroundColor: "#f2b500"
+};
+
+const SCbutton = {
   backgroundColor: "#f2b500"
 };

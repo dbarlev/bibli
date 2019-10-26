@@ -133,7 +133,8 @@ class LoginForm extends Component {
         this.isLoggedIn();
         return (
             
-                        <Form horizontal>
+                        <Form>
+                            
                             <FormGroup  controlId="formHorizontalusername">
                                 <Col xs={4} sm={5} style={ColPadd}>
                                 <Row>
@@ -163,23 +164,23 @@ class LoginForm extends Component {
                             </FormGroup>
                             {
                                 this.state.EmptyUsernameError ? 
-                                <Alert variant="danger"> {this.state.EmptyUsernameError} </Alert> :
+                                <Alert bsStyle="danger"> {this.state.EmptyUsernameError} </Alert> :
                                 ''
                             }
                             {
                                 this.state.EmptyPasswordError ? 
-                                <Alert variant="danger"> {this.state.EmptyPasswordError} </Alert> :
+                                <Alert bsStyle="danger"> {this.state.EmptyPasswordError} </Alert> :
                                 ''
                             }
 
                             {
                                 this.state.usernameError ? 
-                                <Alert variant="danger"> {this.state.usernameError} </Alert> :
+                                <Alert bsStyle="danger"> {this.state.usernameError} </Alert> :
                                 ''
                             }
                             {
                                 this.props.auth == false ? 
-                                <Alert variant="danger"> לא קיים משתמש </Alert> :
+                                <Alert bsStyle="danger"> לא קיים משתמש </Alert> :
                                 ''
                             }
                             <Row className="show-grid">
