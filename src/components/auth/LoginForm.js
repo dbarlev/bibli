@@ -136,20 +136,14 @@ class LoginForm extends Component {
                         <Form>
                             
                             <FormGroup  controlId="formHorizontalusername">
-                                <Col xs={4} sm={5} style={ColPadd}>
-                                <Row>
-                                דואר אלקטרוני
-                                </Row>
+                                <Col xs={4} sm={5} style={TopMarginLoginBtn}>
                                 <Row style={marginBottomZero}>
-                                    <FormControl ref="email" name="email" type="email" onChange={this.onChange} placeholder="הקלד דואר אלקטרוני"/>
+                                    <FormControl ref="email" name="email" type="email" onChange={this.onChange} placeholder="דואר אלקטרוני" aria-label="דואר אלקטרוני"/>
                                 </Row>
                                 </Col>
-                                <Col xs={4} sm={4} style={ColPadd}>
-                                <Row>
-                              סיסמה
-                                </Row>
+                                <Col xs={4} sm={4} style={TopMarginLoginBtn}>
                                 <Row style={marginBottomZero}>
-                                    <FormControl ref="password" name="password" type="password" onChange={this.onChange} placeholder="הקלד סיסמה"/>
+                                    <FormControl ref="password" name="password" type="password" onChange={this.onChange} placeholder="הקלד סיסמה" aria-label="סיסמה"/>
                                     </Row>
                                 </Col>
                                 
@@ -215,13 +209,10 @@ export default connect(mapStateToProps, {userLogedIn, userLogin})(LoginForm);
 
 
 const TopMarginLoginBtn = {
-    marginTop: "31px",
+    marginTop: "16px",
     padding: "5px"
   };
 
-const ColPadd = {
-    padding: "5px"
-};
 
 const marginBottomZero = {
     marginBottom: "0px"

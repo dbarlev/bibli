@@ -76,7 +76,7 @@ class Footer extends Component {
                                     </NavLink>
                                 </li>
                                 <li>
-                                    <NavLink to="/">
+                                    <NavLink to="/contact">
                                         דברו איתנו
                                     </NavLink>
                                 </li>

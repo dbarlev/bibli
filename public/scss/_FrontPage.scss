@@ -10,8 +10,46 @@
         padding: 1%;
     }
     #infoicons {
-        padding-top: 2%;
-        padding-bottom: 2%;
+        padding: 10vh 5vh;
+
+        .lightBlueBG{
+            background-color: #a7ebea;
+            border-radius: 50%;
+            width: 120px;
+            height: 120px;
+            position: absolute;
+            z-index: -1;
+        }
+        .blob1{
+            left: 45%;
+            top: 0;
+        }
+        .blob2{
+            left: 30%;
+            top: 0;
+           
+
+        }
+        .blob3{
+            left: 34%;
+            top: 0;
+        }
+
+        i{
+            margin-top: 10px;
+            color: black;
+        }
+
+        .secondH3{
+            margin: 0;
+        }
+        .big-title{
+            margin-bottom: 65px;
+        }
+
+        .m50bottom{
+            margin-bottom: 50px;
+        }
     }
     #pricing-table {
         ul {
@@ -69,6 +107,18 @@
     -webkit-box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.75);
     -moz-box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.75);
     box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.75);
+    width: 18vw;
+    margin-right: 2.3vw;
+    input{
+        margin: 0;
+        height: 49px;
+        font-size: 2em;
+    }
+
+    #registerSubmit{
+        padding: 6px 0;
+        font-size: 2em;
+    }
 }
 
 .wantToJoinUs {

@@ -6,7 +6,7 @@ import Header from '../header/Header';
 import Login from '../auth/LoginForm';
 import Slider from './Slider';
 import InfoIcons from './InfoIcons';
-import FrontRegister from '../auth/FrontRegister';
+
 import Footer from '../footer/Footer';
 import { getCookie } from '../Services/GetCookies';
 
@@ -26,7 +26,7 @@ class FrontPage extends Component {
         <NewWelcome />
         
        
-        <FrontRegister />
+       
         <InfoIcons />
        
         <Footer />

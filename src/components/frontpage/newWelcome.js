@@ -8,17 +8,16 @@ class newWelcome extends Component {
             <Row className="newWelcomeBg">
                 <Col mdOffset={4} md={4} sm={12} style={SCMTextPaddingTop}>
                     <h1 className="bold">ברוכים הבאים ל- Bibli</h1>
-                    <p style={SCBigText}>מערכת חכמה לכתיבת ביבליוגרפיות שמותאמת לכללי הכתיבה האקדמיים (APA).
+                    <p style={SCBigText}>מערכת חכמה לכתיבת ביבליוגרפיות<br /> שמותאמת לכללי הכתיבה האקדמיים (APA).
                     </p>
                     <h3 className="bold" style={SCh3}>איך זה עובד?</h3>
                     <p style={SCBigText}>מזינים את הפרטים הטכניים במערכת והיא יוצרת עבורכם דף ביבליוגרפיה מדויק ומסודר.
-כל מה שנותר לכם לעשות הוא פשוט לייצא ולצרף לעבודה שלכם.
 </p>
-                    <p style={SCBigText} className="bold">בקיצור, אתם תשקיעו בכתיבת עבודה מצוינת - ואת הביבליוגרפיה תשאירו לנו!</p>
+                    <p style={SCBigText} className="bold">בקיצור, אתם תשקיעו בכתיבת עבודה מצוינת, ואת הביבליוגרפיה תשאירו לנו!</p>
                 </Col>
-                <Col  md={3} sm={12} style={SCFormPaddingTop}>
+                <Col  md={3} sm={12} style={SCFormPaddingTop} className="frontRegisterFormCont">
                     <Row>
-                        <Col className="frontRegisterFormCont">
+                        <Col >
                             <FrontRegister />
                         </Col>
                     </Row>
@@ -32,12 +31,14 @@ export default newWelcome
 
 
 const SCMTextPaddingTop = {
-    paddingTop: "8vh"
+    paddingTop: "5vh",
+    paddingRight: "18vh"
 };
 
 const SCFormPaddingTop = {
     backgroundColor: "#fff",
-    paddingTop: "100px"
+    paddingTop: "108px",
+    paddingBottom: "36px"
 };
 
 const SCBigText = {

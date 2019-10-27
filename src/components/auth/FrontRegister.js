@@ -85,7 +85,7 @@ class FrontRegister extends Component {
       <Form>
         <h2 className="text-center bold">רוצים להצטרף אלינו?
           <br />
-          הצטרפו עכשיו        </h2>
+          הרשמו הצטרפו        </h2>
           
           <FormGroup className="" controlId="formHorizontalRegister">
           

@@ -10,6 +10,8 @@ import { userLogedIn } from "../../actions";
 import logoSrc from "../img/logo1.png";
 import { LogOut } from "./LogOut";
 import LoginForm from "../auth/LoginForm";
+import Takanon from "../pages/Takanon";
+
 
 const texts = {
     "": "התחבר/י",
@@ -57,14 +59,14 @@ class TopMenu extends Component {
                             <LinkContainer className="topNavMenuItems black" to="/faq">
                                 <NavItem>שאלות ותשובות</NavItem>
                             </LinkContainer>
-                            <LinkContainer className="topNavMenuItems black" to="/register">
+                            <LinkContainer className="topNavMenuItems black" to="/takanon">
                                 <NavItem>תנאי שימוש</NavItem>
                             </LinkContainer>
                             <LinkContainer className="topNavMenuItems black" to="/contact">
                                 <NavItem>צור קשר</NavItem>
                             </LinkContainer>
                             <li>
-                                <a href="#">
+                                <a href="https://www.facebook.com/biblio.co.il/" target="__blank">
                                     {" "}
                                     <i className="fab fa-facebook-f"></i>
                                 </a>

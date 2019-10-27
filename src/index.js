@@ -16,8 +16,10 @@ import MailVerification from './components/auth/MailVerification';
 import Contact from './components/contact/contact';
 import PasswordRecovery from './components/auth/PasswordRecovery';
 import PasswordRecoveryEdit from './components/auth/PasswordRecoveryEdit';
+import Takanon from './components/pages/Takanon';
 
 import './index.css';
+
 
 
 let store = createStore(
@@ -39,6 +41,7 @@ ReactDOM.render(
                 <Route path="/login" component={Login} />
                 <Route path="/front" component={FrontPage} />
                 <Route path="/faq" component={Faq} />
+                <Route path="/takanon" component={Takanon} />
                 <Route path="/contact" component={Contact} />
                 <Route path="/passwordrecovery" component={PasswordRecovery} /> //טופס הזנת כתובת מייל לשחזור סיסמא
                 <Route path="/passwordrecoveryedit/:token" component={PasswordRecoveryEdit} /> //שינוי של הסיסמא

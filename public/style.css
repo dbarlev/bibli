@@ -2103,8 +2103,32 @@ h5 {
     height: 100%;
     padding: 1%; }
   #frontpage #infoicons {
-    padding-top: 2%;
-    padding-bottom: 2%; }
+    padding: 10vh 5vh; }
+    #frontpage #infoicons .lightBlueBG {
+      background-color: #a7ebea;
+      border-radius: 50%;
+      width: 120px;
+      height: 120px;
+      position: absolute;
+      z-index: -1; }
+    #frontpage #infoicons .blob1 {
+      left: 45%;
+      top: 0; }
+    #frontpage #infoicons .blob2 {
+      left: 30%;
+      top: 0; }
+    #frontpage #infoicons .blob3 {
+      left: 34%;
+      top: 0; }
+    #frontpage #infoicons i {
+      margin-top: 10px;
+      color: black; }
+    #frontpage #infoicons .secondH3 {
+      margin: 0; }
+    #frontpage #infoicons .big-title {
+      margin-bottom: 65px; }
+    #frontpage #infoicons .m50bottom {
+      margin-bottom: 50px; }
   #frontpage #pricing-table ul {
     display: flex;
     flex-direction: row;
@@ -2146,7 +2170,16 @@ h5 {
 .frontRegisterFormCont {
   -webkit-box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.75);
   -moz-box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.75);
-  box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.75); }
+  box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.75);
+  width: 18vw;
+  margin-right: 2.3vw; }
+  .frontRegisterFormCont input {
+    margin: 0;
+    height: 49px;
+    font-size: 2em; }
+  .frontRegisterFormCont #registerSubmit {
+    padding: 6px 0;
+    font-size: 2em; }
 
 .wantToJoinUs {
   font-size: 47px; }

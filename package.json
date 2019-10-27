@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@fortawesome/fontawesome-svg-core": "^1.2.25",
     "axios": "^0.18.0",
     "docx": "^5.0.0-rc7",
     "file-saver": "^2.0.2",
