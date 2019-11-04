@@ -17,6 +17,7 @@ import {
 import axios from 'axios';
 
 const API_PATH = "http://localhost/bibli/api";
+// const API_PATH = "https://bibli.co.il/api";
 
 export const getBibListNamesFromDB = (userID) => {
     return (dispatch) => {
@@ -183,7 +184,7 @@ export const InsertBibListToDB = (data) => {
 export const InsertUserToDB = (data) => {
     console.log('data ff',data);
     return (dispatch) => {
-        
+      
         axios({
                 url: `${API_PATH}/users/User.php`,
                 method: 'post',
@@ -252,7 +253,7 @@ export const MailVerAction = (data) => {
     console.log('data ', data);
     return (dispatch) => {
         axios({
-                url: `${API_PATH}/users/mailconf.php?mailconf=${data}`,
+                url: `${API_PATH}/users/Mailconf.php?mailconf=${data}`,
                 method: 'PUT',
                 headers: {
                     'Accept': 'application/json',

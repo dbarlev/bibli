@@ -35,11 +35,11 @@ class MailVerification extends Component {
         let ans = '';
         switch(Number(mailVer)){
             case 0:
-            ans = <div><p>לא נרשמת לאתר זה בעבר</p> <Link to="/register" className="btn btn-warning"> הרשמו! <i class="fas fa-chevron-left "></i></Link></div>;
+            ans = <div><p>לא נרשמת לאתר זה בעבר</p> <Link to="/" className="btn btn-warning"> הרשמו! <i class="fas fa-chevron-left "></i></Link></div>;
             break;
 
             case 1:
-            ans = <div> <p>החשבון אושר בהצלחה</p> <Link to="/login" className="btn btn-warning"> התחברו! <i class="fas fa-chevron-left "></i></Link></div>;
+            ans = <div> <p>החשבון אושר בהצלחה</p> <Button onClick={this.displayLogin} className="btn btn-warning"> התחברו <i class="fas fa-chevron-left "></i></Button></div>;
             break;
 
             case 2:
@@ -67,7 +67,7 @@ class MailVerification extends Component {
                { this.isVerified(this.props.user.mailver)}
                {this.state.showLogin &&
                 <Animated animationIn="bounceInLeft" animationOut="fadeOut" isVisible={true}>
-                <LoginForm onLoginForm={this}/>
+                    <LoginForm onLoginForm={this}/>
                 </Animated>
                }
             </Grid>

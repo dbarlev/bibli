@@ -30,7 +30,7 @@ class UserMenu extends Component {
                 </Nav>
                  <Navbar.Form>
                    
-                            <BibSearch />
+                            {/* <BibSearch /> */}
                            
                 </Navbar.Form>
             </Navbar.Collapse>

@@ -17,6 +17,7 @@ import Contact from './components/contact/contact';
 import PasswordRecovery from './components/auth/PasswordRecovery';
 import PasswordRecoveryEdit from './components/auth/PasswordRecoveryEdit';
 import Takanon from './components/pages/Takanon';
+import RegisterSuccess from './components/auth/RegisterSuceess';
 
 import './index.css';
 
@@ -37,6 +38,7 @@ ReactDOM.render(
             <Switch>
                 <Route exact path="/" component={FrontPage} />
                 <Route path="/register" component={Register} />
+                <Route path="/registersuccess" component={RegisterSuccess} />
                 <Route path="/mailconf/:mailVer" component={MailVerification} />
                 <Route path="/login" component={Login} />
                 <Route path="/front" component={FrontPage} />

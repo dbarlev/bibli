@@ -28,7 +28,7 @@
         switch($request_method)
 		{
             case 'GET':
-            $arr = array('a' => 'get');
+                 $arr = array('a' => 'get');
                 echo json_encode($arr);
 				break;
             case 'POST':

@@ -116,7 +116,9 @@
 
 			$stmt->execute();
 			send_conf_mail_to_user($email);
+			//echo json_encode(array('userRegistered' => 'success', 'username'=> '', 'email'=> $email));
 			getRecords($db, $email);
+			
 		}
 		
     }
@@ -166,13 +168,15 @@
 		$body = $htmlStr;
 
 		// send email using the mail function, you can also use php mailer library if you want
-		if( mail($recipient_email, $subject, $body, $headers) ){
+		mail($recipient_email, $subject, $body, $headers);
 
 			// tell the user a verification email were sent
-			echo "<div id='successMessage'>מייל אישור נשלח ל<b>" . $email . "</b>, בבקשה פתחו את המייל ולחצו על כפתור האישור.</div>";
+			
+		//echo "<div id='successMessage'>מייל אישור נשלח ל<b>" . $email . "</b>, בבקשה פתחו את המייל ולחצו על כפתור האישור.</div>";	
+		
 
 
-		}
+		
 	}
 
 

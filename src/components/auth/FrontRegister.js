@@ -11,6 +11,7 @@ import {
   ControlLabel
 } from "react-bootstrap";
 import { connect } from "react-redux";
+import { Redirect, Link  } from 'react-router-dom';
 
 import { InsertUserToDB } from "../../actions/ajax";
 
@@ -23,7 +24,8 @@ class FrontRegister extends Component {
     email: "",
     password: "",
     package: 1,
-    mailExists: "כתובת דואר זו כבר קיימת במערכת"
+    mailExists: "כתובת דואר זו כבר קיימת במערכת",
+    mailSuccess: "ההרשמה בוצעה בהצלחה"
   };
 
   onChange = e => {
@@ -132,7 +134,7 @@ class FrontRegister extends Component {
           </Row>
           
           </FormGroup>
-            
+            {console.log('ssss', this.props.user.registerSuccess)}
           {this.state.noEmail && (
             <div className="text-right danger">
             {this.state.noEmail}
@@ -145,9 +147,15 @@ class FrontRegister extends Component {
             </div>
           )}
 
-          {this.props.user.registerSuccess && (
+          {this.props.user.registerSuccess == 'exists' && (
             <div className="text-right danger">
                 {this.state.mailExists}
+            </div>
+          )}
+       
+          {this.props.user.registerSuccess == 1 && (
+            <div className="text-right danger">
+                 <Redirect to='/registersuccess' />
             </div>
           )}
        

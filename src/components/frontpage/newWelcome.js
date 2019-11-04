@@ -6,16 +6,16 @@ class newWelcome extends Component {
     render() {
         return (
             <Row className="newWelcomeBg">
-                <Col mdOffset={4} md={4} sm={12} style={SCMTextPaddingTop}>
+                <Col mdOffset={4} md={4} sm={12} className="MTextPaddingTop">
                     <h1 className="bold">ברוכים הבאים ל- Bibli</h1>
-                    <p style={SCBigText}>מערכת חכמה לכתיבת ביבליוגרפיות<br /> שמותאמת לכללי הכתיבה האקדמיים (APA).
+                    <p className="BigText">מערכת חכמה לכתיבת ביבליוגרפיות<br /> שמותאמת לכללי הכתיבה האקדמיים (APA).
                     </p>
-                    <h3 className="bold" style={SCh3}>איך זה עובד?</h3>
-                    <p style={SCBigText}>מזינים את הפרטים הטכניים במערכת והיא יוצרת עבורכם דף ביבליוגרפיה מדויק ומסודר.
+                    <h3 className="h3 bold">איך זה עובד?</h3>
+                    <p className="BigText">מזינים את הפרטים הטכניים במערכת והיא יוצרת עבורכם דף ביבליוגרפיה מדויק ומסודר.
 </p>
-                    <p style={SCBigText} className="bold">בקיצור, אתם תשקיעו בכתיבת עבודה מצוינת, ואת הביבליוגרפיה תשאירו לנו!</p>
+                    <p  className="bold BigText">בקיצור, אתם תשקיעו בכתיבת עבודה מצוינת, ואת הביבליוגרפיה תשאירו לנו!</p>
                 </Col>
-                <Col  md={3} sm={12} style={SCFormPaddingTop} className="frontRegisterFormCont">
+                <Col  md={3} sm={12} xs={12} className="frontRegisterFormCont FormPaddingTop">
                     <Row>
                         <Col >
                             <FrontRegister />

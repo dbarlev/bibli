@@ -51,10 +51,10 @@ class Records extends Component {
         <br />
           <div className="mainArea userBiblist">
             <div className="row">
-              <div className="col-md-2 col-md-offset-2">    
+              <div className="col-md-2 col-md-offset-2 col-sm-4 col-xs-12">    
                     <ListOfBiblist userid={Number(this.state.userid)}/>          
                 </div>
-                <div className="col-md-7"> 
+                <div className="col-md-8 col-sm-8" > 
                     <Route path="/records/biblist" component={BibList} />
                     <Route path="/records/addNewList" component={AddBibList}/>
                     <Route path="/records/addRecord" component={AddRecord} />

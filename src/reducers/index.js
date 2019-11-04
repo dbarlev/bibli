@@ -141,6 +141,7 @@ function userReducer(state = [], action) {
                 action.user
             ];
         case INSERT_USER_TO_DB: //comes back from the ajax file response
+console.log('INSERT_USER_TO_DB', action )
             return {
                 registerSuccess: action.value.userRegistered,
                 username: action.value.username,
@@ -188,6 +189,7 @@ function authReducer(state = [], action) {
         case LOGGED_IN:
             console.log('LOGGED_IN_reducer');
             console.log('LOGGED_IN_reducer action', action);
+
             return {
                 ...state,
                 auth: action.auth,
