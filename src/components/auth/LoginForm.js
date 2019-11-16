@@ -29,6 +29,8 @@ class LoginForm extends Component {
             passwordError: '',
             EmptyUsernameError: '',
             EmptyPasswordError: '',
+            notActiveUserError: '',
+            UserDoesNotExist: '',
             userid: ''
         }
         this.onSubmitLogin = this.onSubmitLogin.bind(this);
@@ -39,11 +41,30 @@ class LoginForm extends Component {
     componentWillMount(){
         //console.log('mount', this.props);
     }
-    componentDidUpdate(){
-        //console.log('Update', this.props);
-//        console.log('Update username',  this.props.userid);
 
-        
+
+    checkUserVal(){
+        if(this.props.auth == false && this.props.userid != undefined){
+          
+            this.setState({notActiveUserError: 'חשבון לא מאומת'});
+        }
+        if(this.props.auth == false && this.props.userid == undefined){
+            
+            this.setState({UserDoesNotExist: 'משתשמ לא קיים'});
+        }
+    }
+
+
+    componentWillReceiveProps(nextProps) {
+    // You don't have to do this check first, but it can help prevent an unneeded render
+        if (nextProps.auth == false && nextProps.userid !== undefined) {
+        this.setState({ notActiveUserError: 'חשבון לא מאומת' });
+        }
+        if (nextProps.auth == false && nextProps.userid == undefined) {
+        this.setState({ UserDoesNotExist: 'משתשמ לא קיים' });
+        }
+
+
     }
 
     clientValidate = () => {
@@ -56,12 +77,11 @@ class LoginForm extends Component {
         if(this.state.password === ''){
             isError = true;
             this.setState({EmptyPasswordError: 'לא הזנתם סיסמה'});
-        }
-
-      
+        }      
         return isError;
     }
 
+    /*
     validate = () => {
         let isError = false;
 
@@ -72,7 +92,7 @@ class LoginForm extends Component {
       
         return isError;
     }
-
+*/
 
 
     onSubmitLogin(event){
@@ -91,9 +111,10 @@ class LoginForm extends Component {
     }
 
     redirectUser = () => {
-
+       
+console.log('login_active_test', this.props )
         //console.log('state', this.state);
-        if(this.props.auth === true){
+        if(this.props.auth === true && this.props.userid != null){
             // localStorage.setItem('userid', this.props.userid);
             // localStorage.setItem('auth', this.state.auth);
             // localStorage.setItem('username', this.props.username);
@@ -119,7 +140,9 @@ class LoginForm extends Component {
             auth: false,
             usernameError: '',
             EmptyPasswordError: '',
-            EmptyUsernameError: ''
+            EmptyUsernameError: '',
+            notActiveUserError: '',
+            UserDoesNotExist: ''
         })
 
     }
@@ -172,11 +195,19 @@ class LoginForm extends Component {
                                 <Alert bsStyle="danger"> {this.state.usernameError} </Alert> :
                                 ''
                             }
-                            {
-                                this.props.auth == false ? 
-                                <Alert bsStyle="danger"> לא קיים משתמש </Alert> :
+                             {
+                                 //PROBLEM!! state updates before props
+                                 this.state.notActiveUserError ? 
+                                <Alert bsStyle="danger">{this.state.notActiveUserError}</Alert> :
                                 ''
                             }
+                            {
+                                //PROBLEM!! state updates before props
+                                this.state.UserDoesNotExist ? 
+                                <Alert bsStyle="danger">{this.state.UserDoesNotExist} </Alert> :
+                                ''
+                            }
+                           
                             <Row className="show-grid">
                           
                         </Row>

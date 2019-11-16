@@ -1,45 +1,52 @@
-#contact{
-
-    input{
+#contact {
+    input[type=text],
+    input[type=email] {
         border: 1px solid black;
         border-radius: 0;
-        height:40px;
+        height: 40px;
     }
-
-    textarea{
+    #checkbox {
+        height: 20px;
+    }
+    textarea {
         border: 1px solid black;
         border-radius: 0;
     }
-
-    .center-footer{
+    .center-footer {
         right: 22%;
     }
-
-    .row{
+    .row {
         margin-bottom: 0;
     }
-
-    .contact-form{
+    .contact-form {
         margin-top: 20px;
         margin-left: 60px;
     }
-
-    button.send{
+    button.send {
         font-size: 20px;
-        width: 60%;
+        width: 100%;
+        background-color: $mainBlueColor;
+        color: $mainYellow;
+        &:hover,
+        &:active {
+            color: $mainBlueColor;
+            background-color: $mainYellow
+        }
     }
-
-    ::-webkit-input-placeholder { /* Chrome/Opera/Safari */
-        color: black;  
-      }
-      ::-moz-placeholder { /* Firefox 19+ */
+     ::-webkit-input-placeholder {
+        /* Chrome/Opera/Safari */
         color: black;
-      }
-      :-ms-input-placeholder { /* IE 10+ */
+    }
+     ::-moz-placeholder {
+        /* Firefox 19+ */
         color: black;
-      }
-      :-moz-placeholder { /* Firefox 18- */
+    }
+     :-ms-input-placeholder {
+        /* IE 10+ */
         color: black;
-      }
+    }
+     :-moz-placeholder {
+        /* Firefox 18- */
+        color: black;
+    }
 }
-

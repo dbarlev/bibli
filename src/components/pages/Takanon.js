@@ -7,9 +7,11 @@ class Takanon extends Component {
   render() {
     return (
       <Grid fluid id="takanon">
-        <Header headline="תנאי שימוש באתר Bibli" />
+          <Header headline="תנאי שימוש באתר Bibli" />
         <Row>
-          <Grid>
+        <Col md={6} mdOffset={3}>
+     
+          <div>
             <p>
               אתר ביבלי (bibli.co.il) נוצר על מנת לשפר את איכות העבודות של
               סטודנטים על ידי כך שהוא מאפשר להם להשקיע את זמנם ומרצם בכתיבת
@@ -79,7 +81,8 @@ class Takanon extends Component {
                 לתכנים באתרים אלה מבחינת מהימנותם, שלמותם, או מכל בחינה אחרת.
               </li>
             </ol>
-          </Grid>
+          </div>
+          </Col>
         </Row>
         
         <Footer />

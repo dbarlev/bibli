@@ -1,35 +1,36 @@
-html, body {
-	height: 100%;
+html,
+body {
+    height: 100%;
 }
 
 .page-wrap {
     min-height: 81vh;
     margin-bottom: -250px;
     margin-top: 0px;
-  }
-  .page-wrap:after {
+}
+
+.page-wrap:after {
     content: "";
     display: block;
-  }
+}
 
-.bold{
+.bold {
     font-weight: bolder !important;
 }
 
-
-.white{
+.white {
     color: #fff !important;
 }
 
-.blue{
+.blue {
     color: $mainBlueColor;
 }
 
-.black{
+.black {
     color: $black !important;
 }
 
-.pull-bottom{
+.pull-bottom {
     position: absolute !important;
     bottom: 0 !important;
 }
@@ -38,6 +39,10 @@ html, body {
     direction: ltr;
 }
 
-.flex{
+.flex {
     display: flex;
+}
+
+.pad-0 {
+    padding: 0px;
 }

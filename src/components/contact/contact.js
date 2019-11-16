@@ -87,22 +87,23 @@ class Contact extends Component {
         return (     
             <div id="contact">
                 <Header />
-                <div>
+                
                     <div className="row">
-                        <div className="col-xs-6 col-xs-offset-3">
+                        <div className="col-xs-4 col-xs-offset-4">
                             <h1 className="text-center">
-                                <p>יש משהו שאתם רוצים לשאול?</p>
-                                <p>בקשה? בעיה?</p>
+                                <p className="bold">יש משהו שאתם רוצים לשאול?</p>
+                                <p className="bold">בקשה? בעיה?</p>
                             </h1>
                             <h2 className="text-center">
                                 <p>כתבו לנו ונדאג לחזור אליכם בהקדם</p>
                             </h2>
                         </div>
                     </div>
+                    <div className="row">
                     <Form horizontal onSubmit={this.onSubmit.bind(this)}>
-                        <div className="col-xs-12 col-md-offset-4">
+                        <div className="col-xs-12 col-md-2 col-md-offset-5">
                             <div className="row">
-                                <div className="col-xs-12 col-md-4">
+                               
                                     <div className="form-group">
                                         <input 
                                             required 
@@ -116,10 +117,10 @@ class Contact extends Component {
                                             onChange={this.onChange.bind(this)}
                                         />
                                     </div>
-                                </div>  
+                                
                             </div>
                             <div className="row">
-                                <div className="col-xs-12 col-md-4">
+                              
                                     <div className="form-group">
                                         <input 
                                             required 
@@ -133,10 +134,9 @@ class Contact extends Component {
                                             onChange={this.onChange.bind(this)}
                                         />
                                     </div>
-                                </div>  
+                                
                             </div>
                             <div className="row">
-                                <div className="col-xs-12 col-md-4">
                                     <div className="form-group">
                                         <input 
                                             className="form-control" 
@@ -149,10 +149,9 @@ class Contact extends Component {
                                             onChange={this.onChange.bind(this)}
                                             />
                                     </div>
-                                </div>  
+                               
                             </div>
                             <div className="row">
-                                <div className="col-xs-12 col-md-4">
                                     <div className="form-group">
                                         <textarea 
                                         rows="7" 
@@ -166,13 +165,13 @@ class Contact extends Component {
                                         onChange={this.onChange.bind(this)}
                                         ></textarea>
                                     </div>
-                                </div>  
+                                 
                             </div> 
                             <div className="row">
-                            <div className="col-xs-12 col-md-4">
+                           
                                 <div className="form-group">
-                                    <label className="row ">
-                                        <div className="col-xs-3 pad-0">
+                                   
+                                        <div className="col-xs-2 pad-0">
                                             <input 
                                             aria-label="תוכן ההודעה, במה נוכל לעזור" 
                                             className="form-control" 
@@ -184,15 +183,17 @@ class Contact extends Component {
                                             onChange={this.onChange.bind(this)}
                                             />
                                         </div>
-                                        <div className="col-xs-9 pad-0">
+                                        <div className="col-xs-10 pad-0">
+                                        <label>
                                             מעוניין להצטרף לרשימת התפוצה
+                                            </label>
                                         </div>
-                                    </label>
+                                   
                                 </div>
-                            </div>  
+                           
                         </div> 
                             <div className="row">
-                                <div className="col-xs-12 col-md-4 text-center">
+                                <div className="text-center">
                                     <div className="form-group">
                                         <button className="btn send" >שלח</button>
                                     </div>
@@ -201,7 +202,8 @@ class Contact extends Component {
                         </div>  
                     </Form>  
 
-                </div>
+              </div>
+
                 {this.state.msg && 
                     <div className="alert alert-info text-right" role="alert">
                     {this.state.msg}

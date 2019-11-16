@@ -52,16 +52,18 @@
         if(isset($data->password)) $password = $data->password; else  $password = null;
 
 
-        $q1 = "SELECT * FROM users WHERE email = ? AND password = ?";
+        $q1 = "SELECT * FROM users WHERE email = ? AND password = ? ";
         $res1 = $db->prepare($q1);
 		$res1->bindParam(1, $email);
 		$res1->bindParam(2, $password);
         $res1->execute();
         $result = $res1->rowCount();
         $user_row = $res1->fetch(PDO::FETCH_ASSOC);
-        //var_dump($user_row);
+      
 
-        if($result > 0) {
+        if($result > 0 && $user_row['active'] == 0 ) {
+            echo json_encode(array('userid' => $user_row['userid'], 'auth'=> false));
+        }else if($result > 0 && $user_row['active'] == 1 ) {
             echo json_encode(array('userid' => $user_row['userid'], 'auth'=> true));
         }else {
             echo json_encode(array('auth'=> false));

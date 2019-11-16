@@ -1,4 +1,5 @@
-html, body {
+html,
+body {
   height: 100%; }
 
 .page-wrap {
@@ -31,6 +32,9 @@ html, body {
 
 .flex {
   display: flex; }
+
+.pad-0 {
+  padding: 0px; }
 
 * {
   direction: rtl; }
@@ -122,30 +126,6 @@ body {
   .col-md-11,
   .col-md-12 {
     float: right; }
-  .col-md-12 {
-    width: 100%; }
-  .col-md-11 {
-    width: 91.66666667%; }
-  .col-md-10 {
-    width: 83.33333333%; }
-  .col-md-9 {
-    width: 75%; }
-  .col-md-8 {
-    width: 66.66666667%; }
-  .col-md-7 {
-    width: 58.33333333%; }
-  .col-md-6 {
-    width: 50%; }
-  .col-md-5 {
-    width: 41.66666667%; }
-  .col-md-4 {
-    width: 33.33333333%; }
-  .col-md-3 {
-    width: 25%; }
-  .col-md-2 {
-    width: 16.66666667%; }
-  .col-md-1 {
-    width: 8.33333333%; }
   .col-md-pull-12 {
     Left: 100%; }
   .col-md-pull-11 {
@@ -2290,10 +2270,14 @@ ul#searchresults.open {
     #App-header #userNav .searchArea {
       border: 1px solid white; }
 
-#contact input {
+#contact input[type=text],
+#contact input[type=email] {
   border: 1px solid black;
   border-radius: 0;
   height: 40px; }
+
+#contact #checkbox {
+  height: 20px; }
 
 #contact textarea {
   border: 1px solid black;
@@ -2311,7 +2295,12 @@ ul#searchresults.open {
 
 #contact button.send {
   font-size: 20px;
-  width: 60%; }
+  width: 100%;
+  background-color: #204260;
+  color: #f2b500; }
+  #contact button.send:hover, #contact button.send:active {
+    color: #204260;
+    background-color: #f2b500; }
 
 #contact ::-webkit-input-placeholder {
   /* Chrome/Opera/Safari */

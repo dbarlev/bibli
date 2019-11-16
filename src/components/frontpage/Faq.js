@@ -60,13 +60,13 @@ class Faq extends Component {
     return (
       <Grid fluid id="faq" className="jumbotron-main">
         <Header headline=""/>
-        <Row>
+        {/* <Row>
             <Col className="text-center" mdOffset={3} md={6}>
                 <div>
                     <img id='video-faq' src={videoPlaceholder} />
                 </div>
             </Col>
-        </Row>
+        </Row> */}
         <Row>
             <Col md={3} mdOffset={3}>
                 <div>
