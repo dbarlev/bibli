@@ -42,26 +42,27 @@ class LoginForm extends Component {
         //console.log('mount', this.props);
     }
 
-
+/*
     checkUserVal(){
-        if(this.props.auth == false && this.props.userid != undefined){
-          
-            this.setState({notActiveUserError: 'חשבון לא מאומת'});
+        if(this.props.auth === false && this.props.userid !== undefined){
+            console.log('this.props 1', this.props);
+            this.setState({notActiveUserError: 'חשבון לא s מאומת'});
         }
-        if(this.props.auth == false && this.props.userid == undefined){
-            
+        if(this.props.auth === false && this.props.userid === undefined){
+            console.log('this.props 2', this.props);
             this.setState({UserDoesNotExist: 'משתשמ לא קיים'});
         }
     }
-
+*/
 
     componentWillReceiveProps(nextProps) {
-    // You don't have to do this check first, but it can help prevent an unneeded render
         if (nextProps.auth == false && nextProps.userid !== undefined) {
+            console.log('nextProps 1', nextProps);
         this.setState({ notActiveUserError: 'חשבון לא מאומת' });
         }
         if (nextProps.auth == false && nextProps.userid == undefined) {
-        this.setState({ UserDoesNotExist: 'משתשמ לא קיים' });
+            console.log('nextProps 2', nextProps);
+        this.setState({ UserDoesNotExist: 'משתשמש לא קיים' });
         }
 
 
@@ -80,19 +81,6 @@ class LoginForm extends Component {
         }      
         return isError;
     }
-
-    /*
-    validate = () => {
-        let isError = false;
-
-        if(this.state.auth === false){
-            isError = true;
-            this.setState({usernameError: 'אחד הפרטים שהזנתם שגוי'});
-        }
-      
-        return isError;
-    }
-*/
 
 
     onSubmitLogin(event){
@@ -159,23 +147,23 @@ console.log('login_active_test', this.props )
                         <Form>
                             
                             <FormGroup  controlId="formHorizontalusername">
-                                <Col xs={4} sm={5} style={TopMarginLoginBtn}>
+                                <Col xs={12} sm={5} style={TopMarginLoginBtn}>
                                 <Row style={marginBottomZero}>
                                     <FormControl ref="email" name="email" type="email" onChange={this.onChange} placeholder="דואר אלקטרוני" aria-label="דואר אלקטרוני"/>
                                 </Row>
                                 </Col>
-                                <Col xs={4} sm={4} style={TopMarginLoginBtn}>
+                                <Col xs={12} sm={4} style={TopMarginLoginBtn}>
                                 <Row style={marginBottomZero}>
                                     <FormControl ref="password" name="password" type="password" onChange={this.onChange} placeholder="הקלד סיסמה" aria-label="סיסמה"/>
                                     </Row>
                                 </Col>
                                 
-                                <Col  xs={4} sm={3} style={TopMarginLoginBtn} >
+                                <Col  xs={12} sm={3} style={TopMarginLoginBtn} >
                                     
                                     <Button onClick={this.onSubmitLogin} type="submit" className="full-width-btn" id="loginSubmit">התחבר</Button>
                                     {this.redirectUser()}
                                     </Col>
-                                    <Col xsOffset={4} xs={4} smOffset={5} sm={7}>
+                                    <Col xs={12}>
                                     <Link to="/passwordrecovery">שכחתי את הסיסמה</Link>
                                 </Col>
                             </FormGroup>

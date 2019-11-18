@@ -144,7 +144,7 @@
 		$verificationCode = md5(uniqid($email, true));
 		
 		// send the email verification
-		$verificationLink = "https://bibli.co.il/mailconf/" . $verificationCode;
+		$verificationLink = "https://www.bibli.co.il/mailconf/" . $verificationCode;
 
 		$htmlStr = "";
 		$htmlStr .= "היי <br /><br />";
@@ -153,10 +153,10 @@
 		$htmlStr .= "<a href='{$verificationLink}' target='_blank' style='padding:1em; font-weight:bold; background-color:blue; color:#fff;'>אשר רישום</a><br /><br /><br />";
 
 		$htmlStr .= "בהצלחה!,<br />";
-		$htmlStr .= "<a href='https://bibli.co.il/' target='_blank'>ביבלי</a><br />";
+		$htmlStr .= "<a href='https://www.bibli.co.il/' target='_blank'>ביבלי</a><br />";
 
 
-		$name = "דוד מצוות ביבלי";
+		$name = "צוות ביבלי";
 		$email_sender = "no-reply@bibli.co.il";
 		$subject = "אישור הרשמה | ביבלי";
 		$recipient_email = $email;

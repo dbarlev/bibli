@@ -67,14 +67,15 @@ class PasswordRecovery extends Component {
                     </Form>
                     {
                         this.state.emailIsEmpty ? 
-                        <Alert variant="danger"> {this.state.emailIsEmpty} </Alert> :
+                        <Alert bsStyle="danger">
+                        {this.state.emailIsEmpty} </Alert> :
                         ''
                     }
 
                     {this.props.passRecoveryData && 
-                        <div variant="danger" className="text-right">
+                        <Alert bsStyle="success" className="text-right">
                           {this.props.passRecoveryData.mailexists == 1 ? 'הודעה נשלחה לתיבת הדואר שלך' : 'תיבת הדואר שהוזנה לא קיימת במערכת'}
-                        </div>
+                        </Alert>
                       }
                 </Grid>
                 <Footer className="site-footer"/>

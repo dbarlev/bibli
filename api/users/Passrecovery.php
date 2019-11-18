@@ -65,7 +65,7 @@
         }else{
             
             $verificationCode = md5(uniqid($email, true));
-            $q2 = 'UPDATE users SET verification_code = ? WHERE email = ?';
+            $q2 = 'UPDATE users SET verification_code_lost_password = ? WHERE email = ?';
             $stmt = $db->prepare($q2);
             $stmt->bindParam(1, $verificationCode);
             $stmt->bindParam(2, $email);
@@ -83,7 +83,7 @@
        
 		
 		// send the email verification
-		$verificationLink = "https://bibli.co.il/passwordrecoveryedit/" . $verificationCode;
+		$verificationLink = "https://www.bibli.co.il/passwordrecoveryedit/" . $verificationCode;
 
 		$htmlStr = "";
 		$htmlStr .= "היי " . $username . ",<br /><br />";
@@ -92,7 +92,7 @@
 		$htmlStr .= "<a href='{$verificationLink}' target='_blank' style='padding:1em; font-weight:bold; background-color:blue; color:#fff;'>אשר רישום</a><br /><br /><br />";
 
 		$htmlStr .= "בהצלחה!,<br />";
-		$htmlStr .= "<a href='https://bibli.co.il/' target='_blank'>ביבלי</a><br />";
+		$htmlStr .= "<a href='https://www.bibli.co.il/' target='_blank'>ביבלי</a><br />";
 
 
 		$name = "דוד מצוות ביבלי";
@@ -106,8 +106,8 @@
 
 		$body = $htmlStr;
             
-        //DELETE WHEN PASSING TO PRODUVTION
-        echo json_encode(array('mailexists' => 1, 'email'=> $email));
+        
+      
 
 
 		// send email using the mail function, you can also use php mailer library if you want
@@ -129,7 +129,7 @@
 		if(isset($data->token)) $token = $data->token; else  $token = null;
 		if(isset($data->password)) $password = $data->password; else  $password = null;
 	
-        $q = 'UPDATE users SET password = ? WHERE verification_code = ?';
+        $q = 'UPDATE users SET password = ? WHERE verification_code_lost_password = ?';
         $stmt = $db->prepare($q);
         $stmt->bindParam(1, $password);
         $stmt->bindParam(2, $token);

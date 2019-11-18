@@ -94,9 +94,9 @@
 		$htmlStr .= "<a href='https://bibli.co.il/' target='_blank'>ביבלי</a><br />";
 
 
-		$email_sender = "contact@bibli.co.il";
+		$email_sender = $email;
 		$subject = "צור קשר | ביבלי";
-		$recipient_email = $email;
+		$recipient_email = "contact@bibli.co.il";
 
 		$headers  = "MIME-Version: 1.0\r\n";
 		$headers .= "Content-type: text/html; charset=iso-8859-1\r\n";

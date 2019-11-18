@@ -26,6 +26,7 @@ class PasswordRecoveryEdit extends Component {
             [e.target.name]: e.target.value
         }) 
         this.setState({msg:''});
+        this.setState({passwordMatchError: '', passwordLengthError: ''});
     }
 
 
@@ -33,27 +34,26 @@ class PasswordRecoveryEdit extends Component {
         let isError = false;
         const errors = {};
 
-        if(this.state.password.length < 6){
+        if(this.state.password.length < 6 || this.state.password == ''){
             isError =  true;
             errors.passwordLengthError = "על הסיסמה להיות ארוכה מ 6 תווים"
-          }else{
-            isError =  false;
+        }else{
             errors.passwordLengthError = ""
-          }
-      
-          if( this.state.confirmPassword !==  this.state.password){
+        }
+        
+        if( this.state.confirmPassword !==  this.state.password){
             isError =  true;
             errors.passwordMatchError = "הסיסמאות לא תואמות"
       
-          }else{
-            isError =  false;
+        }else{
             errors.passwordMatchError = ""
-          }
+        }
 
         this.setState({
             ...this.state,
             ...errors
         });
+        console.log('isError', isError);
         return isError
     }
 
@@ -67,9 +67,9 @@ class PasswordRecoveryEdit extends Component {
             token: this.props.match.params.token
         }
     let err = this.formValidation();
+    console.log('err', err);
         if(!err){
             this.props.PassRecoveryEdit(obj);
-        // console.log('success');
         }
 
     }
@@ -79,7 +79,7 @@ class PasswordRecoveryEdit extends Component {
             this.setState({msg: 'הסיסמה עודכנה בהצלחה '});
             return this.state.msg + '<Link to="/">to link</Link>';
         }else{
-            this.setState({msg: 'הסיסמה לא עודכנה בהצלחה'});
+            this.setState({msg: 'הסיסמה לא עודכנה, נסה שנית מאוחר יותר און צר איתנו קשר דרך עמוד "צור קשר".'});
             return this.state.msg
         }
    
@@ -104,7 +104,7 @@ class PasswordRecoveryEdit extends Component {
                             />    
                         </FormGroup>
                         {this.state.passwordLengthError  &&
-                            <Alert variant="danger" className="text-right">
+                            <Alert bsStyle="danger">
                                 {this.state.passwordLengthError}
                             </Alert>    
                         }
@@ -121,7 +121,7 @@ class PasswordRecoveryEdit extends Component {
                             />    
                         </FormGroup>
                         {this.state.passwordMatchError  &&
-                            <Alert variant="danger" className="text-right">
+                            <Alert bsStyle="danger">
                                 {this.state.passwordMatchError}
                             </Alert>    
                         }
@@ -133,9 +133,8 @@ class PasswordRecoveryEdit extends Component {
                     </Form>
 
                     {this.state.msg && 
-
-                        <Alert variant="success" className="text-right">
-                        
+                        <Alert bsStyle="info">
+                     
                         {this.state.msg}
                       
                     </Alert>   

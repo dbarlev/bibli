@@ -226,14 +226,14 @@ class RegisterForm extends Component {
               </FormGroup>
             
               {this.state.noEmail && 
-                <Alert variant="danger" className="text-right">
+                <Alert bsStyle="danger" className="text-right">
                   {this.state.noEmail}
                 </Alert>
               }
              
               
               {this.props.user.registerSuccess && 
-                <Alert variant="danger" className="text-right">
+                <Alert bsStyle="danger" className="text-right">
                   {this.state.mailExists}
                 </Alert>
               }
@@ -293,14 +293,14 @@ class RegisterForm extends Component {
               
               </FormGroup>
               {this.state.passwordMatchError && 
-                <Alert variant="danger" className="text-right">
+                <Alert bsStyle="danger" className="text-right">
                   {this.state.passwordMatchError}
                 </Alert>
               }
               {this.populatePackagesCombobox()}
               <FormGroup>
               {this.state.packageError && 
-                <Alert variant="danger" className="text-right">
+                <Alert bsStyle="danger" className="text-right">
                   {this.state.packageError}
                 </Alert>
               }

@@ -32,7 +32,8 @@ class Footer extends Component {
             <Grid fluid className={"footer" + " " + pos}>
                 <Grid className="show-grid">
                     <Row>
-                        <Col className="col-xs-offset-2" xs={6}>
+                        <Col className="col-xs-offset-2 " xs={6}>
+                            <div className="hidden">
                             <h3>מעוניינים להצטרף לניוזלטר שלנו?</h3>
                             <p>השאירו פרטים ונשמח לעדכן אתכם בכל מידע חדש שיהיה לנו!</p>
                             <form horizontal onSubmit={this.onSubmitEmailList.bind(this)}>
@@ -64,6 +65,7 @@ class Footer extends Component {
                                     </Col>
                                 </FormGroup>
                             </form>
+                            </div>
                         </Col>
                         <Col className="text-right" xs={3}>
                             <Nav id="FooterNav" className="nav-noStyle">
