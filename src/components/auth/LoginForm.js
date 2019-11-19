@@ -23,7 +23,6 @@ class LoginForm extends Component {
             email: '',
             username: '',
             password: '',
-            data: [],
             auth: false,
             usernameError: '',
             passwordError: '',
@@ -42,32 +41,30 @@ class LoginForm extends Component {
         //console.log('mount', this.props);
     }
 
-/*
-    checkUserVal(){
+
+    checkUserValidation(){
         if(this.props.auth === false && this.props.userid !== undefined){
             console.log('this.props 1', this.props);
-            this.setState({notActiveUserError: 'חשבון לא s מאומת'});
+            this.setState({notActiveUserError: 'חשבון לא מאומת'});
         }
         if(this.props.auth === false && this.props.userid === undefined){
             console.log('this.props 2', this.props);
             this.setState({UserDoesNotExist: 'משתשמ לא קיים'});
         }
     }
-*/
 
-    componentWillReceiveProps(nextProps) {
-        if (nextProps.auth == false && nextProps.userid !== undefined) {
-            console.log('nextProps 1', nextProps);
-        this.setState({ notActiveUserError: 'חשבון לא מאומת' });
+/*
+    componentWillUpdate() {
+        if (this.props.auth == false && this.props.userid != undefined) {
+            console.log('this.props 1', this.props);
+            this.setState({ notActiveUserError: 'חשבון לא מאומת' });
         }
-        if (nextProps.auth == false && nextProps.userid == undefined) {
-            console.log('nextProps 2', nextProps);
-        this.setState({ UserDoesNotExist: 'משתשמש לא קיים' });
+        if (this.props.auth == false && this.props.userid == undefined) {
+            console.log('this.props 2', this.props);
+            this.setState({ UserDoesNotExist: 'משתשמש לא קיים' });
         }
-
-
     }
-
+*/
     clientValidate = () => {
         let isError = false;
         
@@ -83,7 +80,7 @@ class LoginForm extends Component {
     }
 
 
-    onSubmitLogin(event){
+    onSubmitLogin = async (event) =>{
         event.preventDefault();
     
         if(this.clientValidate()){
@@ -93,14 +90,19 @@ class LoginForm extends Component {
                 email: this.state.email,
                 password: this.state.password
             }
-            this.props.userLogin(userData);
+            let xx = await this.props.userLogin(userData);
+            console.log('xx', xx);
+        }
     }
-
+/*
+    handleSubmit = async (event) => { 
+        await this.onSubmitLogin(event);
+        this.checkUserValidation();
+        console.log('async')
     }
+      */
 
-    redirectUser = () => {
-       
-console.log('login_active_test', this.props )
+    redirectUser = () => {    
         //console.log('state', this.state);
         if(this.props.auth === true && this.props.userid != null){
             // localStorage.setItem('userid', this.props.userid);
@@ -132,6 +134,7 @@ console.log('login_active_test', this.props )
             notActiveUserError: '',
             UserDoesNotExist: ''
         })
+
 
     }
 

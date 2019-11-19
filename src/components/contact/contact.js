@@ -199,16 +199,17 @@ class Contact extends Component {
                                     </div>
                                 </div>  
                             </div>
-                        </div>  
+                        </div> 
+                        {this.state.msg && 
+                            <div className="alert alert-success text-right" role="alert">
+                            {this.state.msg}
+                        </div>   
+                        }  
                     </Form>  
 
-              </div>
+            </div>
 
-                {this.state.msg && 
-                    <div className="alert alert-info text-right" role="alert">
-                    {this.state.msg}
-                </div>   
-                } 
+
                 <Footer className="center-footer" />
             </div>
 
