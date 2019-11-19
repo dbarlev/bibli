@@ -18,11 +18,11 @@ import axios from 'axios';
 
 //const API_PATH = "http://localhost/bibli/api";
 const API_PATH = "https://www.bibli.co.il/api";
-// const API_PATH = window.location.origin + '/api';
+//const API_PATH = window.location.origin + '/api';
 
 export const getBibListNamesFromDB = (userID) => {
     return (dispatch) => {
-        axios.get(`${API_PATH}/Biblist/${userID}`)
+        axios.get(`${API_PATH}/biblist/${userID}`)
             .then(function(response) {
                 dispatch({ type: GET_BIBLIST_NAMES_FROM_DB, value: response.data, userid: userID });
             })

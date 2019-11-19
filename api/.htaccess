@@ -2,7 +2,7 @@ RewriteEngine On # Turn on the rewriting engine
 #RewriteRule ^login/([a-zA-Z0-9_\-.@]+)/([0-9a-zA-Z]+)/?$ users/Login.php?email=$1&password=$2 [NC,L]
 RewriteRule ^records/([0-9a-zA-Z]+)/?$ biblioRecords/records.php?userid=$1 [NC,L]
 RewriteRule ^records/([0-9a-zA-Z]+)/([0-9a-zA-Z]+)/?$ biblioRecords/records.php?userid=$1&recordID=$2 [NC,L]
-RewriteRule ^biblist/([0-9a-zA-Z]+)/?$ biblioRecords/biblist.php?userid=$1 [NC,L]
+RewriteRule ^biblist/([0-9a-zA-Z]+)/?$ biblioRecords/Biblist.php?userid=$1 [NC,L]
 RewriteRule ^mailconf/([0-9a-zA-Z]+)/?$ users/Mailconf.php?mailconf=$1 [NC,L]
 RewriteRule ^biblist/([0-9a-zA-Z]+)/?$ biblioRecords/Bibsearch.php?q=$1 [NC,L]
 RewriteRule ^passwordrecovery/([a-zA-Z0-9_\-.@]+)/?$ users/Passrecovery.php?email=$1 [NC,L]
