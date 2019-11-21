@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import axios from 'axios';
 import { Redirect, Link  } from 'react-router-dom';
 import {
     Button,
@@ -15,6 +16,10 @@ import {
 import { userLogedIn } from '../../actions'; 
 import { userLogin } from '../../actions/ajax'; 
 
+import { async } from 'q';
+
+
+const API_PATH = "http://localhost/bibli/api";
 
 class LoginForm extends Component {
     constructor() {
@@ -32,39 +37,12 @@ class LoginForm extends Component {
             UserDoesNotExist: '',
             userid: ''
         }
-        this.onSubmitLogin = this.onSubmitLogin.bind(this);
+        this.handleSubmit = this.handleSubmit.bind(this);
         this.onChange = this.onChange.bind(this);
        
     }
 
-    componentWillMount(){
-        //console.log('mount', this.props);
-    }
 
-
-    checkUserValidation(){
-        if(this.props.auth === false && this.props.userid !== undefined){
-            console.log('this.props 1', this.props);
-            this.setState({notActiveUserError: 'חשבון לא מאומת'});
-        }
-        if(this.props.auth === false && this.props.userid === undefined){
-            console.log('this.props 2', this.props);
-            this.setState({UserDoesNotExist: 'משתשמ לא קיים'});
-        }
-    }
-
-/*
-    componentWillUpdate() {
-        if (this.props.auth == false && this.props.userid != undefined) {
-            console.log('this.props 1', this.props);
-            this.setState({ notActiveUserError: 'חשבון לא מאומת' });
-        }
-        if (this.props.auth == false && this.props.userid == undefined) {
-            console.log('this.props 2', this.props);
-            this.setState({ UserDoesNotExist: 'משתשמש לא קיים' });
-        }
-    }
-*/
     clientValidate = () => {
         let isError = false;
         
@@ -79,8 +57,18 @@ class LoginForm extends Component {
         return isError;
     }
 
+    checkUserValidation(){
+        if(this.state.auth === false && this.state.userid !== undefined){
+            console.log('this.state 1', this.state);
+            this.setState({notActiveUserError: 'חשבון לא מאומת'});
+        }
+        if(this.state.auth === false && this.state.userid === undefined){
+            console.log('this.state 2', this.state);
+            this.setState({UserDoesNotExist: 'משתשמש לא קיים'});
+        }
+    }
 
-    onSubmitLogin = async (event) =>{
+    handleSubmit = async(event)=>{
         event.preventDefault();
     
         if(this.clientValidate()){
@@ -90,21 +78,44 @@ class LoginForm extends Component {
                 email: this.state.email,
                 password: this.state.password
             }
-            let xx = await this.props.userLogin(userData);
-            console.log('xx', xx);
+    //        this.props.userLogin(userData);
+
+           await axios({
+                url: `${API_PATH}/users/Login.php`,
+                method: 'post',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                },
+                data: JSON.stringify(userData)
+            }) 
+            .then(json => {
+                console.log('json', json.data)
+                    
+                    this.setState({
+                        auth: json.data.auth,
+                        userid: json.data.userid
+                    });
+                    this.checkUserValidation()
+            })
+            .catch(error => console.log('parsing faild', error))
         }
     }
 /*
     handleSubmit = async (event) => { 
         await this.onSubmitLogin(event);
         this.checkUserValidation();
-        console.log('async')
     }
-      */
+    */
+
+
+
+
+      
 
     redirectUser = () => {    
         //console.log('state', this.state);
-        if(this.props.auth === true && this.props.userid != null){
+        if(this.state.auth === true && this.state.userid != null){
             // localStorage.setItem('userid', this.props.userid);
             // localStorage.setItem('auth', this.state.auth);
             // localStorage.setItem('username', this.props.username);
@@ -113,7 +124,7 @@ class LoginForm extends Component {
             const exp = timestamp + (60 * 60 * 24 * 1000 * 7)                // add one week
 
             let auth = `auth=${this.props.auth};expires=${exp}`;
-            let userid = `userid=${this.props.userid};expires=${exp}`;
+            let userid = `userid=${this.state.userid};expires=${exp}`;
            
             document.cookie = auth;
             document.cookie = userid;
@@ -163,7 +174,7 @@ class LoginForm extends Component {
                                 
                                 <Col  xs={12} sm={3} style={TopMarginLoginBtn} >
                                     
-                                    <Button onClick={this.onSubmitLogin} type="submit" className="full-width-btn" id="loginSubmit">התחבר</Button>
+                                    <Button onClick={this.handleSubmit} type="submit" className="full-width-btn" id="loginSubmit">התחבר</Button>
                                     {this.redirectUser()}
                                     </Col>
                                     <Col xs={12}>
