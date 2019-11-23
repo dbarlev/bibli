@@ -22,17 +22,6 @@
         margin-top: 20px;
         margin-left: 60px;
     }
-    button.send {
-        font-size: 20px;
-        width: 100%;
-        background-color: $mainBlueColor;
-        color: $mainYellow;
-        &:hover,
-        &:active {
-            color: $mainBlueColor;
-            background-color: $mainYellow
-        }
-    }
      ::-webkit-input-placeholder {
         /* Chrome/Opera/Safari */
         color: black;

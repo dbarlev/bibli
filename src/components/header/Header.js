@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import TopMenu from './TopMenu.js';
-import {Button, Grid} from 'react-bootstrap';
+import {Button, Grid, Row} from 'react-bootstrap';
 import { connect } from 'react-redux'; 
 import { userLogedIn } from '../../actions';
 import { getCookie } from '../Services/GetCookies';
@@ -42,9 +42,7 @@ class Header extends Component {
         <Grid className="show-grid">
           <div id="App-header">
             <TopMenu loginState={this.state.auth}  />
-            <div>
-                <h1 className="App-title">{this.props.headline}</h1>
-            </div>
+           
           </div>
         </Grid>
     );

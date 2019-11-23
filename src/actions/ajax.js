@@ -17,7 +17,7 @@ import {
 import axios from 'axios';
 
 const API_PATH = "http://localhost/bibli/api";
-// const API_PATH = "https://www.bibli.co.il/api";
+//const API_PATH = "https://www.bibli.co.il/api";
 // const API_PATH = window.location.origin + '/api';
 
 export const getBibListNamesFromDB = (userID) => {

@@ -37,7 +37,7 @@ class TopMenu extends Component {
             console.log("this.props.loginState ", this.props.loginState);
         }
         return (
-            <Grid className="container">
+            <Grid fluid className="container">
                 <Row>
                 <Col xs={12} sm={12} md={12} lg={8} style={TopMargin}>
                 <Navbar id="TopNav" className="nav-noStyle">
@@ -53,7 +53,7 @@ class TopMenu extends Component {
                     </Navbar.Header>
                     <Navbar.Collapse>
                         <Nav>
-                            <IndexLinkContainer className="topNavMenuItems black" to="/">
+                            <IndexLinkContainer className="topNavMenuItems black" to="/odot">
                                 <NavItem>מי אנחנו</NavItem>
                             </IndexLinkContainer>
 

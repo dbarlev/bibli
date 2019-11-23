@@ -85,10 +85,10 @@
         
         
         $htmlStr = "";
-		$htmlStr .= "מאת " . $name . ",<br /><br />";
-        $htmlStr .= "כתובת דואר אלקטרוני" . $email . ",<br /><br />";
-        $htmlStr .= "מספר טלפון" . $phone . ",<br /><br />";
-        $htmlStr .= "ההודעה היא: " . $massage . ",<br /><br />";
+		$htmlStr .= "מאת <br />" . $name . ",<br /><br />";
+        $htmlStr .= "כתובת דואר אלקטרוני<br />" . $email . ",<br /><br />";
+        $htmlStr .= "מספר טלפון<br />" . $phone . ",<br /><br />";
+        $htmlStr .= "ההודעה היא: <br />" . $massage . ",<br /><br />";
 		
 		$htmlStr .= "בהצלחה!,<br />";
 		$htmlStr .= "<a href='https://bibli.co.il/' target='_blank'>ביבלי</a><br />";

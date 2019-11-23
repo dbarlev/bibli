@@ -93,6 +93,7 @@
 
 		$htmlStr .= "בהצלחה!,<br />";
 		$htmlStr .= "<a href='https://www.bibli.co.il/' target='_blank'>ביבלי</a><br />";
+		$htmlStr .= '<img src="../inc/logo.png" />';
 
 
 		$name = "דוד מצוות ביבלי";
@@ -105,19 +106,14 @@
 		$headers .= "From: {$name} <{$email_sender}> \n";
 
 		$body = $htmlStr;
-            
-        
-      
-
-
-		// send email using the mail function, you can also use php mailer library if you want
-		if( mail($recipient_email, $subject, $body, $headers) ){
+	
+		mail($recipient_email, $subject, $body, $headers);
 
 			// tell the user a verification email were sent
 		
-            echo json_encode(array('mailexists' => 1, 'email'=> $email));
+        echo json_encode(array('mailexists' => 1, 'email'=> $email));
 
-        }
+        
         
 
     }

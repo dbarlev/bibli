@@ -36,10 +36,10 @@ class App extends Component {
   render() {
     return (
       <Grid className="App">
-        <Header headline="1ברוכים הבאים לביבלי"/>
+        <Header headline="ברוכים הבאים לביבלי"/>
         <SubOptions />
         <br />
-        <Footer />
+        <Footer className="site-footer"/>
       </Grid>
     );
   }

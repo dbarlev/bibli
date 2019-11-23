@@ -12,64 +12,89 @@
     width: 100%
 }
 
-
-.third{
+.third {
     width: 33%;
 }
 
-.transparent{
+.transparent {
     background-color: transparent;
-    &:hover{
+    &:hover {
         background-color: transparent;
     }
 }
 
-.no-border{
+.no-border {
     border: 0px !important;
 }
 
-.m10top{
+.m10top {
     margin-top: 10px;
 }
 
-.btn{
+.btn {
     border-radius: 0;
 }
 
-
-.btn-yellow{
+.btn-yellow {
     background-color: $mainYellow;
-    a{
+    a {
         color: $mainBlueColor;
-        
     }
-    &:hover{
+    &:hover {
         background-color: $mainBlueColor;
-        a{
+        a {
             color: $mainYellow;
             text-decoration: none;
         }
     }
 }
+
+
 /*text*/
-p, a, span, ul{
+
+p,
+a,
+span,
+ul,
+ol,
+li,
+button,
+input,
+label {
     font-family: 'Open Sans Hebrew', serif;
+    font-size: 16px;
 }
 
-h1, h2, h3, h4, h5, h6{
-//    font-family: 'Open Sans Hebrew Bold', serif;
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    //    font-family: 'Open Sans Hebrew Bold', serif;
     font-family: 'Open Sans Hebrew Condensed', serif;
-
 }
 
-h5{
+h5 {
     font-weight: bold;
 }
 
-.fa{
+.fa {
     margin-left: 10px;
 }
 
-.pointer{
+.pointer {
     cursor: pointer;
+}
+
+button.send {
+    font-size: 20px;
+    width: 100%;
+    background-color: $mainBlueColor;
+    color: $mainYellow;
+    &:hover,
+    &:active {
+        color: $mainBlueColor;
+        background-color: $mainYellow
+    }
 }

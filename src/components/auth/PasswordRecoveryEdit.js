@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
-import {Form, Alert, FormGroup, Col, Button, FormControl, Grid} from 'react-bootstrap';
+import {Form, Row, Alert, FormGroup, Col, Button, FormControl, Grid, Glyphicon} from 'react-bootstrap';
 import {connect} from 'react-redux';
+import {Animated} from "react-animated-css";
 import {Link} from 'react-router-dom';
 import Header from '../header/Header';
 import Footer from '../footer/Footer';
+
 import { PassRecoveryEdit } from '../../actions/ajax';
 
 class PasswordRecoveryEdit extends Component {
@@ -89,8 +91,26 @@ class PasswordRecoveryEdit extends Component {
     render() {
         return (
             <div>
+                  <Grid fluid className="page-wrap">
                 <Header headline="הזינו סיסמה חדשה"/>
-                <Grid className="page-wrap">
+                <Row>
+                <Col md={6} mdOffset={3}>
+                            <h1>שחזור סיסמא</h1>
+                        </Col>
+                    </Row>
+                <Row>
+                <Col md={6} mdOffset={3}>
+                            <p>יש להזין את הסיסמה החדשה</p>
+                            <Animated animationIn="bounceIn" animationOut="fadeOut" isVisible={true}>
+                            <p>שימו  <Glyphicon className="red-alert" glyph="heart" /></p>
+                            </Animated>
+                            <p>על הסיסמה להיות ארוכה משישיה תווים</p>
+                            
+                        </Col>
+                    </Row>
+                    <Row>
+                        <div className="col-xs-12 col-md-4 col-md-offset-4">
+              
                     <Form horizontal onSubmit={this.onSubmit.bind(this)}>  
                         <FormGroup>
                             <FormControl 
@@ -126,9 +146,9 @@ class PasswordRecoveryEdit extends Component {
                             </Alert>    
                         }
                         <FormGroup>
-                        <Col xs={12}>
-                          <Button className="full-width-btn" type="submit">שינוי סיסמה</Button>
-                        </Col>
+                       
+                          <Button className="btn send" type="submit">שינוי סיסמה</Button>
+                       
                       </FormGroup>
                     </Form>
 
@@ -139,6 +159,8 @@ class PasswordRecoveryEdit extends Component {
                       
                     </Alert>   
                     }
+                    </div>
+                    </Row>
                 </Grid>
                 <Footer className="site-footer"/>
             </div>

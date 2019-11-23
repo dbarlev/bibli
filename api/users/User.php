@@ -115,7 +115,7 @@
 			
 
 			$stmt->execute();
-			send_conf_mail_to_user($email);
+			send_conf_mail_to_user($email, $verificationCode);
 			//echo json_encode(array('userRegistered' => 'success', 'username'=> '', 'email'=> $email));
 			getRecords($db, $email);
 			
@@ -139,22 +139,23 @@
 	
 
 	
-	function send_conf_mail_to_user($email){
+	function send_conf_mail_to_user($email, $verificationCode){
 		// generate verification code, acts as the "key"
-		$verificationCode = md5(uniqid($email, true));
+		//$verificationCode = md5(uniqid($email, true));
 		
 		// send the email verification
 		$verificationLink = "https://www.bibli.co.il/mailconf/" . $verificationCode;
 
-		$htmlStr = "";
-		$htmlStr .= "היי <br /><br />";
+		$htmlStr = 'שלום ותודה שנרשמת למערכת ביבלי.<br />';
+		$htmlStr .= 'כדי להשלים את ההרשמה, עליך ללחוץ כאן ולהפעיל את חשבונך: <br /><br />';
 
-		$htmlStr .= "נא לחץ על הכפתור כדי לאשר את הרשמתך לאתר.<br /><br /><br />";
-		$htmlStr .= "<a href='{$verificationLink}' target='_blank' style='padding:1em; font-weight:bold; background-color:blue; color:#fff;'>אשר רישום</a><br /><br /><br />";
+		$htmlStr .= '<a href='.$verificationLink.' target="_blank" style="padding:1em; font-weight:bold; background-color:blue; color:#fff;">אשר רישום</a><br /><br /><br />';
+		
+		$htmlStr .= 'בכל שאלה או בקשה, ניתן לפנות אלינו דרך עמוד <a href="" target="_blank">צור קשר</a> באתר.<br /><br /><br />';
 
-		$htmlStr .= "בהצלחה!,<br />";
+		$htmlStr .= "בברכה!,<br />";
 		$htmlStr .= "<a href='https://www.bibli.co.il/' target='_blank'>ביבלי</a><br />";
-
+		$htmlStr .= '<img src="../inc/logo.png" />';
 
 		$name = "צוות ביבלי";
 		$email_sender = "no-reply@bibli.co.il";

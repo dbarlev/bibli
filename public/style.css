@@ -36,6 +36,11 @@ body {
 .pad-0 {
   padding: 0px; }
 
+.red-alert {
+  /* :) best game ever!!!  */
+  color: red;
+  font-weight: bolder; }
+
 * {
   direction: rtl; }
 
@@ -1993,10 +1998,24 @@ form .btn-default {
       text-decoration: none; }
 
 /*text*/
-p, a, span, ul {
-  font-family: 'Open Sans Hebrew', serif; }
+p,
+a,
+span,
+ul,
+ol,
+li,
+button,
+input,
+label {
+  font-family: 'Open Sans Hebrew', serif;
+  font-size: 16px; }
 
-h1, h2, h3, h4, h5, h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
   font-family: 'Open Sans Hebrew Condensed', serif; }
 
 h5 {
@@ -2007,6 +2026,15 @@ h5 {
 
 .pointer {
   cursor: pointer; }
+
+button.send {
+  font-size: 20px;
+  width: 100%;
+  background-color: #204260;
+  color: #f2b500; }
+  button.send:hover, button.send:active {
+    color: #204260;
+    background-color: #f2b500; }
 
 .row *,
 .row *:after,
@@ -2292,15 +2320,6 @@ ul#searchresults.open {
 #contact .contact-form {
   margin-top: 20px;
   margin-left: 60px; }
-
-#contact button.send {
-  font-size: 20px;
-  width: 100%;
-  background-color: #204260;
-  color: #f2b500; }
-  #contact button.send:hover, #contact button.send:active {
-    color: #204260;
-    background-color: #f2b500; }
 
 #contact ::-webkit-input-placeholder {
   /* Chrome/Opera/Safari */

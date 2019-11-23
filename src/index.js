@@ -5,6 +5,8 @@ import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import { createStore, applyMiddleware, compose } from 'redux'
 import { Provider } from 'react-redux';
 import thunk from 'redux-thunk';
+
+import App from './components/App';
 import Register from './components/auth/Register';
 import Login from './components/auth/Login';
 import FrontPage from './components/frontpage/FrontPage';
@@ -17,6 +19,7 @@ import Contact from './components/contact/contact';
 import PasswordRecovery from './components/auth/PasswordRecovery';
 import PasswordRecoveryEdit from './components/auth/PasswordRecoveryEdit';
 import Takanon from './components/pages/Takanon';
+import Odot from './components/pages/Odot';
 import RegisterSuccess from './components/auth/RegisterSuceess';
 
 import './index.css';
@@ -44,6 +47,7 @@ ReactDOM.render(
                 <Route path="/front" component={FrontPage} />
                 <Route path="/faq" component={Faq} />
                 <Route path="/takanon" component={Takanon} />
+                <Route path="/odot" component={Odot} />
                 <Route path="/contact" component={Contact} />
                 <Route path="/passwordrecovery" component={PasswordRecovery} /> //טופס הזנת כתובת מייל לשחזור סיסמא
                 <Route path="/passwordrecoveryedit/:token" component={PasswordRecoveryEdit} /> //שינוי של הסיסמא
