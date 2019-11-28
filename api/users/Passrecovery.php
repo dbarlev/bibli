@@ -88,17 +88,16 @@
 		$htmlStr = "";
 		$htmlStr .= "היי " . $username . ",<br /><br />";
 
-		$htmlStr .= "נא לחץ על הכפתור כדי לאשר את הרשמתך לאתר.<br /><br /><br />";
-		$htmlStr .= "<a href='{$verificationLink}' target='_blank' style='padding:1em; font-weight:bold; background-color:blue; color:#fff;'>אשר רישום</a><br /><br /><br />";
+		$htmlStr .= "נא לחץ על הכפתור כדי לשחזר את סיסמת הכניסה שלך לאתר.<br /><br /><br />";
+		$htmlStr .= "<a href='{$verificationLink}' target='_blank' style='padding:1em; font-weight:bold; background-color:blue; color:#fff;'>שחזור סיסמה</a><br /><br /><br />";
 
 		$htmlStr .= "בהצלחה!,<br />";
 		$htmlStr .= "<a href='https://www.bibli.co.il/' target='_blank'>ביבלי</a><br />";
-		$htmlStr .= '<img src="../inc/logo.png" />';
 
 
-		$name = "דוד מצוות ביבלי";
+		$name = "צוות ביבלי";
 		$email_sender = "no-reply@bibli.co.il";
-		$subject = "אישור הרשמה | ביבלי";
+		$subject = "שחזור סיסמה | ביבלי";
 		$recipient_email = $email;
 
 		$headers  = "MIME-Version: 1.0\r\n";
@@ -107,12 +106,12 @@
 
 		$body = $htmlStr;
 	
-		mail($recipient_email, $subject, $body, $headers);
+		if(mail($recipient_email, $subject, $body, $headers)){
 
 			// tell the user a verification email were sent
 		
         echo json_encode(array('mailexists' => 1, 'email'=> $email));
-
+        };
         
         
 

@@ -78,10 +78,10 @@ class PasswordRecoveryEdit extends Component {
 
     massage = () => {
         if(this.props.passRecoveryEditSuccess.password_changed == 1){
-            this.setState({msg: 'הסיסמה עודכנה בהצלחה '});
+            this.setState({msg: 'הסיסמה עודכנה בהצלחה ', alertColor:'green-alert' });
             return this.state.msg + '<Link to="/">to link</Link>';
         }else{
-            this.setState({msg: 'הסיסמה לא עודכנה, נסה שנית מאוחר יותר און צר איתנו קשר דרך עמוד "צור קשר".'});
+            this.setState({msg: 'הסיסמה לא עודכנה, נסה שנית מאוחר יותר און צר איתנו קשר דרך עמוד "צור קשר".', alertColor:'red-alert'});
             return this.state.msg
         }
    
@@ -95,7 +95,7 @@ class PasswordRecoveryEdit extends Component {
                 <Header headline="הזינו סיסמה חדשה"/>
                 <Row>
                 <Col md={6} mdOffset={3}>
-                            <h1>שחזור סיסמא</h1>
+                            <h1>שחזור סיסמה</h1>
                         </Col>
                     </Row>
                 <Row>
@@ -124,9 +124,7 @@ class PasswordRecoveryEdit extends Component {
                             />    
                         </FormGroup>
                         {this.state.passwordLengthError  &&
-                            <Alert bsStyle="danger">
-                                {this.state.passwordLengthError}
-                            </Alert>    
+                            <div className="red-alert" bsStyle="danger">{this.state.passwordLengthError}</div>
                         }
 
                         <FormGroup>
@@ -141,9 +139,8 @@ class PasswordRecoveryEdit extends Component {
                             />    
                         </FormGroup>
                         {this.state.passwordMatchError  &&
-                            <Alert bsStyle="danger">
-                                {this.state.passwordMatchError}
-                            </Alert>    
+  
+                            <div className="red-alert" bsStyle="danger">{this.state.passwordMatchError}</div> 
                         }
                         <FormGroup>
                        
@@ -153,11 +150,8 @@ class PasswordRecoveryEdit extends Component {
                     </Form>
 
                     {this.state.msg && 
-                        <Alert bsStyle="info">
-                     
-                        {this.state.msg}
-                      
-                    </Alert>   
+
+                    <div className={this.state.alertColor} bsStyle="danger"> {this.state.msg}</div>
                     }
                     </div>
                     </Row>

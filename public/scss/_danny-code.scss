@@ -8,7 +8,7 @@ i.fas {
     span{
         font-size: 18px !important;
         font-weight: bold;
-        margin-right: 15px;
+       
     }
 }
 
@@ -94,6 +94,16 @@ button>i,
     list-style: none;
 }
 
+ul#list-of-biblist li {
+    padding: 5px 0;
+    border-bottom: 1px solid lightgrey;
+}
+
+ul#list-of-biblist li .black:before{
+    content: '🕮';
+    margin-left: 2px;
+    /*http://www.fileformat.info/info/unicode/char/search.htm?q=book&preview=entity*/
+}
 .align-right{
     text-align: right;
 }

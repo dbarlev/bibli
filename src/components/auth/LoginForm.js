@@ -18,8 +18,8 @@ import { userLogin } from '../../actions/ajax';
 
 import { async } from 'q';
 
-//const API_PATH = "http://localhost/bibli/api";
-const API_PATH = "https://www.bibli.co.il/api";
+const API_PATH = "http://localhost/bibli/api";
+//const API_PATH = "https://www.bibli.co.il/api";
 
 class LoginForm extends Component {
     constructor() {

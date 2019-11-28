@@ -1,3 +1,4 @@
+@charset "UTF-8";
 html,
 body {
   height: 100%; }
@@ -37,8 +38,12 @@ body {
   padding: 0px; }
 
 .red-alert {
-  /* :) best game ever!!!  */
+  /* https://www.youtube.com/watch?v=I_ImRoz8ogs */
   color: red;
+  font-weight: bolder; }
+
+.green-alert {
+  color: green;
   font-weight: bolder; }
 
 * {
@@ -1716,8 +1721,7 @@ i.fas {
 
 .sideMenuLinks span {
   font-size: 18px !important;
-  font-weight: bold;
-  margin-right: 15px; }
+  font-weight: bold; }
 
 button,
 .btn {
@@ -1779,6 +1783,15 @@ button > i,
 
 .list-no-style {
   list-style: none; }
+
+ul#list-of-biblist li {
+  padding: 5px 0;
+  border-bottom: 1px solid lightgrey; }
+
+ul#list-of-biblist li .black:before {
+  content: '🕮';
+  margin-left: 2px;
+  /*http://www.fileformat.info/info/unicode/char/search.htm?q=book&preview=entity*/ }
 
 .align-right {
   text-align: right; }
@@ -2240,6 +2253,15 @@ button.send {
 
 .subscripsion-icon {
   width: 100%; }
+
+button#toggleBtn {
+  position: absolute;
+  left: 0;
+  top: 19px;
+  border: 0;
+  background-color: transparent;
+  color: #204260;
+  padding: 0; }
 
 ul#searchresults {
   /* background-color: #fff; */

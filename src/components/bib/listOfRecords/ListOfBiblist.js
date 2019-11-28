@@ -41,7 +41,7 @@ class ListOfBiblist extends Component {
                 </LinkContainer>
               </div>
             </div>
-            <ul className="list-no-style align-right padding-0">
+            <ul className="list-no-style align-right padding-0" id="list-of-biblist">
               {
                 this.props.allBiblist.map((item,index) => {
                     if(uniqueListId.indexOf(item.Name) == -1)

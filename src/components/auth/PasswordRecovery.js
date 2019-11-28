@@ -53,7 +53,7 @@ class PasswordRecovery extends Component {
                
                     <Row>
                         <Col md={6} mdOffset={3}>   
-                            <h1>שכחתי סיסמא</h1>
+                            <h1>שכחתי סיסמה</h1>
                         </Col>
                     </Row>
                     <Row>
@@ -69,25 +69,30 @@ class PasswordRecovery extends Component {
                                     
                                         <FormControl ref="email" name="email" type="email" onChange={this.onChange} placeholder="הקלד דואר אלקטרוני" />
 
-                                  
+                                        {
+                                            this.state.emailIsEmpty ?
+                                            <div className="red-alert" bsStyle="danger">לא הוזנה כתובת דואר אלקטרוני</div>
+                                             :
+                                                ''
+                                        }
 
-                                        <Button type="submit" className="full-width-btn btn send" id="loginSubmit">שחזר סיסמא</Button>
+                                        <Button type="submit" className="full-width-btn btn send" id="loginSubmit">שחזר סיסמה</Button>
 
                                    
 
                                 </FormGroup>
                             </Form>
-                            {
-                                this.state.emailIsEmpty ?
-                                    <Alert bsStyle="danger">
-                                        {this.state.emailIsEmpty} </Alert> :
-                                    ''
-                            }
+                         
 
                             {this.props.passRecoveryData &&
-                                <Alert bsStyle="success" className="text-right">
-                                    {this.props.passRecoveryData.mailexists == 1 ? 'הודעה נשלחה לתיבת הדואר שלך' : 'תיבת הדואר שהוזנה לא קיימת במערכת'}
-                                </Alert>
+                                <div  className="text-right">
+                                    {this.props.passRecoveryData.mailexists == 1 ?
+                                        <div className="green-alert" bsStyle="danger">הודעה נשלחה לתיבת הדואר שלך</div> :
+                                        <div className="red-alert" bsStyle="danger">תיבת הדואר שהוזנה לא קיימת במערכת</div>
+                                    }                               
+                                </div>
+
+                                
                             }
                             </div>
                             </Row>
