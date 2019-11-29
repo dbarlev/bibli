@@ -41,12 +41,11 @@
 				setRecords($db);
 				break;
 			case 'PUT':
-				$data = json_decode(file_get_contents('php://input'));
-				if(isset($data->bookid)){
-					updateRecord($db);
+				if(isset($_GET["userid"])){
+					deleteRecordFromUser($db);
 				}
 				else {
-					deleteRecordFromUser($db);
+					updateRecord($db, $data);
 				}	
 				break;
 			case 'DELETE':
@@ -69,7 +68,7 @@
 							ON biblist.id = refactor_books_new.BiblistID 
 								INNER JOIN recordtype
 									ON (refactor_books_new.RecordType = recordtype.RecordID)
-																	WHERE biblist.Userid = ?';
+																	WHERE refactor_books_new.userid = ?';
 		$stmt = $db->prepare($query);
 		$stmt->bindParam(1, $userID);
 
@@ -160,7 +159,7 @@
 		$recordID = ($_GET["recordID"]);
 		$biblistID = ($_GET["biblistID"]);
 
-		$query = 'UPDATE refactor_books_new SET userid = 9000, BiblistID = NULL WHERE bookid = ?';
+		$query = 'UPDATE refactor_books_new SET userid = NULL, BiblistID = NULL WHERE bookid = ?';
 							
 		$stmt = $db->prepare($query);
 		$stmt->bindParam(1, $recordID);
@@ -190,26 +189,24 @@
 		 if(isset($data->bookid)) $bookid = $data->bookid; else  $bookid = null;
 		 
 		 $query = "UPDATE refactor_books_new
-		 			SET userid = ?, BiblistID = ?, chapter = ?, pages = ?, publishname = ?, publishcity = ?, kereh = ?, RecordType = ?, url = ?, title = ?, retrived = ?, wFname = ?, wLname = ?, name = ?, year = ?
+		 			SET chapter = ?, pages = ?, publishname = ?, publishcity = ?, kereh = ?, RecordType = ?, url = ?, title = ?, retrived = ?, wFname = ?, wLname = ?, name = ?, year = ?
 						WHERE bookid = ?";
 		
 		 $stmt = $db->prepare($query);
-		 $stmt->bindParam(1, $userID);
-		 $stmt->bindParam(2, $BiblistID);
-		 $stmt->bindParam(3, $chapter);
-		 $stmt->bindParam(4, $pages);
-		 $stmt->bindParam(5, $publishname);
-		 $stmt->bindParam(6, $publishcity);
-		 $stmt->bindParam(7, $kereh);
-		 $stmt->bindParam(8, $recordType);
-		 $stmt->bindParam(9, $url);
-		 $stmt->bindParam(10, $title);
-		 $stmt->bindParam(11, $retrived);
-		 $stmt->bindParam(12, $wFname);
-		 $stmt->bindParam(13, $wLname);
-		 $stmt->bindParam(14, $name);
-		 $stmt->bindParam(15, $year);
-		 $stmt->bindParam(16, $bookid);
+		 $stmt->bindParam(1, $chapter);
+		 $stmt->bindParam(2, $pages);
+		 $stmt->bindParam(3, $publishname);
+		 $stmt->bindParam(4, $publishcity);
+		 $stmt->bindParam(5, $kereh);
+		 $stmt->bindParam(6, $recordType);
+		 $stmt->bindParam(7, $url);
+		 $stmt->bindParam(8, $title);
+		 $stmt->bindParam(9, $retrived);
+		 $stmt->bindParam(10, $wFname);
+		 $stmt->bindParam(11, $wLname);
+		 $stmt->bindParam(12, $name);
+		 $stmt->bindParam(13, $year);
+		 $stmt->bindParam(14, $bookid);
 		 $stmt->execute();
 		 
 		 getRecords($db, $userID);
