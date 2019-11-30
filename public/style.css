@@ -46,6 +46,15 @@ body {
   color: green;
   font-weight: bolder; }
 
+.hover-orange:hover {
+  color: #ec971f; }
+
+.cursor-normal {
+  cursor: auto; }
+
+.black-icon {
+  color: black !important; }
+
 * {
   direction: rtl; }
 
@@ -1719,18 +1728,28 @@ i.fa,
 i.fas {
   color: #204260; }
 
-.sideMenuLinks span {
-  font-size: 18px !important;
-  font-weight: bold; }
+.sideMenuLinks {
+  font-size: 20px; }
+  .sideMenuLinks span {
+    font-size: 18px !important;
+    font-weight: bold; }
 
 button,
 .btn {
   background: #204260;
   color: white; }
 
+button:hover,
+.btn:hover {
+  color: orange; }
+
 button > i,
 .btn > i {
-  color: white !important; }
+  color: white; }
+
+button > i:hover,
+.btn > i:hover {
+  color: orange; }
 
 .logo img {
   max-height: 170px;
@@ -1789,7 +1808,7 @@ ul#list-of-biblist li {
   border-bottom: 1px solid lightgrey; }
 
 ul#list-of-biblist li .black:before {
-  content: '🕮';
+  content: "🕮";
   margin-left: 2px;
   /*http://www.fileformat.info/info/unicode/char/search.htm?q=book&preview=entity*/ }
 
@@ -1831,7 +1850,7 @@ input.searchRecord {
   height: 35px;
   background: white(0, 0%, 0%, 0);
   border: 1px solid black !important;
-  border-radius: 0;
+  border-radius: 5px;
   color: black; }
 
 .apaForm .selectDropdown .sourceTypeCombobox > div {
@@ -1876,7 +1895,7 @@ button.searchRecordBtn {
   color: white; }
 
 .badge {
-  background-color: #F2B500 !important;
+  background-color: #f2b500 !important;
   color: black !important; }
 
 .fa-bell {
@@ -1945,6 +1964,11 @@ button.searchRecordBtn {
 .topNavMenuItems.active a {
   background: orange !important;
   color: black !important; }
+
+#addWriterBtn:hover {
+  background: #204260 !important; }
+  #addWriterBtn:hover * {
+    color: white !important; }
 
 form input[type="text"],
 form input[type="password"],
