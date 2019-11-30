@@ -15,15 +15,12 @@ import {
   USER_LOGIN
 } from "./consts";
 import axios from "axios";
-
-const API_PATH = "http://localhost/bibli/api";
-//const API_PATH = "https://www.bibli.co.il/api";
-// const API_PATH = window.location.origin + '/api';
+import apiPath from "../constants/api";
 
 export const getBibListNamesFromDB = userID => {
   return dispatch => {
     axios
-      .get(`${API_PATH}/biblist/${userID}`)
+      .get(`${apiPath}/biblist/${userID}`)
       .then(function(response) {
         dispatch({
           type: GET_BIBLIST_NAMES_FROM_DB,
@@ -41,7 +38,7 @@ export const getRecordsFromDB = (userID, biblistID, listName) => {
   return dispatch => {
     axios
       .get(
-        `${API_PATH}/biblioRecords/Records.php?userid=${userID}&biblistID=${biblistID}`
+        `${apiPath}/biblioRecords/Records.php?userid=${userID}&biblistID=${biblistID}`
       )
       .then(function(response) {
         dispatch({
@@ -60,7 +57,7 @@ export const getRecordsFromDB = (userID, biblistID, listName) => {
 export const getSingleRecord = recordID => {
   return dispatch => {
     axios
-      .get(`${API_PATH}/biblioRecords/Records.php?recordID=${recordID}`)
+      .get(`${apiPath}/biblioRecords/Records.php?recordID=${recordID}`)
       .then(function(response) {
         dispatch({ type: GET_RECORD, value: response.data });
       })
@@ -80,7 +77,7 @@ export const DeleteRecordFromUser = (userID, recordID, biblistID) => {
   return dispatch => {
     axios
       .put(
-        `${API_PATH}/biblioRecords/Records.php/?userid=${userID}&recordID=${recordID}&biblistID=${biblistID}`
+        `${apiPath}/biblioRecords/Records.php/?userid=${userID}&recordID=${recordID}&biblistID=${biblistID}`
       )
       .then(function(response) {
         dispatch({ type: DELETE_RECORD_FROM_USER, value: response.data });
@@ -94,7 +91,7 @@ export const DeleteRecordFromUser = (userID, recordID, biblistID) => {
 export const EditRecord = data => {
   return dispatch => {
     axios({
-      url: `${API_PATH}/biblioRecords/Records.php`,
+      url: `${apiPath}/biblioRecords/Records.php`,
       method: "put",
       headers: {
         Accept: "application/json",
@@ -120,7 +117,7 @@ export const EditBiblistName = (userID, biblistID, name) => {
 
   return dispatch => {
     axios({
-      url: `${API_PATH}/biblioRecords/Biblist.php`,
+      url: `${apiPath}/biblioRecords/Biblist.php`,
       method: "put",
       headers: {
         Accept: "application/json",
@@ -145,7 +142,7 @@ export const DeleteBibList = (userID, biblistID) => {
   return dispatch => {
     axios
       .delete(
-        `${API_PATH}/biblioRecords/Biblist.php/?userid=${userID}&biblistID=${biblistID}`
+        `${apiPath}/biblioRecords/Biblist.php/?userid=${userID}&biblistID=${biblistID}`
       )
       .then(function(response) {
         dispatch({ type: DELETE_BIBLIST, value: response.data });
@@ -159,7 +156,7 @@ export const DeleteBibList = (userID, biblistID) => {
 export const InsertRecordToDB = (data, listID) => {
   return dispatch => {
     axios({
-      url: `${API_PATH}/biblioRecords/Records.php`,
+      url: `${apiPath}/biblioRecords/Records.php`,
       method: "post",
       headers: {
         Accept: "application/json",
@@ -179,7 +176,7 @@ export const InsertRecordToDB = (data, listID) => {
 export const InsertBibListToDB = data => {
   return dispatch => {
     axios({
-      url: `${API_PATH}/biblioRecords/Biblist.php`,
+      url: `${apiPath}/biblioRecords/Biblist.php`,
       method: "post",
       headers: {
         Accept: "application/json",
@@ -204,7 +201,7 @@ export const InsertUserToDB = data => {
   console.log("data ff", data);
   return dispatch => {
     axios({
-      url: `${API_PATH}/users/User.php`,
+      url: `${apiPath}/users/User.php`,
       method: "post",
       headers: {
         Accept: "application/json",
@@ -225,7 +222,7 @@ export const userLogin = userData => {
   //console.log('userLogin', userData)
   return dispatch => {
     axios({
-      url: `${API_PATH}/users/Login.php`,
+      url: `${apiPath}/users/Login.php`,
       method: "post",
       headers: {
         Accept: "application/json",
@@ -269,7 +266,7 @@ export const MailVerAction = data => {
   console.log("data ", data);
   return dispatch => {
     axios({
-      url: `${API_PATH}/users/Mailconf.php?mailconf=${data}`,
+      url: `${apiPath}/users/Mailconf.php?mailconf=${data}`,
       method: "PUT",
       headers: {
         Accept: "application/json",
@@ -289,7 +286,7 @@ export const MailVerAction = data => {
 export const BibSearchAction = q => {
   return dispatch => {
     axios
-      .get(`${API_PATH}/biblioRecords/Bibsearch.php?q=${q}`)
+      .get(`${apiPath}/biblioRecords/Bibsearch.php?q=${q}`)
       .then(function(response) {
         dispatch({ type: BIB_SEARCH, value: response.data });
       })
@@ -303,7 +300,7 @@ export const PassRecoveryAction = email => {
   console.log("PassRecoveryAction  email ajax", email);
   return dispatch => {
     axios
-      .post(`${API_PATH}/users/Passrecovery.php?email=${email}`)
+      .post(`${apiPath}/users/Passrecovery.php?email=${email}`)
       .then(function(response) {
         dispatch({ type: PASS_RECOVERY, value: response.data });
       })
@@ -316,7 +313,7 @@ export const PassRecoveryAction = email => {
 export const PassRecoveryEdit = data => {
   console.log("data is", data);
   let dat = JSON.stringify(data);
-  let url = `${API_PATH}/users/Passrecovery.php?data=${dat}`;
+  let url = `${apiPath}/users/Passrecovery.php?data=${dat}`;
 
   return dispatch => {
     axios
@@ -333,7 +330,7 @@ export const PassRecoveryEdit = data => {
 export const sendMassage = data => {
   let dat = JSON.stringify(data);
   console.log("sendMassage is", dat);
-  let url = `${API_PATH}/users/Massage.php?data=${dat}`;
+  let url = `${apiPath}/users/Massage.php?data=${dat}`;
 
   return dispatch => {
     axios
@@ -350,7 +347,7 @@ export const sendMassage = data => {
 export const joinMalList = data => {
   let dat = JSON.stringify(data);
   console.log("joinMalList is", dat);
-  let url = `${API_PATH}/users/Massage.php?data=${dat}`;
+  let url = `${apiPath}/users/Massage.php?data=${dat}`;
 
   return dispatch => {
     axios

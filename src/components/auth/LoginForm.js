@@ -12,14 +12,11 @@ import {
   Grid,
   Row
 } from "react-bootstrap";
-
+import apiPath from "../../constants/api";
 import { userLogedIn } from "../../actions";
 import { userLogin } from "../../actions/ajax";
 
 import { async } from "q";
-
-const API_PATH = "http://localhost/bibli/api";
-//const API_PATH = "https://www.bibli.co.il/api";
 
 class LoginForm extends Component {
   constructor() {
@@ -85,7 +82,7 @@ class LoginForm extends Component {
       //        this.props.userLogin(userData);
 
       await axios({
-        url: `${API_PATH}/users/Login.php`,
+        url: `${apiPath}/users/Login.php`,
         method: "post",
         headers: {
           Accept: "application/json",
