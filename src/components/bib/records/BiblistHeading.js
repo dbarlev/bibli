@@ -31,7 +31,7 @@ class BiblistHeading extends Component {
 
   onDeleteList() {
     const { activeBiblistData } = this.props;
-    this.props.DeleteBibList(activeBiblistData.Userid, activeBiblistData.id);
+    this.props.DeleteBibList(activeBiblistData.userid, activeBiblistData.id);
     this.setState({ ...this.state, show: false });
   }
 
@@ -147,28 +147,30 @@ class BiblistHeading extends Component {
               <i className="fas fa-trash-alt hover-orange"></i>
             </li>
           </OverlayTrigger>
-              <OverlayTrigger placement="top" overlay={<Tooltip>עריכת הרשימה</Tooltip>}>
-                  <li
-                      role="link"
-                      tabIndex="0"
-                      aria-label="עריכת הרשימה"
-                  >
-                      <LinkContainer className="pointer" to="/records/editlist">
-                          <a>
-                              <i className="fas fa-edit hover-orange"></i>
-                          </a>
-                      </LinkContainer>
-                  </li>
+          <OverlayTrigger
+            placement="top"
+            overlay={<Tooltip>עריכת הרשימה</Tooltip>}
+          >
+            <li role="link" tabIndex="0" aria-label="עריכת הרשימה">
+              <LinkContainer className="pointer" to="/records/editlist">
+                <a>
+                  <i className="fas fa-edit hover-orange"></i>
+                </a>
+              </LinkContainer>
+            </li>
           </OverlayTrigger>
-              <OverlayTrigger placement="top" overlay={<Tooltip>ייצוא הרשימה</Tooltip>}>
-                  <li
-                      role="button"
-                      tabIndex="0"
-                      onClick={() => this.exportDocx()}
-                      aria-label="ייצוא הרשימה"
-                  >
-                      <i className="fas fa-file-export hover-orange"></i>
-                  </li>
+          <OverlayTrigger
+            placement="top"
+            overlay={<Tooltip>ייצוא הרשימה</Tooltip>}
+          >
+            <li
+              role="button"
+              tabIndex="0"
+              onClick={() => this.exportDocx()}
+              aria-label="ייצוא הרשימה"
+            >
+              <i className="fas fa-file-export hover-orange"></i>
+            </li>
           </OverlayTrigger>
         </ul>
       );

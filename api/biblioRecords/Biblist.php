@@ -28,7 +28,6 @@
 		{
 			case 'GET':
 				$userID = ($_GET["userid"]);
-				//($_GET["names"]) == "true" ? getListsNames($db, $userID) : getLists($db, $userID);
 				getListsNames($db, $userID); 
 				break;
 			case 'POST':
@@ -73,7 +72,7 @@
 							ON biblist.id = refactor_books_new.BiblistID 
 								INNER JOIN recordtype
 									ON (refactor_books_new.RecordType = recordtype.RecordID)
-																	WHERE biblist.Userid = ?';
+																	WHERE biblist.userid = ?';
 							
 		 $stmt = $db->prepare($query);
 		 $stmt->bindParam(1, $userID);
@@ -131,7 +130,7 @@
 		$userid = ($_GET["userid"]);
 		$listID = ($_GET["biblistID"]);
 		
-		$queryUpdate = 'UPDATE refactor_books_new set userid = 9000 where BiblistID = ?';
+		$queryUpdate = 'UPDATE refactor_books_new set userid = NULL where BiblistID = ?';
 		$queryDelete = 'DELETE from biblist where id = ?';
 		
 		$stmt0 = $db->prepare($queryUpdate);
@@ -142,7 +141,7 @@
 		$stmt1->bindParam(1, $listID);
 		$stmt1->execute();
 
-		getListsNames($db, $userid);
+		getLists($db, $userid);
     }
 
 ?>

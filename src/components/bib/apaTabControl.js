@@ -4,6 +4,48 @@ import ApaBooks from "./apa/ApaTypes/ApaBooks";
 import ApaPaper from "./apa/ApaTypes/ApaPaper";
 import ApaArticle from "./apa/ApaTypes/ApaArticle";
 import ApaWebsite from "./apa/ApaTypes/ApaWebsite";
+import { OverlayTrigger, Tooltip } from "react-bootstrap";
+
+const checkActiveLink = routeToCheck => {
+  let href = window.location.href;
+  if (href.indexOf("editRecord") === -1) return;
+  return href.indexOf(routeToCheck) > -1 ? "is-active" : "";
+};
+
+const DisabeldTab = ({type, activeClassName = null,text,icon }) => {
+  return (
+    <OverlayTrigger
+      placement="top"
+      overlay={<Tooltip id="tooltip-disabled">בקרוב</Tooltip>}
+    >
+      <li className="pull-right notApplicable" name={type}>
+        <a className={checkActiveLink(type)} activeClassName={activeClassName}>
+          <i name={type} className={icon}></i>
+          <div name={type} className="iconText">
+            {text}
+          </div>
+        </a>
+      </li>
+    </OverlayTrigger>
+  );
+};
+
+const ApaTab = ({ type, navigate, activeClassName = null, text, icon }) => {
+  return (
+    <li className="pull-right" name={type}>
+      <NavLink
+        className={checkActiveLink(type)}
+        activeClassName={activeClassName}
+        to={navigate}
+      >
+        <i name={type} className={icon}></i>
+        <div name={type} className="iconText">
+          {text}
+        </div>
+      </NavLink>
+    </li>
+  );
+};
 
 class ApaTabControl extends Component {
   constructor() {
@@ -20,82 +62,51 @@ class ApaTabControl extends Component {
     });
   }
 
-  checkActiveLink(routeToCheck) {
-    let href = window.location.href;
-    if (href.indexOf("editRecord") === -1) return;
-
-    return href.indexOf(routeToCheck) > -1 ? "is-active" : "";
-  }
-
   render() {
     return (
       <div id="apaTabcontrol">
         <div className="row">
           <ul className="nav tabControlIcons">
-            <li className="pull-right" name="book">
-              <NavLink
-                className={this.checkActiveLink("book")}
-                activeClassName="is-active"
-                to="/records/addRecord/ApaBooks"
-              >
-                <i name="book" className="fas fa-book"></i>
-                <div name="book" className="iconText">
-                  ספר
-                </div>
-              </NavLink>
-            </li>
-            <li className="pull-right" name="paper">
-              <NavLink
-                className={this.checkActiveLink("paper")}
-                activeClassName="is-active"
-                to="/records/addRecord/ApaPaper"
-              >
-                <i name="paper" className="fas fa-book-open"></i>
-                <div name="paper" className="iconText">
-                  עיתון
-                </div>
-              </NavLink>
-            </li>
-            <li className="pull-right" name="article">
-              <NavLink
-                className={this.checkActiveLink("article")}
-                activeClassName="is-active"
-                to="/records/addRecord/ApaArticle"
-              >
-                <i name="article" className="fas fa-graduation-cap"></i>
-                <div name="article" className="iconText">
-                  כתב עת
-                </div>
-              </NavLink>
-            </li>
-            <li className="pull-right" name="website">
-              <NavLink
-                className={this.checkActiveLink("website")}
-                activeClassName="is-active"
-                to="/records/addRecord/ApaWebsite"
-              >
-                <i name="website" className="fab fa-chrome"></i>
-                <div name="website" className="iconText">
-                  אתר
-                </div>
-              </NavLink>
-            </li>
-            <li title="בקרוב" className="pull-right notApplicable" name="movie">
-              <a>
-                <i name="website" class="fas fa-video"></i>
-                <div name="website" className="iconText">
-                  סרט
-                </div>
-              </a>
-            </li>
-            <li title="בקרוב" className="pull-right notApplicable" name="audio">
-              <a>
-                <i name="website" class="fas fa-microphone"></i>
-                <div name="website" className="iconText">
-                  אודיו
-                </div>
-              </a>
-            </li>
+            <ApaTab
+              type="book"
+              navigate="/records/addRecord/ApaBooks"
+              activeClassName="is-active"
+              text="ספר"
+              icon="fas fa-book"
+            />
+            <ApaTab
+              type="paper"
+              navigate="/records/addRecord/ApaPaper"
+              activeClassName="is-active"
+              text="עיתון"
+              icon="fas fa-book-open"
+            />
+            <ApaTab
+              type="article"
+              navigate="/records/addRecord/ApaArticle"
+              activeClassName="is-active"
+              text="כתב עת"
+              icon="fas fa-graduation-cap"
+            />
+            <ApaTab
+              type="website"
+              navigate="/records/addRecord/ApaWebsite"
+              activeClassName="is-active"
+              text="אתר"
+              icon="fab fa-chrome"
+            />
+            <DisabeldTab
+              type="movie"
+              activeClassName="is-active"
+              icon="fas fa-video"
+              text="סרט"
+            />
+            <DisabeldTab
+              type="audio"
+              activeClassName="is-active"
+              icon="fas fa-microphone"
+              text="אודיו"
+            />
           </ul>
         </div>
         <div className="row">
