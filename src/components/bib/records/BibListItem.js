@@ -47,7 +47,7 @@ class BibListItem extends Component {
     return (
       <div>
         <span>{data.writers}</span>
-        <span>( {data.year} ). </span>
+        <span>({data.year}). </span>
         <span style={{ fontWeight: "bold" }}>
           {this.verifyLangAndCapitalize(data.name)}
         </span>
@@ -66,7 +66,7 @@ class BibListItem extends Component {
       return (
         <div>
           <span>{data.writers}</span>
-          <span>( {data.year} ). </span>
+          <span>({data.year}). </span>
           <span style={{ fontWeight: "bold" }}>
             {this.verifyLangAndCapitalize(data.articleHeadline)}
           </span>
@@ -82,7 +82,7 @@ class BibListItem extends Component {
       return (
         <div>
           <span>{data.writers}</span>
-          <span>( {data.year} ). </span>
+          <span>({data.year}). </span>
           <span style={{ fontWeight: "bold" }}>
             {this.verifyLangAndCapitalize(data.articleHeadline)}
           </span>
@@ -102,7 +102,7 @@ class BibListItem extends Component {
       return (
         <div>
           <span>{data.writers}</span>
-          <span>( {data.year} ). </span>
+          <span>({data.year}). </span>
           <span style={{ fontWeight: "bold" }}>
             {this.verifyLangAndCapitalize(data.articleHeadline)}
           </span>
@@ -117,7 +117,7 @@ class BibListItem extends Component {
       return (
         <div>
           <span>{data.writers}</span>
-          <span>( {data.year} ). </span>
+          <span>({data.year}). </span>
           <span style={{ fontWeight: "bold" }}>
             {this.verifyLangAndCapitalize(data.articleHeadline)}
           </span>
@@ -134,7 +134,7 @@ class BibListItem extends Component {
     return (
       <div>
         <span>{data.writers}</span>
-        <span>( {data.year} ). </span>
+        <span>({data.year}). </span>
         <span style={{ fontWeight: "bold" }}>
           {this.verifyLangAndCapitalize(data.articleHeadline)}
         </span>

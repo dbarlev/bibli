@@ -11,9 +11,9 @@ import {
   ControlLabel
 } from "react-bootstrap";
 import { connect } from "react-redux";
-import { Redirect, Link } from "react-router-dom";
-
 import { InsertUserToDB } from "../../actions/ajax";
+import { apiClient } from '../../common/apiClient';
+import { withRouter } from "react-router-dom";
 
 class FrontRegister extends Component {
   constructor(props) {
@@ -24,6 +24,7 @@ class FrontRegister extends Component {
     email: "",
     password: "",
     package: 1,
+    registerSuccess: false,
     mailExists: "כתובת דואר זו כבר קיימת במערכת",
     mailSuccess: "ההרשמה בוצעה בהצלחה"
   };
@@ -68,9 +69,10 @@ class FrontRegister extends Component {
 
     return isError;
   }
-  onSubmitRegister = e => {
-    e.preventDefault();
 
+  onSubmitRegister = async e => {
+    e.preventDefault();
+    const { history } = this.props;
     let obj = {
       email: this.state.email,
       password: this.state.password,
@@ -78,12 +80,19 @@ class FrontRegister extends Component {
     };
     let err = this.formsValidation();
     if (!err) {
-      this.props.InsertUserToDB(obj);
+      let serverResponse = await apiClient("/users/User.php", "post", obj);
+      if (serverResponse.userRegistered === "1") {
+        this.props.InsertUserToDB(serverResponse)
+        history.push("/registersuccess");
+      }
+      else if (serverResponse.userRegistered === "exists") {
+        this.setState({ registerSuccess: true });
+      }
     }
   };
 
   togglePass = e => {
-/* see password */
+    /* see password */
     let open = "glyphicon-eye-open";
     let close = "glyphicon-eye-close";
     let ele = document.getElementById("password");
@@ -160,7 +169,6 @@ class FrontRegister extends Component {
             </Col>
           </Row>
         </FormGroup>
-        {console.log("ssss", this.props.user.registerSuccess)}
         {this.state.noEmail && (
           <div className="text-right danger">{this.state.noEmail}</div>
         )}
@@ -171,14 +179,8 @@ class FrontRegister extends Component {
           </div>
         )}
 
-        {this.props.user.registerSuccess == "exists" && (
+        {this.state.registerSuccess && (
           <div className="text-right danger">{this.state.mailExists}</div>
-        )}
-
-        {this.props.user.registerSuccess == 1 && (
-          <div className="text-right danger">
-            <Redirect to="/registersuccess" />
-          </div>
         )}
       </Form>
     );
@@ -191,7 +193,9 @@ const mapStateToProps = state => {
   };
 };
 
-export default connect(mapStateToProps, { InsertUserToDB })(FrontRegister);
+export default connect(mapStateToProps, { InsertUserToDB })(
+  withRouter(FrontRegister)
+);
 
 const TopMarginLoginBtn = {
   marginTop: "0px",

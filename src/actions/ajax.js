@@ -200,21 +200,7 @@ export const InsertBibListToDB = data => {
 export const InsertUserToDB = data => {
   console.log("data ff", data);
   return dispatch => {
-    axios({
-      url: `${apiPath}/users/User.php`,
-      method: "post",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json"
-      },
-      data: JSON.stringify(data)
-    })
-      .then(function(response) {
-        dispatch({ type: INSERT_USER_TO_DB, value: response.data });
-      })
-      .catch(function(error) {
-        console.log(error);
-      });
+    dispatch({ type: INSERT_USER_TO_DB, value: data });
   };
 };
 
