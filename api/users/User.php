@@ -1,6 +1,9 @@
 <?php
 
-    include_once '../config/Database.php';
+	include_once '../config/Database.php';
+	require '../inc/PHPMialer/src/PHPMailerAutoload.php';
+	require '../inc/MailTemplates/MailTemplate.php';
+
     init();
 
 
@@ -146,6 +149,8 @@
 		// send the email verification
 		$verificationLink = "https://www.bibli.co.il/mailconf/" . $verificationCode;
 
+		$Mail_template = new MailTemplates();
+
 		$htmlStr = 'שלום ותודה שנרשמת למערכת ביבלי.<br />';
 		$htmlStr .= 'כדי להשלים את ההרשמה, עליך ללחוץ כאן ולהפעיל את חשבונך: <br /><br />';
 
@@ -155,8 +160,8 @@
 
 		$htmlStr .= "בברכה!,<br />";
 		$htmlStr .= "<a href='https://www.bibli.co.il/' target='_blank'>ביבלי</a><br />";
-		$htmlStr .= '<img src="../inc/logo.png" />';
-
+	
+/*
 		$name = "צוות ביבלי";
 		$email_sender = "no-reply@bibli.co.il";
 		$subject = "אישור הרשמה | ביבלי";
@@ -174,7 +179,37 @@
 			// tell the user a verification email were sent
 			
 		//echo "<div id='successMessage'>מייל אישור נשלח ל<b>" . $email . "</b>, בבקשה פתחו את המייל ולחצו על כפתור האישור.</div>";	
+		*/
+
+		$mail = new PHPMailer(true);
+
+		try {
+			//Server settings
+			$mail->SMTPDebug = 1;                      // Enable verbose debug output
+			//$mail->isSMTP();                                            // Send using SMTP
+			$mail->Host       = '88.99.217.197';                    // Set the SMTP server to send through
+			$mail->SMTPAuth   = false;                                   // Enable SMTP authentication
+			$mail->CharSet = 'UTF-8';                                
+			$mail->Port       = 587;       
+			$mail -> AddAddress($email);                            // TCP port to connect to
 		
+			//Recipients
+			$mail->setFrom('donotreplay@bibli.co.il', 'ביבלי');
+			$mail->isHTML(true);
+			$mail->Subject = "אישור הרשמה | ביבלי";
+		$mail->Body = $htmlStr;
+		$mail->send();
+
+	  
+
+			// tell the user a verification email were sent
+		
+		echo json_encode(array('mailexists' => 1, 'email'=> $email));
+		
+	} catch (Exception $e) {
+		echo 'Message could not be sent.';
+		echo 'Mailer Error: ' . $mail->ErrorInfo;
+	}
 
 
 		

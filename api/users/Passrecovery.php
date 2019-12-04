@@ -1,6 +1,9 @@
 <?php
 
     include_once '../config/Database.php';
+    require '../inc/PHPMialer/src/PHPMailerAutoload.php';
+    require '../inc/MailTemplates/MailTemplate.php';
+
     init();
     $GLOBAL['url'] = 'http://localhost:3000';
 
@@ -10,6 +13,7 @@
 		$db = $database->connect();
 		CreateHeaders();
 		verifyRequestMethod($db);
+
     }
 
     function CreateHeaders()
@@ -70,8 +74,8 @@
             $stmt->bindParam(1, $verificationCode);
             $stmt->bindParam(2, $email);
             $stmt->execute();
-
-            send_passrecovery_mail($email, $verificationCode, $username);
+          
+            send_passrecovery_mail($email, $verificationCode);
 
            
         }
@@ -79,12 +83,44 @@
     }
     
 
-    function send_passrecovery_mail($email, $verificationCode, $username){
+    function send_passrecovery_mail($email, $verificationCode){
        
 		
 		// send the email verification
-		$verificationLink = "https://www.bibli.co.il/passwordrecoveryedit/" . $verificationCode;
+        $verificationLink = "https://www.bibli.co.il/passwordrecoveryedit/" . $verificationCode;
 
+        $Mail_template = new MailTemplates();
+        $mail = new PHPMailer(true);
+
+        try {
+            //Server settings
+            $mail->SMTPDebug = 1;                      // Enable verbose debug output
+            //$mail->isSMTP();                                            // Send using SMTP
+            $mail->Host       = '88.99.217.197';                    // Set the SMTP server to send through
+            $mail->SMTPAuth   = false;                                   // Enable SMTP authentication
+            $mail->CharSet = 'UTF-8';                                
+            $mail->Port       = 587;       
+            $mail -> AddAddress($email);                            // TCP port to connect to
+        
+            //Recipients
+            $mail->setFrom('donotreplay@bibli.co.il', 'ביבלי');
+            $mail->isHTML(true);
+            $mail->Subject = "שחזור סיסמה | ביבלי";
+            $mail->Body = $Mail_template->password_recovery_mail($verificationLink);
+            $mail->send();
+
+        
+
+            // tell the user a verification email were sent
+        
+            echo json_encode(array('mailexists' => 1, 'email'=> $email));
+        
+        } catch (Exception $e) {
+            echo 'Message could not be sent.';
+            echo 'Mailer Error: ' . $mail->ErrorInfo;
+        }
+
+/*
 		$htmlStr = "";
 		$htmlStr .= "היי " . $username . ",<br /><br />";
 
@@ -113,7 +149,7 @@
         echo json_encode(array('mailexists' => 1, 'email'=> $email));
         };
         
-        
+        */
 
     }
 
