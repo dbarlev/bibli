@@ -1,6 +1,6 @@
 <?php
 
-    include_once '../config/Database.php';
+    require '../inc/inc.php';
     init();
 
 

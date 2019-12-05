@@ -225,28 +225,6 @@ export const userLogin = userData => {
   };
 };
 
-//     fetch('http://localhost/bibli/api/user_switch/' + ${userData.username} +
-//     '/'+ this.state.password )
-//     .then(response => response.json())
-//     .then(json => {
-//         if(json.count > 0)
-//         {
-//            console.log('json', json);
-//             this.props.userLogedIn(json);
-//             this.setState({auth: true, userid: json.userid, username: json.username});
-
-//         }else{
-//             let isError = true;
-//             this.validate();
-//             this.setState({
-//                 auth: false,
-//                 data: null
-//             });
-//         }
-
-//     })
-//     .catch(error => console.log('parsing faild', error))
-// }
 
 export const MailVerAction = data => {
   console.log("data ", data);
@@ -283,7 +261,6 @@ export const BibSearchAction = q => {
 };
 
 export const PassRecoveryAction = email => {
-  console.log("PassRecoveryAction  email ajax", email);
   return dispatch => {
     axios
       .post(`${apiPath}/users/Passrecovery.php?email=${email}`)
@@ -297,7 +274,6 @@ export const PassRecoveryAction = email => {
 };
 
 export const PassRecoveryEdit = data => {
-  console.log("data is", data);
   let dat = JSON.stringify(data);
   let url = `${apiPath}/users/Passrecovery.php?data=${dat}`;
 
@@ -315,7 +291,6 @@ export const PassRecoveryEdit = data => {
 
 export const sendMassage = data => {
   let dat = JSON.stringify(data);
-  console.log("sendMassage is", dat);
   let url = `${apiPath}/users/Massage.php?data=${dat}`;
 
   return dispatch => {
@@ -332,7 +307,6 @@ export const sendMassage = data => {
 
 export const joinMalList = data => {
   let dat = JSON.stringify(data);
-  console.log("joinMalList is", dat);
   let url = `${apiPath}/users/Massage.php?data=${dat}`;
 
   return dispatch => {

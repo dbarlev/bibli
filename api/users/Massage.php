@@ -1,6 +1,6 @@
 <?php
 
-    include_once '../config/Database.php';
+    require '../inc/inc.php';
     init();
     $GLOBAL['url'] = 'http://localhost:3000';
 
@@ -106,20 +106,49 @@
         
         //echo json_encode(array('contactussent' => 1, 'email'=> $email));
 
-
+/*
         if( @mail($recipient_email, $subject, $body, $headers) ){
+			// tell the user a verification email were sent
+            echo json_encode(array('contactussent' => 1, 'email'=> $email));
+        }else{
+            echo json_encode(array('contactussent' => 2, 'email'=> $email));
+        }
+*/
+
+        $mail = new PHPMailer(true);
+
+		try {
+			//Server settings
+			$mail->SMTPDebug = 1;                      // Enable verbose debug output
+			//$mail->isSMTP();                                            // Send using SMTP
+			$mail->Host       = '88.99.217.197';                    // Set the SMTP server to send through
+			$mail->SMTPAuth   = false;                                   // Enable SMTP authentication
+			$mail->CharSet = 'UTF-8';                                
+			$mail->Port       = 587;       
+			$mail -> AddAddress('contact@bibli.co.il');                            // TCP port to connect to
+		
+			//Recipients
+			$mail->setFrom($email, 'ביבלי');
+			$mail->isHTML(true);
+			$mail->Subject = "צור קשר | ביבלי";
+			$mail->Body = $htmlStr;
+			$mail->send();
+
+	  
 
 			// tell the user a verification email were sent
 		
             echo json_encode(array('contactussent' => 1, 'email'=> $email));
-
-        }else{
+		
+		} catch (Exception $e) {
             echo json_encode(array('contactussent' => 2, 'email'=> $email));
-        }
+			echo 'Message could not be sent.';
+			echo 'Mailer Error: ' . $mail->ErrorInfo;
+		}			
 
     }
     
-
+/*
     function send_contact_us_mail($email, $name){
        
 		
@@ -162,7 +191,7 @@
         
 
     }
-
+*/
 
     function edit_password($db, $data){
         $data = json_decode($data);	

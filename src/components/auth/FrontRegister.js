@@ -11,9 +11,10 @@ import {
   ControlLabel
 } from "react-bootstrap";
 import { connect } from "react-redux";
+import { withRouter } from "react-router-dom";
 import { InsertUserToDB } from "../../actions/ajax";
 import { apiClient } from '../../common/apiClient';
-import { withRouter } from "react-router-dom";
+import { TogglePass } from '../../common/Util.js';
 
 class FrontRegister extends Component {
   constructor(props) {
@@ -90,9 +91,9 @@ class FrontRegister extends Component {
       }
     }
   };
-
+/*
   togglePass = e => {
-    /* see password */
+   
     let open = "glyphicon-eye-open";
     let close = "glyphicon-eye-close";
     let ele = document.getElementById("password");
@@ -108,7 +109,7 @@ class FrontRegister extends Component {
       eve.className += " " + open;
     }
   };
-
+*/
   render() {
     return (
       <Form>
@@ -145,7 +146,7 @@ class FrontRegister extends Component {
                   placeholder="הקלד סיסמה"
                 />
                 <button
-                  onClick={this.togglePass}
+                  onClick={TogglePass}
                   id="toggleBtn"
                   className="glyphicon glyphicon-eye-open"
                   type="button"

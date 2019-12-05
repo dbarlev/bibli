@@ -1,8 +1,6 @@
 <?php
 
-	include_once '../config/Database.php';
-	require '../inc/PHPMialer/src/PHPMailerAutoload.php';
-	require '../inc/MailTemplates/MailTemplate.php';
+	require '../inc/inc.php';
 
     init();
 
@@ -197,22 +195,19 @@
 			$mail->setFrom('donotreplay@bibli.co.il', 'ביבלי');
 			$mail->isHTML(true);
 			$mail->Subject = "אישור הרשמה | ביבלי";
-		$mail->Body = $htmlStr;
-		$mail->send();
+			$mail->Body = $htmlStr;
+			$mail->send();
 
 	  
 
 			// tell the user a verification email were sent
 		
-		echo json_encode(array('mailexists' => 1, 'email'=> $email));
+			echo json_encode(array('mailexists' => 1, 'email'=> $email));
 		
-	} catch (Exception $e) {
-		echo 'Message could not be sent.';
-		echo 'Mailer Error: ' . $mail->ErrorInfo;
-	}
-
-
-		
+		} catch (Exception $e) {
+			echo 'Message could not be sent.';
+			echo 'Mailer Error: ' . $mail->ErrorInfo;
+		}			
 	}
 
 

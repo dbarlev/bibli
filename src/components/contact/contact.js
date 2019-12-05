@@ -44,10 +44,10 @@ class Contact extends Component {
 
     massage = () => {
         if (this.props.massageSent.contactussent == 1) {
-            this.setState({ msg: 'ההודעה נשלחה בהצלחה ' });
+            this.setState({ msg: 'ההודעה נשלחה בהצלחה ', color: 'green' });
             return this.state.msg;
         } else {
-            this.setState({ msg: 'ההודעה לא נשלחה, נסה שנית מאוחר יותר' });
+            this.setState({ msg: 'ההודעה לא נשלחה, נסה שנית מאוחר יותר', color: 'red' });
             return this.state.msg
         }
 
@@ -204,11 +204,15 @@ class Contact extends Component {
                                 </div>
                             </div>
                         </div>
-                        {this.state.msg &&
-                            <div className="alert alert-success text-right" role="alert">
-                                {this.state.msg}
+                        <div className="col-xs-12 col-md-2 col-md-offset-5">
+                            <div className="row">
+                            {this.state.msg &&
+                                <div className={this.state.color+'-alert'} role="alert">
+                                    {this.state.msg}
+                                </div>
+                            }
                             </div>
-                        }
+                        </div>
                     </Form>
 
                 </div>
