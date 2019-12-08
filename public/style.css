@@ -1975,7 +1975,7 @@ form input[type="password"],
 form input[type="email"],
 form select {
   background-color: #fff;
-  border-radius: 0;
+  border-radius: 50px;
   border: 1px solid #204260; }
 
 form .form-control {
@@ -2022,7 +2022,10 @@ form .btn-default {
   margin-top: 10px; }
 
 .btn {
-  border-radius: 0; }
+  border-radius: 50px; }
+
+input {
+  border-radius: 50px; }
 
 .btn-yellow {
   background-color: #f2b500; }
@@ -2412,3 +2415,16 @@ ul#searchresults.open {
     @media (max-width: 991px) {
       .newWelcomeBg .h3 {
         font-size: 3.3vw; } }
+
+/*scss from componnents themself*/
+#toggleLoginForm {
+  background-color: #fff; }
+
+@media (max-width: 1200px) {
+  #toggleLoginForm {
+    position: fixed;
+    min-width: 95vw;
+    left: 0px;
+    background-color: #fff; }
+  #loginFormCont {
+    z-index: 999; } }

@@ -12,6 +12,7 @@ import {
   Grid,
   Row
 } from "react-bootstrap";
+import {Animated} from "react-animated-css";
 import apiPath from "../../constants/api";
 import { userLogedIn } from "../../actions";
 import { userLogin } from "../../actions/ajax";
@@ -32,10 +33,12 @@ class LoginForm extends Component {
       EmptyPasswordError: "",
       notActiveUserError: "",
       UserDoesNotExist: "",
-      userid: ""
+      userid: "",
+      isFormVisible: false
     };
     this.handleSubmit = this.handleSubmit.bind(this);
     this.onChange = this.onChange.bind(this);
+    this.toggleLogin = this.toggleLogin.bind(this);
   }
 
   clientValidate = () => {
@@ -139,6 +142,7 @@ class LoginForm extends Component {
       EmptyPasswordError: "",
       EmptyUsernameError: "",
       afterValError: ""
+     
     });
   }
 
@@ -146,85 +150,94 @@ class LoginForm extends Component {
     console.log(" this.props.auth ", this.props.auth);
   };
 
+  toggleLogin = () => {
+      this.setState({isFormVisible : !this.state.isFormVisible});
+  }
   render() {
     this.isLoggedIn();
     return (
-      <Form>
-        <FormGroup controlId="formHorizontalusername">
-          <Col xs={12} sm={5} style={TopMarginLoginBtn}>
-            <Row style={marginBottomZero}>
-              <FormControl
-                ref="email"
-                name="email"
-                type="email"
-                onChange={this.onChange}
-                placeholder="דואר אלקטרוני"
-                aria-label="דואר אלקטרוני"
-              />
-            </Row>
-          </Col>
-          <Col xs={12} sm={4} style={TopMarginLoginBtn}>
-            <Row style={marginBottomZero}>
-              <FormControl
-                ref="password"
-                name="password"
-                type="password"
-                onChange={this.onChange}
-                placeholder="הקלד סיסמה"
-                aria-label="סיסמה"
-              />
-            </Row>
-          </Col>
+      <div>
+      <button className="btn" onClick={this.toggleLogin} style={ShowLoginButton}>התחבר</button>
+      
+      <Animated animationIn="fadeInLeftBig" animationOut="fadeOutLeftBig" isVisible={this.state.isFormVisible} >
+        <Form id="toggleLoginForm">
+          <FormGroup controlId="formHorizontalusername">
+            <Col xs={12} sm={5} style={TopMarginLoginBtn}>
+              <Row style={marginBottomZero}>
+                <FormControl
+                  ref="email"
+                  name="email"
+                  type="email"
+                  onChange={this.onChange}
+                  placeholder="דואר אלקטרוני"
+                  aria-label="דואר אלקטרוני"
+                />
+              </Row>
+            </Col>
+            <Col xs={12} sm={4} style={TopMarginLoginBtn}>
+              <Row style={marginBottomZero}>
+                <FormControl
+                  ref="password"
+                  name="password"
+                  type="password"
+                  onChange={this.onChange}
+                  placeholder="הקלד סיסמה"
+                  aria-label="סיסמה"
+                />
+              </Row>
+            </Col>
 
-          <Col xs={12} sm={3} style={TopMarginLoginBtn}>
-            <Button
-              onClick={this.handleSubmit}
-              type="submit"
-              className="full-width-btn"
-              id="loginSubmit"
-            >
-              התחבר
-            </Button>
-            {this.redirectUser()}
-          </Col>
-          <Col xs={12}>
-            <Link to="/passwordrecovery">שכחתי את הסיסמה</Link>
-          </Col>
-        </FormGroup>
-        {this.state.EmptyUsernameError ? (
-          <div className="red-alert" bsStyle="danger">
-            {" "}
-            {this.state.EmptyUsernameError}{" "}
-          </div>
-        ) : (
-          ""
-        )}
-        {this.state.EmptyPasswordError ? (
-          <div className="red-alert" bsStyle="danger">
-            {" "}
-            {this.state.EmptyPasswordError}{" "}
-          </div>
-        ) : (
-          ""
-        )}
+            <Col xs={12} sm={3} style={TopMarginLoginBtn}>
+              <Button
+                onClick={this.handleSubmit}
+                type="submit"
+                className="full-width-btn"
+                id="loginSubmit"
+              >
+                התחבר
+              </Button>
+              {this.redirectUser()}
+            </Col>
+            <Col xs={12}>
+              <Link to="/passwordrecovery">שכחתי את הסיסמה</Link>
+            </Col>
+          </FormGroup>
+          {this.state.EmptyUsernameError ? (
+            <div className="red-alert" bsStyle="danger">
+              {" "}
+              {this.state.EmptyUsernameError}{" "}
+            </div>
+          ) : (
+            ""
+          )}
+          {this.state.EmptyPasswordError ? (
+            <div className="red-alert" bsStyle="danger">
+              {" "}
+              {this.state.EmptyPasswordError}{" "}
+            </div>
+          ) : (
+            ""
+          )}
 
-        {this.state.usernameError ? (
-          <div className="red-alert" bsStyle="danger">
-            {" "}
-            {this.state.usernameError}{" "}
-          </div>
-        ) : (
-          ""
-        )}
-        {//PROBLEM!! state updates before props
-        this.state.afterValError ? (
-          <div className="red-alert">{this.state.afterValError}</div>
-        ) : (
-          ""
-        )}
+          {this.state.usernameError ? (
+            <div className="red-alert" bsStyle="danger">
+              {" "}
+              {this.state.usernameError}{" "}
+            </div>
+          ) : (
+            ""
+          )}
+          {//PROBLEM!! state updates before props
+          this.state.afterValError ? (
+            <div className="red-alert">{this.state.afterValError}</div>
+          ) : (
+            ""
+          )}
 
-        <Row className="show-grid"></Row>
-      </Form>
+          <Row className="show-grid"></Row>
+        </Form>
+        </Animated>
+      </div>
     );
   }
 }
@@ -255,3 +268,11 @@ const TopMarginLoginBtn = {
 const marginBottomZero = {
   marginBottom: "0px"
 };
+
+const ShowLoginButton = {
+  position: "absolute",
+  top: "36px",
+  padding: "5px 35px"
+};
+
+

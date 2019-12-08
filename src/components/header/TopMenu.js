@@ -39,7 +39,7 @@ class TopMenu extends Component {
         return (
             <Grid fluid className="container">
                 <Row>
-                <Col xs={12} sm={12} md={12} lg={8} style={TopMargin}>
+                <Col xs={10} sm={10} md={10} lg={8} style={TopMargin}>
                 <Navbar id="TopNav" className="nav-noStyle">
                     <Navbar.Header>
                         <Navbar.Brand>
@@ -76,11 +76,11 @@ class TopMenu extends Component {
                     </Navbar.Collapse>
                 </Navbar>
                 </Col>
-                <Col md={12} lg={4} className="text-center">
+                <Col xs={2} sm={2} md={2} lg={4} className="text-center" id="loginFormCont">
                 {this.props.loginState ? (
                     <LogOut />
                 ) : (   
-                    <LoginForm />   
+                    <LoginForm />
                     )}
 
                 {/* <LinkContainer className="btn-warning black topnav-login-logout-btn" to="/" >

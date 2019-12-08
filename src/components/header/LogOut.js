@@ -28,7 +28,7 @@ export class LogOut extends Component {
         return (
             <div>
                 <LinkContainer className="btn-warning black topnav-login-logout-btn" style={TopMargin} to="/records/biblist" >
-                <div> dav</div>
+                <div>חזרה לאזור האישי</div>
                 </LinkContainer>
                 <LinkContainer className="btn-warning black topnav-login-logout-btn" style={TopMargin} to="/" >
                     <Button onClick={this.logOut}> התנתק/י</Button>

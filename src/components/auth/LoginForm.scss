@@ -1,0 +1,16 @@
+#toggleLoginForm{
+    background-color: #fff;
+}
+@media(max-width: 1200px){
+    #toggleLoginForm{
+        position: fixed;
+        min-width: 95vw;
+        left: 0px;
+        background-color: #fff;
+       
+    }
+
+    #loginFormCont{
+        z-index: 999;
+    }
+}
