@@ -1,11 +1,14 @@
 import React, { Component } from 'react'
 import { Grid, Row, Col } from 'react-bootstrap';
 import FrontRegister from '../auth/FrontRegister';
+import Header from "../header/Header";
+
 
 class newWelcome extends Component {
     render() {
         return (
             <Row className="newWelcomeBg">
+            <Header headline="" />
                 <Col mdOffset={4} md={4} sm={12} className="MTextPaddingTop">
                     <h1 className="bold">ברוכים הבאים ל- Bibli</h1>
                     <p className="BigText">מערכת חכמה לכתיבת ביבליוגרפיות<br /> שמותאמת לכללי הכתיבה האקדמיים (APA).

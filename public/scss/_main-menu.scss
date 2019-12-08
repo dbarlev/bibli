@@ -2,20 +2,21 @@
     .nav{
         li{
            
-            background-color: white;
-            transition: 0.3s;    
+            
+            transition: 0.3s; 
+            border-radius: 50px;   
         }
 
 
         a:active{
             background-color: $mainYellow;
-             
+            border-radius: 50px;   
             transition: 0.3s;                                                                   
         }
 
         a:hover{
             background-color: $mainYellow;
-             
+            border-radius: 50px;   
             transition: 0.3s;                                                                   
         }
     }

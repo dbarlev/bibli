@@ -1,8 +1,8 @@
 import React, { Component } from "react";
 import { Grid } from "react-bootstrap";
 
-import NewWelcome from "./newWelcome";
-import Header from "../header/Header";
+import Welcome from "./Welcome";
+
 import Login from "../auth/LoginForm";
 import Slider from "./Slider";
 import InfoIcons from "./InfoIcons";
@@ -20,8 +20,8 @@ class FrontPage extends Component {
   render() {
     return (
       <Grid fluid id="frontpage" className="jumbotron-main">
-        <Header headline="" />
-        <NewWelcome />
+        
+        <Welcome />
 
         <InfoIcons />
 

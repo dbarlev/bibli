@@ -39,7 +39,7 @@ class TopMenu extends Component {
         return (
             <Grid fluid className="container">
                 <Row>
-                <Col xs={10} sm={10} md={10} lg={8} style={TopMargin}>
+                <Col xs={7} sm={8} md={8} lg={8} style={TopMargin}>
                 <Navbar id="TopNav" className="nav-noStyle">
                     <Navbar.Header>
                         <Navbar.Brand>
@@ -76,7 +76,7 @@ class TopMenu extends Component {
                     </Navbar.Collapse>
                 </Navbar>
                 </Col>
-                <Col xs={2} sm={2} md={2} lg={4} className="text-center" id="loginFormCont">
+                <Col xs={5} sm={4} md={4} lg={4} className="text-center" id="loginFormCont">
                 {this.props.loginState ? (
                     <LogOut />
                 ) : (   
