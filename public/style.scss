@@ -20,9 +20,11 @@
  @import './scss/_BibSearch.scss';
  @import './scss/_Header.scss';
  @import './scss/_Contact.scss';
- @import './scss/newWelcome.scss';
+
 
 
  /*scss from componnents themself*/
 
-@import '../src/components/auth/LoginForm.scss';
+@import '../src/components/auth/_LoginForm.scss';
+@import '../src/components/frontpage/_Welcome.scss';
+@import '../src/components/auth/FrontRegister.scss';

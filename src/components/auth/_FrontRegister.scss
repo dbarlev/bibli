@@ -1,0 +1,25 @@
+#FrontRegisterRow {
+    #formSectioCont {
+        padding-right: 0px;
+        position: relative;
+        bottom: 80px;
+        background-color: $mainBlueColor;
+        border-radius:90px 0 0 90px;
+        h2{
+            color: #fff;
+            font-size: 2rem;
+            span{
+                font-size: 2rem;
+                font-weight: 100;
+            }
+        }
+    }
+
+    .submit {
+        background-color: rgb(242, 181, 0);
+        padding: 7px 25px;
+        position: relative;
+        bottom: 3px;
+
+    }
+}

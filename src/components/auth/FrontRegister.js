@@ -112,78 +112,98 @@ class FrontRegister extends Component {
 */
   render() {
     return (
-      <Form>
-        <h2 className="text-center bold">
-          רוצים להצטרף אלינו?
-          <br />
-          הרשמו הצטרפו{" "}
-        </h2>
-
-        <FormGroup className="" controlId="formHorizontalRegister">
-          <div style={ColPadd}>
-            <div style={marginBottomZero}>
-              <FormControl
-                aria-label="דואר אלקטרוני"
-                ref="email"
-                name="email"
-                type="email"
-                onChange={this.onChange}
-                placeholder="הקלד דואר אלקטרוני"
-              />
-            </div>
-          </div>
-
-          <Row>
-            <Col xs={12} style={ColPadd}>
-              <Row style={marginBottomZero}>
-                <FormControl
-                  aria-label="סיסמה"
-                  ref="password"
-                  name="password"
-                  type="password"
-                  id="password"
-                  onChange={this.onChange}
-                  placeholder="הקלד סיסמה"
-                />
-                <button
-                  onClick={TogglePass}
-                  id="toggleBtn"
-                  className="glyphicon glyphicon-eye-open"
-                  type="button"
-                >
-                  &nbsp;
-                </button>
+      <Row id="FrontRegisterRow">
+        <Col lg={7} md={7} sm={12} xs={12} id="formSectioCont">
+          <Row id="formSection">
+            <Col lgOffset={4} lg={8} md={8} sm={12} xs={12}>
+            <Form inline id="frontregister">
+     <Row>           <h2 className="bold ">
+              רוצים להצטרף אלינו?
+              <span>
+              הרשמו עכשיו
+              </span>
+            </h2>
+            </Row>
+ 
+            <Row>
+            <FormGroup className="" controlId="formHorizontalRegister">
+            
+            <Col lg={12} md={12} sm={12} xs={12} style={ColPadd}>
+            <Row style={marginBottomZero}>
+                  <FormControl
+                    aria-label="דואר אלקטרוני"
+                    ref="email"
+                    name="email"
+                    type="email"
+                    onChange={this.onChange}
+                    placeholder="הקלד דואר אלקטרוני"
+                  />
+                
               </Row>
+              </Col>
+              </FormGroup>
+              <FormGroup className="" controlId="formHorizontalRegister1">
+            
+                <Col  lg={12} md={12} sm={12} xs={12} style={ColPadd}>
+                  <Row style={marginBottomZero}>
+                    <FormControl
+                      aria-label="סיסמה"
+                      ref="password"
+                      name="password"
+                      type="password"
+                      id="password"
+                      onChange={this.onChange}
+                      placeholder="הקלד סיסמה"
+                    />
+                    <button
+                      onClick={TogglePass}
+                      id="toggleBtn"
+                      className="glyphicon glyphicon-eye-open"
+                      type="button"
+                    >
+                      &nbsp;
+                    </button>
+                  </Row>
+                </Col>
+              </FormGroup>
+              <FormGroup className="">
+                
+                  <Button
+                    onClick={this.onSubmitRegister}
+                    type="submit"
+                    className="full-width-btn submit"
+                    style={SCbutton}
+                    id="registerSubmit"
+                  >
+                    הצטרפו אלינו >
+                  </Button>
+             
+            
+            </FormGroup>
+            {this.state.noEmail && (
+              <div className="text-right danger">{this.state.noEmail}</div>
+            )}
+    
+            {this.state.passwordLengthError && (
+              <div className="text-right danger">
+                {this.state.passwordLengthError}
+              </div>
+            )}
+    
+            {this.state.registerSuccess && (
+              <div className="text-right danger">{this.state.mailExists}</div>
+            )}
+    
+            </Row>
+ 
+          </Form>
             </Col>
           </Row>
-          <Row>
-            <Col xs={12} style={TopMarginLoginBtn}>
-              <Button
-                onClick={this.onSubmitRegister}
-                type="submit"
-                className="full-width-btn"
-                style={SCbutton}
-                id="registerSubmit"
-              >
-                רישום
-              </Button>
-            </Col>
-          </Row>
-        </FormGroup>
-        {this.state.noEmail && (
-          <div className="text-right danger">{this.state.noEmail}</div>
-        )}
+        </Col>
+      </Row>
+     
 
-        {this.state.passwordLengthError && (
-          <div className="text-right danger">
-            {this.state.passwordLengthError}
-          </div>
-        )}
-
-        {this.state.registerSuccess && (
-          <div className="text-right danger">{this.state.mailExists}</div>
-        )}
-      </Form>
+      
     );
   }
 }

@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { Grid } from "react-bootstrap";
 
 import Welcome from "./Welcome";
-
+import FrontRegister from '../auth/FrontRegister';
 import Login from "../auth/LoginForm";
 import Slider from "./Slider";
 import InfoIcons from "./InfoIcons";
@@ -22,7 +22,8 @@ class FrontPage extends Component {
       <Grid fluid id="frontpage" className="jumbotron-main">
         
         <Welcome />
-
+        
+        <FrontRegister />
         <InfoIcons />
 
         <Footer />
