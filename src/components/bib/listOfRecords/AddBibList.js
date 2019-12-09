@@ -25,7 +25,7 @@ class AddBibList extends Component {
   render() {
     return (
       <div className="addNewList">
-        <h2>הוספת רשימה חדשה</h2>
+        <h2>יצירת עבודה חדשה</h2>
         <br />
         <Form horizontal>
           <FormGroup>
@@ -44,7 +44,7 @@ class AddBibList extends Component {
             className="btn pull-right"
             onClick={this.addNewList.bind(this)}
           >
-            צור רשימה
+            צור עבודה
           </button>
         </Form>
       </div>

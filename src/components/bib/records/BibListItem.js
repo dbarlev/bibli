@@ -181,27 +181,28 @@ class BibListItem extends Component {
               </span>
             </OverlayTrigger>
             <OverlayTrigger placement="top" overlay={<Tooltip>עריכה</Tooltip>}>
-                <span
-                    onClick={() => this.onEditRecord()}
-                    className="pointer"
-                    data-id={this.props.recordID}
-                    role="link"
-                    tabIndex="0"
-                    aria-label="עריכה"
-                >
-                    <i className="fas fa-edit hover-orange"></i>
-                </span>
-            </OverlayTrigger>  
-            <OverlayTrigger placement="top" overlay={<Tooltip>העתק</Tooltip>}> 
-                <span
-                    data-id={this.props.recordID}
-                    role="button"
-                    tabIndex="0"
-                    aria-label="העתק"
-                >
-                    <i className="fas fa-paste hover-orange"></i>
-                </span>
-            </OverlayTrigger>  
+              <span
+                onClick={() => this.onEditRecord()}
+                className="pointer"
+                data-id={this.props.recordID}
+                role="link"
+                tabIndex="0"
+                aria-label="עריכה"
+              >
+                <i className="fas fa-edit hover-orange"></i>
+              </span>
+            </OverlayTrigger>
+            <OverlayTrigger placement="top" overlay={<Tooltip>העתק - בקרוב</Tooltip>}>
+              <span
+                data-id={this.props.recordID}
+                role="button"
+                tabIndex="0"
+                aria-label="העתק - בקרוב"
+                className="notApplicable cursor-normal"
+              >
+                <i className="fas fa-paste"></i>
+              </span>
+            </OverlayTrigger>
           </div>
           <div className="col-md-7">
             <div className={"recordQuery " + this.props.record.lang}>

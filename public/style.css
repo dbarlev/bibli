@@ -50,7 +50,7 @@ body {
   color: #ec971f; }
 
 .cursor-normal {
-  cursor: auto; }
+  cursor: auto !important; }
 
 .black-icon {
   color: black !important; }
