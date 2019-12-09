@@ -34,8 +34,8 @@ class AddBibList extends Component {
                 className="addNewList"
                 name="newListFeild"
                 refs="newListFeild"
-                aria-label="שם הרשימה"
-                placeholder="שם הרשימה"
+                aria-label="שם העבודה"
+                placeholder="שם העבודה"
                 type="text"
               />
             </Col>
