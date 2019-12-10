@@ -15,7 +15,7 @@ import { withRouter } from "react-router-dom";
 import { InsertUserToDB } from "../../actions/ajax";
 import { apiClient } from '../../common/apiClient';
 import { TogglePass } from '../../common/Util.js';
-
+import './FrontRegister.scss';
 class FrontRegister extends Component {
   constructor(props) {
     super(props);
@@ -34,6 +34,12 @@ class FrontRegister extends Component {
     this.setState({
       [e.target.name]: e.target.value
     });
+
+    this.setState({
+      noEmail:'',
+      passwordLengthError:'',
+      registerSuccess: false
+    })
   };
   formsValidation() {
     let isError = false;
@@ -91,31 +97,13 @@ class FrontRegister extends Component {
       }
     }
   };
-/*
-  togglePass = e => {
-   
-    let open = "glyphicon-eye-open";
-    let close = "glyphicon-eye-close";
-    let ele = document.getElementById("password");
-    let eve = document.getElementById("toggleBtn");
-    console.log("e", eve);
-    if (eve.classList.contains(open)) {
-      ele.type = "text";
-      eve.classList.remove(open);
-      eve.className += " " + close;
-    } else {
-      ele.type = "password";
-      eve.classList.remove(close);
-      eve.className += " " + open;
-    }
-  };
-*/
+
   render() {
     return (
       <Row id="FrontRegisterRow">
         <Col lg={7} md={7} sm={12} xs={12} id="formSectioCont">
           <Row id="formSection">
-            <Col lgOffset={4} lg={8} md={8} sm={12} xs={12}>
+            <Col lgOffset={4} lg={8} mdOffset={0} md={12} sm={12} xs={12}>
             <Form inline id="frontregister">
      <Row>           <h2 className="bold ">
               רוצים להצטרף אלינו?
@@ -126,10 +114,9 @@ class FrontRegister extends Component {
             </Row>
  
             <Row>
+            <Col lg={4} md={4} sm={4} xs={4} style={ColPadd}>
             <FormGroup className="" controlId="formHorizontalRegister">
-            
-            <Col lg={12} md={12} sm={12} xs={12} style={ColPadd}>
-            <Row style={marginBottomZero}>
+          
                   <FormControl
                     aria-label="דואר אלקטרוני"
                     ref="email"
@@ -139,13 +126,10 @@ class FrontRegister extends Component {
                     placeholder="הקלד דואר אלקטרוני"
                   />
                 
-              </Row>
+                  </FormGroup>
               </Col>
-              </FormGroup>
+              <Col lg={4} md={4} sm={4} xs={4} style={ColPadd}>
               <FormGroup className="" controlId="formHorizontalRegister1">
-            
-                <Col  lg={12} md={12} sm={12} xs={12} style={ColPadd}>
-                  <Row style={marginBottomZero}>
                     <FormControl
                       aria-label="סיסמה"
                       ref="password"
@@ -163,9 +147,9 @@ class FrontRegister extends Component {
                     >
                       &nbsp;
                     </button>
-                  </Row>
-                </Col>
               </FormGroup>
+              </Col>
+              <Col lg={4} md={4} sm={4} xs={4} style={ColPadd}>
               <FormGroup className="">
                 
                   <Button
@@ -180,20 +164,25 @@ class FrontRegister extends Component {
              
             
             </FormGroup>
-            {this.state.noEmail && (
-              <div className="text-right danger">{this.state.noEmail}</div>
-            )}
-    
-            {this.state.passwordLengthError && (
-              <div className="text-right danger">
-                {this.state.passwordLengthError}
-              </div>
-            )}
-    
-            {this.state.registerSuccess && (
-              <div className="text-right danger">{this.state.mailExists}</div>
-            )}
-    
+            </Col>
+            </Row>
+            <Row>
+              <Col>
+              {this.state.noEmail && (
+                <div className="text-right red-alert">{this.state.noEmail}</div>
+              )}
+      
+              {this.state.passwordLengthError && (
+                <div className="text-right red-alert">
+                  {this.state.passwordLengthError}
+                </div>
+              )}
+      
+              {this.state.registerSuccess && (
+                <div className="text-right red-alert">{this.state.mailExists}</div>
+              )}
+              </Col>
+      
             </Row>
  
           </Form>

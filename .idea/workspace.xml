@@ -2,10 +2,13 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="1808af0b-8479-492c-b88f-81d979fe645a" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/api/users/Login.php" beforeDir="false" afterPath="$PROJECT_DIR$/api/users/Login.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/api/users/Mailconf.php" beforeDir="false" afterPath="$PROJECT_DIR$/api/users/Mailconf.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/api/users/Massage.php" beforeDir="false" afterPath="$PROJECT_DIR$/api/users/Massage.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/api/users/Passrecovery.php" beforeDir="false" afterPath="$PROJECT_DIR$/api/users/Passrecovery.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/api/users/User.php" beforeDir="false" afterPath="$PROJECT_DIR$/api/users/User.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/header/LogOut.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/header/LogOut.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/actions/ajax.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/actions/ajax.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/contact/contact.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/contact/contact.js" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -19,12 +22,12 @@
     </execution>
   </component>
   <component name="FileEditorManager">
-    <leaf>
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/api/users/Passrecovery.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="68">
-              <caret line="4" column="45" selection-start-line="4" selection-start-column="45" selection-end-line="4" selection-end-column="45" />
+            <state relative-caret-position="51">
+              <caret line="3" selection-start-line="3" selection-end-line="3" />
             </state>
           </provider>
         </entry>
@@ -97,6 +100,12 @@
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="true" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="node.js.detected.package.eslint" value="true" />
+    <property name="node.js.detected.package.tslint" value="true" />
+    <property name="node.js.path.for.package.eslint" value="project" />
+    <property name="node.js.path.for.package.tslint" value="project" />
+    <property name="node.js.selected.package.eslint" value="(autodetect)" />
+    <property name="node.js.selected.package.tslint" value="(autodetect)" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
     <property name="settings.editor.selected.configurable" value="preferences.sourceCode.HTML" />
@@ -124,22 +133,20 @@
       <option name="presentableId" value="Default" />
       <updated>1575376030503</updated>
       <workItem from="1575376032070" duration="333000" />
+      <workItem from="1575551116717" duration="600000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="333000" />
+    <option name="totallyTimeSpent" value="933000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
-    <editor active="true" />
+    <frame x="-8" y="-8" width="1936" height="1056" extended-state="1" />
     <layout>
-      <window_info id="npm" side_tool="true" />
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.1748401" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.17643923" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
-      <window_info anchor="bottom" id="Docker" show_stripe_button="false" />
-      <window_info anchor="bottom" id="Database Changes" />
+      <window_info id="npm" order="3" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" sideWeight="0.49791667" visible="true" weight="0.32972974" />
       <window_info anchor="bottom" id="Run" order="2" />
@@ -152,6 +159,8 @@
       <window_info anchor="bottom" id="Terminal" order="9" />
       <window_info anchor="bottom" id="Command Line Tools Console" order="10" sideWeight="0.49373695" visible="true" weight="0.009825327" />
       <window_info anchor="bottom" id="File Transfer" order="11" sideWeight="0.4895616" weight="0.15720524" />
+      <window_info anchor="bottom" id="Docker" order="12" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Database Changes" order="13" />
       <window_info anchor="right" id="Commander" order="0" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
@@ -165,8 +174,8 @@
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/api/users/Passrecovery.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="68">
-          <caret line="4" column="45" selection-start-line="4" selection-start-column="45" selection-end-line="4" selection-end-column="45" />
+        <state relative-caret-position="51">
+          <caret line="3" selection-start-line="3" selection-end-line="3" />
         </state>
       </provider>
     </entry>

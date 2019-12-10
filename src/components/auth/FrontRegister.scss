@@ -3,7 +3,7 @@
         padding-right: 0px;
         position: relative;
         bottom: 80px;
-        background-color: $mainBlueColor;
+        background-color: #204260;
         border-radius:90px 0 0 90px;
         h2{
             color: #fff;
@@ -12,6 +12,12 @@
                 font-size: 2rem;
                 font-weight: 100;
             }
+        }
+        .form-group{
+            width: 100%;
+        }
+        .form-inline .form-control{
+            width: 100%;
         }
     }
 
