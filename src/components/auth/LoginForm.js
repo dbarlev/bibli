@@ -157,8 +157,8 @@ class LoginForm extends Component {
     this.isLoggedIn();
     return (
       <div>
-      <button className="btn" onClick={this.toggleLogin} style={ShowLoginButton}>התחבר</button>
       
+      {this.state.isFormVisible ?
       <Animated animationIn="fadeInLeftBig" animationOut="fadeOutLeftBig" isVisible={this.state.isFormVisible} >
         <Form id="toggleLoginForm">
           <FormGroup controlId="formHorizontalusername">
@@ -198,8 +198,11 @@ class LoginForm extends Component {
               </Button>
               {this.redirectUser()}
             </Col>
-            <Col xs={12}>
+            <Col xs={8} className="text-right">
               <Link to="/passwordrecovery">שכחתי את הסיסמה</Link>
+            </Col>
+            <Col xs={4}  className="text-left">
+              <Link to="/#" onClick={this.toggleLogin}>סגור</Link>
             </Col>
           </FormGroup>
           {this.state.EmptyUsernameError ? (
@@ -237,6 +240,11 @@ class LoginForm extends Component {
           <Row className="show-grid"></Row>
         </Form>
         </Animated>
+        :
+      
+        <button className="btn" onClick={this.toggleLogin} style={ShowLoginButton}>התחבר</button> 
+         
+      }
       </div>
     );
   }

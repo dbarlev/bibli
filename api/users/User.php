@@ -96,8 +96,19 @@
 		$res->bindParam(1, $email);
 		$res->execute();
 		
-		if($res->fetchColumn()){
-			echo json_encode(array('userRegistered' => 'exists', 'username'=> $username, 'email'=> $email));
+		//validation:
+		if(strlen($data->password) < 6){
+			echo json_encode(array('error' => 0, 'username'=> $username, 'email'=> $email));
+		}else if($data->email == null){
+			echo json_encode(array('error' => 1, 'username'=> $username, 'email'=> $email));
+
+		//if emailis valid or not
+		}else if (!filter_var($email, FILTER_VALIDATE_EMAIL)){
+			echo json_encode(array('error' => 2, 'username'=> $username, 'email'=> $email));
+
+		//if mail already exists
+		}else if($res->fetchColumn()){
+			echo json_encode(array('error' => 3, 'userRegistered' => 'exists', 'username'=> $username, 'email'=> $email));
 			
 		}else{
 

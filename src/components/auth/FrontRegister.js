@@ -85,17 +85,19 @@ class FrontRegister extends Component {
       password: this.state.password,
       package: this.state.package
     };
-    let err = this.formsValidation();
-    if (!err) {
+    //let err = this.formsValidation();
+    //if (!err) {
       let serverResponse = await apiClient("/users/User.php", "post", obj);
+      console.log('serverResponse', serverResponse);
       if (serverResponse.userRegistered === "1") {
         this.props.InsertUserToDB(serverResponse)
+       
         history.push("/registersuccess");
       }
       else if (serverResponse.userRegistered === "exists") {
         this.setState({ registerSuccess: true });
       }
-    }
+  //  }
   };
 
   render() {

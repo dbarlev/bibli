@@ -2433,6 +2433,10 @@ ul#searchresults.open {
     #FrontRegisterRow #formSectioCont h2 span {
       font-size: 2rem;
       font-weight: 100; }
+  #FrontRegisterRow #formSectioCont .form-group {
+    width: 100%; }
+  #FrontRegisterRow #formSectioCont .form-inline .form-control {
+    width: 100%; }
 
 #FrontRegisterRow .submit {
   background-color: #f2b500;
