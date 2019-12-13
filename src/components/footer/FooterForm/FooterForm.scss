@@ -1,0 +1,65 @@
+ @import '../../../../public/scss/variables';
+
+ #footer-form{
+
+    margin-bottom: 10px;
+
+     .form-container{
+        background-color: white;
+        border-radius: 50px;
+        padding-left: 0;
+     }
+
+    .css-reset{
+        margin: 0;
+        padding: 0;
+
+        input {
+            border: none;
+            border-radius: 0;
+            box-shadow: none !important;
+            height: 33px !important;
+        }
+
+        .form-group{
+            margin-bottom: 0;            
+        }
+    }
+
+    .pull-left{
+        float: left;
+    }
+
+    .newsLetterText{
+        color: white;
+
+        p {
+            margin: 0;
+        }
+    }
+
+    button{
+        margin-top: 4px;
+        width: 68px;
+        background-color: $buttonOrange;
+        border: none;
+        color: white !important;
+        font-weight: 700;
+    }
+
+    ::placeholder{
+        color: $mainBlueColor;
+    }
+
+    .bold{
+        font-weight: 700;
+    }
+
+    #formBasicEmail{
+        border-radius: 0;
+        border-right: 1px solid lightgray;
+    }
+ 
+    
+}
+

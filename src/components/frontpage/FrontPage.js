@@ -20,12 +20,11 @@ class FrontPage extends Component {
   render() {
     return (
       <Grid fluid id="frontpage" className="jumbotron-main">
-        
+
         <Welcome />
-        
+
         <FrontRegister />
         <InfoIcons />
-
         <Footer />
       </Grid>
     );

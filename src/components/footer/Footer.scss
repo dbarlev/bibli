@@ -1,0 +1,19 @@
+ @import '../../../public/scss/variables';
+
+#footer{
+    width: 100%;
+    padding: 25px;
+    background-color: $mainBlueColor;
+    margin-left: 0px;
+    margin-right: 0px;
+
+     .row{
+        margin-bottom: 0 !important;
+    }
+}
+
+.stickToBottom{
+    position: absolute;
+    bottom: 0;
+}
+

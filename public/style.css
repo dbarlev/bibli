@@ -55,6 +55,10 @@ body {
 .black-icon {
   color: black !important; }
 
+.container-fluid {
+  padding-left: 0;
+  padding-right: 0; }
+
 * {
   direction: rtl; }
 

@@ -9,12 +9,12 @@ class Odot extends Component {
             <Grid fluid id="Odot">
                 <Header />
                 <Row>
-                <Col md={6} mdOffset={3}>
+                    <Col md={6} mdOffset={3}>
                         <h1>מי אנחנו?</h1>
                     </Col>
                 </Row>
                 <Row>
-                <Col md={6} mdOffset={3}>
+                    <Col md={6} mdOffset={3}>
                         <div>
                             <p>
                                 כמו כל הברקה טובה, גם ביבלי נולדה מתוך צורך. צורך שלאט לאט קיבל חיים משל עצמו.
@@ -43,7 +43,7 @@ class Odot extends Component {
                     </Col>
                 </Row>
 
-                <Footer />
+                <Footer bottom />
             </Grid>
         );
     }

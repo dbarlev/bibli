@@ -9,12 +9,12 @@ class Takanon extends Component {
       <Grid fluid id="takanon">
         <Header />
         <Row>
-        <Col md={6} mdOffset={3}>
+          <Col md={6} mdOffset={3}>
             <h1>תנאי שימוש באתר bibli.co.il</h1>
           </Col>
         </Row>
         <Row>
-        <Col md={6} mdOffset={3}>
+          <Col md={6} mdOffset={3}>
             <div>
               <p>
                 אתר ביבלי (bibli.co.il) נוצר על מנת לשפר את איכות העבודות של
@@ -89,7 +89,7 @@ class Takanon extends Component {
           </Col>
         </Row>
 
-        <Footer />
+        <Footer bottom />
       </Grid>
     );
   }

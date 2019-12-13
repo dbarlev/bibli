@@ -206,11 +206,11 @@ class Contact extends Component {
                         </div>
                         <div className="col-xs-12 col-md-2 col-md-offset-5">
                             <div className="row">
-                            {this.state.msg &&
-                                <div className={this.state.color+'-alert'} role="alert">
-                                    {this.state.msg}
-                                </div>
-                            }
+                                {this.state.msg &&
+                                    <div className={this.state.color + '-alert'} role="alert">
+                                        {this.state.msg}
+                                    </div>
+                                }
                             </div>
                         </div>
                     </Form>
@@ -218,7 +218,7 @@ class Contact extends Component {
                 </div>
 
 
-                <Footer className="center-footer" />
+                <Footer bottom />
             </div>
 
         )
