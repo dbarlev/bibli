@@ -1,0 +1,27 @@
+ @import '../../../../public/scss/variables';
+
+#home-aboutus{
+
+    h2{
+        font-weight: 700;
+        color: $mainBlueColor;
+    }
+
+    button{
+        background-color: $buttonOrange
+    }
+
+    img{
+        width: 180px;
+        height: 180px;
+        border-radius: 50%;
+    }
+
+    .rounded{
+        border-radius: 50%;
+        border: 2px solid #3bd2ff;
+        width: 184px;
+        height: 184px;
+        margin-top: 30px;
+    }
+}

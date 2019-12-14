@@ -1,14 +1,12 @@
 import React, { Component } from "react";
-import { Grid } from "react-bootstrap";
-
+import { Grid, Row, Col, Image } from "react-bootstrap";
 import Welcome from "./Welcome";
 import FrontRegister from '../auth/FrontRegister';
-import Login from "../auth/LoginForm";
-import Slider from "./Slider";
-import InfoIcons from "./InfoIcons";
-
 import Footer from "../footer/Footer";
 import { getCookie } from "../Services/GetCookies";
+import imgSrc from '../img/screens.jpg';
+import AboutUs from "./AboutUs/AboutUs";
+import StatisticsRow from "./StatisticsRow/StatisticsRow";
 
 class FrontPage extends Component {
   componentDidMount() {
@@ -20,11 +18,10 @@ class FrontPage extends Component {
   render() {
     return (
       <Grid fluid id="frontpage" className="jumbotron-main">
-
         <Welcome />
-
         <FrontRegister />
-        <InfoIcons />
+        <AboutUs />
+        <StatisticsRow />
         <Footer />
       </Grid>
     );
