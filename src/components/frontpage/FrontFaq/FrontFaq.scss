@@ -1,0 +1,32 @@
+ @import '../../../../public/scss/variables';
+
+#front-faq{
+    margin-top: 4%;
+    margin-bottom: 4%;
+
+    .faq-item{
+        
+        .fa-question-circle{
+            font-size: 25px;
+        }
+
+        .question{
+            color: $mainBlueColor;
+            font-weight: 700;
+        }
+
+        .answer{
+            font-size: 14px;
+        }
+    }
+    
+    button{
+        margin-top: 20px;
+        margin-right: 20px;
+        color: white !important;
+    }
+
+    .orange{
+        background-color: $buttonOrange;
+    }
+}

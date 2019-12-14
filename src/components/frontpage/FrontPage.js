@@ -7,6 +7,7 @@ import { getCookie } from "../Services/GetCookies";
 import imgSrc from '../img/screens.jpg';
 import AboutUs from "./AboutUs/AboutUs";
 import StatisticsRow from "./StatisticsRow/StatisticsRow";
+import FrontFaq from "./FrontFaq/FrontFaq";
 
 class FrontPage extends Component {
   componentDidMount() {
@@ -22,6 +23,7 @@ class FrontPage extends Component {
         <FrontRegister />
         <AboutUs />
         <StatisticsRow />
+        <FrontFaq />
         <Footer />
       </Grid>
     );
