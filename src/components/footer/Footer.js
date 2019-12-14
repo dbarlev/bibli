@@ -21,7 +21,7 @@ class Footer extends Component {
                 </Row>
                 <Row>
                     <Col md={4}></Col>
-                    <Col md={4}>
+                    <Col lg={5} md={6}>
                         <FooterMenu />
                     </Col>
                     <Col md={4}></Col>

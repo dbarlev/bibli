@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { Row, Col, Image, Button } from "react-bootstrap";
+import { withRouter } from "react-router-dom";
 import './AboutUs.scss';
 import imgSrc from '../../img/about-us-pic.jpg';
 
@@ -30,7 +31,7 @@ class AboutUs extends Component {
                                 <Col md={3}></Col>
                                 <Col md={9}>
                                     <p>להאמית קרהשק סכעיט דז מא, מנכם למטכין נשואי מנורך. נולום ארווס סאפיאן - פוסיליס קוויס, אקווזמן קוואזי במר מודוף. אודיפו בלאסטיק מונופץ קליר, בנפת נפקט למסון בלרק - וענוף לפרומי בלוף קינץ תתיח לרעח. לת צשחמי הועניב היושבב שערש שמחויט - שלושע ותלברו חשלו שעותלשך וחאית נובש ערששף. זותה מנק הבקיץ אפאח דלאמת יבש, כאנה ניצאחוי שהכים תוק, הדש שנרא התידם הכייר וק.</p>
-                                    <Button>המשך קריאה ></Button>
+                                    <Button onClick={() => this.props.history.push("/odot")}>המשך קריאה ></Button>
                                 </Col>
                             </Row>
                         </Col>
@@ -42,4 +43,4 @@ class AboutUs extends Component {
     }
 }
 
-export default AboutUs;
+export default withRouter(AboutUs);
