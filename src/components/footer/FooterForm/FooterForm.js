@@ -78,7 +78,7 @@ class FooterForm extends Component {
                                 </Col>
                             </Row>
                         </Col>
-                        <Col md="3" className="form-container" >
+                        <Col xs="12" sm="10" md="6" lg="6" className="form-container" >
                             <Col md="4" className="css-reset">
                                 <FormGroup controlId="formName">
                                     <FormControl required name="name" type="text" placeholder="שם" />
