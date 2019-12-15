@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux'; 
-import TopMenu from './TopMenu.js';
+import TopMenu from './TopMenu/TopMenu';
 import UserMenu from './UserMenu.js';
 import { userLogedIn } from '../../actions';
 import { getCookie } from '../Services/GetCookies';

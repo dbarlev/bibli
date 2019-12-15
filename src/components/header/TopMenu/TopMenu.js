@@ -5,12 +5,13 @@ import { LinkContainer, IndexLinkContainer } from "react-router-bootstrap";
 import { Redirect } from "react-router-dom";
 import { connect } from "react-redux";
 
-import { userLogedIn } from "../../actions";
+import { userLogedIn } from "../../../actions";
 
-import logoSrc from "../img/logo1.png";
-import { LogOut } from "./LogOut";
-import LoginForm from "../auth/LoginForm";
-import Takanon from "../pages/Takanon";
+import logoSrc from "../../img/logo1.png";
+import { LogOut } from "../LogOut";
+import LoginForm from "../../auth/LoginForm/LoginForm";
+import Takanon from "../../pages/Takanon";
+import "./TopMenu.scss"
 
 
 const texts = {
@@ -39,7 +40,7 @@ class TopMenu extends Component {
         return (
             <Grid fluid className="container">
                 <Row>
-                <Col xs={8} sm={8} md={8} lg={8} style={TopMargin}>
+                <Col xs={12} sm={8} md={8} lg={8} style={TopMargin}>
                 <Navbar id="TopNav" className="nav-noStyle">
                     <Navbar.Header>
                         <Navbar.Brand>
@@ -76,7 +77,7 @@ class TopMenu extends Component {
                     </Navbar.Collapse>
                 </Navbar>
                 </Col>
-                <Col xs={4} sm={4} md={4} lg={4} className="text-center" id="loginFormCont">
+                <Col xs={6} sm={4} md={4} lg={4} className="text-center" id="loginFormCont">
                 {this.props.loginState ? (
                     <LogOut />
                 ) : (   

@@ -13,9 +13,11 @@ import {
   Row
 } from "react-bootstrap";
 import {Animated} from "react-animated-css";
-import apiPath from "../../constants/api";
-import { userLogedIn } from "../../actions";
-import { userLogin } from "../../actions/ajax";
+import apiPath from "../../../constants/api";
+import { userLogedIn } from "../../../actions";
+import { userLogin } from "../../../actions/ajax";
+
+import "./LoginForm.scss";
 
 import { async } from "q";
 
@@ -278,7 +280,7 @@ const marginBottomZero = {
 };
 
 const ShowLoginButton = {
-  position: "absolute",
+ 
   top: "36px",
   padding: "5px 35px"
 };

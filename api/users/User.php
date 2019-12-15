@@ -213,7 +213,7 @@
 
 			// tell the user a verification email were sent
 		
-			echo json_encode(array('mailexists' => 1, 'email'=> $email));
+			//echo json_encode(array('mailexists' => 1, 'email'=> $email));
 		
 		} catch (Exception $e) {
 			echo 'Message could not be sent.';

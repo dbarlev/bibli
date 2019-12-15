@@ -27,7 +27,8 @@ class FrontRegister extends Component {
     package: 1,
     registerSuccess: false,
     mailExists: "כתובת דואר זו כבר קיימת במערכת",
-    mailSuccess: "ההרשמה בוצעה בהצלחה"
+    mailSuccess: "ההרשמה בוצעה בהצלחה",
+    error: ''
   };
 
   onChange = e => {
@@ -61,7 +62,7 @@ class FrontRegister extends Component {
       errors.noEmail = "";
     }
 
-    if (this.state.password.length < 6) {
+    if (this.state.error.length < 6) {
       isError = true;
       errors.passwordLengthError = "על הסיסמה להיות ארוכה מ 6 תווים";
     } else {
@@ -94,8 +95,25 @@ class FrontRegister extends Component {
        
         history.push("/registersuccess");
       }
-      else if (serverResponse.userRegistered === "exists") {
+      /*else if (serverResponse.userRegistered === "exists") {
         this.setState({ registerSuccess: true });
+      }*/
+      else{
+        switch(serverResponse.error){
+          case 0:
+              this.setState({ error: 'הסיסמה קטנה מ 6 תווים' });
+          break;
+          case 1:
+              this.setState({ error: 'שדה כתובת מייל ריק' });
+          break;
+          case 2:
+              this.setState({ error: 'כתובת המייל שהוזנה אינה תקינה' });
+          break;
+          case 3:
+              this.setState({ error: 'כתובת המייל קיימת במערכת' });
+          break;
+        }
+      
       }
   //  }
   };
@@ -173,6 +191,9 @@ class FrontRegister extends Component {
               {this.state.noEmail && (
                 <div className="text-right red-alert">{this.state.noEmail}</div>
               )}
+              {this.state.error && (
+                <div className="text-right red-alert">{this.state.error}</div>
+              )}
       
               {this.state.passwordLengthError && (
                 <div className="text-right red-alert">
@@ -201,7 +222,7 @@ class FrontRegister extends Component {
 
 const mapStateToProps = state => {
   return {
-    user: state.userReducer
+    user: state.userReducer,
   };
 };
 

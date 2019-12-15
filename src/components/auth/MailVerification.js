@@ -7,7 +7,7 @@ import {Animated} from "react-animated-css";
 import {MailVerAction} from '../../actions/ajax';
 import Header from '../header/Header';
 import Footer from '../footer/Footer';
-import LoginForm from './LoginForm';
+import LoginForm from './LoginForm/LoginForm';
 
 
 class MailVerification extends Component {

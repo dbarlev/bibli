@@ -1997,9 +1997,6 @@ form #contactBtn {
 form .btn-default {
   border: 1px solid #000; }
 
-#login {
-  background-color: #f2b500; }
-
 .yellow-bg {
   padding: 15px;
   background-color: #f2b500; }
@@ -2393,15 +2390,6 @@ ul#searchresults.open {
   color: black; }
 
 /*scss from componnents themself*/
-@media (max-width: 1200px) {
-  #toggleLoginForm {
-    position: fixed;
-    min-width: 95vw;
-    left: 0px;
-    background-color: #fff; }
-  #loginFormCont {
-    z-index: 999; } }
-
 .newWelcomeBg {
   box-shadow: -12px 6px 5px -6px;
   padding-bottom: 100px;

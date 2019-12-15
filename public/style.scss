@@ -3,7 +3,6 @@
  @import './scss/_bootstrap-rtl.scss';
  @import './scss/_danny-code.scss';
  @import './scss/_form-elements.scss';
- @import './scss/_LoginForm.scss';
  @import './scss/_bibli-ui.scss';
  @import './scss/_anmimation.scss';
  @import './scss/_Alert.scss';
@@ -25,6 +24,5 @@
 
  /*scss from componnents themself*/
 
-@import '../src/components/auth/_LoginForm.scss';
 @import '../src/components/frontpage/_Welcome.scss';
 @import '../src/components/auth/FrontRegister.scss';

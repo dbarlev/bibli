@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import TopMenu from "./TopMenu.js";
+import TopMenu from "./TopMenu/TopMenu";
 import { Button, Grid, Row } from "react-bootstrap";
 import { connect } from "react-redux";
 import { userLogedIn } from "../../actions";
