@@ -1,11 +1,5 @@
-#toggleLoginForm{
-    
-}
 
 
-#loginFormCont{
-    margin: 36px 0;
- }
 
     #toggleLoginForm{
         @media(max-width: 1200px){
@@ -17,6 +11,13 @@
     }
 
     #loginFormCont{
+
+        @media(min-width: 1200px){
+            #openLoginForm{
+                margin: 36px 0;
+            }       
+        }
+
         @media(max-width: 1200px){
         z-index: 999;
        
@@ -24,9 +25,6 @@
 
         @media(max-width: 768px){
             margin: 0;
-            position: absolute;
-            top: 150px;
-            left: 15px;
         }
      }
 

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux'; 
+import { connect } from 'react-redux';
 import TopMenu from './TopMenu/TopMenu';
 import UserMenu from './UserMenu.js';
 import { userLogedIn } from '../../actions';
@@ -10,56 +10,56 @@ class HeaderLogin extends Component {
     userid: getCookie("userid"),
     auth: getCookie("auth"),
     username: getCookie("username")
-  } 
-  
+  }
 
-  componentWillMount(){
+
+  componentWillMount() {
     let userid = this.state.userid;
     let auth = this.state.auth;
     let username = this.state.username;
 
     console.log('this auth', this.state.auth);
-    if(auth){
+    if (auth) {
       console.log('logged in');
       const json = {
         userid,
-        auth, 
+        auth,
         username
       }
-      this.props.userLogedIn(json); 
-    }else{
+      this.props.userLogedIn(json);
+    } else {
       // debugger;
-    console.log('no session HeaderLogIn');
+      console.log('no session HeaderLogIn');
     }
   }
 
   render() {
-  
+
 
     return (
-       <div id="App-header">
-            <TopMenu loginState={this.state.auth} />
-            <div className="row user-menu">
-                <div className="col-md-12">
-                    <UserMenu loginState={this.state.auth}  />
-                </div>
-            </div>
+      <div id="App-header" className="container-fluid">
+        <TopMenu loginState={this.state.auth} />
+        <div className="row user-menu">
+          <div className="col-md-12 col-lg-12">
+            <UserMenu loginState={this.state.auth} />
+          </div>
         </div>
+      </div>
     );
   }
 }
 const mapDispatchToProps = dispatch => {
   return {
-      userLogedIn: (params) => dispatch(userLogedIn(params))
+    userLogedIn: (params) => dispatch(userLogedIn(params))
   };
 };
 
 
 const mapStateToProps = state => {
-  return{
-      userid: state.authReducer.userid,
-      auth: state.authReducer.auth,
-      username: state.authReducer.username
+  return {
+    userid: state.authReducer.userid,
+    auth: state.authReducer.auth,
+    username: state.authReducer.username
   }
 }
 

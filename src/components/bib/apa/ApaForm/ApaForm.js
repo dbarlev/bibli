@@ -6,6 +6,7 @@ import { Button, Form, FormGroup, Col, Alert } from "react-bootstrap";
 import ApaFormField from "./ApaFormField";
 import Select from "react-select";
 import { SELECT_PRINT_TYPE, SELECT_ONLINE_TYPE } from "../ApaTypes/consts";
+import './ApaForm.scss';
 
 class ApaForm extends Component {
   constructor() {
