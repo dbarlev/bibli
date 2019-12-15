@@ -37,8 +37,8 @@ class FrontRegister extends Component {
     });
 
     this.setState({
-      noEmail:'',
-      passwordLengthError:'',
+      noEmail: '',
+      passwordLengthError: '',
       registerSuccess: false
     })
   };
@@ -88,34 +88,34 @@ class FrontRegister extends Component {
     };
     //let err = this.formsValidation();
     //if (!err) {
-      let serverResponse = await apiClient("/users/User.php", "post", obj);
-      console.log('serverResponse', serverResponse);
-      if (serverResponse.userRegistered === "1") {
-        this.props.InsertUserToDB(serverResponse)
-       
-        history.push("/registersuccess");
+    let serverResponse = await apiClient("/users/User.php", "post", obj);
+    console.log('serverResponse', serverResponse);
+    if (serverResponse.userRegistered === "1") {
+      this.props.InsertUserToDB(serverResponse)
+
+      history.push("/registersuccess");
+    }
+    /*else if (serverResponse.userRegistered === "exists") {
+      this.setState({ registerSuccess: true });
+    }*/
+    else {
+      switch (serverResponse.error) {
+        case 0:
+          this.setState({ error: 'הסיסמה קטנה מ 6 תווים' });
+          break;
+        case 1:
+          this.setState({ error: 'שדה כתובת מייל ריק' });
+          break;
+        case 2:
+          this.setState({ error: 'כתובת המייל שהוזנה אינה תקינה' });
+          break;
+        case 3:
+          this.setState({ error: 'כתובת המייל קיימת במערכת' });
+          break;
       }
-      /*else if (serverResponse.userRegistered === "exists") {
-        this.setState({ registerSuccess: true });
-      }*/
-      else{
-        switch(serverResponse.error){
-          case 0:
-              this.setState({ error: 'הסיסמה קטנה מ 6 תווים' });
-          break;
-          case 1:
-              this.setState({ error: 'שדה כתובת מייל ריק' });
-          break;
-          case 2:
-              this.setState({ error: 'כתובת המייל שהוזנה אינה תקינה' });
-          break;
-          case 3:
-              this.setState({ error: 'כתובת המייל קיימת במערכת' });
-          break;
-        }
-      
-      }
-  //  }
+
+    }
+    //  }
   };
 
   render() {
@@ -124,98 +124,98 @@ class FrontRegister extends Component {
         <Col lg={7} md={7} sm={12} xs={12} id="formSectioCont">
           <Row id="formSection">
             <Col lgOffset={4} lg={8} mdOffset={0} md={12} sm={12} xs={12}>
-            <Form inline id="frontregister">
-     <Row>           <h2 className="bold ">
-              רוצים להצטרף אלינו?
+              <Form inline id="frontregister">
+                <Row>           <h2 className="bold ">
+                  רוצים להצטרף אלינו?
               <span>
-              הרשמו עכשיו
+                    הרשמו עכשיו
               </span>
-            </h2>
-            </Row>
- 
-            <Row>
-            <Col lg={4} md={4} sm={4} xs={4} style={ColPadd}>
-            <FormGroup className="" controlId="formHorizontalRegister">
-          
-                  <FormControl
-                    aria-label="דואר אלקטרוני"
-                    ref="email"
-                    name="email"
-                    type="email"
-                    onChange={this.onChange}
-                    placeholder="הקלד דואר אלקטרוני"
-                  />
-                
-                  </FormGroup>
-              </Col>
-              <Col lg={4} md={4} sm={4} xs={4} style={ColPadd}>
-              <FormGroup className="" controlId="formHorizontalRegister1">
-                    <FormControl
-                      aria-label="סיסמה"
-                      ref="password"
-                      name="password"
-                      type="password"
-                      id="password"
-                      onChange={this.onChange}
-                      placeholder="הקלד סיסמה"
-                    />
-                    <button
-                      onClick={TogglePass}
-                      id="toggleBtn"
-                      className="glyphicon glyphicon-eye-open"
-                      type="button"
-                    >
-                      &nbsp;
+                </h2>
+                </Row>
+
+                <Row>
+                  <Col lg={4} md={4} sm={4} xs={6} style={ColPadd}>
+                    <FormGroup className="" controlId="formHorizontalRegister">
+
+                      <FormControl
+                        aria-label="דואר אלקטרוני"
+                        ref="email"
+                        name="email"
+                        type="email"
+                        onChange={this.onChange}
+                        placeholder="הקלד דואר אלקטרוני"
+                      />
+
+                    </FormGroup>
+                  </Col>
+                  <Col lg={4} md={4} sm={4} xs={5} style={ColPadd}>
+                    <FormGroup className="" controlId="formHorizontalRegister1">
+                      <FormControl
+                        aria-label="סיסמה"
+                        ref="password"
+                        name="password"
+                        type="password"
+                        id="password"
+                        onChange={this.onChange}
+                        placeholder="הקלד סיסמה"
+                      />
+                      <button
+                        onClick={TogglePass}
+                        id="toggleBtn"
+                        className="glyphicon glyphicon-eye-open"
+                        type="button"
+                      >
+                        &nbsp;
                     </button>
-              </FormGroup>
-              </Col>
-              <Col lg={4} md={4} sm={4} xs={4} style={ColPadd}>
-              <FormGroup className="">
-                
-                  <Button
-                    onClick={this.onSubmitRegister}
-                    type="submit"
-                    className="full-width-btn submit"
-                    style={SCbutton}
-                    id="registerSubmit"
-                  >
-                    הצטרפו אלינו >
+                    </FormGroup>
+                  </Col>
+                  <Col lg={4} md={4} sm={4} xs={5} style={ColPadd}>
+                    <FormGroup className="">
+
+                      <Button
+                        onClick={this.onSubmitRegister}
+                        type="submit"
+                        className="full-width-btn submit"
+                        style={SCbutton}
+                        id="registerSubmit"
+                      >
+                        הצטרפו אלינו >
                   </Button>
-             
-            
-            </FormGroup>
-            </Col>
-            </Row>
-            <Row>
-              <Col>
-              {this.state.noEmail && (
-                <div className="text-right red-alert">{this.state.noEmail}</div>
-              )}
-              {this.state.error && (
-                <div className="text-right red-alert">{this.state.error}</div>
-              )}
-      
-              {this.state.passwordLengthError && (
-                <div className="text-right red-alert">
-                  {this.state.passwordLengthError}
-                </div>
-              )}
-      
-              {this.state.registerSuccess && (
-                <div className="text-right red-alert">{this.state.mailExists}</div>
-              )}
-              </Col>
-      
-            </Row>
- 
-          </Form>
+
+
+                    </FormGroup>
+                  </Col>
+                </Row>
+                <Row>
+                  <Col>
+                    {this.state.noEmail && (
+                      <div className="text-right red-alert">{this.state.noEmail}</div>
+                    )}
+                    {this.state.error && (
+                      <div className="text-right red-alert">{this.state.error}</div>
+                    )}
+
+                    {this.state.passwordLengthError && (
+                      <div className="text-right red-alert">
+                        {this.state.passwordLengthError}
+                      </div>
+                    )}
+
+                    {this.state.registerSuccess && (
+                      <div className="text-right red-alert">{this.state.mailExists}</div>
+                    )}
+                  </Col>
+
+                </Row>
+
+              </Form>
             </Col>
           </Row>
         </Col>
       </Row>
-     
 
-      
+
+
     );
   }
 }

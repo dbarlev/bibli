@@ -2436,3 +2436,7 @@ ul#searchresults.open {
   padding: 7px 25px;
   position: relative;
   bottom: 3px; }
+
+@media screen and (max-width: 600px) {
+  #registerSubmit {
+    margin-right: 60%; } }
