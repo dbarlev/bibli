@@ -12,6 +12,8 @@ import {
 } from "react-bootstrap";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
+import {Animated} from "react-animated-css";
+
 import { InsertUserToDB } from "../../actions/ajax";
 import { apiClient } from '../../common/apiClient';
 import { TogglePass } from '../../common/Util.js';
@@ -26,8 +28,6 @@ class FrontRegister extends Component {
     password: "",
     package: 1,
     registerSuccess: false,
-    mailExists: "כתובת דואר זו כבר קיימת במערכת",
-    mailSuccess: "ההרשמה בוצעה בהצלחה",
     error: ''
   };
 
@@ -39,44 +39,45 @@ class FrontRegister extends Component {
     this.setState({
       noEmail:'',
       passwordLengthError:'',
-      registerSuccess: false
+      registerSuccess: false,
+      error: ''
     })
   };
-  formsValidation() {
-    let isError = false;
-    const errors = {};
+  // formsValidation() {
+  //   let isError = false;
+  //   const errors = {};
 
-    const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-    let mail = re.test(String(this.state.email).toLowerCase());
+  //   const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+  //   let mail = re.test(String(this.state.email).toLowerCase());
 
-    if (!mail) {
-      isError = true;
-      errors.noEmail = "כתובת הדואר שהוזנה אינה תקינה";
-    } else if (this.props.user.registerSuccess == "exists") {
-      //debugger;
-      isError = true;
-      errors.noEmail = "כתובת דואר זו כבר קיימת במערכת";
-      console.log("state ", this.state);
-    } else {
-      isError = false;
-      errors.noEmail = "";
-    }
+  //   if (!mail) {
+  //     isError = true;
+  //     errors.noEmail = "כתובת הדואר שהוזנה אינה תקינה";
+  //   } else if (this.props.user.registerSuccess == "exists") {
+  //     //debugger;
+  //     isError = true;
+  //     errors.noEmail = "כתובת דואר זו כבר קיימת במערכת";
+  //     console.log("state ", this.state);
+  //   } else {
+  //     isError = false;
+  //     errors.noEmail = "";
+  //   }
 
-    if (this.state.error.length < 6) {
-      isError = true;
-      errors.passwordLengthError = "על הסיסמה להיות ארוכה מ 6 תווים";
-    } else {
-      isError = false;
-      errors.passwordLengthError = "";
-    }
+  //   if (this.state.error.length < 6) {
+  //     isError = true;
+  //     errors.passwordLengthError = "על הסיסמה להיות ארוכה מ 6 תווים";
+  //   } else {
+  //     isError = false;
+  //     errors.passwordLengthError = "";
+  //   }
 
-    this.setState({
-      ...this.state,
-      ...errors
-    });
+  //   this.setState({
+  //     ...this.state,
+  //     ...errors
+  //   });
 
-    return isError;
-  }
+  //   return isError;
+  // }
 
   onSubmitRegister = async e => {
     e.preventDefault();
@@ -94,11 +95,7 @@ class FrontRegister extends Component {
         this.props.InsertUserToDB(serverResponse)
        
         history.push("/registersuccess");
-      }
-      /*else if (serverResponse.userRegistered === "exists") {
-        this.setState({ registerSuccess: true });
-      }*/
-      else{
+      }else{
         switch(serverResponse.error){
           case 0:
               this.setState({ error: 'הסיסמה קטנה מ 6 תווים' });
@@ -115,7 +112,6 @@ class FrontRegister extends Component {
         }
       
       }
-  //  }
   };
 
   render() {
@@ -176,7 +172,7 @@ class FrontRegister extends Component {
                     onClick={this.onSubmitRegister}
                     type="submit"
                     className="full-width-btn submit"
-                    style={SCbutton}
+                  
                     id="registerSubmit"
                   >
                     הצטרפו אלינו >
@@ -188,22 +184,13 @@ class FrontRegister extends Component {
             </Row>
             <Row>
               <Col>
-              {this.state.noEmail && (
-                <div className="text-right red-alert">{this.state.noEmail}</div>
-              )}
+             
               {this.state.error && (
+                <Animated animationIn="zoomIn" animationOut="zoomOut" isVisible={this.state.error} >
+
                 <div className="text-right red-alert">{this.state.error}</div>
-              )}
-      
-              {this.state.passwordLengthError && (
-                <div className="text-right red-alert">
-                  {this.state.passwordLengthError}
-                </div>
-              )}
-      
-              {this.state.registerSuccess && (
-                <div className="text-right red-alert">{this.state.mailExists}</div>
-              )}
+                </Animated>
+                )}
               </Col>
       
             </Row>
@@ -231,7 +218,7 @@ export default connect(mapStateToProps, { InsertUserToDB })(
 );
 
 const TopMarginLoginBtn = {
-  marginTop: "0px",
+  marginTop: "1px",
   padding: "5px"
 };
 
@@ -247,6 +234,3 @@ const YellowBg = {
   backgroundColor: "#f2b500"
 };
 
-const SCbutton = {
-  backgroundColor: "#f2b500"
-};

@@ -1,9 +1,9 @@
 import React, { Component } from 'react'
 import { Redirect } from 'react-router-dom';
-import { MenuItem, Button } from 'react-bootstrap';
+import { MenuItem, Button, Nav, Navbar, NavItem } from 'react-bootstrap';
 import { LinkContainer, IndexLinkContainer } from "react-router-bootstrap";
 import { connect } from 'react-redux';
-import { userLogedIn } from '../../actions';
+import { userLogedIn } from '../../../actions';
 
 
 function eraseCookie(name) {

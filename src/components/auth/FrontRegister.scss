@@ -25,7 +25,9 @@
         background-color: rgb(242, 181, 0);
         padding: 7px 25px;
         position: relative;
-        bottom: 3px;
-
+        bottom: 1px;
+        &:hover{
+            background-color: #fff;
+        }
     }
 }

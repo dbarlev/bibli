@@ -244,7 +244,7 @@ class LoginForm extends Component {
         </Animated>
         :
       
-        <button className="btn" onClick={this.toggleLogin} style={ShowLoginButton}>התחבר</button> 
+        <button className="btn" id="login_mian-button" onClick={this.toggleLogin} style={ShowLoginButton}>התחבר</button> 
          
       }
       </div>
@@ -271,7 +271,6 @@ const mapStateToProps = state => {
 export default connect(mapStateToProps, { userLogedIn, userLogin })(LoginForm);
 
 const TopMarginLoginBtn = {
-  marginTop: "16px",
   padding: "5px"
 };
 

@@ -8,7 +8,7 @@ import { connect } from "react-redux";
 import { userLogedIn } from "../../../actions";
 
 import logoSrc from "../../img/logo1.png";
-import { LogOut } from "../LogOut";
+import { LogOut } from "../LogOut/LogOut";
 import LoginForm from "../../auth/LoginForm/LoginForm";
 import Takanon from "../../pages/Takanon";
 import "./TopMenu.scss"

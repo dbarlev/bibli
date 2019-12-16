@@ -2435,4 +2435,6 @@ ul#searchresults.open {
   background-color: #f2b500;
   padding: 7px 25px;
   position: relative;
-  bottom: 3px; }
+  bottom: 1px; }
+  #FrontRegisterRow .submit:hover {
+    background-color: #fff; }
