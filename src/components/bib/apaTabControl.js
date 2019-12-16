@@ -5,6 +5,7 @@ import ApaPaper from "./apa/ApaTypes/ApaPaper";
 import ApaArticle from "./apa/ApaTypes/ApaArticle";
 import ApaWebsite from "./apa/ApaTypes/ApaWebsite";
 import { OverlayTrigger, Tooltip } from "react-bootstrap";
+import './apaTabControl.scss';
 
 const checkActiveLink = routeToCheck => {
   let href = window.location.href;
@@ -12,7 +13,7 @@ const checkActiveLink = routeToCheck => {
   return href.indexOf(routeToCheck) > -1 ? "is-active" : "";
 };
 
-const DisabeldTab = ({type, activeClassName = null,text,icon }) => {
+const DisabeldTab = ({ type, activeClassName = null, text, icon }) => {
   return (
     <OverlayTrigger
       placement="top"
@@ -110,7 +111,7 @@ class ApaTabControl extends Component {
           </ul>
         </div>
         <div className="row">
-          <div className="col-md-9">
+          <div className="col-md-9 col-xs-9">
             <Route path="/records/addRecord/ApaBooks" component={ApaBooks} />
             <Route
               path="/records/addRecord/ApaWebsite"

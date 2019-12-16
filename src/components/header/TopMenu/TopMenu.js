@@ -40,57 +40,50 @@ class TopMenu extends Component {
         return (
             <Grid fluid className="container">
                 <Row>
-                <Col xs={12} sm={8} md={8} lg={8} style={TopMargin}>
-                <Navbar id="TopNav" className="nav-noStyle">
-                    <Navbar.Header>
-                        <Navbar.Brand>
-                            <LinkContainer to="/">
-                                <MenuItem className="logo">
-                                    <img alt="Bibli Logo" src={logoSrc} />
-                                </MenuItem>
-                            </LinkContainer>
-                        </Navbar.Brand>
-                        <Navbar.Toggle />
-                    </Navbar.Header>
-                    <Navbar.Collapse>
-                        <Nav>
-                            <IndexLinkContainer className="topNavMenuItems black" to="/odot">
-                                <NavItem>מי אנחנו</NavItem>
-                            </IndexLinkContainer>
+                    <Col xs={12} sm={8} md={7} lg={7} style={TopMargin}>
+                        <Navbar id="TopNav" className="nav-noStyle">
+                            <Navbar.Header>
+                                <Navbar.Brand>
+                                    <LinkContainer to="/">
+                                        <MenuItem className="logo">
+                                            <img alt="Bibli Logo" src={logoSrc} />
+                                        </MenuItem>
+                                    </LinkContainer>
+                                </Navbar.Brand>
+                                <Navbar.Toggle />
+                            </Navbar.Header>
+                            <Navbar.Collapse>
+                                <Nav>
+                                    <IndexLinkContainer className="topNavMenuItems black" to="/odot">
+                                        <NavItem>מי אנחנו</NavItem>
+                                    </IndexLinkContainer>
 
-                            <LinkContainer className="topNavMenuItems black" to="/faq">
-                                <NavItem>שאלות ותשובות</NavItem>
-                            </LinkContainer>
-                            <LinkContainer className="topNavMenuItems black" to="/takanon">
-                                <NavItem>תנאי שימוש</NavItem>
-                            </LinkContainer>
-                            <LinkContainer className="topNavMenuItems black" to="/contact">
-                                <NavItem>צור קשר</NavItem>
-                            </LinkContainer>
-                            <li>
-                                <a href="https://www.facebook.com/biblio.co.il/" target="__blank">
-                                    {" "}
-                                    <i className="fab fa-facebook-f"></i>
-                                </a>
-                            </li>
-                        </Nav>
-                    </Navbar.Collapse>
-                </Navbar>
-                </Col>
-                <Col xs={6} sm={4} md={4} lg={4} className="text-center" id="loginFormCont">
-                {this.props.loginState ? (
-                    <LogOut />
-                ) : (   
-                    <LoginForm />
-                    )}
-
-                {/* <LinkContainer className="btn-warning black topnav-login-logout-btn" to="/" >
-                            
-                    <MenuItem onClick={this.logOut}> {this.props.loginState  ?  'התנתק/י' : 'התחבר/י'} </MenuItem>
-                    </LinkContainer>
-                    */}
+                                    <LinkContainer className="topNavMenuItems black" to="/faq">
+                                        <NavItem>שאלות ותשובות</NavItem>
+                                    </LinkContainer>
+                                    <LinkContainer className="topNavMenuItems black" to="/takanon">
+                                        <NavItem>תנאי שימוש</NavItem>
+                                    </LinkContainer>
+                                    <LinkContainer className="topNavMenuItems black" to="/contact">
+                                        <NavItem>צור קשר</NavItem>
+                                    </LinkContainer>
+                                    <li className="facebook">
+                                        <a href="https://www.facebook.com/biblio.co.il/" target="__blank">
+                                            <i className="fab fa-facebook-f"></i>
+                                        </a>
+                                    </li>
+                                </Nav>
+                            </Navbar.Collapse>
+                        </Navbar>
                     </Col>
-                    </Row>
+                    <Col xs={6} sm={4} md={5} lg={5} className="text-center" id="loginFormCont">
+                        {this.props.loginState ? (
+                            <LogOut />
+                        ) : (
+                                <LoginForm />
+                            )}
+                    </Col>
+                </Row>
             </Grid>
         );
     }
@@ -112,5 +105,5 @@ export default connect(
 )(TopMenu);
 
 const TopMargin = {
-  marginTop: "27px"
+    marginTop: "27px"
 };

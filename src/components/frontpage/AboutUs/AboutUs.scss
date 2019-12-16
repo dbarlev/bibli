@@ -25,3 +25,10 @@
         margin-top: 30px;
     }
 }
+
+@media screen and (max-width: 600px) {
+      #front-faq button{
+        margin-right: 4px;
+        font-size: 13px;
+      }  
+}

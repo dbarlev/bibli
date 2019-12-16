@@ -2438,3 +2438,7 @@ ul#searchresults.open {
   bottom: 1px; }
   #FrontRegisterRow .submit:hover {
     background-color: #fff; }
+
+@media screen and (max-width: 600px) {
+  #registerSubmit {
+    margin-right: 60%; } }

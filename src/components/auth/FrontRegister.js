@@ -100,18 +100,17 @@ class FrontRegister extends Component {
           case 0:
               this.setState({ error: 'הסיסמה קטנה מ 6 תווים' });
           break;
-          case 1:
-              this.setState({ error: 'שדה כתובת מייל ריק' });
+        case 1:
+          this.setState({ error: 'שדה כתובת מייל ריק' });
           break;
-          case 2:
-              this.setState({ error: 'כתובת המייל שהוזנה אינה תקינה' });
+        case 2:
+          this.setState({ error: 'כתובת המייל שהוזנה אינה תקינה' });
           break;
-          case 3:
-              this.setState({ error: 'כתובת המייל קיימת במערכת' });
+        case 3:
+          this.setState({ error: 'כתובת המייל קיימת במערכת' });
           break;
-        }
-      
       }
+    }
   };
 
   render() {
@@ -120,62 +119,62 @@ class FrontRegister extends Component {
         <Col lg={7} md={7} sm={12} xs={12} id="formSectioCont">
           <Row id="formSection">
             <Col lgOffset={4} lg={8} mdOffset={0} md={12} sm={12} xs={12}>
-            <Form inline id="frontregister">
-     <Row>           <h2 className="bold ">
-              רוצים להצטרף אלינו?
+              <Form inline id="frontregister">
+                <Row>           <h2 className="bold ">
+                  רוצים להצטרף אלינו?
               <span>
-              הרשמו עכשיו
+                    הרשמו עכשיו
               </span>
-            </h2>
-            </Row>
- 
-            <Row>
-            <Col lg={4} md={4} sm={4} xs={4} style={ColPadd}>
-            <FormGroup className="" controlId="formHorizontalRegister">
-          
-                  <FormControl
-                    aria-label="דואר אלקטרוני"
-                    ref="email"
-                    name="email"
-                    type="email"
-                    onChange={this.onChange}
-                    placeholder="הקלד דואר אלקטרוני"
-                  />
-                
-                  </FormGroup>
-              </Col>
-              <Col lg={4} md={4} sm={4} xs={4} style={ColPadd}>
-              <FormGroup className="" controlId="formHorizontalRegister1">
-                    <FormControl
-                      aria-label="סיסמה"
-                      ref="password"
-                      name="password"
-                      type="password"
-                      id="password"
-                      onChange={this.onChange}
-                      placeholder="הקלד סיסמה"
-                    />
-                    <button
-                      onClick={TogglePass}
-                      id="toggleBtn"
-                      className="glyphicon glyphicon-eye-open"
-                      type="button"
-                    >
-                      &nbsp;
+                </h2>
+                </Row>
+
+                <Row>
+                  <Col lg={4} md={4} sm={4} xs={6} style={ColPadd}>
+                    <FormGroup className="" controlId="formHorizontalRegister">
+
+                      <FormControl
+                        aria-label="דואר אלקטרוני"
+                        ref="email"
+                        name="email"
+                        type="email"
+                        onChange={this.onChange}
+                        placeholder="הקלד דואר אלקטרוני"
+                      />
+
+                    </FormGroup>
+                  </Col>
+                  <Col lg={4} md={4} sm={4} xs={5} style={ColPadd}>
+                    <FormGroup className="" controlId="formHorizontalRegister1">
+                      <FormControl
+                        aria-label="סיסמה"
+                        ref="password"
+                        name="password"
+                        type="password"
+                        id="password"
+                        onChange={this.onChange}
+                        placeholder="הקלד סיסמה"
+                      />
+                      <button
+                        onClick={TogglePass}
+                        id="toggleBtn"
+                        className="glyphicon glyphicon-eye-open"
+                        type="button"
+                      >
+                        &nbsp;
                     </button>
-              </FormGroup>
-              </Col>
-              <Col lg={4} md={4} sm={4} xs={4} style={ColPadd}>
-              <FormGroup className="">
-                
-                  <Button
-                    onClick={this.onSubmitRegister}
-                    type="submit"
-                    className="full-width-btn submit"
-                  
-                    id="registerSubmit"
-                  >
-                    הצטרפו אלינו >
+                    </FormGroup>
+                  </Col>
+                  <Col lg={4} md={4} sm={4} xs={5} style={ColPadd}>
+                    <FormGroup className="">
+
+                      <Button
+                        onClick={this.onSubmitRegister}
+                        type="submit"
+                        className="full-width-btn submit"
+                       
+                        id="registerSubmit"
+                      >
+                        הצטרפו אלינו >
                   </Button>
              
             
@@ -200,9 +199,9 @@ class FrontRegister extends Component {
           </Row>
         </Col>
       </Row>
-     
 
-      
+
+
     );
   }
 }

@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { Grid, Row, Col } from "react-bootstrap";
 import Header from "../header/Header";
 import Footer from "../footer/Footer";
+import './Takanon.scss';
 
 class Takanon extends Component {
   render() {
