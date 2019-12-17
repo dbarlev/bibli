@@ -2287,7 +2287,7 @@ button.send {
 button#toggleBtn {
   position: absolute;
   left: 0;
-  top: 19px;
+  top: 16px;
   border: 0;
   background-color: transparent;
   color: #204260;
@@ -2413,32 +2413,3 @@ ul#searchresults.open {
   @media (max-width: 991px) {
     .newWelcomeBg {
       background-position-x: right; } }
-
-#FrontRegisterRow #formSectioCont {
-  padding-right: 0px;
-  position: relative;
-  bottom: 80px;
-  background-color: #204260;
-  border-radius: 90px 0 0 90px; }
-  #FrontRegisterRow #formSectioCont h2 {
-    color: #fff;
-    font-size: 2rem; }
-    #FrontRegisterRow #formSectioCont h2 span {
-      font-size: 2rem;
-      font-weight: 100; }
-  #FrontRegisterRow #formSectioCont .form-group {
-    width: 100%; }
-  #FrontRegisterRow #formSectioCont .form-inline .form-control {
-    width: 100%; }
-
-#FrontRegisterRow .submit {
-  background-color: #f2b500;
-  padding: 7px 25px;
-  position: relative;
-  bottom: 1px; }
-  #FrontRegisterRow .submit:hover {
-    background-color: #fff; }
-
-@media screen and (max-width: 600px) {
-  #registerSubmit {
-    margin-right: 60%; } }

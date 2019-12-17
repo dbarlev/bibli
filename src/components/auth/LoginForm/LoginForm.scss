@@ -1,36 +1,35 @@
-
-
-
-    #toggleLoginForm{
-        @media(max-width: 1200px){
+#toggleLoginForm {
+    @media(max-width: 1200px) {
         position: fixed;
         min-width: 95vw;
         left: 0px;
         background-color: #fff;
-        }
+    }
+}
+
+#loginFormCont {
+
+
+    #openLoginForm {
+        margin: 36px 0;
     }
 
-    #loginFormCont{
 
-     
-            #openLoginForm{
-                margin: 36px 0;
-            }       
-       
-
-        @media(max-width: 1200px){
+    @media(max-width: 1200px) {
         z-index: 999;
-       
-        }
 
-        @media(max-width: 768px){
-            margin: 0;
-        }
-     }
+    }
 
-     #loginFormCont>div{
-        @media(max-width: 768px){
-            float: left;
-        }
-     }
+    @media(max-width: 768px) {
+        margin: 0;
+        left: 0;
+        position: absolute;
+        top: 118px;
+    }
+}
 
+#loginFormCont>div {
+    @media(max-width: 768px) {
+        float: left;
+    }
+}

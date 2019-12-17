@@ -25,18 +25,19 @@ export class LogOut extends Component {
 
 
         return (
-            <Row>
-                <Col md={5} lg={5}>
-                    <LinkContainer className="backToBiblist" style={TopMargin} to="/records/biblist" >
-                        <div className="btn btn-warning">חזרה לאזור האישי</div>
-                    </LinkContainer>
-                </Col>
-                <Col md={5} lg={4}>
-                    <LinkContainer className="btn-warning black topnav-login-logout-btn" style={TopMargin} to="/" >
-                        <Button onClick={() => this.logOut()}> התנתק/י</Button>
-                    </LinkContainer>
-                </Col>
-            </Row >
+            <Col lgPush={6} lg={6}>
+            <div id="logout" className="text-left">
+                        <LinkContainer className="backToBiblist" to="/records/biblist" >
+                            <div className="btn">חזרה לאזור האישי</div>
+                            
+                        </LinkContainer>
+                        <LinkContainer className="linkStyle"  to="/" >
+                            <Button onClick={() => this.logOut()}> התנתק/י</Button>
+                        </LinkContainer>
+                   
+            </div>
+
+            </Col>
         )
     }
 }

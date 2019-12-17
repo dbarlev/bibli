@@ -11,11 +11,18 @@
         background-color: $buttonOrange
     }
 
+    #home-aboutus_image{
+        @media(max-width: 768px){
+            text-align: center;
+        }
+    }
     img{
         width: 180px;
         height: 180px;
         border-radius: 50%;
+       
     }
+    
 
     .rounded{
         border-radius: 50%;
@@ -23,6 +30,9 @@
         width: 184px;
         height: 184px;
         margin-top: 30px;
+        @media(max-width: 768px){
+           margin: 0 auto;
+        }
     }
 }
 

@@ -1,10 +1,16 @@
 #FrontRegisterRow {
+    
     #formSectioCont {
+        
         padding-right: 0px;
         position: relative;
         bottom: 80px;
         background-color: #204260;
         border-radius:90px 0 0 90px;
+        @media(max-width: 768px){
+            border-radius:0;
+            box-shadow: 0px 7px 5px -6px;
+        }
         h2{
             color: #fff;
             font-size: 2rem;
@@ -22,18 +28,22 @@
     }
 
     .submit {
-        background-color: rgb(242, 181, 0);
+        background-color: #e08222;
         padding: 7px 25px;
         position: relative;
         bottom: 1px;
+        font-weight: bold;
         &:hover{
             background-color: #fff;
+            color: #e08222
         }
     }
 }
 
 @media screen and (max-width: 600px) {
+    /*
       #registerSubmit{
           margin-right: 60%;
       }  
+      */
 }

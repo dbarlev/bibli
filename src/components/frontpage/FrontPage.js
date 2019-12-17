@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Grid, Row, Col, Image } from "react-bootstrap";
 import Welcome from "./Welcome";
-import FrontRegister from '../auth/FrontRegister';
+import FrontRegister from '../auth/FrontRegister/FrontRegister';
 import Footer from "../footer/Footer";
 import { getCookie } from "../Services/GetCookies";
 import imgSrc from '../img/screens.jpg';

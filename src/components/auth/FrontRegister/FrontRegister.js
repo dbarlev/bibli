@@ -14,9 +14,9 @@ import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
 import {Animated} from "react-animated-css";
 
-import { InsertUserToDB } from "../../actions/ajax";
-import { apiClient } from '../../common/apiClient';
-import { TogglePass } from '../../common/Util.js';
+import { InsertUserToDB } from "../../../actions/ajax";
+import { apiClient } from '../../../common/apiClient';
+import { TogglePass } from '../../../common/Util.js';
 import './FrontRegister.scss';
 class FrontRegister extends Component {
   constructor(props) {
@@ -129,7 +129,7 @@ class FrontRegister extends Component {
                 </Row>
 
                 <Row>
-                  <Col lg={4} md={4} sm={4} xs={6} style={ColPadd}>
+                  <Col lg={4} md={4} sm={4} xs={12} style={ColPadd}>
                     <FormGroup className="" controlId="formHorizontalRegister">
 
                       <FormControl
@@ -143,7 +143,7 @@ class FrontRegister extends Component {
 
                     </FormGroup>
                   </Col>
-                  <Col lg={4} md={4} sm={4} xs={5} style={ColPadd}>
+                  <Col lg={4} md={4} sm={4} xs={12} style={ColPadd}>
                     <FormGroup className="" controlId="formHorizontalRegister1">
                       <FormControl
                         aria-label="סיסמה"
@@ -164,7 +164,7 @@ class FrontRegister extends Component {
                     </button>
                     </FormGroup>
                   </Col>
-                  <Col lg={4} md={4} sm={4} xs={5} style={ColPadd}>
+                  <Col lg={4} md={4} sm={4} xs={12} style={ColPadd}>
                     <FormGroup className="">
 
                       <Button

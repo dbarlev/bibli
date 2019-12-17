@@ -61,17 +61,11 @@
         $user_row = $res1->fetch(PDO::FETCH_ASSOC);
       
         $db_password = $user_row['password'];
-       /* $db_password = '321';
-        if($db_password != $password){
-            echo 1;
-        }else if($db_password == $password){
-            echo 2;
-        }
-          */  
+     
 
-        if($result == 0) { //user exists but not active
+        if($result == 0) { // user dosent exist
             echo json_encode(array('userid' => $user_row['userid'], 'auth'=> false, 'error' => 1));
-        }else if($result > 0 && $user_row['active'] == 0 ) { //user dosent exist
+        }else if($result > 0 && $user_row['active'] == 0 ) { //user exists but not active
             echo json_encode(array('userid' => $user_row['userid'], 'auth'=> false, 'error' => 2));
         }else if($result > 0 && $user_row['active'] == 1 && $user_row['password'] !== $password ) { // pasword exists and user activated but wrong password
             echo json_encode(array('userid' => $user_row['userid'], 'auth'=> false, 'error' => 3));

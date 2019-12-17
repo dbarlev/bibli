@@ -9,27 +9,27 @@ class AboutUs extends Component {
     render() {
         return (
             <Row id="home-aboutus">
-                <Col md={3}></Col>
-                <Col md={5}>
+                <Col lg={3} md={1}></Col>
+                <Col lg={5} md={10}>
                     <Row>
-                        <Col md={3}>
-                            <Col xs={6} md={4}>
-                                <div className="rounded">
+                        <Col md={3} sm={4} xs={12} > 
+                            <Col xs={12} md={4} id="home-aboutus_image">
+                                <div className="rounded text-left">
                                     <Image src={imgSrc} alt="" />
                                 </div>
                             </Col>
                         </Col>
-                        <Col md={9}>
+                        <Col md={9} sm={8} xs={12}>
                             <Row>
-                                <Col md={3}>
+                                <Col lg={3} md={0} sm={0}  xs={0}>
                                 </Col>
-                                <Col md={9}>
+                                <Col md={9} sm={12}  xs={12} className="text-right">
                                     <h2>מי אנחנו?</h2>
                                 </Col>
                             </Row>
                             <Row>
-                                <Col md={3}></Col>
-                                <Col md={9}>
+                                <Col lg={3} md={0}  sm={0}></Col>
+                                <Col md={9} sm={12} className="text-right">
                                     <p>להאמית קרהשק סכעיט דז מא, מנכם למטכין נשואי מנורך. נולום ארווס סאפיאן - פוסיליס קוויס, אקווזמן קוואזי במר מודוף. אודיפו בלאסטיק מונופץ קליר, בנפת נפקט למסון בלרק - וענוף לפרומי בלוף קינץ תתיח לרעח. לת צשחמי הועניב היושבב שערש שמחויט - שלושע ותלברו חשלו שעותלשך וחאית נובש ערששף. זותה מנק הבקיץ אפאח דלאמת יבש, כאנה ניצאחוי שהכים תוק, הדש שנרא התידם הכייר וק.</p>
                                     <Button onClick={() => this.props.history.push("/odot")}>המשך קריאה ></Button>
                                 </Col>
@@ -37,7 +37,7 @@ class AboutUs extends Component {
                         </Col>
                     </Row>
                 </Col>
-                <Col md={4}></Col>
+                <Col lg={4} md={1}></Col>
             </Row>
         );
     }
