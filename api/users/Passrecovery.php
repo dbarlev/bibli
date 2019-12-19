@@ -155,8 +155,8 @@
     function edit_password($db, $data){
         $data = json_decode($data);	
 		
-		if(isset($data->token)) $token = $data->token; else  $token = null;
-		if(isset($data->password)) $password = $data->password; else  $password = null;
+        if(isset($data->token)) $token = $data->token; else  $token = null;
+        if(isset($data->password)) $password = password_hash($data->password, PASSWORD_DEFAULT); else  $password = null;
 	
         $q = 'UPDATE users SET password = ? WHERE verification_code_lost_password = ?';
         $stmt = $db->prepare($q);

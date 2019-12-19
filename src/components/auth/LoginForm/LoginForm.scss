@@ -1,10 +1,31 @@
 #toggleLoginForm {
     @media(max-width: 1200px) {
         position: fixed;
+        min-width: 50vw;
+        left: 0px;
+        background-color: #fff;
+        margin: 0 25vw;
+        padding: 5vw;
+        /* border-radius: 50px; */
+        box-shadow: 0px 7px 5px -6px;
+        border: 1px solid #204260;
+
+    }
+
+    @media(max-width: 768px) {
+        position: fixed;
         min-width: 95vw;
         left: 0px;
         background-color: #fff;
+        margin: 0 2.5vw;
+        padding: 5vw;
+        /* border-radius: 50px; */
+        box-shadow: 0px 7px 5px -6px;
+        border: 1px solid #204260;
+
     }
+
+
 }
 
 #loginFormCont {

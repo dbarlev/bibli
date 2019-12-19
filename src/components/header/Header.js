@@ -13,11 +13,12 @@ class Header extends Component {
   };
 
   componentWillMount() {
+    /*
     let userid = this.state.userid;
     let auth = this.state.auth;
     let username = this.state.username;
     if (auth) {
-      console.log("logged in");
+      console.log("logged in x");
       const json = {
         userid,
         auth,
@@ -28,6 +29,7 @@ class Header extends Component {
       this.setState({ auth: false });
       console.log("no session");
     }
+    */
     console.log("this.state ", this.state);
   }
 
@@ -56,4 +58,6 @@ const mapStateToProps = state => {
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Header);
+//export default connect(mapStateToProps, mapDispatchToProps)(Header);
+
+export default Header;

@@ -85,7 +85,7 @@
 		if(isset($data->name)) $name = $data->name; else  $name = null;
 		if(isset($data->email)) $email = $data->email; else  $email = null;
 		if(isset($data->username)) $username = $data->username; else  $username = null;
-		if(isset($data->password)) $password = $data->password; else  $password = null;
+		if(isset($data->password)) $password = password_hash($data->password, PASSWORD_DEFAULT); else  $password = null;
 		if(isset($data->package)) $package = $data->package; else  $package = null;
 		
 		$verificationCode = md5(uniqid($email, true));

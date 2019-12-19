@@ -80,10 +80,12 @@ class LoginForm extends Component {
     if (this.clientValidate()) {
       this.clientValidate();
     } else {
+     
       let userData = {
         email: this.state.email,
         password: this.state.password
       };
+   
       //        this.props.userLogin(userData);
 
       await axios({
@@ -96,8 +98,6 @@ class LoginForm extends Component {
         data: JSON.stringify(userData)
       })
         .then(json => {
-          console.log("json", json.data);
-
           this.setState({
             auth: json.data.auth,
             userid: json.data.userid,
@@ -148,20 +148,17 @@ class LoginForm extends Component {
     });
   }
 
-  isLoggedIn = () => {
-    console.log(" this.props.auth ", this.props.auth);
-  };
 
   toggleLogin = () => {
     this.setState({ isFormVisible: !this.state.isFormVisible });
   }
   render() {
-    this.isLoggedIn();
+  
     return (
       <div>
 
         {this.state.isFormVisible ?
-          <Animated animationIn="fadeInLeftBig" animationOut="fadeOutLeftBig" isVisible={this.state.isFormVisible} >
+          <Animated animationIn="fadeInDown" animationOut="fadeInUp" isVisible={this.state.isFormVisible} >
             <Form id="toggleLoginForm">
               <FormGroup controlId="formHorizontalusername">
                 <Col xs={12} sm={5} style={TopMarginLoginBtn}>

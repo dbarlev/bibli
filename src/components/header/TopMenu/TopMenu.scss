@@ -1,6 +1,9 @@
 #TopNav {
     display: block;
 
+    a.topNavMenuItems.black{
+        font-size: 16px;
+    }
     @media(max-width:991px) {
         .container {
             display: flex;

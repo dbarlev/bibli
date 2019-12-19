@@ -20,7 +20,7 @@ class App extends Component {
   componentDidMount(){
     let userid = this.state.userid;
     let auth = this.state.auth;
-    console.log('app', this.state);
+    console.log('appכAF', this.state);
 
    
     if(auth === true){

@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { Nav, Navbar, NavItem, MenuItem, Row, Col, Grid } from "react-bootstrap";
 import { LinkContainer, IndexLinkContainer } from "react-router-bootstrap";
 // import { Redirect } from "react-route-dom";
-import { Redirect } from "react-router-dom";
+import { Redirect, Link } from "react-router-dom";
 import { connect } from "react-redux";
 
 import { userLogedIn } from "../../../actions";
@@ -11,13 +11,9 @@ import logoSrc from "../../img/bibli-logo.png";
 import { LogOut } from "../LogOut/LogOut";
 import LoginForm from "../../auth/LoginForm/LoginForm";
 import Takanon from "../../pages/Takanon";
+import SiteMassage from '../SiteMassage/SiteMassage'
 import "./TopMenu.scss"
 
-
-const texts = {
-    "": "התחבר/י",
-    true: "התנתק/י"
-};
 
 function eraseCookie(name) {
     document.cookie = name + "=; Max-Age=-99999999;";
@@ -33,12 +29,14 @@ class TopMenu extends Component {
         return <Redirect to="/" />;
     };
 
+
     render() {
         {
             console.log("this.props.loginState ", this.props.loginState);
         }
         return (
             <Grid fluid className="container">
+            <SiteMassage />
                 <Row>
                     <Col xs={12} sm={8} md={9} lg={8} style={TopMargin}>
                         <Navbar id="TopNav" className="nav-noStyle">
