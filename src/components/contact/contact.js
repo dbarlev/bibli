@@ -218,7 +218,7 @@ class Contact extends Component {
                 </div>
 
 
-                <Footer bottom />
+                <Footer />
             </div>
 
         )

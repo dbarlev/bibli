@@ -18,6 +18,7 @@ class App extends Component {
   
 
   componentDidMount(){
+ /*   console.log('appjs');
     let userid = this.state.userid;
     let auth = this.state.auth;
     console.log('appכAF', this.state);
@@ -31,6 +32,7 @@ class App extends Component {
       }
       this.props.userLogedIn(json); 
     }
+    */
   }
 
   render() {

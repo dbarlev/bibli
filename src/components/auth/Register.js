@@ -3,7 +3,6 @@ import ReactDOM from 'react-dom';
 import {connect} from 'react-redux';
 import Header from '../header/Header.js';
 import RegisterForm from './RegisterForm.js';
-import { userLogedIn } from '../../actions'; 
 import { InsertUserToDB } from '../../actions/ajax';
 
 

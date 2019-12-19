@@ -2,7 +2,6 @@
     input[type=text],
     input[type=email] {
         border: 1px solid black;
-        border-radius: 0;
         height: 40px;
     }
     #checkbox {
@@ -10,7 +9,7 @@
     }
     textarea {
         border: 1px solid black;
-        border-radius: 0;
+        border-radius: 20px;
     }
     .center-footer {
         right: 22%;

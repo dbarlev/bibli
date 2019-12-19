@@ -5,7 +5,7 @@ import { LinkContainer, IndexLinkContainer } from "react-router-bootstrap";
 import { Redirect, Link } from "react-router-dom";
 import { connect } from "react-redux";
 
-import { userLogedIn } from "../../../actions";
+import { userLogedIn } from "../../../actions"; //deletes the cookie value 
 
 import logoSrc from "../../img/bibli-logo.png";
 import { LogOut } from "../LogOut/LogOut";
@@ -31,9 +31,6 @@ class TopMenu extends Component {
 
 
     render() {
-        {
-            console.log("this.props.loginState ", this.props.loginState);
-        }
         return (
             <Grid fluid className="container">
             <SiteMassage />

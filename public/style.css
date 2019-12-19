@@ -4,8 +4,6 @@ body {
   height: 100%; }
 
 .page-wrap {
-  min-height: 81vh;
-  margin-bottom: -250px;
   margin-top: 0px; }
 
 .page-wrap:after {
@@ -1962,7 +1960,7 @@ button.searchRecordBtn {
   color: black !important; }
 
 #recordsListContainer {
-  height: 60vh;
+  min-height: 60vh;
   border: none; }
 
 .topNavMenuItems.active a {
@@ -2353,7 +2351,6 @@ ul#searchresults.open {
 #contact input[type=text],
 #contact input[type=email] {
   border: 1px solid black;
-  border-radius: 0;
   height: 40px; }
 
 #contact #checkbox {
@@ -2361,7 +2358,7 @@ ul#searchresults.open {
 
 #contact textarea {
   border: 1px solid black;
-  border-radius: 0; }
+  border-radius: 20px; }
 
 #contact .center-footer {
   right: 22%; }

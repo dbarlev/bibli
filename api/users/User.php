@@ -87,7 +87,7 @@
 		if(isset($data->username)) $username = $data->username; else  $username = null;
 		if(isset($data->password)) $password = password_hash($data->password, PASSWORD_DEFAULT); else  $password = null;
 		if(isset($data->package)) $package = $data->package; else  $package = null;
-		
+		$regtime = time();
 		$verificationCode = md5(uniqid($email, true));
 
 		//check if mail already exists in the database
@@ -113,8 +113,8 @@
 		}else{
 
 			$query = "INSERT INTO users
-						(usertype, name, username, password, email,verification_code, subscription) 
-						VALUES (?,?,?,?,?,?,?)";
+						(usertype, name, username, password, email,verification_code, subscription, regtime) 
+						VALUES (?,?,?,?,?,?,?, ?)";
 						
 			$stmt = $db->prepare($query);
 			$stmt->bindParam(1, $usertype);
@@ -124,6 +124,7 @@
 			$stmt->bindParam(5, $email);
 			$stmt->bindParam(6, $verificationCode);
 			$stmt->bindParam(7, $package);
+			$stmt->bindParam(8, $regtime);
 			
 
 			$stmt->execute();
