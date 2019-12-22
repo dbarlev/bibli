@@ -57,13 +57,13 @@ class BibList extends Component {
       return (
         <div>
           <img alt="" src={listImg} />
-          <h2>היי, אין לך עדיין רשימות...</h2>
+          <h2>היי, אין לך עדיין עבודות...</h2>
           <br />
           <LinkContainer
             className="topNavMenuItems white"
             to="/records/addNewList"
           >
-            <button className="btn btn-primary">ליצירת רשימה חדשה</button>
+            <button className="btn btn-primary">ליצירת עבודה חדשה</button>
           </LinkContainer>
         </div>
       );
