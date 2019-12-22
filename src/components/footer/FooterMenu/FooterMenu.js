@@ -23,6 +23,9 @@ class FooterMenu extends Component {
                     <LinkContainer to="/">
                         <MenuItem>האזור האישי</MenuItem>
                     </LinkContainer>
+                    <LinkContainer to="/login">
+                        <MenuItem>התחברות לאתר</MenuItem>
+                    </LinkContainer>
                     <li>עקבו אחרינו ב- <i className="fab fa-facebook-f"></i></li>
                 </ul>
             </div>

@@ -1,25 +1,20 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import axios from "axios";
-import { Redirect, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 import {
   Button,
   Form,
   FormGroup,
   FormControl,
   Col,
-  Alert,
-  Grid,
   Row
 } from "react-bootstrap";
 import { Animated } from "react-animated-css";
-import apiPath from "../../../constants/api";
 import { userLogedIn } from "../../../actions";
 import { userLogin } from "../../../actions/ajax";
-
+import { withRouter } from 'react-router-dom';
+import { LoginServerValidation } from '../LoginPage/LoginServerValidation';
 import "./LoginForm.scss";
-
-import { async } from "q";
 
 class LoginForm extends Component {
   constructor() {
@@ -28,14 +23,8 @@ class LoginForm extends Component {
       email: "",
       username: "",
       password: "",
-      auth: false,
-      usernameError: "",
-      passwordError: "",
-      EmptyUsernameError: "",
-      EmptyPasswordError: "",
-      notActiveUserError: "",
-      UserDoesNotExist: "",
-      userid: "",
+      errorMsg: "",
+      errorState: false,
       isFormVisible: false
     };
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -43,108 +32,39 @@ class LoginForm extends Component {
     this.toggleLogin = this.toggleLogin.bind(this);
   }
 
-  clientValidate = () => {
-    let isError = false;
+  clientValidate() {
 
-    if (this.state.email === "") {
-      isError = true;
-      this.setState({ EmptyUsernameError: "לא הזנתם דואר אלקטרוני" });
+    if (this.state.email.trim() === "" || this.state.password.trim() === "") {
+      this.setState({
+        errorMsgState: true,
+        errorMsg: "כל השדות חובה"
+      });
+      return false;
     }
-    if (this.state.password === "") {
-      isError = true;
-      this.setState({ EmptyPasswordError: "לא הזנתם סיסמה" });
-    }
-    return isError;
-  };
-
-  checkUserValidation() {
-    switch (this.state.error) {
-      case 1:
-        console.log("this.state 1", this.state);
-        this.setState({ afterValError: "משתשמש לא קיים" });
-        break;
-      case 2:
-        console.log("this.state 2", this.state);
-        this.setState({ afterValError: "חשבון לא מאומת" });
-        break;
-      case 3:
-        console.log("this.state 3", this.state);
-        this.setState({ afterValError: "סיסמה שגויה" });
-        break;
-    }
+    return true;
   }
 
   handleSubmit = async event => {
     event.preventDefault();
-
     if (this.clientValidate()) {
-      this.clientValidate();
-    } else {
-     
-      let userData = {
-        email: this.state.email,
-        password: this.state.password
-      };
-   
-      //        this.props.userLogin(userData);
 
-      await axios({
-        url: `${apiPath}/users/Login.php`,
-        method: "post",
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json"
-        },
-        data: JSON.stringify(userData)
-      })
-        .then(json => {
-          this.setState({
-            auth: json.data.auth,
-            userid: json.data.userid,
-            error: json.data.error
-          });
-          this.checkUserValidation();
-        })
-        .catch(error => console.log("parsing faild", error));
-    }
-  };
-  /*
-    handleSubmit = async (event) => { 
-        await this.onSubmitLogin(event);
-        this.checkUserValidation();
-    }
-    */
+      let response = await LoginServerValidation(this.state.email, this.state.password);
 
-  redirectUser = () => {
-    //console.log('state', this.state);
-    if (this.state.auth === true && this.state.userid != null) {
-      // localStorage.setItem('userid', this.props.userid);
-      // localStorage.setItem('auth', this.state.auth);
-      // localStorage.setItem('username', this.props.username);
-
-      const timestamp = new Date().getTime(); // current time
-      const exp = timestamp + 60 * 60 * 24 * 1000 * 7; // add one week
-
-      let auth = `auth=${this.props.auth};expires=${exp}`;
-      let userid = `userid=${this.state.userid};expires=${exp}`;
-
-      document.cookie = auth;
-      document.cookie = userid;
-
-      return <Redirect to="/records/biblist" />;
+      if (response && !response.success) {
+        this.setState({
+          errorMsg: response.data,
+          errorState: true
+        });
+      }
+      else if (response) {
+        this.props.history.push("/records/biblist");
+      }
     }
   };
 
   onChange(event) {
     this.setState({
-      //משום מה לא הצלחתי לעבוד עם ref הבנתי ששאפשר רק בתוך lifecyclemethod...
       [event.target.name]: event.target.value,
-      auth: false,
-      usernameError: "",
-      EmptyPasswordError: "",
-      EmptyUsernameError: "",
-      afterValError: ""
-
     });
   }
 
@@ -152,8 +72,8 @@ class LoginForm extends Component {
   toggleLogin = () => {
     this.setState({ isFormVisible: !this.state.isFormVisible });
   }
+
   render() {
-  
     return (
       <div>
 
@@ -195,7 +115,6 @@ class LoginForm extends Component {
                   >
                     התחבר
               </Button>
-                  {this.redirectUser()}
                 </Col>
                 <Col xs={8} className="text-right">
                   <Link to="/passwordrecovery">שכחתי את הסיסמה</Link>
@@ -204,38 +123,11 @@ class LoginForm extends Component {
                   <Link to="/#" onClick={this.toggleLogin}>סגור</Link>
                 </Col>
               </FormGroup>
-              {this.state.EmptyUsernameError ? (
+              {this.state.errorState &&
                 <div className="red-alert" bsStyle="danger">
-                  {" "}
-                  {this.state.EmptyUsernameError}{" "}
+                  {this.state.errorMsg}
                 </div>
-              ) : (
-                  ""
-                )}
-              {this.state.EmptyPasswordError ? (
-                <div className="red-alert" bsStyle="danger">
-                  {" "}
-                  {this.state.EmptyPasswordError}{" "}
-                </div>
-              ) : (
-                  ""
-                )}
-
-              {this.state.usernameError ? (
-                <div className="red-alert" bsStyle="danger">
-                  {" "}
-                  {this.state.usernameError}{" "}
-                </div>
-              ) : (
-                  ""
-                )}
-              {//PROBLEM!! state updates before props
-                this.state.afterValError ? (
-                  <div className="red-alert">{this.state.afterValError}</div>
-                ) : (
-                    ""
-                  )}
-
+              }
               <Row className="show-grid"></Row>
             </Form>
           </Animated>
@@ -251,11 +143,6 @@ class LoginForm extends Component {
 const bold = {
   fontWeight: "bolder"
 };
-const mapDispatchToProps = dispatch => {
-  return {
-    userLogedIn: params => dispatch(userLogedIn(params))
-  };
-};
 
 const mapStateToProps = state => {
   return {
@@ -265,7 +152,7 @@ const mapStateToProps = state => {
   };
 };
 
-export default connect(mapStateToProps, { userLogedIn, userLogin })(LoginForm);
+export default connect(mapStateToProps, { userLogedIn, userLogin })(withRouter(LoginForm));
 
 const TopMarginLoginBtn = {
   padding: "5px"

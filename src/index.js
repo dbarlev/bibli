@@ -8,7 +8,7 @@ import thunk from 'redux-thunk';
 
 import App from './components/App';
 import Register from './components/auth/Register';
-import Login from './components/auth/Login';
+import Login from './components/auth/LoginPage/LoginPage';
 import FrontPage from './components/frontpage/FrontPage';
 import Faq from './components/frontpage/Faq';
 import rootReducer from './reducers'
@@ -29,14 +29,14 @@ import './index.css';
 let store = createStore(
     rootReducer,
     compose(
-    applyMiddleware(thunk)    
+        applyMiddleware(thunk)
     )
 
 );
 store.subscribe(() => console.log('store subscribe', store.getState()))
 
 ReactDOM.render(
-      <Provider store={store}>
+    <Provider store={store}>
         <BrowserRouter basename='/'>
             <Switch>
                 <Route exact path="/" component={FrontPage} />
@@ -52,7 +52,7 @@ ReactDOM.render(
                 <Route path="/passwordrecovery" component={PasswordRecovery} /> //טופס הזנת כתובת מייל לשחזור סיסמא
                 <Route path="/passwordrecoveryedit/:token" component={PasswordRecoveryEdit} /> //שינוי של הסיסמא
                 <Route path="/records/biblist" component={Records} />
-                <Route path="/records/addNewList" component={Records}/>
+                <Route path="/records/addNewList" component={Records} />
                 <Route path="/records/addRecord" component={Records} />
                 <Route path="/records/editList" component={Records} />
                 <Route path="/records/editRecord" component={Records} />
@@ -60,5 +60,5 @@ ReactDOM.render(
         </BrowserRouter>
     </Provider>
     ,
-document.getElementById('root'));
+    document.getElementById('root'));
 registerServiceWorker();
