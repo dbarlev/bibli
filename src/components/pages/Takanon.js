@@ -90,7 +90,7 @@ class Takanon extends Component {
           </Col>
         </Row>
 
-        <Footer />
+        <Footer bottom />
       </Grid>
     );
   }

@@ -218,12 +218,13 @@ class Contact extends Component {
                 </div>
 
 
-                <Footer />
+                <Footer bottom />
             </div>
 
         )
     }
 }
+
 const mapStateToProps = state => {
     return {
         massageSent: state.emailMassageReducer.massageSent

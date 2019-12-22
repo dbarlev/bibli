@@ -1,21 +1,21 @@
 import React, { Component } from 'react'
-import {connect} from 'react-redux';
-import {Grid, Row, Button} from 'react-bootstrap'; 
-import {Link} from 'react-router-dom'; 
-import {Animated} from "react-animated-css";
-
-import {MailVerAction} from '../../actions/ajax';
+import { connect } from 'react-redux';
+import { Grid, Row, Button } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
+import { Animated } from "react-animated-css";
+import { withRouter } from 'react-router-dom';
+import { MailVerAction } from '../../actions/ajax';
 import Header from '../header/Header';
 import Footer from '../footer/Footer';
 import LoginForm from './LoginForm/LoginForm';
 
 
 class MailVerification extends Component {
-    constructor(props){
+    constructor(props) {
         super(props);
         console.log('props ', props);
 
-        this.state={
+        this.state = {
             showLogin: false
         }
     }
@@ -27,55 +27,48 @@ class MailVerification extends Component {
 
     componentDidMount() {
         this.props.MailVerAction(this.props.match.params.mailVer);
-         console.log('all MailVerAction props ', this.props)
+        console.log('all MailVerAction props ', this.props)
     }
 
     isVerified = (mailVer) => {
 
         let ans = '';
-        switch(Number(mailVer)){
+        switch (Number(mailVer)) {
             case 0:
-            ans = <div><p>לא נרשמת לאתר זה בעבר</p> <Link to="/" className="btn btn-warning"> הרשמו! <i class="fas fa-chevron-left "></i></Link></div>;
-            break;
+                ans = <div><p>לא נרשמת לאתר זה בעבר</p> <Link to="/" className="btn btn-warning"> הרשמו! <i class="fas fa-chevron-left "></i></Link></div>;
+                break;
 
             case 1:
-            ans = <div> <p>החשבון אושר בהצלחה</p> <Button onClick={this.displayLogin} className="btn btn-warning"> התחברו <i class="fas fa-chevron-left "></i></Button></div>;
-            break;
+                ans = <div> <p>החשבון אושר בהצלחה</p> <Button onClick={this.displayLogin} className="btn btn-warning"> התחברו <i class="fas fa-chevron-left "></i></Button></div>;
+                break;
 
             case 2:
-            ans =<div><p>החשבון אושר בעבר</p><Button onClick={this.displayLogin} className="btn btn-warning"> התחברו <i class="fas fa-chevron-left "></i></Button></div>;
-             break;
+                ans = <div><p>החשבון אושר בעבר</p><Button onClick={this.displayLogin} className="btn btn-warning"> התחברו <i class="fas fa-chevron-left "></i></Button></div>;
+                break;
 
             default:
-            ans = <div></div>;
-            break;
+                ans = <div></div>;
+                break;
         }
         return ans;
     }
 
     displayLogin = () => {
-        this.setState({showLogin: true});
-        console.log('displayLogin', this.state)
+        this.props.history.push("/login")
     }
+
     render() {
         return (
-        <Grid fluid className="jumbotron-main">
-            <Row>
-            <Header headline="אישור רישום"/>
+            <Grid fluid className="jumbotron-main">
+                <Row>
+                    <Header headline="אישור רישום" />
 
-            <Grid style={footer}>
-               { this.isVerified(this.props.user.mailver)}
-               {this.state.showLogin &&
-                <Animated animationIn="bounceInLeft" animationOut="fadeOut" isVisible={true}>
-                    <LoginForm onLoginForm={this}/>
-                </Animated>
-               }
+                    <Grid style={footer}>
+                        {this.isVerified(this.props.user.mailver)}
+                    </Grid>
+                    <Footer />
+                </Row>
             </Grid>
-
-            
-            <Footer />
-            </Row>
-        </Grid>
         )
     }
 }
@@ -89,10 +82,10 @@ const footer = {
 const mapStateToProps = (state) => {
     // console.log("state", state)
     return {
-    chooseSubscription: state.chooseSubscription,
-    user: state.userReducer,
-    mailVer: state.mailver
+        chooseSubscription: state.chooseSubscription,
+        user: state.userReducer,
+        mailVer: state.mailver
     }
 }
 
-export default connect(mapStateToProps, { MailVerAction })(MailVerification);
+export default connect(mapStateToProps, { MailVerAction })(withRouter(MailVerification));
