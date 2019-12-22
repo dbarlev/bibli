@@ -66,7 +66,7 @@ class MailVerification extends Component {
                     <Grid style={footer}>
                         {this.isVerified(this.props.user.mailver)}
                     </Grid>
-                    <Footer />
+                    <Footer bottom />
                 </Row>
             </Grid>
         )
