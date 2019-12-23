@@ -124,7 +124,7 @@ class LoginForm extends Component {
                 </Col>
               </FormGroup>
               {this.state.errorState &&
-                <div className="red-alert" bsStyle="danger">
+                <div className="red-alert" role="alert" bsStyle="danger">
                   {this.state.errorMsg}
                 </div>
               }
