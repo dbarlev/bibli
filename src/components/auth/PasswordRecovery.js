@@ -101,7 +101,7 @@ class PasswordRecovery extends Component {
                    
                 </Grid>
                  
-                <Footer bottom/>
+                <Footer bottom />
                 </div>
                 
                 )

@@ -36,7 +36,7 @@ class LoginForm extends Component {
 
     if (this.state.email.trim() === "" || this.state.password.trim() === "") {
       this.setState({
-        errorMsgState: true,
+        errorState: true,
         errorMsg: "כל השדות חובה"
       });
       return false;
