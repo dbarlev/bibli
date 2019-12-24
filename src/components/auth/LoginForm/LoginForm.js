@@ -33,7 +33,6 @@ class LoginForm extends Component {
   }
 
   clientValidate() {
-
     if (this.state.email.trim() === "" || this.state.password.trim() === "") {
       this.setState({
         errorState: true,
