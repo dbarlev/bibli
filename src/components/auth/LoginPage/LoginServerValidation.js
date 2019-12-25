@@ -1,4 +1,5 @@
 import { apiClient } from '../../../common/apiClient';
+const CryptoJS = require("crypto-js");
 
 export const LoginServerValidation = async (email, password) => {
     let userData = { email, password };
@@ -35,7 +36,7 @@ const setCookie = (auth, userid) => {
     const exp = timestamp + 60 * 60 * 24 * 1000 * 7; // add one week
 
     auth = `auth=${auth};expires=${exp}`;
-    userid = `userid=${userid};expires=${exp}`;
+    userid = `userid=${CryptoJS.AES.encrypt(userid, 'bibli data')};expires=${exp}`;
 
     document.cookie = auth;
     document.cookie = userid;
