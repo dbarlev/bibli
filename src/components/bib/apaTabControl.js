@@ -4,7 +4,7 @@ import ApaBooks from "./apa/ApaTypes/ApaBooks";
 import ApaPaper from "./apa/ApaTypes/ApaPaper";
 import ApaArticle from "./apa/ApaTypes/ApaArticle";
 import ApaWebsite from "./apa/ApaTypes/ApaWebsite";
-import { OverlayTrigger, Tooltip } from "react-bootstrap";
+import { OverlayTrigger, Tooltip, Col, Row } from "react-bootstrap";
 import './apaTabControl.scss';
 
 const checkActiveLink = routeToCheck => {
@@ -110,8 +110,8 @@ class ApaTabControl extends Component {
             />
           </ul>
         </div>
-        <div className="row">
-          <div className="col-md-9 col-xs-9">
+        <Row className="row">
+          <Col md={10} lg={10} xs={12}>
             <Route path="/records/addRecord/ApaBooks" component={ApaBooks} />
             <Route
               path="/records/addRecord/ApaWebsite"
@@ -133,8 +133,8 @@ class ApaTabControl extends Component {
               component={ApaArticle}
             />
             <Route path="/records/editRecord/paper/:id" component={ApaPaper} />
-          </div>
-        </div>
+          </Col>
+        </Row>
       </div>
     );
   }

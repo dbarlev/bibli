@@ -1,18 +1,20 @@
-import React, {Component} from 'react';
-import {connect} from 'react-redux';
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import {
   FormGroup,
   FormControl,
   Col,
-  HelpBlock
+  HelpBlock,
+  Row,
+  Tooltip,
+  OverlayTrigger
 } from 'react-bootstrap';
-
+import './WritersForm.scss';
 
 
 class WritersForm extends Component {
 
-  constructor()
-  {
+  constructor() {
     super();
     this.state = {
       firstName: "",
@@ -22,72 +24,88 @@ class WritersForm extends Component {
     }
   }
 
-  checkFormMode()
-  {
+  checkFormMode() {
     let name = this.props.name;
 
-    if(name.firstName === "" || name.lastName === "" || name.writerID === "")
+    if (name.firstName === "" || name.lastName === "" || name.writerID === "")
       return;
 
-    if(this.state.modeChanged)
+    if (this.state.modeChanged)
       return;
 
-    
 
-    if(window.location.href.indexOf("editRecord") > -1)
-    {
-       this.setState({
-         modeChanged: true
-       });
+
+    if (window.location.href.indexOf("editRecord") > -1) {
+      this.setState({
+        modeChanged: true
+      });
       this.firstNameChange(name.firstName);
       this.lastNameChange(name.lastName);
     }
   }
 
-  firstNameChange(value)
-  {    
+  firstNameChange(value) {
     this.setState({
       firstName: value,
       writerID: "writerName" + this.props.index
     }, () => {
-      this.props.onWriterChange(this.state);   
-    }); 
+      this.props.onWriterChange(this.state);
+    });
   }
 
-  lastNameChange(value)
-  {
+  lastNameChange(value) {
     this.setState({
       lastName: value,
       writerID: "writerName" + this.props.index
     }, () => {
-      this.props.onWriterChange(this.state); 
-    });    
+      this.props.onWriterChange(this.state);
+    });
   }
 
-  removeWriter(event)
-  {
-      this.props.onRemoveWriter();   
+  removeWriter(event) {
+    this.props.onRemoveWriter();
   }
 
   render() {
     return (
       <div id="writersForm">
+        <Row>
+          <Col md={4} lg={4} xs={4} className="col">
             <FormGroup controlId={"firstName" + this.props.index}>
-                <Col>
-                    <FormControl className="apa" placeholder="שם פרטי"  value={this.state.firstName} onChange={ (event) => this.firstNameChange(event.target.value) } ref="editorPrivateName" type="text" />
-                    <HelpBlock role="status" aria-live="polite"></HelpBlock>
-                </Col>
+              <FormControl placeholder="שם פרטי" value={this.state.firstName} onChange={(event) => this.firstNameChange(event.target.value)} ref="editorPrivateName" type="text" />
+              <HelpBlock role="status" aria-live="polite"></HelpBlock>
             </FormGroup>
+          </Col>
+          <Col md={4} lg={4} xs={5}>
             <FormGroup controlId={"lastName" + this.props.index}>
-                <Col>
-                    <FormControl className="apa" placeholder="שם משפחה" onChange={ (event) => this.lastNameChange(event.target.value)  } value={this.state.lastName} ref="editorLastName" type="text" />
-                    <HelpBlock role="status" aria-live="polite"></HelpBlock>
-                </Col>
+              <FormControl placeholder="שם משפחה" onChange={(event) => this.lastNameChange(event.target.value)} value={this.state.lastName} ref="editorLastName" type="text" />
+              <HelpBlock role="status" aria-live="polite"></HelpBlock>
             </FormGroup>
-            {
-              this.checkFormMode()
-            }
-      </div>
+          </Col>
+          {
+            this.props.writerLength > 1 &&
+            <Col md={1} lg={1} xs={1} className="btnCol">
+              <OverlayTrigger placement="top" overlay={<Tooltip>מחק מחבר</Tooltip>}>
+                <span onClick={() => this.props.onRemoveWriter()} aria-label="מחק מחבר"><i class="far fa-trash-alt"></i></span>
+              </OverlayTrigger>
+            </Col>
+          }
+          {
+            this.props.addMoreButton && (
+              <Col md={1} lg={1} xs={1} className="btnCol">
+                <OverlayTrigger placement="top" overlay={<Tooltip>הוסף מחבר</Tooltip>}>
+                  <span onClick={() => this.props.onAddMoreWriter()} aria-label="הוסף מחבר"><i class="fas fa-plus"></i></span>
+                </OverlayTrigger>
+              </Col>
+            )
+          }
+
+
+        </Row>
+        {
+          this.checkFormMode()
+        }
+      </div >
 
     );
   }
@@ -95,7 +113,7 @@ class WritersForm extends Component {
 
 const mapStateToProps = (state) => {
   return {
-      getEditRecord: state.getEditRecord
+    getEditRecord: state.getEditRecord
   }
 }
 

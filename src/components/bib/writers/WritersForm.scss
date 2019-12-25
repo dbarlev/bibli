@@ -1,0 +1,36 @@
+ @import '../../../../public/scss/variables';
+
+#writersForm{
+    margin-right: -15px;
+    margin-left: -15px;
+    margin-top: 10px;
+    
+    .col{
+        padding-right: 0;
+    }
+
+    .form-group{
+        margin-right: 2px;
+
+        input{
+            border-radius: 10px;
+        }
+    }
+
+    .btnCol{
+        margin-top: 6px;
+    }
+
+    i{
+        cursor: pointer;
+    }
+
+    .fa-plus{
+        color: $mainBlueColor;
+    }
+
+    .fa-trash-alt{
+        color: #d62828;
+    }
+    
+}

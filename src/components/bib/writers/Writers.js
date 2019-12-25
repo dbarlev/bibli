@@ -46,12 +46,16 @@ class Writers extends Component {
   }
 
   createWriterFeilds(writer, index) {
-    let { editValues, editMode } = this.props;
+    let { writers } = this.state;
+    const isAddMoreButton = index === writers.length - 1 ? true : false;
     return (
       <WritersForm
         key={index}
         index={index}
         name={writer}
+        addMoreButton={isAddMoreButton}
+        writerLength={writers.length}
+        onAddMoreWriter={() => this.addWriter()}
         onRemoveWriter={this.removeWriter.bind(this)}
         onWriterChange={this.getWritersNames.bind(this)}
       />
@@ -89,42 +93,24 @@ class Writers extends Component {
   // not finished, currently it's remove the writer, should be given a name to delete.
   removeWriter() {
     var writers = this.state.writers;
-    writers.pop();
-    this.setState({ writers: writers });
+    if (writers.length > 1) {
+      writers.pop();
+      this.setState({ writers: writers });
+    }
   }
 
   render() {
+    const { writers } = this.state
+
+
     return (
       <div id="writersFeilds">
         <div className="row">
           <strong role="heading" aria-level="3" className="pull-right level3">
             שם המחבר<i class="fas fa-user-edit pull-right"></i>
           </strong>
-          <div
-            id="addWriterBtn"
-            className="btn"
-            style={{
-              background: "white",
-              color: "black",
-              float: "left",
-              marginLeft: "40px",
-              border: "2px solid #204260",
-              borderRadius: "5px"
-            }}
-            onClick={this.addWriter.bind(this)}
-            title="הוסף מחבר"
-            aria-label="הוסף מחבר"
-          >
-            <i class="fas fa-plus black-icon" style={{ color: "black" }}></i>
-            <span
-              style={{ fontSize: "14px", color: "black", fontWeight: "bold" }}
-            >
-              {" "}
-              הוסף מחבר{" "}
-            </span>
-          </div>
         </div>
-        {this.state.writers.map((writer, index) =>
+        {writers.map((writer, index) =>
           this.createWriterFeilds(writer, index)
         )}
         {this.checkFormMode()}
