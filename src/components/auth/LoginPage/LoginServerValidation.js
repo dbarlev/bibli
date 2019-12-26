@@ -1,4 +1,5 @@
 import { apiClient } from '../../../common/apiClient';
+import React, { Component }  from 'react';
 const CryptoJS = require("crypto-js");
 
 export const LoginServerValidation = async (email, password) => {
@@ -14,6 +15,11 @@ export const LoginServerValidation = async (email, password) => {
     }
 }
 
+const sendNewConfMail = () =>{
+    console.log('sendNewConfMail');
+   
+}
+
 const checkUserValidation = (error) => {
     let afterValError;
     switch (error) {
@@ -21,7 +27,7 @@ const checkUserValidation = (error) => {
             afterValError = "משתשמש לא קיים";
             break;
         case 2:
-            afterValError = "חשבון לא מאומת";
+            {afterValError = <span>החשבון לא אומת <a onClick={sendNewConfMail}>לחץ כאן כדי לקבל מייל אימות חדש</a></span>}
             break;
         case 3:
             afterValError = "סיסמה שגויה";

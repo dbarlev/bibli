@@ -64,7 +64,12 @@ class LoginForm extends Component {
   onChange(event) {
     this.setState({
       [event.target.name]: event.target.value,
+      errorMsg: '',
+      errorState: false
+
     });
+
+
   }
 
 
@@ -78,6 +83,11 @@ class LoginForm extends Component {
 
         {this.state.isFormVisible ?
           <Animated animationIn="fadeInDown" animationOut="fadeInUp" isVisible={this.state.isFormVisible} >
+          {this.state.errorState &&
+            <div id="headerLogin" className="red-alert" role="alert" bsStyle="danger">
+              {this.state.errorMsg}
+            </div>
+          }
             <Form id="toggleLoginForm">
               <FormGroup controlId="formHorizontalusername">
                 <Col xs={12} sm={5} style={TopMarginLoginBtn}>
@@ -122,11 +132,7 @@ class LoginForm extends Component {
                   <Link to="/#" onClick={this.toggleLogin}>סגור</Link>
                 </Col>
               </FormGroup>
-              {this.state.errorState &&
-                <div className="red-alert" role="alert" bsStyle="danger">
-                  {this.state.errorMsg}
-                </div>
-              }
+             
               <Row className="show-grid"></Row>
             </Form>
           </Animated>

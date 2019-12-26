@@ -33,8 +33,8 @@ class TopMenu extends Component {
     render() {
         return (
             <Grid fluid className="container">
-            <SiteMassage />
-                <Row>
+                <SiteMassage />
+                <Row id="mainMenuRow">
                     <Col xs={12} sm={8} md={9} lg={8} style={TopMargin}>
                         <Navbar id="TopNav" className="nav-noStyle">
                             <Navbar.Header>

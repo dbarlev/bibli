@@ -13,12 +13,12 @@ class Header extends Component {
   };
 
   componentWillMount() {
-    /*
+    
     let userid = this.state.userid;
     let auth = this.state.auth;
     let username = this.state.username;
     if (auth) {
-      console.log("logged in x");
+     
       const json = {
         userid,
         auth,
@@ -27,10 +27,10 @@ class Header extends Component {
       this.props.userLogedIn(json);
     } else {
       this.setState({ auth: false });
-      console.log("no session");
+    
     }
-    */
-    console.log("this.state ", this.state);
+    
+
   }
 
   render() {

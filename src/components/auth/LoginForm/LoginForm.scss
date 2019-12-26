@@ -1,3 +1,9 @@
+#headerLogin{
+ 
+        position: absolute;
+        top: 0;
+  
+
 #toggleLoginForm {
     @media(max-width: 1200px) {
         position: fixed;
@@ -26,6 +32,7 @@
     }
 }
 
+}
 #loginFormCont {
 
 
@@ -43,7 +50,7 @@
         margin: 0;
         left: 0;
         position: absolute;
-        top: 118px;
+        top: 98px;
     }
 }
 
