@@ -1,6 +1,7 @@
+
 #mainMenuRow {
     position: relative;     
-    top: 40px;
+    top: 20px;
 
     #TopNav {
         display: block;
@@ -61,4 +62,9 @@
         }
 
     }
+}
+
+#mainMenuRow.showMsg{
+    position: relative;  
+    top: 40px;
 }

@@ -20,6 +20,16 @@ function eraseCookie(name) {
 }
 
 class TopMenu extends Component {
+
+    constructor() {
+
+        super();
+
+        this.state = {
+            showErrClass: false
+        }
+    }
+
     logOut = () => {
         eraseCookie("auth");
         eraseCookie("userid");
@@ -31,10 +41,12 @@ class TopMenu extends Component {
 
 
     render() {
+
+        const { showErrClass } = this.state;
         return (
             <Grid fluid className="container">
                 <SiteMassage />
-                <Row id="mainMenuRow">
+                <Row id="mainMenuRow" className={showErrClass ? "showMsg" : ""}>
                     <Col xs={12} sm={8} md={9} lg={8} style={TopMargin}>
                         <Navbar id="TopNav" className="nav-noStyle">
                             <Navbar.Header>
@@ -75,7 +87,7 @@ class TopMenu extends Component {
                         {this.props.loginState ? (
                             <LogOut />
                         ) : (
-                                <LoginForm />
+                                <LoginForm showError={() => this.setState({ showErrClass: true })} />
                             )}
                     </Col>
                 </Row>

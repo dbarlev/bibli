@@ -4,13 +4,14 @@ import {
     ADD_USER,
     USER_MAIL_VERIFICATION,
     ACTIVE_BIBLIST,
-    LOGGED_IN, 
+    LOGGED_IN,
     PASS_RECOVERY,
-    EXPORT_RECORD_TO_WORD
+    EXPORT_RECORD_TO_WORD,
+    GET_BIBLIST_NAMES_FROM_DB
 } from './consts';
 
 
-export function exportRecordData(value){
+export function exportRecordData(value) {
     return {
         type: EXPORT_RECORD_TO_WORD,
         value
@@ -25,7 +26,7 @@ export function chooseSubscription(value, name) {
     }
 }
 
-export function activeBiblist(biblistItem){
+export function activeBiblist(biblistItem) {
     return {
         type: ACTIVE_BIBLIST,
         value: biblistItem
@@ -56,25 +57,35 @@ export function MailVerAction(obj) {
     }
 }
 
-export function userLogedIn(user){
+export function userLogedIn(user) {
     console.log('LOGGED_IN action');
     console.log('LOGGED_IN user', user);
 
-    return{
+    return {
         type: LOGGED_IN,
         userid: user.userid,
         email: user.email
     }
-    
+
 }
 
 
 export function PassRecovery(data) {
-    console.log('PassRecovery', data);
-    return{
+    return {
         type: PASS_RECOVERY,
         email: data
     }
 }
+
+
+export const getBibListNamesFromDB = (userid, value) => {
+    return dispatch => {
+        dispatch({
+            type: GET_BIBLIST_NAMES_FROM_DB,
+            value: value,
+            userid: userid
+        });
+    };
+};
 
 

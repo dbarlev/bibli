@@ -1,25 +1,17 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { getRecordsFromDB } from "../../../actions/ajax";
 import { activeBiblist } from "../../../actions/index";
 import BibListItem from "./BibListItem";
 import BiblistHeading from "./BiblistHeading";
-import { LinkContainer } from "react-router-bootstrap";
-import listImg from "../../img/list.png";
-import { getCookie } from "../../Services/GetCookies";
+import { withRouter } from "react-router-dom";
+import { He } from './texts';
 
 class BibList extends Component {
-  componentDidMount() {
-    let userid = getCookie("userid");
-    this.props.getRecordsFromDB(userid, 0);
-  }
 
   renderRecords() {
     const {
       getBiblistFromDB,
       getBiblistNamesFromDB,
-      getRecordsFromDB,
-      activeBiblist,
       activeBiblistData
     } = this.props;
 
@@ -36,7 +28,8 @@ class BibList extends Component {
             />
           );
       });
-    } else if (!activeBiblistData.id && getBiblistNamesFromDB.length > 0) {
+    } 
+    else if (!activeBiblistData.id && getBiblistNamesFromDB.length > 0) {
       // default situation, show first list result
       let DefaultListId = getBiblistNamesFromDB[0];
       this.props.activeBiblist(DefaultListId);
@@ -51,22 +44,6 @@ class BibList extends Component {
             />
           );
       });
-    }
-    if (!getBiblistNamesFromDB.length) {
-      //there is no biblist
-      return (
-        <div>
-          <img alt="" src={listImg} />
-          <h2>היי, אין לך עדיין עבודות...</h2>
-          <br />
-          <LinkContainer
-            className="topNavMenuItems white"
-            to="/records/addNewList"
-          >
-            <button className="btn btn-primary">ליצירת עבודה חדשה</button>
-          </LinkContainer>
-        </div>
-      );
     }
   }
 
@@ -93,6 +70,6 @@ const mapStateToProps = state => {
   };
 };
 
-export default connect(mapStateToProps, { getRecordsFromDB, activeBiblist })(
-  BibList
+export default connect(mapStateToProps, { activeBiblist})(
+  withRouter(BibList)
 );

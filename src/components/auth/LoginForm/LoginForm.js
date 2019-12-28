@@ -38,6 +38,7 @@ class LoginForm extends Component {
         errorState: true,
         errorMsg: "כל השדות חובה"
       });
+      this.props.showError();
       return false;
     }
     return true;
@@ -54,6 +55,7 @@ class LoginForm extends Component {
           errorMsg: response.data,
           errorState: true
         });
+        this.props.showError();
       }
       else if (response) {
         this.props.history.push("/records/biblist");
@@ -83,11 +85,11 @@ class LoginForm extends Component {
 
         {this.state.isFormVisible ?
           <Animated animationIn="fadeInDown" animationOut="fadeInUp" isVisible={this.state.isFormVisible} >
-          {this.state.errorState &&
-            <div id="headerLogin" className="red-alert" role="alert" bsStyle="danger">
-              {this.state.errorMsg}
-            </div>
-          }
+            {this.state.errorState &&
+              <div id="headerLogin" className="red-alert" role="alert" bsStyle="danger">
+                {this.state.errorMsg}
+              </div>
+            }
             <Form id="toggleLoginForm">
               <FormGroup controlId="formHorizontalusername">
                 <Col xs={12} sm={5} style={TopMarginLoginBtn}>
@@ -132,7 +134,7 @@ class LoginForm extends Component {
                   <Link to="/#" onClick={this.toggleLogin}>סגור</Link>
                 </Col>
               </FormGroup>
-             
+
               <Row className="show-grid"></Row>
             </Form>
           </Animated>

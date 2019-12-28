@@ -5,7 +5,8 @@ import Writers from "../../writers/Writers";
 import { Button, Form, FormGroup, Col, Alert } from "react-bootstrap";
 import ApaFormField from "./ApaFormField";
 import Select from "react-select";
-import { SELECT_PRINT_TYPE, SELECT_ONLINE_TYPE } from "../ApaTypes/consts";
+import { SELECT_PRINT_TYPE } from "../ApaTypes/consts";
+import AddOrChooseList from '../../listOfRecords/addOrChooseList';
 import './ApaForm.scss';
 
 class ApaForm extends Component {
@@ -20,9 +21,11 @@ class ApaForm extends Component {
       selectValue: "בדפוס",
       selectChanged: false,
       validationError: false,
-      validationErrorText: "חובה למלא את כל השדות בטופס"
+      validationErrorText: "חובה למלא את כל השדות בטופס",
+      showModal: false
     };
   }
+
 
   checkFormMode() {
     if (this.state.modeChange) return;
@@ -80,6 +83,11 @@ class ApaForm extends Component {
 
   formValidation(event) {
     event.preventDefault();
+    const { activeBiblist } = this.props;
+    if (activeBiblist && activeBiblist.length == 0) {
+      this.setState({ showModal: true })
+      return;
+    }
 
     let inputElements = event.target.form.querySelectorAll(".form-group input");
     let isValid = true;
@@ -135,6 +143,7 @@ class ApaForm extends Component {
           </Form>
         </div>
         {this.checkFormMode()}
+        {this.state.showModal && <AddOrChooseList onClose={() => this.setState({ showModal: false })} />}
       </div>
     );
   }
@@ -142,7 +151,8 @@ class ApaForm extends Component {
 
 const mapStateToProps = state => {
   return {
-    getEditRecord: state.getEditRecord
+    getEditRecord: state.getEditRecord,
+    activeBiblist: state.activeBiblist
   };
 };
 

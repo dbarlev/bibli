@@ -13,23 +13,23 @@ class Header extends Component {
   };
 
   componentWillMount() {
-    
-    let userid = this.state.userid;
-    let auth = this.state.auth;
-    let username = this.state.username;
-    if (auth) {
-     
-      const json = {
-        userid,
-        auth,
-        username
-      };
-      this.props.userLogedIn(json);
-    } else {
-      this.setState({ auth: false });
-    
-    }
-    
+
+    // let userid = this.state.userid;
+    // let auth = this.state.auth;
+    // let username = this.state.username;
+    // if (auth) {
+
+    //   const json = {
+    //     userid,
+    //     auth,
+    //     username
+    //   };
+    //   this.props.userLogedIn(json);
+    // } else {
+    //   this.setState({ auth: false });
+
+    // }
+
 
   }
 

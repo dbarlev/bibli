@@ -1,10 +1,13 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { LinkContainer } from "react-router-bootstrap";
-import { DeleteBibList } from "../../../actions/ajax";
+import { DeleteBibList, InsertBibListToDB } from "../../../actions/ajax";
 import { activeBiblist } from "../../../actions";
 import { OverlayTrigger, Tooltip } from "react-bootstrap";
 import Confirm from "../../Modal/Confirm";
+import Alert from "../../Modal/Alert";
+import { He } from './texts';
+
 import {
   Document,
   Packer,
@@ -16,8 +19,6 @@ import {
   Media
 } from "docx";
 import { saveAs } from "file-saver";
-import * as fs from "fs";
-
 import { base64Logo } from "./const";
 
 class BiblistHeading extends Component {
@@ -30,17 +31,26 @@ class BiblistHeading extends Component {
   }
 
   onDeleteList() {
-    const { activeBiblistData } = this.props;
-    this.props.DeleteBibList(activeBiblistData.userid, activeBiblistData.id);
+    const { activeBiblistData, getBiblistNamesFromDB } = this.props;
+    if (getBiblistNamesFromDB && getBiblistNamesFromDB.length > 1) {
+      this.props.DeleteBibList(activeBiblistData.userid, activeBiblistData.id);
+    }
     this.setState({ ...this.state, show: false });
   }
 
   renderBibListTitle() {
-    const { activeBiblistData } = this.props;
-    if (activeBiblistData.Name) {
+    const { activeBiblistData, getBiblistNamesFromDB } = this.props;
+    if (activeBiblistData && activeBiblistData.Name) {
       return (
         <h2>
           ביבליוגרפיה של <strong>{activeBiblistData.Name}</strong>
+        </h2>
+      );
+    }
+    else if (getBiblistNamesFromDB && getBiblistNamesFromDB.length === 1) {
+      return (
+        <h2>
+          ביבליוגרפיה של <strong>{getBiblistNamesFromDB[0].Name}</strong>
         </h2>
       );
     }
@@ -101,7 +111,6 @@ class BiblistHeading extends Component {
     });
 
     Packer.toBlob(doc).then(blob => {
-      console.log(blob);
       saveAs(blob, "bibli.docx");
       console.log("Document created successfully");
     });
@@ -181,7 +190,7 @@ class BiblistHeading extends Component {
     const { activeBiblistData, addRecordBtn } = this.props;
     if (activeBiblistData.Name && addRecordBtn != "false") {
       return (
-        <LinkContainer to="/records/addRecord/ApaBooks">
+        <LinkContainer to={`/records/addRecord/ApaBooks/${activeBiblistData.id}`}>
           <button className="btn pull-right" id="addRecordBtn">
             <i className="fas fa-plus"></i> הוספת פריט{" "}
           </button>
@@ -191,6 +200,8 @@ class BiblistHeading extends Component {
   }
 
   render() {
+
+    const { getBiblistNamesFromDB } = this.props;
     return (
       <div className="biblistHeading align-right">
         <div className="row">
@@ -198,12 +209,20 @@ class BiblistHeading extends Component {
           <div className="col-sm-5">{this.renderConfigBtns()}</div>
         </div>
         {this.renderAddItemBtn()}
-        <Confirm
-          onHide={() => this.setState({ ...this.state, show: false })}
-          msg="האם ברצונך למחוק את כל הרשימה?"
-          show={this.state.show}
-          onConfirm={this.onDeleteList.bind(this)}
-        />
+        {getBiblistNamesFromDB && getBiblistNamesFromDB.length > 1 ?
+          <Confirm
+            onHide={() => this.setState({ ...this.state, show: false })}
+            msg={He.DELETE_CONFIRM_MSG}
+            show={this.state.show}
+            onConfirm={this.onDeleteList.bind(this)}
+          />
+          :
+          <Alert
+            onHide={() => this.setState({ ...this.state, show: false })}
+            msg={He.DELETE_ALERT_MSG}
+            show={this.state.show}
+          />
+        }
       </div>
     );
   }
@@ -217,6 +236,6 @@ const mapStateToProps = state => {
   };
 };
 
-export default connect(mapStateToProps, { DeleteBibList, activeBiblist })(
+export default connect(mapStateToProps, { DeleteBibList, activeBiblist, InsertBibListToDB })(
   BiblistHeading
 );

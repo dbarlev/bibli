@@ -12,27 +12,21 @@ import {
   PASS_RECOVERY_EDIT,
   CONTACT_US_MASSAGE,
   JOIN_MAIL_LIST,
-  USER_LOGIN
+  USER_LOGIN,
+  ACTIVE_BIBLIST
 } from "./consts";
 import axios from "axios";
 import apiPath from "../constants/api";
 
-export const getBibListNamesFromDB = userID => {
+export const saveRecordsOnStore = (userid, records) => {
   return dispatch => {
-    axios
-      .get(`${apiPath}/biblist/${userID}`)
-      .then(function(response) {
-        dispatch({
-          type: GET_BIBLIST_NAMES_FROM_DB,
-          value: response.data,
-          userid: userID
-        });
-      })
-      .catch(function(error) {
-        console.log(error);
-      });
-  };
-};
+    dispatch({
+      type: GET_BIBLIST_FROM_DB,
+      value: records,
+      userid: userid
+    });
+  }
+}
 
 export const getRecordsFromDB = (userID, biblistID, listName) => {
   return dispatch => {
@@ -40,7 +34,7 @@ export const getRecordsFromDB = (userID, biblistID, listName) => {
       .get(
         `${apiPath}/biblioRecords/Records.php?userid=${userID}&biblistID=${biblistID}`
       )
-      .then(function(response) {
+      .then(function (response) {
         dispatch({
           type: GET_BIBLIST_FROM_DB,
           value: response.data,
@@ -48,7 +42,7 @@ export const getRecordsFromDB = (userID, biblistID, listName) => {
           listName
         });
       })
-      .catch(function(error) {
+      .catch(function (error) {
         console.log(error);
       });
   };
@@ -58,10 +52,10 @@ export const getSingleRecord = recordID => {
   return dispatch => {
     axios
       .get(`${apiPath}/biblioRecords/Records.php?recordID=${recordID}`)
-      .then(function(response) {
+      .then(function (response) {
         dispatch({ type: GET_RECORD, value: response.data });
       })
-      .catch(function(error) {
+      .catch(function (error) {
         console.log(error);
       });
   };
@@ -79,10 +73,10 @@ export const DeleteRecordFromUser = (userID, recordID, biblistID) => {
       .put(
         `${apiPath}/biblioRecords/Records.php/?userid=${userID}&recordID=${recordID}&biblistID=${biblistID}`
       )
-      .then(function(response) {
+      .then(function (response) {
         dispatch({ type: DELETE_RECORD_FROM_USER, value: response.data });
       })
-      .catch(function(error) {
+      .catch(function (error) {
         console.log(error);
       });
   };
@@ -99,10 +93,10 @@ export const EditRecord = data => {
       },
       data: JSON.stringify(data)
     })
-      .then(function(response) {
+      .then(function (response) {
         dispatch({ type: INSERT_RECORD_TO_USER, value: response.data });
       })
-      .catch(function(error) {
+      .catch(function (error) {
         console.log(error);
       });
   };
@@ -125,14 +119,14 @@ export const EditBiblistName = (userID, biblistID, name) => {
       },
       data: JSON.stringify(data)
     })
-      .then(function(response) {
+      .then(function (response) {
         dispatch({
           type: GET_BIBLIST_NAMES_FROM_DB,
           value: response.data,
           editName: true
         });
       })
-      .catch(function(error) {
+      .catch(function (error) {
         console.log(error);
       });
   };
@@ -144,10 +138,10 @@ export const DeleteBibList = (userID, biblistID) => {
       .delete(
         `${apiPath}/biblioRecords/Biblist.php/?userid=${userID}&biblistID=${biblistID}`
       )
-      .then(function(response) {
+      .then(function (response) {
         dispatch({ type: DELETE_BIBLIST, value: response.data });
       })
-      .catch(function(error) {
+      .catch(function (error) {
         console.log(error);
       });
   };
@@ -164,10 +158,10 @@ export const InsertRecordToDB = (data, listID) => {
       },
       data: JSON.stringify(data)
     })
-      .then(function(response) {
+      .then(function (response) {
         dispatch({ type: INSERT_RECORD_TO_USER, value: response.data });
       })
-      .catch(function(error) {
+      .catch(function (error) {
         console.log(error);
       });
   };
@@ -184,14 +178,18 @@ export const InsertBibListToDB = data => {
       },
       data: JSON.stringify(data)
     })
-      .then(function(response) {
+      .then(function (response) {
         dispatch({
           type: GET_BIBLIST_NAMES_FROM_DB,
           value: response.data,
           newName: true
         });
+        dispatch({
+          type: ACTIVE_BIBLIST,
+          value: response.data[response.data.length - 1]
+        });
       })
-      .catch(function(error) {
+      .catch(function (error) {
         console.log(error);
       });
   };
@@ -216,10 +214,10 @@ export const userLogin = userData => {
       },
       data: JSON.stringify(userData)
     })
-      .then(function(response) {
+      .then(function (response) {
         dispatch({ type: USER_LOGIN, value: response.data });
       })
-      .catch(function(error) {
+      .catch(function (error) {
         console.log(error);
       });
   };
@@ -238,10 +236,10 @@ export const MailVerAction = data => {
       },
       data: JSON.stringify(data)
     })
-      .then(function(response) {
+      .then(function (response) {
         dispatch({ type: USER_MAIL_VERIFICATION, value: response.data });
       })
-      .catch(function(error) {
+      .catch(function (error) {
         console.log(error);
       });
   };
@@ -251,10 +249,10 @@ export const BibSearchAction = q => {
   return dispatch => {
     axios
       .get(`${apiPath}/biblioRecords/Bibsearch.php?q=${q}`)
-      .then(function(response) {
+      .then(function (response) {
         dispatch({ type: BIB_SEARCH, value: response.data });
       })
-      .catch(function(error) {
+      .catch(function (error) {
         console.log(error);
       });
   };
@@ -264,10 +262,10 @@ export const PassRecoveryAction = email => {
   return dispatch => {
     axios
       .post(`${apiPath}/users/Passrecovery.php?email=${email}`)
-      .then(function(response) {
+      .then(function (response) {
         dispatch({ type: PASS_RECOVERY, value: response.data });
       })
-      .catch(function(error) {
+      .catch(function (error) {
         console.log(error);
       });
   };
@@ -280,10 +278,10 @@ export const PassRecoveryEdit = data => {
   return dispatch => {
     axios
       .put(url)
-      .then(function(response) {
+      .then(function (response) {
         dispatch({ type: PASS_RECOVERY_EDIT, value: response.data });
       })
-      .catch(function(error) {
+      .catch(function (error) {
         console.log(error);
       });
   };
@@ -296,10 +294,10 @@ export const sendMassage = data => {
   return dispatch => {
     axios
       .post(url)
-      .then(function(response) {
+      .then(function (response) {
         dispatch({ type: CONTACT_US_MASSAGE, value: response.data });
       })
-      .catch(function(error) {
+      .catch(function (error) {
         console.log(error);
       });
   };
@@ -312,10 +310,10 @@ export const joinMalList = data => {
   return dispatch => {
     axios
       .put(url)
-      .then(function(response) {
+      .then(function (response) {
         dispatch({ type: JOIN_MAIL_LIST, value: response.data });
       })
-      .catch(function(error) {
+      .catch(function (error) {
         console.log(error);
       });
   };
