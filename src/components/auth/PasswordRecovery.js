@@ -64,17 +64,18 @@ class PasswordRecovery extends Component {
                     <Row>
                         <div className="col-xs-12 col-md-4 col-md-offset-4">
                             <Form horizontal onSubmit={this.onSubmitPassRec.bind(this)}>
-                                <FormGroup controlId="formHorizontalusername">
-                                  
+                               
+                            <FormGroup controlId="formHorizontalusername">
+                            {
+                                this.state.emailIsEmpty ?
+                                <div className="red-alert" bsStyle="danger">לא הוזנה כתובת דואר אלקטרוני</div>
+                                 :
+                                    ''
+                            }
                                     
                                         <FormControl ref="email" name="email" type="email" onChange={this.onChange} placeholder="הקלד דואר אלקטרוני" />
 
-                                        {
-                                            this.state.emailIsEmpty ?
-                                            <div className="red-alert" bsStyle="danger">לא הוזנה כתובת דואר אלקטרוני</div>
-                                             :
-                                                ''
-                                        }
+                                       
 
                                         <Button type="submit" className="full-width-btn btn send" id="loginSubmit">שחזר סיסמה</Button>
 

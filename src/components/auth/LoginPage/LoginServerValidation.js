@@ -36,7 +36,7 @@ const checkUserValidation = (error, email) => {
             afterValError = "סיסמה שגויה";
             break;
         case 3:
-            afterValError = <span> החשבון לא אומת <a onClick = { () => sendNewConfMail(email) } > לחץ כאן כדי לקבל מייל אימות חדש < /a></span >
+            afterValError = <div> החשבון לא אומת <a onClick = { () => sendNewConfMail(email) } > לחץ כאן כדי לקבל מייל אימות חדש </a></div>
             break;
     }
 

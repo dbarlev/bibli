@@ -115,8 +115,13 @@ class PasswordRecoveryEdit extends Component {
                         <div className="col-xs-12 col-md-4 col-md-offset-4">
 
                             <Form horizontal onSubmit={this.onSubmit.bind(this)}>
-                                <FormGroup>
-                                    <FormControl
+                              
+                            <FormGroup>
+                            {this.state.passwordLengthError &&
+                                <div className="red-alert" bsStyle="danger">{this.state.passwordLengthError}</div>
+                            }
+
+                            <FormControl
                                         ref="password"
                                         name="password"
                                         id="password"
@@ -126,11 +131,12 @@ class PasswordRecoveryEdit extends Component {
                                         onChange={this.onChange.bind(this)}
                                     />
                                 </FormGroup>
-                                {this.state.passwordLengthError &&
-                                    <div className="red-alert" bsStyle="danger">{this.state.passwordLengthError}</div>
-                                }
-
+                               
                                 <FormGroup>
+                                {this.state.passwordMatchError &&
+
+                                    <div className="red-alert" bsStyle="danger">{this.state.passwordMatchError}</div>
+                                }
                                     <FormControl
                                         ref="confirmPassword"
                                         name="confirmPassword"
@@ -141,10 +147,7 @@ class PasswordRecoveryEdit extends Component {
                                         onChange={this.onChange.bind(this)}
                                     />
                                 </FormGroup>
-                                {this.state.passwordMatchError &&
-
-                                    <div className="red-alert" bsStyle="danger">{this.state.passwordMatchError}</div>
-                                }
+                               
                                 <FormGroup>
 
                                     <Button className="btn send" type="submit">שינוי סיסמה</Button>
