@@ -28,8 +28,8 @@
         switch($request_method)
 		{
             case 'GET':
-                 $arr = array('a' => 'get');
-                echo json_encode($arr);
+            
+                resend_mailconf($db);
 				break;
             case 'POST':
 				break;
@@ -47,6 +47,29 @@
     }
     
 
+    function resend_mailconf($db){
+//david_s@achva.ac.il
+        $data = json_decode($_GET['userData']);
+       
+
+
+        if(isset($data->email)) $email = $data->email; else  $email = null;
+
+
+        $q = "SELECT * FROM users WHERE email = ? AND active = 0";
+        $res = $db->prepare($q);
+        $res->bindParam(1, $email);
+        $res->execute();
+        $num = $res->rowCount();
+
+        if(!$num){
+            json_encode(array('error' => 0));
+        }else{
+
+            json_encode(array('error' => null));
+        }
+    };
+    
     function activate_user($db, $mailconf){
 
         $q1 = "SELECT * FROM users WHERE verification_code = ?";
