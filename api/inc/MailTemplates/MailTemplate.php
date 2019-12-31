@@ -2,6 +2,44 @@
 
 Class MailTemplates{
     public $verificationLink;
+    public $verificationCode;
+    public $email;
+
+
+    function token_creator($email){
+        $token = md5(uniqid($email, true));
+        return $token;
+    }
+
+    function send_conf_mail_to_user($email, $verificationCode){
+		$verificationLink = "https://www.bibli.co.il/mailconf/" . $verificationCode;
+
+	
+		$mail = new PHPMailer(true);
+
+		try {
+			//Server settings
+			$mail->SMTPDebug = 1;                      // Enable verbose debug output
+			//$mail->isSMTP();                                            // Send using SMTP
+			$mail->Host       = '88.99.217.197';                    // Set the SMTP server to send through
+			$mail->SMTPAuth   = false;                                   // Enable SMTP authentication
+			$mail->CharSet = 'UTF-8';                                
+			$mail->Port       = 587;       
+			$mail -> AddAddress($email);                            // TCP port to connect to
+		
+			//Recipients
+			$mail->setFrom('donotreplay@bibli.co.il', 'ביבלי');
+			$mail->isHTML(true);
+			$mail->Subject = "אישור הרשמה | ביבלי";
+			//$mail->Body = $htmlStr;
+			$mail->Body = $this::register_confirmation_mail($verificationLink);
+			$mail->send();
+		
+		} catch (Exception $e) {
+			echo 'Message could not be sent.';
+			echo 'Mailer Error: ' . $mail->ErrorInfo;
+		}			
+	}
 
     public function password_recovery_mail($verificationLink){
         
@@ -536,7 +574,7 @@ Class MailTemplates{
         </div>
         </div>
         </div>
-        <div style="background-image:url(\'https://www.bibli.co.il/api/inc/images/lostpassowl.jpg\');background-position:center top;background-repeat:no-repeat;background-color:#023364;">
+        <div style="background-image:url(\'https://www.bibli.co.il/api/inc/images/happyowl.jpg\');background-position:center top;background-repeat:no-repeat;background-color:#023364;">
         <div class="block-grid" style="Margin: 0 auto; min-width: 320px; max-width: 650px; overflow-wrap: break-word; word-wrap: break-word; word-break: break-word; background-color: transparent;">
         <div style="border-collapse: collapse;display: table;width: 100%;background-color:transparent;">
         <!--[if (mso)|(IE)]><table width="100%" cellpadding="0" cellspacing="0" border="0" style="background-image:url(\'images/927eb226-8da2-4eae-8728-af91c9e421a4.jpg\');background-position:center top;background-repeat:no-repeat;background-color:#023364;"><tr><td align="center"><table cellpadding="0" cellspacing="0" border="0" style="width:650px"><tr class="layout-full-width" style="background-color:transparent"><![endif]-->
@@ -579,7 +617,7 @@ Class MailTemplates{
         <!--[if mso]><table width="100%" cellpadding="0" cellspacing="0" border="0"><tr><td style="padding-right: 10px; padding-left: 10px; padding-top: 10px; padding-bottom: 10px; font-family: Tahoma, Verdana, sans-serif"><![endif]-->
         <div style="color:#555555;font-family:\'Roboto\', Tahoma, Verdana, Segoe, sans-serif;line-height:1.2;padding-top:10px;padding-right:10px;padding-bottom:10px;padding-left:10px;">
         <div style="line-height: 1.2; font-family: \'Roboto\', Tahoma, Verdana, Segoe, sans-serif; font-size: 12px; color: #555555; mso-line-height-alt: 14px;">
-        <p dir="rtl" style="font-size: 14px; line-height: 1.2; text-align: center; word-break: break-word; font-family: Roboto, Tahoma, Verdana, Segoe, sans-serif; mso-line-height-alt: 17px; margin: 0;"><span style="color: #ffffff;"><span style="font-size: 38px; background-color: #36c7f4;">שכחת את הסיסמה?</span></span></p>
+        <p dir="rtl" style="font-size: 14px; line-height: 1.2; text-align: center; word-break: break-word; font-family: Roboto, Tahoma, Verdana, Segoe, sans-serif; mso-line-height-alt: 17px; margin: 0;"><span style="color: #ffffff;"><span style="font-size: 38px; background-color: #36c7f4;">שלום ותודה שנרשמת למערכת ביבלי</span></span></p>
         </div>
         </div>
         <!--[if mso]></td></tr></table><![endif]-->
@@ -606,19 +644,44 @@ Class MailTemplates{
         <!--[if mso]><table width="100%" cellpadding="0" cellspacing="0" border="0"><tr><td style="padding-right: 10px; padding-left: 10px; padding-top: 25px; padding-bottom: 10px; font-family: Tahoma, Verdana, sans-serif"><![endif]-->
         <div style="color:#FFFFFF;font-family:\'Roboto\', Tahoma, Verdana, Segoe, sans-serif;line-height:1.5;padding-top:25px;padding-right:10px;padding-bottom:10px;padding-left:10px;">
         <div style="font-size: 12px; line-height: 1.5; font-family: \'Roboto\', Tahoma, Verdana, Segoe, sans-serif; color: #FFFFFF; mso-line-height-alt: 18px;">
-        <p style="font-size: 26px; line-height: 1.5; text-align: center; word-break: break-word; font-family: Roboto, Tahoma, Verdana, Segoe, sans-serif; mso-line-height-alt: 39px; margin: 0;"><span style="font-size: 26px;"><strong>לשחזור הסיסמה יש ללחוץ על הכפתור</strong></span></p>
+        <p style="direction: rtl; font-size: 18px; line-height: 1.5; text-align: center; word-break: break-word; font-family: Roboto, Tahoma, Verdana, Segoe, sans-serif; mso-line-height-alt: 39px; margin: 0;"><span style="font-size: 18px;"><strong>
+
+            כדי להשלים את ההרשמה, עליך ללחוץ כאן ולהפעיל את חשבונך: <br /><br />
+
+            
+
+
+
+        </strong></span></p>
         </div>
         </div>
         <!--[if mso]></td></tr></table><![endif]-->
         <div align="center" class="button-container" style="padding-top:5px;padding-right:5px;padding-bottom:5px;padding-left:5px;">
         <!--[if mso]><table width="100%" cellpadding="0" cellspacing="0" border="0" style="border-spacing: 0; border-collapse: collapse; mso-table-lspace:0pt; mso-table-rspace:0pt;"><tr><td style="padding-top: 5px; padding-right: 5px; padding-bottom: 5px; padding-left: 5px" align="center"><v:roundrect xmlns:v="urn:schemas-microsoft-com:vml" xmlns:w="urn:schemas-microsoft-com:office:word" href="" style="height:33pt; width:136.5pt; v-text-anchor:middle;" arcsize="0%" strokeweight="0.75pt" strokecolor="#FFFFFF" fill="false"><w:anchorlock/><v:textbox inset="0,0,0,0"><center style="color:#FFFFFF; font-family:Tahoma, Verdana, sans-serif; font-size:15px"><![endif]-->
         <div style="text-decoration:none;display:inline-block;color:#FFFFFF;background-color:transparent;border-radius:0px;-webkit-border-radius:0px;-moz-border-radius:0px;width:auto; width:auto;;border-top:1px solid #FFFFFF;border-right:1px solid #FFFFFF;border-bottom:1px solid #FFFFFF;border-left:1px solid #FFFFFF;padding-top:5px;padding-bottom:5px;font-family:\'Roboto\', Tahoma, Verdana, Segoe, sans-serif;text-align:center;mso-border-alt:none;word-break:keep-all;"><span style="padding-left:20px;padding-right:20px;font-size:15px;display:inline-block;"><a href=' 
-        . $verificationLink .' style="font-size: 16px; line-height: 2; word-break: break-word; font-family: Roboto, Tahoma, Verdana, Segoe, sans-serif; mso-line-height-alt: 32px;"><span data-mce-style="font-size: 15px; line-height: 30px;" style="font-size: 15px; line-height: 30px;"><strong>שחזור סיסמה</strong></span></a></span></div>
+        . $verificationLink .' style="font-size: 16px; line-height: 2; word-break: break-word; font-family: Roboto, Tahoma, Verdana, Segoe, sans-serif; mso-line-height-alt: 32px;"><span data-mce-style="font-size: 15px; line-height: 30px;" style="font-size: 15px; line-height: 30px;"><strong>אשר רישום</strong></span></a></span></div>
         <!--[if mso]></center></v:textbox></v:roundrect></td></tr></table><![endif]-->
         </div>
         <!--[if (!mso)&(!IE)]><!-->
         </div>
-        <!--<![endif]-->
+
+        <div style="color:#FFFFFF;font-family:\'Roboto\', Tahoma, Verdana, Segoe, sans-serif;line-height:1.5;padding-top:25px;padding-right:10px;padding-bottom:10px;padding-left:10px;">
+            <div style="font-size: 12px; line-height: 1.5; font-family: \'Roboto\', Tahoma, Verdana, Segoe, sans-serif; color: #FFFFFF; mso-line-height-alt: 18px;">
+            <p style="direction: rtl; font-size: 18px; line-height: 1.5; text-align: center; word-break: break-word; font-family: Roboto, Tahoma, Verdana, Segoe, sans-serif; mso-line-height-alt: 39px; margin: 0;"><span style="font-size: 18px;"><strong>
+    
+                בכל שאלה או בקשה, ניתן לפנות אלינו דרך עמוד <a href="" target="_blank">צור קשר</a> באתר.<br /><br /><br />
+    
+                בברכה!,<br />
+                <a href=\'https://www.bibli.co.il/\' target=\'_blank\'>ביבלי</a><br />
+                <!--<![endif]-->
+                
+    
+    
+    
+            </strong></span></p>
+            </div>
+            </div>
+      
         </div>
         </div>
         <!--[if (mso)|(IE)]></td></tr></table><![endif]-->

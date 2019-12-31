@@ -48,13 +48,15 @@
     
 
     function resend_mailconf($db){
-//david_s@achva.ac.il
-        $data = json_decode($_GET['userData']);
-       
 
-
+        $email = $_GET['email'];
+        
+     /*   $data = json_decode(file_get_contents('php://input'));
+        var_dump($data);
         if(isset($data->email)) $email = $data->email; else  $email = null;
 
+        //var_dump($data->email);
+*/
 
         $q = "SELECT * FROM users WHERE email = ? AND active = 0";
         $res = $db->prepare($q);
@@ -62,11 +64,24 @@
         $res->execute();
         $num = $res->rowCount();
 
+        
+
         if(!$num){
-            json_encode(array('error' => 0));
+            echo json_encode(array('error' => 1));
         }else{
 
-            json_encode(array('error' => null));
+            echo json_encode(array('error' => 0));
+            $Mail_template = new MailTemplates();
+            $verificationCode = $Mail_template->token_creator($email);
+
+            
+            $query = 'UPDATE users SET verification_code = ? WHERE email = ?';
+            $stmt = $db->prepare($query);
+            $stmt->bindParam(1, $verificationCode);
+            $stmt->bindParam(2, $email);
+            $stmt->execute();
+
+			$Mail_template->send_conf_mail_to_user($email, $verificationCode);
         }
     };
     
