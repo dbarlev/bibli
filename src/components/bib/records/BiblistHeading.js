@@ -3,11 +3,11 @@ import { connect } from "react-redux";
 import { LinkContainer } from "react-router-bootstrap";
 import { DeleteBibList, InsertBibListToDB } from "../../../actions/ajax";
 import { activeBiblist } from "../../../actions";
-import { OverlayTrigger, Tooltip } from "react-bootstrap";
+import { OverlayTrigger, Tooltip, Row, Col } from "react-bootstrap";
 import Confirm from "../../Modal/Confirm";
 import Alert from "../../Modal/Alert";
-import { He } from './texts';
 
+import { He } from './texts';
 import {
   Document,
   Packer,
@@ -204,10 +204,10 @@ class BiblistHeading extends Component {
     const { getBiblistNamesFromDB } = this.props;
     return (
       <div className="biblistHeading align-right">
-        <div className="row">
-          <div className="col-sm-5">{this.renderBibListTitle()}</div>
-          <div className="col-sm-5">{this.renderConfigBtns()}</div>
-        </div>
+        <Row>
+          <Col sm={7} md={7} lg={7}>{this.renderBibListTitle()}</Col>
+          <Col sm={5} md={5} lg={5}>{this.renderConfigBtns()}</Col>
+        </Row>
         {this.renderAddItemBtn()}
         {getBiblistNamesFromDB && getBiblistNamesFromDB.length > 1 ?
           <Confirm

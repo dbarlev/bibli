@@ -8,20 +8,24 @@ import { connect } from "react-redux";
 import { OverlayTrigger, Tooltip, Col, Row } from "react-bootstrap";
 import './apaTabControl.scss';
 
-const checkActiveLink = routeToCheck => {
-  let href = window.location.href;
-  if (href.indexOf("editRecord") === -1) return;
-  return href.indexOf(routeToCheck) > -1 ? "is-active" : "";
+const isEditMode = () => {
+  return window.location.href.includes("editRecord")
 };
 
-const DisabeldTab = ({ type, activeClassName = null, text, icon }) => {
+
+const isRouteActive = routeToCheck => {
+  return window.location.href.includes(routeToCheck) ? "is-active" : "";
+};
+
+
+const DisabeldTab = ({ type, activeClassName = null, text, icon, tooltipText = "בקרוב" }) => {
   return (
     <OverlayTrigger
       placement="top"
-      overlay={<Tooltip id="tooltip-disabled">בקרוב</Tooltip>}
+      overlay={<Tooltip id="tooltip-disabled">{tooltipText}</Tooltip>}
     >
       <li className="pull-right notApplicable" name={type}>
-        <a className={checkActiveLink(type)} activeClassName={activeClassName}>
+        <a className={isEditMode() && isRouteActive(type)} activeClassName={activeClassName}>
           <i name={type} className={icon}></i>
           <div name={type} className="iconText">
             {text}
@@ -33,10 +37,11 @@ const DisabeldTab = ({ type, activeClassName = null, text, icon }) => {
 };
 
 const ApaTab = ({ type, navigate, activeClassName = null, text, icon }) => {
+
   return (
     <li className="pull-right" name={type}>
       <NavLink
-        className={checkActiveLink(type)}
+        className={isEditMode() && isRouteActive(type)}
         activeClassName={activeClassName}
         to={navigate}
       >
@@ -48,6 +53,32 @@ const ApaTab = ({ type, navigate, activeClassName = null, text, icon }) => {
     </li>
   );
 };
+
+const EnableOrDisableTab = ({ type, navigate, activeClassName = null, text, icon }) => {
+  return (
+    <>
+      {
+        isEditMode() && !isRouteActive(type) ?
+          <DisabeldTab
+            type={type}
+            activeClassName="is-active"
+            icon={icon}
+            text={text}
+            tooltipText="מצב עריכה - חסום"
+          />
+          :
+          <ApaTab
+            type={type}
+            navigate={navigate}
+            activeClassName={activeClassName}
+            text={text}
+            icon={icon}
+          />
+      }
+    </>
+
+  );
+}
 
 class ApaTabControl extends Component {
   constructor() {
@@ -71,28 +102,28 @@ class ApaTabControl extends Component {
       <div id="apaTabcontrol">
         <div className="row">
           <ul className="nav tabControlIcons">
-            <ApaTab
+            <EnableOrDisableTab
               type="book"
               navigate={`/records/addRecord/ApaBooks/${biblistId}`}
               activeClassName="is-active"
               text="ספר"
               icon="fas fa-book"
             />
-            <ApaTab
+            <EnableOrDisableTab
               type="paper"
               navigate={`/records/addRecord/ApaPaper/${biblistId}`}
               activeClassName="is-active"
               text="עיתון"
               icon="fas fa-book-open"
             />
-            <ApaTab
+            <EnableOrDisableTab
               type="article"
               navigate={`/records/addRecord/ApaArticle/${biblistId}`}
               activeClassName="is-active"
               text="כתב עת"
               icon="fas fa-graduation-cap"
             />
-            <ApaTab
+            <EnableOrDisableTab
               type="website"
               navigate={`/records/addRecord/ApaWebsite/${biblistId}`}
               activeClassName="is-active"
@@ -126,16 +157,16 @@ class ApaTabControl extends Component {
             />
             <Route path="/records/addRecord/ApaPaper/:biblistid" component={ApaPaper} />
 
-            <Route path="/records/editRecord/:biblistid/book/:id" component={ApaBooks} />
+            <Route path="/records/editRecord/book/:id" component={ApaBooks} />
             <Route
-              path="/records/editRecord/:biblistid/website/:id"
+              path="/records/editRecord/website/:id"
               component={ApaWebsite}
             />
             <Route
-              path="/records/editRecord/:biblistid/article/:id"
+              path="/records/editRecord/article/:id"
               component={ApaArticle}
             />
-            <Route path="/records/editRecord/:biblistid/paper/:id" component={ApaPaper} />
+            <Route path="/records/editRecord/paper/:id" component={ApaPaper} />
           </Col>
         </Row>
       </div>

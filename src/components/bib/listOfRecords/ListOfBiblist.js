@@ -40,6 +40,7 @@ class ListOfBiblist extends Component {
     super(props);
   }
 
+  
   onListClicked(item) {
     this.props.activeBiblist(item);
     this.props.history.push("/records/biblist");

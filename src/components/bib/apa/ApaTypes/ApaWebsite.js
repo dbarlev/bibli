@@ -35,6 +35,9 @@ class ApaWebsite extends Component {
         activeList.length > 0 && this.props.activeBiblist(activeList[0]);
       }
     }
+    else if (!biblistid && this.props.activeBiblistData.length == 0) {
+      this.props.history.push("/records/biblist");
+    }
   }
 
   getElement(refs) {

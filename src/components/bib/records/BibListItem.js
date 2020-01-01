@@ -155,7 +155,7 @@ class BibListItem extends Component {
 
   onEditRecord() {
     const { type, activeBiblist } = this.props;
-    this.props.history.push(`editRecord/${activeBiblist.id}/${type}/${this.props.recordID}`);
+    this.props.history.push(`editRecord/${type}/${this.props.recordID}`);
   }
 
   verifyLangAndCapitalize(string) {
