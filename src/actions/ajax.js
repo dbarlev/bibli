@@ -12,21 +12,27 @@ import {
   PASS_RECOVERY_EDIT,
   CONTACT_US_MASSAGE,
   JOIN_MAIL_LIST,
-  USER_LOGIN,
-  ACTIVE_BIBLIST
+  USER_LOGIN
 } from "./consts";
 import axios from "axios";
 import apiPath from "../constants/api";
 
-export const saveRecordsOnStore = (userid, records) => {
+export const getBibListNamesFromDB = userID => {
   return dispatch => {
-    dispatch({
-      type: GET_BIBLIST_FROM_DB,
-      value: records,
-      userid: userid
-    });
-  }
-}
+    axios
+      .get(`${apiPath}/biblist/${userID}`)
+      .then(function (response) {
+        dispatch({
+          type: GET_BIBLIST_NAMES_FROM_DB,
+          value: response.data,
+          userid: userID
+        });
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  };
+};
 
 export const getRecordsFromDB = (userID, biblistID, listName) => {
   return dispatch => {
@@ -184,10 +190,6 @@ export const InsertBibListToDB = data => {
           value: response.data,
           newName: true
         });
-        dispatch({
-          type: ACTIVE_BIBLIST,
-          value: response.data[response.data.length - 1]
-        });
       })
       .catch(function (error) {
         console.log(error);
@@ -203,7 +205,7 @@ export const InsertUserToDB = data => {
 };
 
 export const userLogin = userData => {
-  // console.log('userLogin', userData)
+  //console.log('userLogin', userData)
   return dispatch => {
     axios({
       url: `${apiPath}/users/Login.php`,

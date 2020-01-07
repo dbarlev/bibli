@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { getRecordsFromDB } from "../../../actions/ajax";
+import { getBibListNamesFromDB, getRecordsFromDB } from "../../../actions/ajax";
 import { activeBiblist } from "../../../actions";
 import { LinkContainer } from "react-router-bootstrap";
 import { withRouter } from "react-router-dom";
@@ -40,7 +40,10 @@ class ListOfBiblist extends Component {
     super(props);
   }
 
-  
+  componentDidMount() {
+    this.props.getBibListNamesFromDB(this.props.userid);
+  }
+
   onListClicked(item) {
     this.props.activeBiblist(item);
     this.props.history.push("/records/biblist");
@@ -98,6 +101,7 @@ const mapStateToProps = state => {
 };
 
 export default connect(mapStateToProps, {
+  getBibListNamesFromDB,
   getRecordsFromDB,
   activeBiblist
 })(withRouter(ListOfBiblist));

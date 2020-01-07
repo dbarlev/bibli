@@ -9,11 +9,8 @@ import BibList from './records/BibList';
 import ListOfBiblist from './listOfRecords/ListOfBiblist';
 import EditBiblist from './listOfRecords/EditBiblist';
 import { userLogedIn } from '../../actions';
-import { getBibListNamesFromDB, activeBiblist } from "../../actions/index";
-import { InsertBibListToDB, saveRecordsOnStore } from "../../actions/ajax";
 import Footer from '../footer/Footer.js';
 import { getCookie } from '../Services/GetCookies';
-import { apiClient } from '../../common/apiClient';
 import '../App.css';
 
 class Records extends Component {
@@ -44,27 +41,6 @@ class Records extends Component {
     }
   }
 
-  async componentDidMount() {
-    let userid = getCookie("userid");
-    let serverResponseForRecords = await apiClient(`/biblioRecords/Records.php?userid=${userid}&biblistID=0`, "get");
-    let serverResponseForBibList = await apiClient(`/biblist/${userid}`, "get");
-
-    if (serverResponseForBibList && serverResponseForBibList.length > 0) {
-      this.props.getBibListNamesFromDB(userid, serverResponseForBibList);
-      if (serverResponseForBibList.length == 1) {
-        this.props.activeBiblist(serverResponseForBibList[0]);
-      }
-
-      if (serverResponseForRecords && serverResponseForRecords.length > 0) {
-        this.props.saveRecordsOnStore(userid, serverResponseForRecords);
-      }
-    }
-    else {
-      this.props.InsertBibListToDB({ userid, name: "עבודה מספר 1" });
-      this.props.history.push("/records/addRecord/ApaBooks")
-    }
-  }
-
 
   render() {
     return (
@@ -92,15 +68,18 @@ class Records extends Component {
   }
 }
 
+const mapDispatchToProps = dispatch => {
+  return {
+    userLogedIn: (params) => dispatch(userLogedIn(params))
+  };
+};
+
+
 const mapStateToProps = state => {
   return {
-    getBiblistNamesFromDB: state.getBiblistNamesFromDB,
     userid: state.authReducer.userid,
     auth: state.authReducer.auth
   }
 }
 
-export default connect(mapStateToProps, {
-  activeBiblist, userLogedIn, saveRecordsOnStore, getBibListNamesFromDB, InsertBibListToDB
-})(Records);
-
+export default connect(mapStateToProps, mapDispatchToProps)(Records);

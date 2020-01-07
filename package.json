@@ -5,6 +5,7 @@
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^1.2.26",
     "axios": "^0.18.0",
+    "cross-env": "^6.0.3",
     "crypto-js": "^3.1.9-1",
     "docx": "^5.0.0-rc7",
     "file-saver": "^2.0.2",
@@ -34,7 +35,7 @@
     "build-css": "node-sass-chokidar --include-path ./public --include-path ./node_modules public/ -o public/",
     "watch-css": "npm run build-css && node-sass-chokidar --include-path ./public --include-path ./node_modules public/ -o public/ --watch --recursive",
     "start-js": "react-scripts start",
-    "build": "npm run build-css && react-scripts build && npm run copy-htaccess",
+    "build": "cross-env GENERATE_SOURCEMAP=false && npm run build-css && react-scripts build && npm run copy-htaccess",
     "start": "npm-run-all -p watch-css start-js",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"

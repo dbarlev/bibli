@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { InsertRecordToDB, EditRecord } from '../../../../actions/ajax';
-import { activeBiblist } from '../../../../actions/index';
 import { GetFormatDate } from '../../services/GetFormatDate';
 import { FormatWriters } from '../../services/FormatWriters';
 import { VerifyLang } from '../../services/VerifyLang';
@@ -26,27 +25,16 @@ class ApaBooks extends Component {
     }
   }
 
-  componentDidUpdate() {
-    let biblistid = this.props.match.params.biblistid
-    if (biblistid && this.props.activeBiblistData.length == 0) {
-      if (this.props.allBiblist.length > 0) {
-        let activeList = this.props.allBiblist.filter((item) => {
-          return item.id === biblistid
-        })
-        activeList.length > 0 && this.props.activeBiblist(activeList[0]);
-      }
-    }
-    else if (!biblistid && this.props.activeBiblistData.length == 0) {
-      this.props.history.push("/records/biblist");
-    }
-  }
-
   onSubmitApa(event) {
 
     event.preventDefault();
-    const { getEditRecord, activeBiblistData } = this.props;
+    const { getEditRecord, activeBiblist } = this.props;
     let editMode = window.location.href.indexOf("editRecord") > -1;
     let formElements = event.target.form.elements;
+    if (activeBiblist && activeBiblist.length == 0) {
+      alert("Please choose a list first");
+      return;
+    }
     let name = formElements.namedItem("name").value;
     let lang = new VerifyLang(name).checkLanguage();
     var details = {
@@ -58,7 +46,7 @@ class ApaBooks extends Component {
       year: formElements.namedItem("year").value,
       writers: this.state.writersHandler.formatWriters(this.state.names),
       retrived: new GetFormatDate().populateText(lang),
-      activeBiblist: activeBiblistData.id
+      activeBiblist: activeBiblist.id
     }
     if (editMode) {
       let recordToEdit = getEditRecord[0];
@@ -101,13 +89,11 @@ class ApaBooks extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    allBiblist: state.getBiblistNamesFromDB,
-    activeBiblistData: state.activeBiblist,
+    activeBiblist: state.activeBiblist,
     userid: state.authReducer.userid,
     getEditRecord: state.getEditRecord
   }
 }
 
-export default connect(mapStateToProps, { InsertRecordToDB, EditRecord, activeBiblist })(withRouter(ApaBooks));
-
+export default connect(mapStateToProps, { InsertRecordToDB, EditRecord })(withRouter(ApaBooks));
 

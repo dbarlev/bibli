@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import { connect } from 'react-redux';
 import { InsertRecordToDB, EditRecord } from '../../../../actions/ajax';
-import { activeBiblist } from '../../../../actions/index';
 import { GetFormatDate } from '../../services/GetFormatDate';
 import { FormatWriters } from '../../services/FormatWriters';
 import ApaForm from '../ApaForm/ApaForm';
@@ -25,21 +24,6 @@ class ApaWebsite extends Component {
     }
   }
 
-  componentDidUpdate() {
-    let biblistid = this.props.match.params.biblistid
-    if (biblistid && this.props.activeBiblistData.length == 0) {
-      if (this.props.allBiblist.length > 0) {
-        let activeList = this.props.allBiblist.filter((item) => {
-          return item.id === biblistid
-        })
-        activeList.length > 0 && this.props.activeBiblist(activeList[0]);
-      }
-    }
-    else if (!biblistid && this.props.activeBiblistData.length == 0) {
-      this.props.history.push("/records/biblist");
-    }
-  }
-
   getElement(refs) {
     let element = ReactDOM.findDOMNode(refs);
     return element.value;
@@ -47,10 +31,10 @@ class ApaWebsite extends Component {
 
   onSubmitApa(event) {
     event.preventDefault();
-    const { getEditRecord, activeBiblistData } = this.props;
+    const { getEditRecord, activeBiblist } = this.props;
     let editMode = window.location.href.indexOf("editRecord") > -1;
     let formElements = event.target.form.elements;
-    if (activeBiblistData && activeBiblistData.length == 0) {
+    if (activeBiblist && activeBiblist.length == 0) {
       alert("Please choose a list first");
       return;
     }
@@ -66,7 +50,7 @@ class ApaWebsite extends Component {
       retrived: new GetFormatDate().populateText(lang),
       year: formElements.namedItem("year").value,
       writers: this.state.writersHandler.formatWriters(this.state.names),
-      activeBiblist: activeBiblistData.id
+      activeBiblist: activeBiblist.id
     }
 
     if (editMode) {
@@ -111,12 +95,10 @@ class ApaWebsite extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    allBiblist: state.getBiblistNamesFromDB,
-    activeBiblistData: state.activeBiblist,
+    activeBiblist: state.activeBiblist,
     userid: state.authReducer.userid,
     getEditRecord: state.getEditRecord
   }
 }
 
-export default connect(mapStateToProps, { InsertRecordToDB, EditRecord, activeBiblist })(withRouter(ApaWebsite));
-
+export default connect(mapStateToProps, { InsertRecordToDB, EditRecord })(withRouter(ApaWebsite));

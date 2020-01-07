@@ -6,8 +6,7 @@ import {
     ACTIVE_BIBLIST,
     LOGGED_IN,
     PASS_RECOVERY,
-    EXPORT_RECORD_TO_WORD,
-    GET_BIBLIST_NAMES_FROM_DB
+    EXPORT_RECORD_TO_WORD
 } from './consts';
 
 
@@ -71,21 +70,10 @@ export function userLogedIn(user) {
 
 
 export function PassRecovery(data) {
+    console.log('PassRecovery', data);
     return {
         type: PASS_RECOVERY,
         email: data
     }
 }
-
-
-export const getBibListNamesFromDB = (userid, value) => {
-    return dispatch => {
-        dispatch({
-            type: GET_BIBLIST_NAMES_FROM_DB,
-            value: value,
-            userid: userid
-        });
-    };
-};
-
 

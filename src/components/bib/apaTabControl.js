@@ -4,28 +4,23 @@ import ApaBooks from "./apa/ApaTypes/ApaBooks";
 import ApaPaper from "./apa/ApaTypes/ApaPaper";
 import ApaArticle from "./apa/ApaTypes/ApaArticle";
 import ApaWebsite from "./apa/ApaTypes/ApaWebsite";
-import { connect } from "react-redux";
-import { OverlayTrigger, Tooltip, Col, Row } from "react-bootstrap";
+import { OverlayTrigger, Tooltip } from "react-bootstrap";
 import './apaTabControl.scss';
 
-const isEditMode = () => {
-  return window.location.href.includes("editRecord")
+const checkActiveLink = routeToCheck => {
+  let href = window.location.href;
+  if (href.indexOf("editRecord") === -1) return;
+  return href.indexOf(routeToCheck) > -1 ? "is-active" : "";
 };
 
-
-const isRouteActive = routeToCheck => {
-  return window.location.href.includes(routeToCheck) ? "is-active" : "";
-};
-
-
-const DisabeldTab = ({ type, activeClassName = null, text, icon, tooltipText = "בקרוב" }) => {
+const DisabeldTab = ({ type, activeClassName = null, text, icon }) => {
   return (
     <OverlayTrigger
       placement="top"
-      overlay={<Tooltip id="tooltip-disabled">{tooltipText}</Tooltip>}
+      overlay={<Tooltip id="tooltip-disabled">בקרוב</Tooltip>}
     >
       <li className="pull-right notApplicable" name={type}>
-        <a className={isEditMode() && isRouteActive(type)} activeClassName={activeClassName}>
+        <a className={checkActiveLink(type)} activeClassName={activeClassName}>
           <i name={type} className={icon}></i>
           <div name={type} className="iconText">
             {text}
@@ -37,11 +32,10 @@ const DisabeldTab = ({ type, activeClassName = null, text, icon, tooltipText = "
 };
 
 const ApaTab = ({ type, navigate, activeClassName = null, text, icon }) => {
-
   return (
     <li className="pull-right" name={type}>
       <NavLink
-        className={isEditMode() && isRouteActive(type)}
+        className={checkActiveLink(type)}
         activeClassName={activeClassName}
         to={navigate}
       >
@@ -53,32 +47,6 @@ const ApaTab = ({ type, navigate, activeClassName = null, text, icon }) => {
     </li>
   );
 };
-
-const EnableOrDisableTab = ({ type, navigate, activeClassName = null, text, icon }) => {
-  return (
-    <>
-      {
-        isEditMode() && !isRouteActive(type) ?
-          <DisabeldTab
-            type={type}
-            activeClassName="is-active"
-            icon={icon}
-            text={text}
-            tooltipText="מצב עריכה - חסום"
-          />
-          :
-          <ApaTab
-            type={type}
-            navigate={navigate}
-            activeClassName={activeClassName}
-            text={text}
-            icon={icon}
-          />
-      }
-    </>
-
-  );
-}
 
 class ApaTabControl extends Component {
   constructor() {
@@ -96,36 +64,34 @@ class ApaTabControl extends Component {
   }
 
   render() {
-    const { activeBiblistData } = this.props;
-    const biblistId = activeBiblistData.id;
     return (
       <div id="apaTabcontrol">
         <div className="row">
           <ul className="nav tabControlIcons">
-            <EnableOrDisableTab
+            <ApaTab
               type="book"
-              navigate={`/records/addRecord/ApaBooks/${biblistId}`}
+              navigate="/records/addRecord/ApaBooks"
               activeClassName="is-active"
               text="ספר"
               icon="fas fa-book"
             />
-            <EnableOrDisableTab
+            <ApaTab
               type="paper"
-              navigate={`/records/addRecord/ApaPaper/${biblistId}`}
+              navigate="/records/addRecord/ApaPaper"
               activeClassName="is-active"
               text="עיתון"
               icon="fas fa-book-open"
             />
-            <EnableOrDisableTab
+            <ApaTab
               type="article"
-              navigate={`/records/addRecord/ApaArticle/${biblistId}`}
+              navigate="/records/addRecord/ApaArticle"
               activeClassName="is-active"
               text="כתב עת"
               icon="fas fa-graduation-cap"
             />
-            <EnableOrDisableTab
+            <ApaTab
               type="website"
-              navigate={`/records/addRecord/ApaWebsite/${biblistId}`}
+              navigate="/records/addRecord/ApaWebsite"
               activeClassName="is-active"
               text="אתר"
               icon="fab fa-chrome"
@@ -144,18 +110,18 @@ class ApaTabControl extends Component {
             />
           </ul>
         </div>
-        <Row className="row">
-          <Col md={10} lg={10} xs={12}>
-            <Route path="/records/addRecord/ApaBooks/:biblistid" component={ApaBooks} />
+        <div className="row">
+          <div className="col-md-9 col-xs-9">
+            <Route path="/records/addRecord/ApaBooks" component={ApaBooks} />
             <Route
-              path="/records/addRecord/ApaWebsite/:biblistid"
+              path="/records/addRecord/ApaWebsite"
               component={ApaWebsite}
             />
             <Route
-              path="/records/addRecord/ApaArticle/:biblistid"
+              path="/records/addRecord/ApaArticle"
               component={ApaArticle}
             />
-            <Route path="/records/addRecord/ApaPaper/:biblistid" component={ApaPaper} />
+            <Route path="/records/addRecord/ApaPaper" component={ApaPaper} />
 
             <Route path="/records/editRecord/book/:id" component={ApaBooks} />
             <Route
@@ -167,17 +133,11 @@ class ApaTabControl extends Component {
               component={ApaArticle}
             />
             <Route path="/records/editRecord/paper/:id" component={ApaPaper} />
-          </Col>
-        </Row>
+          </div>
+        </div>
       </div>
     );
   }
 }
 
-const mapStateToProps = state => {
-  return {
-    activeBiblistData: state.activeBiblist,
-  };
-};
-
-export default connect(mapStateToProps, {})(ApaTabControl);
+export default ApaTabControl;
