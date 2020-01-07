@@ -10,6 +10,8 @@ import {
   Row
 } from "react-bootstrap";
 import { Animated } from "react-animated-css";
+import axios from 'axios';
+import apiPath from '../../../constants/api';
 import { userLogedIn } from "../../../actions";
 import { userLogin } from "../../../actions/ajax";
 import { withRouter } from 'react-router-dom';
@@ -49,8 +51,17 @@ class LoginForm extends Component {
     if (this.clientValidate()) {
 
       let response = await LoginServerValidation(this.state.email, this.state.password);
-
-      if (response && !response.success) {
+      console.log('resp', response);
+      
+      if (response && response.data == 'mailVerification') {
+        let sendNewMail = <div> החשבון לא אומת <a onClick = { () => this.sendNewConfMail(this.state.email) } > לחץ כאן כדי לקבל מייל אימות חדש </a></div>;
+        console.log('aaa', response)
+        this.setState({
+          errorMsg: sendNewMail,
+          errorState: true
+        });
+      }
+      else if (response && !response.success) {
         this.setState({
           errorMsg: response.data,
           errorState: true
@@ -62,6 +73,19 @@ class LoginForm extends Component {
       }
     }
   };
+
+  sendNewConfMail = async(email) => {
+    let response = await axios.get(`${apiPath}/users/Mailconf.php?email=${email}`);
+    let error = response.data.error;
+    if(response && response.data.error == 0){
+      /*this.setState({
+        errorMsg: 'מייל חדש נשלח לכתובת שזהנת',
+        errorState: true
+      }); */
+      this.props.history.push("/registersuccess");
+
+    }
+  }
 
   onChange(event) {
     this.setState({

@@ -28,8 +28,8 @@
         switch($request_method)
 		{
             case 'GET':
-                 $arr = array('a' => 'get');
-                echo json_encode($arr);
+            
+                resend_mailconf($db);
 				break;
             case 'POST':
 				break;
@@ -47,6 +47,44 @@
     }
     
 
+    function resend_mailconf($db){
+
+        $email = $_GET['email'];
+        
+     /*   $data = json_decode(file_get_contents('php://input'));
+        var_dump($data);
+        if(isset($data->email)) $email = $data->email; else  $email = null;
+
+        //var_dump($data->email);
+*/
+
+        $q = "SELECT * FROM users WHERE email = ? AND active = 0";
+        $res = $db->prepare($q);
+        $res->bindParam(1, $email);
+        $res->execute();
+        $num = $res->rowCount();
+
+        
+
+        if(!$num){
+            echo json_encode(array('error' => 1));
+        }else{
+
+            echo json_encode(array('error' => 0));
+            $Mail_template = new MailTemplates();
+            $verificationCode = $Mail_template->token_creator($email);
+
+            
+            $query = 'UPDATE users SET verification_code = ? WHERE email = ?';
+            $stmt = $db->prepare($query);
+            $stmt->bindParam(1, $verificationCode);
+            $stmt->bindParam(2, $email);
+            $stmt->execute();
+
+			$Mail_template->send_conf_mail_to_user($email, $verificationCode);
+        }
+    };
+    
     function activate_user($db, $mailconf){
 
         $q1 = "SELECT * FROM users WHERE verification_code = ?";

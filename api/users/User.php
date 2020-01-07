@@ -90,6 +90,10 @@
 		$regtime = time();
 		$verificationCode = md5(uniqid($email, true));
 
+		$Mail_template = new MailTemplates();
+
+		$verificationCode = $Mail_template->token_creator($email);
+
 		//check if mail already exists in the database
 		$q = 'SELECT * FROM users WHERE email = ?';
 		$res = $db->prepare($q);
@@ -128,7 +132,9 @@
 			
 
 			$stmt->execute();
-			send_conf_mail_to_user($email, $verificationCode);
+			$Mail_template = new MailTemplates();
+			
+			$Mail_template->send_conf_mail_to_user($email, $verificationCode);
 			//echo json_encode(array('userRegistered' => 'success', 'username'=> '', 'email'=> $email));
 			getRecords($db, $email);
 			
@@ -152,75 +158,7 @@
 	
 
 	
-	function send_conf_mail_to_user($email, $verificationCode){
-		// generate verification code, acts as the "key"
-		//$verificationCode = md5(uniqid($email, true));
-		
-		// send the email verification
-		$verificationLink = "https://www.bibli.co.il/mailconf/" . $verificationCode;
-
-		$Mail_template = new MailTemplates();
-
-		$htmlStr = 'שלום ותודה שנרשמת למערכת ביבלי.<br />';
-		$htmlStr .= 'כדי להשלים את ההרשמה, עליך ללחוץ כאן ולהפעיל את חשבונך: <br /><br />';
-
-		$htmlStr .= '<a href='.$verificationLink.' target="_blank" style="padding:1em; font-weight:bold; background-color:blue; color:#fff;">אשר רישום</a><br /><br /><br />';
-		
-		$htmlStr .= 'בכל שאלה או בקשה, ניתן לפנות אלינו דרך עמוד <a href="" target="_blank">צור קשר</a> באתר.<br /><br /><br />';
-
-		$htmlStr .= "בברכה!,<br />";
-		$htmlStr .= "<a href='https://www.bibli.co.il/' target='_blank'>ביבלי</a><br />";
 	
-/*
-		$name = "צוות ביבלי";
-		$email_sender = "no-reply@bibli.co.il";
-		$subject = "אישור הרשמה | ביבלי";
-		$recipient_email = $email;
-
-		$headers  = "MIME-Version: 1.0\r\n";
-		$headers .= "Content-type: text/html; charset=iso-8859-1\r\n";
-		$headers .= "From: {$name} <{$email_sender}> \n";
-
-		$body = $htmlStr;
-
-		// send email using the mail function, you can also use php mailer library if you want
-		mail($recipient_email, $subject, $body, $headers);
-
-			// tell the user a verification email were sent
-			
-		//echo "<div id='successMessage'>מייל אישור נשלח ל<b>" . $email . "</b>, בבקשה פתחו את המייל ולחצו על כפתור האישור.</div>";	
-		*/
-
-		$mail = new PHPMailer(true);
-
-		try {
-			//Server settings
-			$mail->SMTPDebug = 1;                      // Enable verbose debug output
-			//$mail->isSMTP();                                            // Send using SMTP
-			$mail->Host       = '88.99.217.197';                    // Set the SMTP server to send through
-			$mail->SMTPAuth   = false;                                   // Enable SMTP authentication
-			$mail->CharSet = 'UTF-8';                                
-			$mail->Port       = 587;       
-			$mail -> AddAddress($email);                            // TCP port to connect to
-		
-			//Recipients
-			$mail->setFrom('donotreplay@bibli.co.il', 'ביבלי');
-			$mail->isHTML(true);
-			$mail->Subject = "אישור הרשמה | ביבלי";
-			$mail->Body = $htmlStr;
-			$mail->send();
-
-	  
-
-			// tell the user a verification email were sent
-		
-			//echo json_encode(array('mailexists' => 1, 'email'=> $email));
-		
-		} catch (Exception $e) {
-			echo 'Message could not be sent.';
-			echo 'Mailer Error: ' . $mail->ErrorInfo;
-		}			
-	}
 
 
 ?>

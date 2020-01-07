@@ -127,7 +127,18 @@ class FrontRegister extends Component {
               </span>
                 </h2>
                 </Row>
-
+                <Row>
+                <Col>
+               
+                {this.state.error && (
+                  <Animated animationIn="zoomIn" animationOut="zoomOut" isVisible={this.state.error} >
+  
+                  <div className="text-right red-alert">{this.state.error}</div>
+                  </Animated>
+                  )}
+                </Col>
+        
+              </Row>
                 <Row>
                   <Col lg={4} md={4} sm={4} xs={12} style={ColPadd}>
                     <FormGroup className="" controlId="formHorizontalRegister">
@@ -181,18 +192,7 @@ class FrontRegister extends Component {
             </FormGroup>
             </Col>
             </Row>
-            <Row>
-              <Col>
-             
-              {this.state.error && (
-                <Animated animationIn="zoomIn" animationOut="zoomOut" isVisible={this.state.error} >
-
-                <div className="text-right red-alert">{this.state.error}</div>
-                </Animated>
-                )}
-              </Col>
-      
-            </Row>
+          
  
           </Form>
             </Col>

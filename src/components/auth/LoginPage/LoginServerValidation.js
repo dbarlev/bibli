@@ -1,24 +1,23 @@
 import { apiClient } from '../../../common/apiClient';
-import React, { Component }  from 'react';
-const CryptoJS = require("crypto-js");
+import React from 'react';
+import axios from 'axios';
+import apiPath from '../../../constants/api';
+const CryptoJS = require('crypto-js');
 
-export const LoginServerValidation = async (email, password) => {
+export const LoginServerValidation = async(email, password) => {
     let userData = { email, password };
     let response = await apiClient("/users/Login.php", "post", userData);
     let errorMsg = checkUserValidation(response.error);
     if (errorMsg) {
-        return { success: false, data: errorMsg };
-    }
-    else {
+        return { success: false, data: errorMsg, error: response.error };
+    } else {
         setCookie(response.auth, response.userid);
+        console.log('response', response);
         return { success: true, data: response };
     }
 }
 
-const sendNewConfMail = () =>{
-    console.log('sendNewConfMail');
-   
-}
+
 
 const checkUserValidation = (error) => {
     let afterValError;
@@ -27,10 +26,10 @@ const checkUserValidation = (error) => {
             afterValError = "משתשמש לא קיים";
             break;
         case 2:
-            {afterValError = <span>החשבון לא אומת <a onClick={sendNewConfMail}>לחץ כאן כדי לקבל מייל אימות חדש</a></span>}
+            afterValError = "סיסמה שגויה";
             break;
         case 3:
-            afterValError = "סיסמה שגויה";
+            afterValError = "mailVerification";
             break;
     }
 
