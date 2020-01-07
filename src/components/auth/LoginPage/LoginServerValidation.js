@@ -7,26 +7,19 @@ const CryptoJS = require('crypto-js');
 export const LoginServerValidation = async(email, password) => {
     let userData = { email, password };
     let response = await apiClient("/users/Login.php", "post", userData);
-    let errorMsg = checkUserValidation(response.error, email);
+    let errorMsg = checkUserValidation(response.error);
     if (errorMsg) {
-        return { success: false, data: errorMsg };
+        return { success: false, data: errorMsg, error: response.error };
     } else {
         setCookie(response.auth, response.userid);
+        console.log('response', response);
         return { success: true, data: response };
     }
 }
 
-const sendNewConfMail = async(email) => {
-    console.log('sendNewConfMail', email);
-    let response = await axios.get(`${apiPath}/users/Mailconf.php?email=${email}`);
-        console.log('response', response.data.error);
-        //return { data: response.data.error };
-        if(response.data.error === 0){
-            console.log('mail succesfully sent')
-        }
-}
 
-const checkUserValidation = (error, email) => {
+
+const checkUserValidation = (error) => {
     let afterValError;
     switch (error) {
         case 1:
@@ -36,7 +29,7 @@ const checkUserValidation = (error, email) => {
             afterValError = "סיסמה שגויה";
             break;
         case 3:
-            afterValError = <div> החשבון לא אומת <a onClick = { () => sendNewConfMail(email) } > לחץ כאן כדי לקבל מייל אימות חדש </a></div>
+            afterValError = "mailVerification";
             break;
     }
 

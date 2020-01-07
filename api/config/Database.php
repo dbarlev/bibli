@@ -1,20 +1,20 @@
 <?php 
     class Database{
 
-       /* private $host = '127.0.0.1';
+        private $host = '127.0.0.1';
         private $db_name = 'bib';
         private $username = 'root';
         private $password = '';
         private $conn;
-*/
 
 
+/*
         private $host = '127.0.0.1';
         private $db_name = 'biblicoi_bibli';
         private $username = 'biblicoi_bibli';
         private $password = 'bibli47954472';
         private $conn;
-
+*/
         public function connect(){
             $this->conn = null;
 
