@@ -17,41 +17,25 @@ import {
 import axios from "axios";
 import apiPath from "../constants/api";
 
-export const getBibListNamesFromDB = userID => {
+export const addBibListNamesToStore = (userid, list) => {
   return dispatch => {
-    axios
-      .get(`${apiPath}/biblist/${userID}`)
-      .then(function (response) {
-        dispatch({
-          type: GET_BIBLIST_NAMES_FROM_DB,
-          value: response.data,
-          userid: userID
-        });
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
-  };
+    dispatch({
+      type: GET_BIBLIST_NAMES_FROM_DB,
+      value: list,
+      userid: userid
+    });
+  }
 };
 
-export const getRecordsFromDB = (userID, biblistID, listName) => {
+export const saveRecordsOnStore = (userid, list) => {
   return dispatch => {
-    axios
-      .get(
-        `${apiPath}/biblioRecords/Records.php?userid=${userID}&biblistID=${biblistID}`
-      )
-      .then(function (response) {
-        dispatch({
-          type: GET_BIBLIST_FROM_DB,
-          value: response.data,
-          userid: userID,
-          listName
-        });
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
-  };
+
+    dispatch({
+      type: GET_BIBLIST_FROM_DB,
+      value: list,
+      userid: userid
+    });
+  }
 };
 
 export const getSingleRecord = recordID => {

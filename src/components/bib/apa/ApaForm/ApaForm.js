@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { InsertRecordToDB } from "../../../../actions/ajax";
 import Writers from "../../writers/Writers";
+import { withRouter } from 'react-router-dom';
 import { Button, Form, FormGroup, Col, Alert } from "react-bootstrap";
 import ApaFormField from "./ApaFormField";
 import Select from "react-select";
@@ -26,6 +27,11 @@ class ApaForm extends Component {
     };
   }
 
+  componentDidMount() {
+    const { activeBiblist } = this.props;
+    if (activeBiblist && activeBiblist.length === 0)
+      this.props.history.push("/records/biblist");
+  }
 
   checkFormMode() {
     if (this.state.modeChange) return;
@@ -156,4 +162,4 @@ const mapStateToProps = state => {
   };
 };
 
-export default connect(mapStateToProps, { InsertRecordToDB })(ApaForm);
+export default connect(mapStateToProps, { InsertRecordToDB })(withRouter(ApaForm));

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { BrowserRouter, Switch, Route } from 'react-router-dom';
+import { Route, withRouter } from 'react-router-dom';
 import AddBibList from './listOfRecords/AddBibList';
 import EditRecord from './records/EditRecord';
 import AddRecord from './records/AddRecord';
@@ -8,9 +8,11 @@ import HeaderLogin from '../header/HeaderLogin.js';
 import BibList from './records/BibList';
 import ListOfBiblist from './listOfRecords/ListOfBiblist';
 import EditBiblist from './listOfRecords/EditBiblist';
-import { userLogedIn } from '../../actions';
+import { userLogedIn, activeBiblist } from '../../actions';
+import { addBibListNamesToStore, saveRecordsOnStore, InsertBibListToDB } from '../../actions/ajax';
 import Footer from '../footer/Footer.js';
 import { getCookie } from '../Services/GetCookies';
+import { apiClient } from '../../common/apiClient';
 import '../App.css';
 
 class Records extends Component {
@@ -23,6 +25,28 @@ class Records extends Component {
       auth: getCookie("auth"),
     }
   }
+
+  async componentDidMount() {
+    let userid = getCookie("userid");
+    let serverResponseForRecords = await apiClient(`/biblioRecords/Records.php?userid=${userid}&biblistID=0`, "get");
+    let serverResponseForBibList = await apiClient(`/biblist/${userid}`, "get");
+
+    if (serverResponseForBibList && serverResponseForBibList.length > 0) {
+      this.props.addBibListNamesToStore(userid, serverResponseForBibList);
+      if (serverResponseForBibList.length == 1) {
+        this.props.activeBiblist(serverResponseForBibList[0]);
+      }
+
+      if (serverResponseForRecords && serverResponseForRecords.length > 0) {
+        this.props.saveRecordsOnStore(userid, serverResponseForRecords);
+      }
+    }
+    else {
+      this.props.InsertBibListToDB({ userid, name: "עבודה מספר 1" });
+      this.props.history.push("/records/addRecord/ApaBooks")
+    }
+  }
+
 
   componentWillMount() {
     let userid = this.state.userid;
@@ -68,12 +92,6 @@ class Records extends Component {
   }
 }
 
-const mapDispatchToProps = dispatch => {
-  return {
-    userLogedIn: (params) => dispatch(userLogedIn(params))
-  };
-};
-
 
 const mapStateToProps = state => {
   return {
@@ -82,4 +100,4 @@ const mapStateToProps = state => {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Records);
+export default connect(mapStateToProps, { InsertBibListToDB, userLogedIn, addBibListNamesToStore, saveRecordsOnStore, activeBiblist })(withRouter(Records));
