@@ -6,6 +6,7 @@ import { FormatWriters } from '../../services/FormatWriters';
 import { VerifyLang } from '../../services/VerifyLang';
 import ApaForm from '../ApaForm/ApaForm';
 import { withRouter } from 'react-router-dom';
+import Spinner from '../../../Spinner/Spinner';
 
 
 class ApaBooks extends Component {
@@ -74,11 +75,11 @@ class ApaBooks extends Component {
     return (
       <div id="apaBooksForm" className="apaForm">
         <div className="row">
-          <ApaForm
-            formFeilds={this.state.formFeilds}
-            onSubmitForm={(e) => this.onSubmitApa(e)}
-            onWriterNameChanged={(name) => this.getWritersNames(name)}
-          />
+            <ApaForm
+              formFeilds={this.state.formFeilds}
+              onSubmitForm={(e) => this.onSubmitApa(e)}
+              onWriterNameChanged={(name) => this.getWritersNames(name)}
+            />
         </div>
 
       </div>

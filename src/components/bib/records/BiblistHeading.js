@@ -34,6 +34,7 @@ class BiblistHeading extends Component {
     const { activeBiblistData, getBiblistNamesFromDB } = this.props;
     if (getBiblistNamesFromDB && getBiblistNamesFromDB.length > 1) {
       this.props.DeleteBibList(activeBiblistData.userid, activeBiblistData.id);
+      this.props.activeBiblist(getBiblistNamesFromDB[0].id);
     }
     this.setState({ ...this.state, show: false });
   }

@@ -7,10 +7,10 @@ import ApaWebsite from "./apa/ApaTypes/ApaWebsite";
 import { OverlayTrigger, Tooltip } from "react-bootstrap";
 import './apaTabControl.scss';
 
-const checkActiveLink = routeToCheck => {
+const checkActiveLink = (routeToCheck, editMode) => {
   let href = window.location.href;
-  if (href.indexOf("editRecord") === -1) return;
-  return href.indexOf(routeToCheck) > -1 ? "is-active" : "";
+  if (editMode) return;
+    return href.indexOf(routeToCheck) > -1 ? "is-active" : "";
 };
 
 const DisabeldTab = ({ type, activeClassName = null, text, icon }) => {
@@ -31,11 +31,11 @@ const DisabeldTab = ({ type, activeClassName = null, text, icon }) => {
   );
 };
 
-const ApaTab = ({ type, navigate, activeClassName = null, text, icon }) => {
+const ApaTab = ({ type, navigate, activeClassName = null, text, icon, editMode }) => {
   return (
     <li className="pull-right" name={type}>
       <NavLink
-        className={checkActiveLink(type)}
+        className={checkActiveLink(type, editMode)}
         activeClassName={activeClassName}
         to={navigate}
       >

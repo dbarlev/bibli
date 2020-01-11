@@ -141,7 +141,7 @@
 		$stmt1->bindParam(1, $listID);
 		$stmt1->execute();
 
-		getLists($db, $userid);
+		getListsNames($db, $userid);
     }
 
 ?>
