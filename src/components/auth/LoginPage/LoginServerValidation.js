@@ -36,6 +36,15 @@ const checkUserValidation = (error) => {
     return afterValError;
 }
 
+
+export const sendNewConfMail = async(email) => {
+    let response = await axios.get(`${apiPath}/users/Mailconf.php?email=${email}`);
+    if(response && response.data.error == 0){
+        return {doPush: true};
+      
+    }
+  }
+
 const setCookie = (auth, userid) => {
     const timestamp = new Date().getTime(); // current time
     const exp = timestamp + 60 * 60 * 24 * 1000 * 7; // add one week

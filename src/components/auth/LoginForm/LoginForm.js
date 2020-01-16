@@ -15,7 +15,7 @@ import apiPath from '../../../constants/api';
 import { userLogedIn } from "../../../actions";
 import { userLogin } from "../../../actions/ajax";
 import { withRouter } from 'react-router-dom';
-import { LoginServerValidation } from '../LoginPage/LoginServerValidation';
+import { LoginServerValidation, sendNewConfMail } from '../LoginPage/LoginServerValidation';
 import "./LoginForm.scss";
 
 class LoginForm extends Component {
@@ -27,6 +27,7 @@ class LoginForm extends Component {
       password: "",
       errorMsg: "",
       errorState: false,
+      newMailVer: false,
       isFormVisible: false
     };
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -54,10 +55,11 @@ class LoginForm extends Component {
       console.log('resp', response);
       
       if (response && response.data == 'mailVerification') {
-        let sendNewMail = <div> החשבון לא אומת <a onClick = { () => this.sendNewConfMail(this.state.email) } > לחץ כאן כדי לקבל מייל אימות חדש </a></div>;
+        //let sendNewMail = <div> החשבון לא אומת <a onClick = { () => this.sendNewConfMail(this.state.email) } > לחץ כאן כדי לקבל מייל אימות חדש </a></div>;
         console.log('aaa', response)
         this.setState({
-          errorMsg: sendNewMail,
+          errorMsg: 'החשבון לא אומת ',
+          newMailVer: true,
           errorState: true
         });
       }
@@ -74,19 +76,23 @@ class LoginForm extends Component {
     }
   };
 
-  sendNewConfMail = async(email) => {
-    let response = await axios.get(`${apiPath}/users/Mailconf.php?email=${email}`);
-    if(response && response.data.error == 0){
-      this.props.history.push("/registersuccess");
-    }
+  sendNewConfMailT = (email) => {
+    let mailSent = sendNewConfMail(email)
+    .then((data)=>{
+      console.log('mailSent', data.doPush);
+      if(data.doPush){
+        this.props.history.push("/registersuccess");
+       }
+    })
   }
+
 
   onChange(event) {
     this.setState({
       [event.target.name]: event.target.value,
       errorMsg: '',
-      errorState: false
-
+      errorState: false,
+      newMailVer: false
     });
 
 
@@ -100,14 +106,29 @@ class LoginForm extends Component {
   render() {
     return (
       <div>
-
-        {this.state.isFormVisible ?
-          <Animated animationIn="fadeInDown" animationOut="fadeInUp" isVisible={this.state.isFormVisible} >
-            {this.state.errorState &&
-              <div id="headerLogin" className="red-alert" role="alert" bsStyle="danger">
+        {this.state.isFormVisible ? (
+          <Animated
+            animationIn="fadeInDown"
+            animationOut="fadeInUp"
+            isVisible={this.state.isFormVisible}
+          >
+            {this.state.errorState && (
+              <div
+                id="headerLogin"
+                className="red-alert"
+                role="alert"
+                bsStyle="danger"
+              >
                 {this.state.errorMsg}
+                {this.state.newMailVer && (
+                  <a onClick={() => this.sendNewConfMailT(this.state.email)}>
+                    לקבלת מייל חדש לחץ כאן
+                  </a>
+
+              
+                )}
               </div>
-            }
+            )}
             <Form id="toggleLoginForm">
               <FormGroup controlId="formHorizontalusername">
                 <Col xs={12} sm={5} style={TopMarginLoginBtn}>
@@ -143,24 +164,31 @@ class LoginForm extends Component {
                     id="loginSubmit"
                   >
                     התחבר
-              </Button>
+                  </Button>
                 </Col>
                 <Col xs={8} className="text-right">
                   <Link to="/passwordrecovery">שכחתי את הסיסמה</Link>
                 </Col>
                 <Col xs={4} className="text-left">
-                  <Link to="/#" onClick={this.toggleLogin}>סגור</Link>
+                  <Link to="/#" onClick={this.toggleLogin}>
+                    סגור
+                  </Link>
                 </Col>
               </FormGroup>
 
               <Row className="show-grid"></Row>
             </Form>
           </Animated>
-          :
-
-          <button className="btn" id="openLoginForm" onClick={this.toggleLogin} style={ShowLoginButton}>התחבר</button>
-
-        }
+        ) : (
+          <button
+            className="btn"
+            id="openLoginForm"
+            onClick={this.toggleLogin}
+            style={ShowLoginButton}
+          >
+            התחבר
+          </button>
+        )}
       </div>
     );
   }
