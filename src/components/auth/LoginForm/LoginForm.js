@@ -76,14 +76,8 @@ class LoginForm extends Component {
 
   sendNewConfMail = async(email) => {
     let response = await axios.get(`${apiPath}/users/Mailconf.php?email=${email}`);
-    let error = response.data.error;
     if(response && response.data.error == 0){
-      /*this.setState({
-        errorMsg: 'מייל חדש נשלח לכתובת שזהנת',
-        errorState: true
-      }); */
       this.props.history.push("/registersuccess");
-
     }
   }
 
