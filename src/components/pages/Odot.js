@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { Grid, Row, Col } from "react-bootstrap";
 import Header from "../header/Header";
 import Footer from "../footer/Footer";
+import StickyContact from '../stickyContact/StickyContact';
 
 class Odot extends Component {
     render() {
@@ -42,7 +43,7 @@ class Odot extends Component {
                         </div>
                     </Col>
                 </Row>
-
+                <StickyContact />
                 <Footer bottom />
             </Grid>
         );

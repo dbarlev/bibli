@@ -1,0 +1,22 @@
+#stickyContact{
+    position: fixed;
+    top: 70vh;
+    left: 0;
+    background: #204260;
+    padding: 10px 13px;
+    border-radius: 0px 10px 10px 0px;
+   
+
+    #stickyContactCont{
+        text-align: center;
+        margin-top: 10px;
+    }
+    cursor: pointer;
+    i{
+        font-size: 25px;
+        color: white !important;
+    }
+    p{
+        color: white;
+    }
+}

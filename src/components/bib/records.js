@@ -13,6 +13,7 @@ import { addBibListNamesToStore, saveRecordsOnStore, InsertBibListToDB } from '.
 import Footer from '../footer/Footer.js';
 import { getCookie } from '../Services/GetCookies';
 import { apiClient } from '../../common/apiClient';
+import StickyContact from '../stickyContact/StickyContact';
 import '../App.css';
 
 class Records extends Component {
@@ -86,6 +87,7 @@ class Records extends Component {
             </div>
           </div>
         </div>
+        <StickyContact />
         <Footer />
       </div>
     );

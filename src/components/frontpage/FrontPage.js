@@ -1,13 +1,13 @@
 import React, { Component } from "react";
-import { Grid, Row, Col, Image } from "react-bootstrap";
+import { Grid } from "react-bootstrap";
 import Welcome from "./Welcome";
 import FrontRegister from '../auth/FrontRegister/FrontRegister';
 import Footer from "../footer/Footer";
 import { getCookie } from "../Services/GetCookies";
-import imgSrc from '../img/screens.jpg';
 import AboutUs from "./AboutUs/AboutUs";
 import StatisticsRow from "./StatisticsRow/StatisticsRow";
 import FrontFaq from "./FrontFaq/FrontFaq";
+import StickyContact from "../stickyContact/StickyContact";
 
 class FrontPage extends Component {
   componentDidMount() {
@@ -24,6 +24,7 @@ class FrontPage extends Component {
         <AboutUs />
         <StatisticsRow />
         <FrontFaq />
+        <StickyContact />
         <Footer />
       </Grid>
     );

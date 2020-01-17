@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { Grid, Row, Col } from "react-bootstrap";
 import Header from "../header/Header";
 import Footer from "../footer/Footer";
+import StickyContact from '../stickyContact/StickyContact';
 import './Takanon.scss';
 
 class Takanon extends Component {
@@ -89,7 +90,7 @@ class Takanon extends Component {
             </div>
           </Col>
         </Row>
-
+        <StickyContact />
         <Footer bottom />
       </Grid>
     );

@@ -1,0 +1,123 @@
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { sendMassage } from '../../actions/ajax';
+import {
+    Button,
+    Modal,
+    Form,
+    FormGroup,
+    FormControl,
+    ControlLabel,
+    Alert
+} from 'react-bootstrap';
+import './BugContact.scss';
+
+class BugContact extends Component {
+
+    constructor() {
+        super();
+        this.state = {
+            show: false,
+            errors: []
+        }
+    }
+
+    onFormSubmit(e) {
+        e.preventDefault();
+        let elements = e.currentTarget.elements;
+        let browser = elements.browser.value ? elements.browser.value.trim() : "";
+        let name = elements.name.value ? elements.name.value.trim() : "";
+        let email = elements.email.value ? elements.email.value.trim() : "";
+        let text = elements.issueDetails.value ? elements.issueDetails.value.trim() : "";
+        let isValid = this.validation(browser, text, email);
+        if (!isValid)
+            return;
+
+        this.props.sendMassage({ name, email, browser, message: text });
+    }
+
+    validation(browser, text, email) {
+        let errors = [];
+        if (browser === "select")
+            errors.push("חובה לבחור דפדפן");
+
+        if (text === "")
+            errors.push("חובה למלא תיאור תקלה");
+
+        if (email === "")
+            errors.push("חובה למלא כתובת מייל תקינה");
+
+        if (!!errors.length) {
+            this.setState({ errors });
+            return false;
+        }
+        else {
+            this.setState({ errors: [] });
+            return true;
+        }
+
+    }
+
+    render() {
+        return (
+            <Modal id="bugContact" onHide={() => this.props.close()} size="sm" show={true}>
+                <Modal.Header closeButton closeLabel className="modalHeader">
+                    <div className="text-center">
+                        <h2>נתקלתם בתקלה באתר?</h2>
+                        <h4>דווחו לנו בטופס למטה</h4>
+                    </div>
+                </Modal.Header>
+                <Modal.Body>
+                    {
+                        !!this.state.errors.length &&
+                        <Alert bsStyle="danger" className="text-right">
+                            <ul>
+                                {this.state.errors.map((err) => {
+                                    return <li>{err}</li>
+                                })}
+                            </ul>
+                        </Alert>
+                    }
+                    <Form onSubmit={(e) => this.onFormSubmit(e)}>
+                        <FormGroup controlId="name">
+                            <ControlLabel>שם</ControlLabel>
+                            <FormControl
+                                placeholder="שם מלא"
+                                type="text"
+                            />
+                        </FormGroup>
+                        <FormGroup controlId="email">
+                            <ControlLabel > כתובת מייל - שדה חובה</ControlLabel>
+                            <FormControl
+                                placeholder="כתובת מייל"
+                                type="email"
+                            />
+                        </FormGroup>
+                        <FormGroup controlId="browser">
+                            <ControlLabel>דפדפן - שדה חובה</ControlLabel>
+                            <FormControl componentClass="select" placeholder="browser">
+                                <option value="select">בחרו מהרשימה...</option>
+                                <option value="Chrome">Chrome</option>
+                                <option value="Firefox">Firefox</option>
+                                <option value="Edge">Edge</option>
+                            </FormControl>
+                        </FormGroup>
+
+                        <FormGroup controlId="issueDetails">
+                            <ControlLabel>תיאור הבעיה - שדה חובה</ControlLabel>
+                            <FormControl rows={5} componentClass="textarea" placeholder="תיאור התקלה" />
+                        </FormGroup>
+
+                        <div id="submitBtn">
+                            <Button variant="primary" type="submit">
+                                שלח
+                            </Button>
+                        </div>
+                    </Form>
+                </Modal.Body>
+            </Modal>
+        );
+    }
+}
+
+export default connect(null, { sendMassage })(BugContact);

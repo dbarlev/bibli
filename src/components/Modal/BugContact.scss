@@ -1,0 +1,49 @@
+@import '../../../public/scss/variables';
+
+#bugContact{
+    .modal-content{
+        border: 1px solid white !important;
+    }
+ 
+    .modal-header{
+        background-color: $mainBlueColor;
+        color: white;
+    }
+
+    form{
+        width: 80%;
+        margin: 0 auto;
+
+        select{
+            border-radius: 20px;
+            box-shadow: none;
+        }
+
+        textarea{
+            border-radius: 10px;
+        }
+
+        #submitBtn{
+            text-align: center;
+
+            button{
+                width: 200px;
+            }
+
+            button:hover{
+                background-color: $mainBlueColor;
+            }
+        }
+        
+    }
+
+    .close{
+        opacity: 1;
+        color: white;
+
+        span{
+            font-size: 20px;
+        }
+    }
+    
+}
