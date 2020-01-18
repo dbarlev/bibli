@@ -2,7 +2,6 @@
 
     require '../inc/inc.php';
     init();
-    $GLOBAL['url'] = 'http://localhost:3000';
 
     function init()
     {
@@ -31,7 +30,7 @@
 				break;
             case 'POST':
                 $data = ($_GET['data']);
-                sned_contact_us_massage($db, $data);
+                send_contact_us_massage($db, $data);
 				break;
             case 'PUT':
                 $data = ($_GET['data']);
@@ -47,48 +46,49 @@
     }
     
 
-    function sned_contact_us_massage($db, $data)
+    function send_contact_us_massage($db, $data)
 	{
         $data = json_decode($data);	
-		
-		if(isset($data->name)) $name = $data->name; else  $name = null;
+		var_dump($data);
+		$data_arr = (array)$data;
+		extract($data_arr);
+	/*	if(isset($data->name)) $name = $data->name; else  $name = null;
         if(isset($data->email)) $email = $data->email; else  $email = null;
         if(isset($data->phone)) $phone = $data->phone; else  $phone = null;
         if(isset($data->massage)) $massage = $data->massage; else  $massage = null;
         if(isset($data->checkbox)) $cb = 'checked'; else  $cb = null;
-        
+     **/   
 
-    
-      
-
-        $q1 = "SELECT * FROM mailinglist WHERE email = ?";
-        $res1 = $db->prepare($q1);
-		$res1->bindParam(1, $email);
-        $res1->execute();
-        $row = $res1->fetch(PDO::FETCH_ASSOC);
-        $username = $row['username'];
-        $res = $res1->rowCount();
-        if(!$res){
-           
-            $query = "INSERT INTO mailinglist
-				(name, email, mailinglist) 
-						VALUES (?,?,?)";
-						
-			$stmt = $db->prepare($query);
-			$stmt->bindParam(1, $name);
-			$stmt->bindParam(2, $email);
-			$stmt->bindParam(3, $cb);
-            $stmt->execute();
-            
-            echo json_encode(array('contactussent' => 0, 'email'=> $email));
-        }
+		if(isset($cb)){
+			$q1 = "SELECT * FROM mailinglist WHERE email = ?";
+			$res1 = $db->prepare($q1);
+			$res1->bindParam(1, $email);
+			$res1->execute();
+			$row = $res1->fetch(PDO::FETCH_ASSOC);
+			$username = $row['username'];
+			$res = $res1->rowCount();
+			if(!$res){
+			
+				$query = "INSERT INTO mailinglist
+					(name, email, mailinglist) 
+							VALUES (?,?,?)";
+							
+				$stmt = $db->prepare($query);
+				$stmt->bindParam(1, $name);
+				$stmt->bindParam(2, $email);
+				$stmt->bindParam(3, $cb);
+				$stmt->execute();
+				
+				echo json_encode(array('contactussent' => 0, 'email'=> $email));
+			}
+		}
         
         
-        $htmlStr = "";
-		$htmlStr .= "<b>מאת</b> <br />" . $name . ",<br /><br />";
-        $htmlStr .= "<b>כתובת דואר אלקטרוני</b><br />" . $email . ",<br /><br />";
-        $htmlStr .= "<b>מספר טלפון</b><br />" . $phone . ",<br /><br />";
-        $htmlStr .= "<b>ההודעה היא:</b> <br />" . $massage . ",<br /><br />";
+		$htmlStr = "<table>";
+		foreach($data_arr as $key => $val){
+			$htmlStr .= "<tr><td><b>" . $key . "</b></td><td>" . $val . "</td></tr>";
+		}
+		$htmlStr .= "</table>";
 		
 		$htmlStr .= "בהצלחה!,<br />";
 		$htmlStr .= "<a href='https://bibli.co.il/' target='_blank'>ביבלי</a><br />";

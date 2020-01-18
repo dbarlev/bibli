@@ -3,7 +3,6 @@
     require '../inc/inc.php';
 
     init();
-    $GLOBAL['url'] = 'http://localhost:3000';
 
     function init()
     {
