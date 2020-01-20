@@ -41,7 +41,6 @@ export const sendNewConfMail = async(email) => {
     let response = await axios.get(`${apiPath}/users/Mailconf.php?email=${email}`);
     if(response && response.data.error == 0){
         return {doPush: true};
-      
     }
   }
 

@@ -17,8 +17,9 @@ class Contact extends Component {
             email: '',
             phone: '',
             massage: '',
-            checkbox: '',
-            msg: ''
+            addToMailingList: '',
+            msg: '',
+            formName: 'צור קשר'
         }
     }
 
@@ -181,8 +182,8 @@ class Contact extends Component {
                                             className="form-control"
                                             Placeholder="כתוב לנו במה נוכל לעזור..."
                                             ref="checkbox"
-                                            name="checkbox"
-                                            id="checkbox"
+                                            name="addToMailingList"
+                                            id="addToMailingList"
                                             type="checkbox"
                                             onChange={this.onChange.bind(this)}
                                         />

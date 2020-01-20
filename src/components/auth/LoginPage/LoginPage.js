@@ -3,7 +3,7 @@ import { Grid, Row, Col, Button, Form, FormGroup, FormControl, Alert } from "rea
 import Header from "../../header/Header";
 import Footer from "../../footer/Footer";
 import { withRouter } from 'react-router-dom';
-import { LoginServerValidation } from './LoginServerValidation';
+import { LoginServerValidation, sendNewConfMail } from './LoginServerValidation';
 import './LoginPage.scss';
 
 class LoginPage extends Component {
@@ -12,20 +12,34 @@ class LoginPage extends Component {
         super();
 
         this.state = {
-            errorMsg: "",
-            errorMsgState: false
+            errorMsg: '',
+            errorMsgState: false,
+            newMailVer: false,
+            email: ''
         }
     }
 
     async FormSubmit(e) {
         e.preventDefault();
-        let email = e.target.elements.email.value.trim();
-        let password = e.target.elements.password.value.trim();
+        const email = e.target.elements.email.value.trim();
+        const password = e.target.elements.password.value.trim();
+        this.setState({
+            email
+          });
         if (this.clinetValidate(email, password)) {
             let response = await LoginServerValidation(email, password);
-            if (response && !response.success) {
+            if (response && response.data == 'mailVerification') {
+                console.log('aaa', response)
+                this.setState({
+                  errorMsg: 'החשבון לא אומת ',
+                  newMailVer: true,
+                  errorState: true
+                });
+            }
+            else if (response && !response.success) {
                 this.setState({
                     errorMsgState: true,
+                    newMailVer: false,
                     errorMsg: response.data
                 });
             }
@@ -48,6 +62,16 @@ class LoginPage extends Component {
         return true;
     }
 
+    sendNewConfMailT = (email) => {
+        let mailSent = sendNewConfMail(email)
+        .then((data)=>{
+          console.log('mailSent', data.doPush);
+          if(data.doPush){
+            this.props.history.push("/registersuccess");
+           }
+        })
+      }
+    
     render() {
         return (
             <Grid fluid id="loginPage">
@@ -62,6 +86,13 @@ class LoginPage extends Component {
                         {this.state.errorMsgState &&
                             <Alert bsStyle="danger" className="text-right">
                                 {this.state.errorMsg}
+                                {this.state.newMailVer && (
+                                    <a onClick={() => this.sendNewConfMailT(this.state.email)}>
+                                      לקבלת מייל חדש לחץ כאן
+                                    </a>
+                  
+                                
+                                  )}
                             </Alert>
                         }
                     </Col>

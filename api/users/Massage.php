@@ -49,7 +49,7 @@
     function send_contact_us_massage($db, $data)
 	{
         $data = json_decode($data);	
-		var_dump($data);
+		// var_dump($data);
 		$data_arr = (array)$data;
 		extract($data_arr);
 	/*	if(isset($data->name)) $name = $data->name; else  $name = null;
@@ -59,7 +59,7 @@
         if(isset($data->checkbox)) $cb = 'checked'; else  $cb = null;
      **/   
 
-		if(isset($cb)){
+		if(isset($addToMailingList)){
 			$q1 = "SELECT * FROM mailinglist WHERE email = ?";
 			$res1 = $db->prepare($q1);
 			$res1->bindParam(1, $email);
@@ -76,7 +76,7 @@
 				$stmt = $db->prepare($query);
 				$stmt->bindParam(1, $name);
 				$stmt->bindParam(2, $email);
-				$stmt->bindParam(3, $cb);
+				$stmt->bindParam(3, $addToMailingList);
 				$stmt->execute();
 				
 				echo json_encode(array('contactussent' => 0, 'email'=> $email));
@@ -95,7 +95,7 @@
 
 
 		$email_sender = $email;
-		$subject = "צור קשר | ביבלי";
+		$subject = $formName . "| ביבלי";
 		$recipient_email = "contact@bibli.co.il";
 
 		$headers  = "MIME-Version: 1.0\r\n";

@@ -55,13 +55,13 @@ class LoginForm extends Component {
       console.log('resp', response);
       
       if (response && response.data == 'mailVerification') {
-        //let sendNewMail = <div> החשבון לא אומת <a onClick = { () => this.sendNewConfMail(this.state.email) } > לחץ כאן כדי לקבל מייל אימות חדש </a></div>;
         console.log('aaa', response)
         this.setState({
           errorMsg: 'החשבון לא אומת ',
           newMailVer: true,
           errorState: true
         });
+        this.props.showError();
       }
       else if (response && !response.success) {
         this.setState({
