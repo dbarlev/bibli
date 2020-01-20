@@ -93,9 +93,9 @@
 		$htmlStr .= "בהצלחה!,<br />";
 		$htmlStr .= "<a href='https://bibli.co.il/' target='_blank'>ביבלי</a><br />";
 
-
+/*
 		$email_sender = $email;
-		$subject = $formName . "| ביבלי";
+		$subject = " {$formName} | ביבלי";
 		$recipient_email = "contact@bibli.co.il";
 
 		$headers  = "MIME-Version: 1.0\r\n";
@@ -103,7 +103,7 @@
 		$headers .= "From: {$name} <{$email_sender}> \n";
 
         $body = $htmlStr;
-        
+        */
         //echo json_encode(array('contactussent' => 1, 'email'=> $email));
 
 /*
@@ -130,7 +130,7 @@
 			//Recipients
 			$mail->setFrom($email, 'ביבלי');
 			$mail->isHTML(true);
-			$mail->Subject = "צור קשר | ביבלי";
+			$mail->Subject = " {$formName} | ביבלי";
 			$mail->Body = $htmlStr;
 			$mail->send();
 
