@@ -2046,7 +2046,7 @@ li,
 button,
 input,
 label {
-  font-family: 'Open Sans Hebrew', serif;
+  font-family: 'Open Sans Hebrew', sans-serif;
   font-size: 16px; }
 
 h1,
@@ -2055,7 +2055,7 @@ h3,
 h4,
 h5,
 h6 {
-  font-family: 'Open Sans Hebrew Condensed', serif; }
+  font-family: 'Open Sans Hebrew Condensed', sans-serif; }
 
 h5 {
   font-weight: bold; }
