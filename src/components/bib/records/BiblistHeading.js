@@ -20,19 +20,28 @@ import {
 } from "docx";
 import { saveAs } from "file-saver";
 import { base64Logo } from "./const";
+import './BiblistHeading.scss';
 
 const copyToClipboard = new CopyToClipboard();
+const COPY_ICON = "fas fa-paste";
+const CHECK_ICON = "fas fa-check";
 
 class BiblistHeading extends Component {
   constructor() {
     super();
     this.state = {
       show: false,
-      export: false
+      export: false,
+      copyClass: COPY_ICON
     };
   }
 
-
+  copy() {
+    this.setState({ copyClass: CHECK_ICON });
+    setTimeout(() => {
+      this.setState({ copyClass: COPY_ICON });
+    }, 3000);
+  }
 
   onDeleteList() {
     const { activeBiblistData, getBiblistNamesFromDB } = this.props;
@@ -144,9 +153,10 @@ class BiblistHeading extends Component {
               aria-label="העתקת פריטים ביבליוגרפים"
               onClick={() => {
                 copyToClipboard.bulk(".recordQuery");
+                this.copy();
               }}
             >
-              <i className="fas fa-paste hover-orange"></i>
+              <i className={`${this.state.copyClass} hover-orange`}></i>
             </li>
           </OverlayTrigger>
           <OverlayTrigger

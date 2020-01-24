@@ -6,8 +6,10 @@ import Confirm from "../../Modal/Confirm";
 import { Redirect, withRouter } from "react-router-dom";
 import { OverlayTrigger, Tooltip } from "react-bootstrap";
 import { CopyToClipboard } from '../services/clipboard';
-
+import './BiblistItem.scss';
 const copyToClipboard = new CopyToClipboard();
+const COPY_ICON = "fas fa-paste";
+const CHECK_ICON = "fas fa-check";
 
 class BibListItem extends Component {
   constructor() {
@@ -16,8 +18,16 @@ class BibListItem extends Component {
       record: "",
       allRecords: [],
       permission: false,
-      show: false
+      show: false,
+      copyClass: COPY_ICON
     };
+  }
+
+  copy() {
+    this.setState({ copyClass: CHECK_ICON });
+    setTimeout(() => {
+      this.setState({ copyClass: COPY_ICON });
+    }, 3000);
   }
 
   componentDidMount() {
@@ -203,10 +213,10 @@ class BibListItem extends Component {
                 aria-label="העתק פריט"
                 onClick={(e) => {
                   copyToClipboard.single(".recordQuery", e.target);
-                  this.props.copyNotify();
+                  this.copy();
                 }}
               >
-                <i className="fas fa-paste"></i>
+                <i className={this.state.copyClass}></i>
               </span>
             </OverlayTrigger>
           </div>

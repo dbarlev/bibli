@@ -6,8 +6,7 @@ import {
     ACTIVE_BIBLIST,
     LOGGED_IN,
     PASS_RECOVERY,
-    EXPORT_RECORD_TO_WORD,
-    ADD_NOTIFICATION
+    EXPORT_RECORD_TO_WORD
 } from './consts';
 
 
@@ -69,14 +68,6 @@ export function PassRecovery(data) {
     return {
         type: PASS_RECOVERY,
         email: data
-    }
-}
-
-
-export function AddNotification(data) {
-    return {
-        type: ADD_NOTIFICATION,
-        value: data
     }
 }
 

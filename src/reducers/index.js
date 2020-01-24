@@ -17,24 +17,11 @@ import {
     PASS_RECOVERY,
     PASS_RECOVERY_EDIT,
     CONTACT_US_MASSAGE,
-    EXPORT_RECORD_TO_WORD,
-    ADD_NOTIFICATION
+    EXPORT_RECORD_TO_WORD
 } from '../actions/consts';
 
 import { populateAPAData, editListName } from './functions.js';
 import { combineReducers } from 'redux';
-
-
-function notificationList(state = [], action) {
-    switch (action.type) {
-        case ADD_NOTIFICATION:
-            return {
-                value: action.value
-            }
-        default:
-            return state
-    }
-}
 
 function recordsDataForExport(state = [], action) {
     switch (action.type) {
@@ -246,8 +233,7 @@ const rootReducer = combineReducers({
     searcResultsReducer,
     getEditRecord,
     emailMassageReducer,
-    recordsDataForExport,
-    notificationList
+    recordsDataForExport
 });
 
 export default rootReducer;
