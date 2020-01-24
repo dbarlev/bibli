@@ -6,8 +6,23 @@ import BibListItem from "./BibListItem";
 import BiblistHeading from "./BiblistHeading";
 import listImg from "../../img/list.png";
 import Spinner from '../../Spinner/Spinner';
-
+import { Row, Col } from "react-bootstrap";
+import Copied from '../services/clipboard';
 class BibList extends Component {
+
+  constructor() {
+    super();
+    this.state = {
+      copy: false
+    }
+  }
+
+  copyNotify() {
+    this.setState({ copy: true });
+    setTimeout(() => {
+      this.setState({ copy: false });
+    }, 3000);
+  }
 
   renderRecords() {
     const {
@@ -26,6 +41,7 @@ class BibList extends Component {
               type={record.type}
               recordID={record.recordID}
               key={"bib_record" + index}
+              copyNotify={() => this.copyNotify()}
             />
           );
       });
@@ -41,6 +57,7 @@ class BibList extends Component {
               type={record.type}
               recordID={record.recordID}
               key={"bib_record" + index}
+              copyNotify={() => this.copyNotify()}
             />
           );
       });
@@ -60,7 +77,7 @@ class BibList extends Component {
     return (
       <div id="bibRecords">
         <BiblistHeading bibListName={this.props.activeBiblistData.Name} />
-        <div className="row"></div>
+        <Row></Row>
         {this.renderRecords()}
       </div>
     );

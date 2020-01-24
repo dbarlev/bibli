@@ -6,7 +6,8 @@ import {
     ACTIVE_BIBLIST,
     LOGGED_IN,
     PASS_RECOVERY,
-    EXPORT_RECORD_TO_WORD
+    EXPORT_RECORD_TO_WORD,
+    ADD_NOTIFICATION
 } from './consts';
 
 
@@ -41,7 +42,6 @@ export function setRetriveDate(date) {
 
 
 export function addUser(obj) {
-    console.log("obj", obj)
     return {
         type: ADD_USER,
         user: obj
@@ -49,7 +49,6 @@ export function addUser(obj) {
 }
 
 export function MailVerAction(obj) {
-    console.log("obj", obj)
     return {
         type: USER_MAIL_VERIFICATION,
         mailver: 0
@@ -57,9 +56,6 @@ export function MailVerAction(obj) {
 }
 
 export function userLogedIn(user) {
-    console.log('LOGGED_IN action');
-    console.log('LOGGED_IN user', user);
-
     return {
         type: LOGGED_IN,
         userid: user.userid,
@@ -70,10 +66,17 @@ export function userLogedIn(user) {
 
 
 export function PassRecovery(data) {
-    console.log('PassRecovery', data);
     return {
         type: PASS_RECOVERY,
         email: data
+    }
+}
+
+
+export function AddNotification(data) {
+    return {
+        type: ADD_NOTIFICATION,
+        value: data
     }
 }
 

@@ -70,7 +70,6 @@ class Records extends Component {
   render() {
     return (
       <div className="App">
-
         <HeaderLogin />
         <br />
         <div className="mainArea userBiblist">

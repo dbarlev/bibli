@@ -17,13 +17,24 @@ import {
     PASS_RECOVERY,
     PASS_RECOVERY_EDIT,
     CONTACT_US_MASSAGE,
-    EXPORT_RECORD_TO_WORD
+    EXPORT_RECORD_TO_WORD,
+    ADD_NOTIFICATION
 } from '../actions/consts';
 
 import { populateAPAData, editListName } from './functions.js';
 import { combineReducers } from 'redux';
 
 
+function notificationList(state = [], action) {
+    switch (action.type) {
+        case ADD_NOTIFICATION:
+            return {
+                value: action.value
+            }
+        default:
+            return state
+    }
+}
 
 function recordsDataForExport(state = [], action) {
     switch (action.type) {
@@ -141,7 +152,7 @@ function userReducer(state = [], action) {
                 action.user
             ];
         case INSERT_USER_TO_DB: //comes back from the ajax file response
-console.log('INSERT_USER_TO_DB', action )
+            console.log('INSERT_USER_TO_DB', action)
             return {
                 registerSuccess: action.value.userRegistered,
                 username: action.value.username,
@@ -235,7 +246,8 @@ const rootReducer = combineReducers({
     searcResultsReducer,
     getEditRecord,
     emailMassageReducer,
-    recordsDataForExport
+    recordsDataForExport,
+    notificationList
 });
 
 export default rootReducer;

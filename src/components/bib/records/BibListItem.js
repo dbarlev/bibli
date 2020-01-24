@@ -5,6 +5,9 @@ import { exportRecordData } from "../../../actions";
 import Confirm from "../../Modal/Confirm";
 import { Redirect, withRouter } from "react-router-dom";
 import { OverlayTrigger, Tooltip } from "react-bootstrap";
+import { CopyToClipboard } from '../services/clipboard';
+
+const copyToClipboard = new CopyToClipboard();
 
 class BibListItem extends Component {
   constructor() {
@@ -192,13 +195,16 @@ class BibListItem extends Component {
                 <i className="fas fa-edit hover-orange"></i>
               </span>
             </OverlayTrigger>
-            <OverlayTrigger placement="top" overlay={<Tooltip>העתק - בקרוב</Tooltip>}>
+            <OverlayTrigger placement="top" overlay={<Tooltip>העתק פריט</Tooltip>}>
               <span
                 data-id={this.props.recordID}
                 role="button"
                 tabIndex="0"
-                aria-label="העתק - בקרוב"
-                className="notApplicable cursor-normal"
+                aria-label="העתק פריט"
+                onClick={(e) => {
+                  copyToClipboard.single(".recordQuery", e.target);
+                  this.props.copyNotify();
+                }}
               >
                 <i className="fas fa-paste"></i>
               </span>
@@ -216,7 +222,7 @@ class BibListItem extends Component {
             onConfirm={this.deleteRecord.bind(this)}
           />
         </div>
-      </div>
+      </div >
     );
   }
 }

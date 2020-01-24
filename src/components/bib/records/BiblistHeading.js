@@ -6,7 +6,7 @@ import { activeBiblist } from "../../../actions";
 import { OverlayTrigger, Tooltip, Row, Col } from "react-bootstrap";
 import Confirm from "../../Modal/Confirm";
 import Alert from "../../Modal/Alert";
-
+import { CopyToClipboard } from '../services/clipboard';
 import { He } from './texts';
 import {
   Document,
@@ -21,6 +21,8 @@ import {
 import { saveAs } from "file-saver";
 import { base64Logo } from "./const";
 
+const copyToClipboard = new CopyToClipboard();
+
 class BiblistHeading extends Component {
   constructor() {
     super();
@@ -29,6 +31,8 @@ class BiblistHeading extends Component {
       export: false
     };
   }
+
+
 
   onDeleteList() {
     const { activeBiblistData, getBiblistNamesFromDB } = this.props;
@@ -131,17 +135,18 @@ class BiblistHeading extends Component {
       return (
         <ul className="list-no-style list-inline" id="biblist-heading-list">
           <OverlayTrigger
-            overlay={
-              <Tooltip id="tooltip-disabled">העתקת רשימה - בקרוב</Tooltip>
-            }
+            placement="top"
+            overlay={<Tooltip>העתקת פריטים ביבליוגרפים</Tooltip>}
           >
             <li
               role="button"
               tabIndex="0"
-              aria-label="העתקת רשימה"
-              className="cursor-normal"
+              aria-label="העתקת פריטים ביבליוגרפים"
+              onClick={() => {
+                copyToClipboard.bulk(".recordQuery");
+              }}
             >
-              <i className="fas fa-copy" style={{ color: "lightGray" }}></i>
+              <i className="fas fa-paste hover-orange"></i>
             </li>
           </OverlayTrigger>
           <OverlayTrigger
@@ -171,15 +176,15 @@ class BiblistHeading extends Component {
           </OverlayTrigger>
           <OverlayTrigger
             placement="top"
-            overlay={<Tooltip>ייצוא הרשימה</Tooltip>}
+            overlay={<Tooltip>ייצוא רשימה - בקרוב</Tooltip>}
           >
             <li
               role="button"
               tabIndex="0"
-              onClick={() => this.exportDocx()}
               aria-label="ייצוא הרשימה"
+              className="notApplicable"
             >
-              <i className="fas fa-file-export hover-orange"></i>
+              <i className="fas fa-file-export"></i>
             </li>
           </OverlayTrigger>
         </ul>
@@ -193,7 +198,8 @@ class BiblistHeading extends Component {
       return (
         <LinkContainer to={`/records/addRecord/ApaBooks`}>
           <button className="btn pull-right" id="addRecordBtn">
-            <i className="fas fa-plus"></i> הוספת פריט{" "}
+            <i className="fas fa-plus"></i>
+            הוספת פריט
           </button>
         </LinkContainer>
       );
@@ -207,7 +213,9 @@ class BiblistHeading extends Component {
       <div className="biblistHeading align-right">
         <Row>
           <Col sm={7} md={7} lg={7}>{this.renderBibListTitle()}</Col>
-          <Col sm={5} md={5} lg={5}>{this.renderConfigBtns()}</Col>
+          <Col sm={5} md={5} lg={5}>
+            {this.renderConfigBtns()}
+          </Col>
         </Row>
         {this.renderAddItemBtn()}
         {getBiblistNamesFromDB && getBiblistNamesFromDB.length > 1 ?
@@ -224,6 +232,7 @@ class BiblistHeading extends Component {
             show={this.state.show}
           />
         }
+
       </div>
     );
   }
