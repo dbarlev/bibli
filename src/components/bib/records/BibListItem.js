@@ -59,7 +59,7 @@ class BibListItem extends Component {
     let data = this.props.record;
     return (
       <div>
-        <span>{data.writers}</span>
+        <span>{this.verifyLangAndCapitalize(this.verifyLangAndCapitalize(data.writers))}</span>
         <span>({data.year}). </span>
         <span style={{ fontWeight: "bold" }}>
           {this.verifyLangAndCapitalize(data.name)}
@@ -78,7 +78,7 @@ class BibListItem extends Component {
     if (data.url != null && data.url.trim() != "") {
       return (
         <div>
-          <span>{data.writers}</span>
+          <span>{this.verifyLangAndCapitalize(this.verifyLangAndCapitalize(data.writers))}</span>
           <span>({data.year}). </span>
           <span style={{ fontWeight: "bold" }}>
             {this.verifyLangAndCapitalize(data.articleHeadline)}
@@ -94,7 +94,7 @@ class BibListItem extends Component {
     } else {
       return (
         <div>
-          <span>{data.writers}</span>
+          <span>{this.verifyLangAndCapitalize(this.verifyLangAndCapitalize(data.writers))}</span>
           <span>({data.year}). </span>
           <span style={{ fontWeight: "bold" }}>
             {this.verifyLangAndCapitalize(data.articleHeadline)}
@@ -114,7 +114,7 @@ class BibListItem extends Component {
     if (data.url != null && data.url.trim() != "") {
       return (
         <div>
-          <span>{data.writers}</span>
+          <span>{this.verifyLangAndCapitalize(this.verifyLangAndCapitalize(data.writers))}</span>
           <span>({data.year}). </span>
           <span style={{ fontWeight: "bold" }}>
             {this.verifyLangAndCapitalize(data.articleHeadline)}
@@ -129,7 +129,7 @@ class BibListItem extends Component {
     } else {
       return (
         <div>
-          <span>{data.writers}</span>
+          <span>{this.verifyLangAndCapitalize(this.verifyLangAndCapitalize(data.writers))}</span>
           <span>({data.year}). </span>
           <span style={{ fontWeight: "bold" }}>
             {this.verifyLangAndCapitalize(data.articleHeadline)}
@@ -146,7 +146,7 @@ class BibListItem extends Component {
     let preUrlSeperator = data.lang === "en" ? "from" : "מ";
     return (
       <div>
-        <span>{data.writers}</span>
+        <span>{this.verifyLangAndCapitalize(this.verifyLangAndCapitalize(data.writers))}</span>
         <span>({data.year}). </span>
         <span style={{ fontWeight: "bold" }}>
           {this.verifyLangAndCapitalize(data.articleHeadline)}

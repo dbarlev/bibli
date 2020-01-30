@@ -73,7 +73,7 @@ function getWriters(writers, lang) {
         }
         else if (index > 5) {
             if (lang === "en")
-                printedWriter += "at all";
+                printedWriter += "et al. ";
             else
                 printedWriter += " ואחרים";
 

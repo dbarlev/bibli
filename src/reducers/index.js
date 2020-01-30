@@ -104,6 +104,7 @@ function getBiblistFromDB(state = [], action) {
     switch (action.type) {
         case GET_BIBLIST_FROM_DB:
             let data = populateAPAData(action);
+            data = data.sort((a, b) => (a.writers > b.writers) ? 1 : ((b.writers > a.writers) ? -1 : 0));
             if (data == undefined)
                 data = [];
             return data;
@@ -114,6 +115,7 @@ function getBiblistFromDB(state = [], action) {
             return data2;
         case INSERT_RECORD_TO_USER:
             let data3 = populateAPAData(action);
+            data3 = data3.sort((a, b) => (a.writers > b.writers) ? 1 : ((b.writers > a.writers) ? -1 : 0));
             if (data3 == undefined)
                 data3 = [];
             return data3;
