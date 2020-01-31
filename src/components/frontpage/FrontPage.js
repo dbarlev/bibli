@@ -8,7 +8,6 @@ import AboutUs from "./AboutUs/AboutUs";
 import StatisticsRow from "./StatisticsRow/StatisticsRow";
 import FrontFaq from "./FrontFaq/FrontFaq";
 import StickyContact from "../stickyContact/StickyContact";
-import WarningPopup from '../Modal/warningPopup/WarningPopup';
 
 class FrontPage extends Component {
   componentDidMount() {
