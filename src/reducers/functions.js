@@ -45,6 +45,14 @@ function getWriters(writers, lang) {
     let combinedWritersName = [];
     let printedWriter = "";
 
+    writers.wFname = writers.wFname.map((f) => {
+        return f.charAt(0).toUpperCase() + f.slice(1);
+    });
+
+    writers.wLname = writers.wLname.map((l) => {
+        return l.charAt(0).toUpperCase() + l.slice(1);
+    });
+
     for (let i = 0; i < length; i++) {
         let fname = writers.wFname[i].substr(0, 1);
         let lname = writers.wLname[i];
@@ -64,7 +72,7 @@ function getWriters(writers, lang) {
             ENseperatorStart = "";
             if (combinedWritersName.length === 1) {
                 HEseperatorEnd = "'";
-                ENseperatorEnd = "";
+                ENseperatorEnd = ".";
             }
             else {
                 HEseperatorEnd = "'.";

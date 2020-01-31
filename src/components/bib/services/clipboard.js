@@ -52,7 +52,7 @@ export class CopyToClipboard {
         divEl.appendChild(divElChild);
         mainarea.appendChild(divEl);
         records.forEach((el) => {
-            html = html + el.outerHTML;
+            html = `${html} <br /> ${el.outerHTML}`;
         });
         divElChild.outerHTML = html;
         return divElChild;

@@ -6,7 +6,7 @@ import { FormatWriters } from '../../services/FormatWriters';
 import { VerifyLang } from '../../services/VerifyLang';
 import ApaForm from '../ApaForm/ApaForm';
 import { withRouter } from 'react-router-dom';
-import { SELECT_PRINT_TYPE, SELECT_ONLINE_TYPE } from './consts';
+import { SELECT_PRINT_TYPE, SELECT_ONLINE_ARTICLE_TYPE } from './consts';
 
 class ApaArticle extends Component {
 
@@ -20,7 +20,7 @@ class ApaArticle extends Component {
         type: "select",
         options: [
           SELECT_PRINT_TYPE,
-          SELECT_ONLINE_TYPE
+          SELECT_ONLINE_ARTICLE_TYPE
         ],
         label: "סוג מקור",
         value: "",
@@ -48,7 +48,7 @@ class ApaArticle extends Component {
     let selectedSourceOption = SELECT_PRINT_TYPE;
     if (getEditRecord && getEditRecord.length > 0 && window.location.href.indexOf("editRecord") > -1) {
       if (getEditRecord[0].url.trim() !== "") {
-        selectedSourceOption = SELECT_ONLINE_TYPE;
+        selectedSourceOption = SELECT_ONLINE_ARTICLE_TYPE;
       }
       this.setState({
         modeChange: true
@@ -112,8 +112,8 @@ class ApaArticle extends Component {
     let selectedSourceOption = SELECT_PRINT_TYPE;
     if (value === "url") {
       if (fields[fields.length - 1].id !== "url") {
-        fields.push(SELECT_ONLINE_TYPE);
-        selectedSourceOption = SELECT_ONLINE_TYPE;
+        fields.push(SELECT_ONLINE_ARTICLE_TYPE);
+        selectedSourceOption = SELECT_ONLINE_ARTICLE_TYPE;
       }
     }
     else {
