@@ -40,7 +40,6 @@ ReactDOM.render(
         <BrowserRouter basename='/'>
             <Switch>
                 <Route exact path="/" component={FrontPage} />
-                <Route path="/register" component={Register} />
                 <Route path="/registersuccess" component={RegisterSuccess} />
                 <Route path="/mailconf/:mailVer" component={MailVerification} />
                 <Route path="/login" component={Login} />
