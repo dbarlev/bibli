@@ -68,3 +68,12 @@
     position: relative;  
     top: 40px;
 }
+
+#mainMenuRow{
+    .mainMenuRowCol{
+        margin-top: 30px;
+        @media(max-width:768px) {
+            margin-top: 77px
+        }
+    }
+}
