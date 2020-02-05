@@ -1,6 +1,8 @@
  @import '../../../../public/scss/variables';
 
-#home-aboutus{
+#home-createBib{
+    padding-top: 40px;
+    background-color: $mainBlueColor;
     h2{
         font-weight: 700;
         color: $mainBlueColor;
@@ -10,7 +12,9 @@
         background-color: $buttonOrange
     }
 
-    #home-aboutus_image{
+    #home-create-item-title{
+        margin-top: 50%;
+        font-size: 44px;
         @media(max-width: 768px){
             text-align: center;
         }
@@ -32,6 +36,14 @@
         @media(max-width: 768px){
            margin: 0 auto;
         }
+    }
+
+    span,div,a,p,i{
+        color: white;
+    }
+
+    li:hover i,div{
+        color: #e08222 !important;
     }
 }
 

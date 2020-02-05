@@ -84,6 +84,7 @@ class ApaWebsite extends Component {
             formFeilds={this.state.formFeilds}
             onSubmitForm={(e) => this.onSubmitApa(e)}
             onWriterNameChanged={(name) => this.getWritersNames(name)}
+            homePage={this.props.homePage}
           />
         </div>
 

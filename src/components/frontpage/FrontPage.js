@@ -5,15 +5,17 @@ import FrontRegister from '../auth/FrontRegister/FrontRegister';
 import Footer from "../footer/Footer";
 import { getCookie } from "../Services/GetCookies";
 import AboutUs from "./AboutUs/AboutUs";
+import CreateBibItem from "./CreateBibItem/CreateBibItem";
 import StatisticsRow from "./StatisticsRow/StatisticsRow";
 import FrontFaq from "./FrontFaq/FrontFaq";
 import StickyContact from "../stickyContact/StickyContact";
 
+
 class FrontPage extends Component {
   componentDidMount() {
     let isLoggedin = getCookie("auth");
-    if (isLoggedin && isLoggedin !== "")
-      this.props.history.push("/records/biblist");
+    // if (isLoggedin && isLoggedin !== "")
+    //this.props.history.push("/records/biblist");
   }
 
   render() {
@@ -22,8 +24,9 @@ class FrontPage extends Component {
         <Welcome />
         <FrontRegister />
         <AboutUs />
-        <StatisticsRow />
+        <CreateBibItem />
         <FrontFaq />
+        <StatisticsRow />
         <StickyContact />
         <Footer />
       </Grid>

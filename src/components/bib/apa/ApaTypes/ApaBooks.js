@@ -32,14 +32,14 @@ class ApaBooks extends Component {
     const { getEditRecord, activeBiblist } = this.props;
     let editMode = window.location.href.indexOf("editRecord") > -1;
     let formElements = event.target.form.elements;
-    if (activeBiblist && activeBiblist.length == 0) {
+    if (activeBiblist && activeBiblist.length == 0 && !this.props.homePage) {
       alert("Please choose a list first");
       return;
     }
     let name = formElements.namedItem("name").value;
     let lang = new VerifyLang(name).checkLanguage();
     var details = {
-      userid: this.props.userid,
+      userid: this.props.userid || null,
       recordType: 1,
       name,
       publishname: formElements.namedItem("publishname").value,
@@ -47,7 +47,7 @@ class ApaBooks extends Component {
       year: formElements.namedItem("year").value,
       writers: this.state.writersHandler.formatWriters(this.state.names),
       retrived: new GetFormatDate().populateText(lang),
-      activeBiblist: activeBiblist.id
+      activeBiblist: activeBiblist.id || null
     }
     if (editMode) {
       let recordToEdit = getEditRecord[0];
@@ -59,10 +59,13 @@ class ApaBooks extends Component {
       }
       this.props.EditRecord(details);
     }
+    else if (this.props.homePage) {
+      sessionStorage.setItem("apaRecord", JSON.stringify(details));
+    }
     else {
       this.props.InsertRecordToDB(details);
     }
-    this.props.history.push("/records/biblist");
+    !this.props.homePage && this.props.history.push("/records/biblist");
   }
 
 
@@ -75,11 +78,12 @@ class ApaBooks extends Component {
     return (
       <div id="apaBooksForm" className="apaForm">
         <div className="row">
-            <ApaForm
-              formFeilds={this.state.formFeilds}
-              onSubmitForm={(e) => this.onSubmitApa(e)}
-              onWriterNameChanged={(name) => this.getWritersNames(name)}
-            />
+          <ApaForm
+            formFeilds={this.state.formFeilds}
+            onSubmitForm={(e) => this.onSubmitApa(e)}
+            onWriterNameChanged={(name) => this.getWritersNames(name)}
+            homePage={this.props.homePage}
+          />
         </div>
 
       </div>

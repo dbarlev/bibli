@@ -107,7 +107,7 @@ class LoginForm extends Component {
             document.cookie = auth;
             document.cookie = userid;
             
-            return <Redirect to='/records/biblist' />
+           return <Redirect to='/records/biblist' />
         }
     }
 

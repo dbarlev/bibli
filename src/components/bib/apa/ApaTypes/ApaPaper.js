@@ -144,6 +144,7 @@ class ApaPaper extends Component {
             combobox={this.state.combobox}
             handleComboboxChange={(value) => this.onComboboxChange(value)}
             onWriterNameChanged={(name) => this.getWritersNames(name)}
+            homePage={this.props.homePage}
           />
         </div>
         {
