@@ -47,7 +47,7 @@ class TopMenu extends Component {
             <Grid fluid className="container">
                 <SiteMassage />
                 <Row id="mainMenuRow" className={showErrClass ? "showMsg" : ""}>
-                    <Col xs={12} sm={8} md={9} lg={8} style={TopMargin} className="mainMenuRowCol">
+                    <Col xs={12} sm={8} md={9} lg={8} className="mainMenuRowCol">
                         <Navbar id="TopNav" className="nav-noStyle">
                             <Navbar.Header>
                                 <Navbar.Brand>
@@ -110,7 +110,3 @@ export default connect(
     null,
     mapDispatchToProps
 )(TopMenu);
-
-const TopMargin = {
-    marginTop: "77px"
-};

@@ -1,0 +1,78 @@
+html,
+body {
+  height: 100%;
+ 
+
+}
+
+.page-wrap {
+ 
+  margin-top: 0px;
+}
+
+.page-wrap:after {
+  content: "";
+  display: block;
+}
+
+.bold {
+  font-weight: bolder !important;
+}
+
+.white {
+  color: #fff !important;
+}
+
+.blue {
+  color: $mainBlueColor;
+}
+
+.black {
+  color: $black !important;
+}
+
+.pull-bottom {
+  position: absolute !important;
+  bottom: 0 !important;
+}
+
+.recordQuery.en * {
+  direction: ltr;
+}
+
+.flex {
+  display: flex;
+}
+
+.pad-0 {
+  padding: 0px;
+}
+
+.red-alert {
+  /* https://www.youtube.com/watch?v=I_ImRoz8ogs */
+  color: red;
+  font-weight: bolder;
+}
+
+.green-alert {
+  color: green;
+  font-weight: bolder;
+}
+
+.hover-orange:hover {
+  color: #ec971f;
+}
+
+.cursor-normal {
+  cursor: auto !important;
+}
+
+.black-icon {
+  color: black !important;
+}
+
+.container-fluid{
+  padding-left: 0;
+  padding-right: 0;
+}
+
