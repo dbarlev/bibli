@@ -15,25 +15,6 @@ class App extends Component {
        userid: '',
        auth: ''
      } 
-  
-
-  componentDidMount(){
- /*   console.log('appjs');
-    let userid = this.state.userid;
-    let auth = this.state.auth;
-    console.log('appכAF', this.state);
-
-   
-    if(auth === true){
-      console.log('svvvvv');
-      const json = {
-        userid,
-        auth
-      }
-      this.props.userLogedIn(json); 
-    }
-    */
-  }
 
   render() {
     return (

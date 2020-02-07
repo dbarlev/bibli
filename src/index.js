@@ -21,6 +21,7 @@ import PasswordRecoveryEdit from './components/auth/PasswordRecoveryEdit';
 import Takanon from './components/pages/Takanon';
 import Odot from './components/pages/Odot';
 import RegisterSuccess from './components/auth/RegisterSuceess';
+import NotFound from './components/404';
 
 import './index.css';
 
@@ -55,6 +56,7 @@ ReactDOM.render(
                 <Route path="/records/addRecord" component={Records} />
                 <Route path="/records/editList" component={Records} />
                 <Route path="/records/editRecord" component={Records} />
+                <Route component={NotFound} />
             </Switch>
         </BrowserRouter>
     </Provider>
