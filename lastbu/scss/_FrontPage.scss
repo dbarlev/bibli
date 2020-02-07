@@ -1,0 +1,129 @@
+#frontpage {
+    padding-right: 0;
+    padding-left: 0;
+    #secondline {
+        background-color: $mainYellow;
+    }
+    #pricing-table {
+        background-color: $mainBlueColor;
+        height: 100%;
+        padding: 1%;
+    }
+    #infoicons {
+        padding: 10vh 5vh;
+
+        .lightBlueBG{
+            background-color: #a7ebea;
+            border-radius: 50%;
+            width: 120px;
+            height: 120px;
+            position: absolute;
+            z-index: -1;
+        }
+        .blob1{
+            left: 45%;
+            top: 0;
+        }
+        .blob2{
+            left: 30%;
+            top: 0;
+           
+
+        }
+        .blob3{
+            left: 34%;
+            top: 0;
+        }
+
+        i{
+            margin-top: 10px;
+            color: black;
+        }
+
+        .secondH3{
+            margin: 0;
+        }
+        .big-title{
+            margin-bottom: 65px;
+        }
+
+        .m50bottom{
+            margin-bottom: 50px;
+        }
+    }
+    #pricing-table {
+        ul {
+            display: flex;
+            flex-direction: row;
+            padding: 50px;
+            justify-content: center;
+            li {
+                list-style: none;
+            }
+            .price-regular {
+                background-color: #fff;
+                // width: 200px;
+                padding: 20px 40px;
+                height: 450px;
+                margin-top: 15px;
+                border-top-right-radius: 35px;
+            }
+            .price-recomended {
+                background-color: $mainYellow;
+                padding: 80px 45px;
+                margin: 0 20px;
+                height: 500px;
+                button {
+                    background-color: $mainGray;
+                    font-weight: bold;
+                    a {
+                        color: black;
+                    }
+                }
+            }
+            li>div {
+                margin-top: 5px;
+            }
+            .recomended-container {
+                margin-top: -20px;
+            }
+            .recomended-badge {
+                position: relative;
+                background: white;
+                height: 30px;
+                line-height: 30px;
+                bottom: 50px;
+                right: 45px;
+                margin: 0 !important;
+            }
+        }
+        .large {
+            font-size: 20px;
+        }
+    }
+}
+
+.frontRegisterFormCont {
+    -webkit-box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.75);
+    -moz-box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.75);
+    box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.75);
+    width: 18vw;
+    margin-right: 2.3vw;
+    @media(max-width: 991px){
+        width: 95%;
+    }
+    input{
+        margin: 0;
+        height: 49px;
+        font-size: 2em;
+    }
+
+    #registerSubmit{
+        padding: 6px 0;
+        font-size: 2em;
+    }
+}
+
+.wantToJoinUs {
+    font-size: 47px;
+}

@@ -1,0 +1,38 @@
+
+#App-header {
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+   
+
+    .user-menu {
+        background: #204260;
+    }
+
+    #TopNav {
+        margin-bottom: 40px;
+        border: none;
+       
+        
+    }
+
+    .nav-noStyle{
+        background: transparent;
+    }
+    
+    .topnav-login-logout-btn > a{
+        background-color: $mainYellow;
+    }
+    
+    #userNav {
+        margin-top: 10px;
+        background-color: $mainBlueColor;
+        border: none;
+    
+        .searchArea {
+            border: 1px solid white;
+        }
+    
+    
+    }
+}
+

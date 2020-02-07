@@ -1,0 +1,46 @@
+[15-Jul-2019 06:11:26 UTC] PHP Fatal error:  Uncaught exception 'PDOException' with message 'SQLSTATE[42S22]: Column not found: 1054 Unknown column 'verification_code' in 'field list'' in /home/biblicoi/public_html/api/users/User.php:117
+Stack trace:
+#0 /home/biblicoi/public_html/api/users/User.php(117): PDOStatement->execute()
+#1 /home/biblicoi/public_html/api/users/User.php(34): set_user_data(Object(PDO))
+#2 /home/biblicoi/public_html/api/users/User.php(12): verifyRequestMethod(Object(PDO))
+#3 /home/biblicoi/public_html/api/users/User.php(4): init()
+#4 {main}
+  thrown in /home/biblicoi/public_html/api/users/User.php on line 117
+[30-Nov-2019 11:32:42 UTC] PHP Parse error:  syntax error, unexpected 'else' (T_ELSE) in /home/biblicoi/public_html/api/users/Login.php on line 76
+[30-Nov-2019 11:32:48 UTC] PHP Parse error:  syntax error, unexpected 'else' (T_ELSE) in /home/biblicoi/public_html/api/users/Login.php on line 76
+[02-Dec-2019 19:55:12 UTC] PHP Warning:  shell_exec() has been disabled for security reasons in /home/biblicoi/public_html/api/users/Passrecovery.php on line 436
+[02-Dec-2019 19:55:12 UTC] PHP Notice:  Undefined variable: htmlStr in /home/biblicoi/public_html/api/users/Passrecovery.php on line 437
+[02-Dec-2019 19:55:39 UTC] PHP Warning:  shell_exec() has been disabled for security reasons in /home/biblicoi/public_html/api/users/Passrecovery.php on line 436
+[02-Dec-2019 19:55:39 UTC] PHP Notice:  Undefined variable: htmlStr in /home/biblicoi/public_html/api/users/Passrecovery.php on line 437
+[02-Dec-2019 19:55:41 UTC] PHP Warning:  shell_exec() has been disabled for security reasons in /home/biblicoi/public_html/api/users/Passrecovery.php on line 436
+[02-Dec-2019 19:55:41 UTC] PHP Notice:  Undefined variable: htmlStr in /home/biblicoi/public_html/api/users/Passrecovery.php on line 437
+[02-Dec-2019 19:55:41 UTC] PHP Warning:  shell_exec() has been disabled for security reasons in /home/biblicoi/public_html/api/users/Passrecovery.php on line 436
+[02-Dec-2019 19:55:41 UTC] PHP Notice:  Undefined variable: htmlStr in /home/biblicoi/public_html/api/users/Passrecovery.php on line 437
+[02-Dec-2019 19:55:41 UTC] PHP Warning:  shell_exec() has been disabled for security reasons in /home/biblicoi/public_html/api/users/Passrecovery.php on line 436
+[02-Dec-2019 19:55:41 UTC] PHP Notice:  Undefined variable: htmlStr in /home/biblicoi/public_html/api/users/Passrecovery.php on line 437
+[02-Dec-2019 19:55:42 UTC] PHP Warning:  shell_exec() has been disabled for security reasons in /home/biblicoi/public_html/api/users/Passrecovery.php on line 436
+[02-Dec-2019 19:55:42 UTC] PHP Notice:  Undefined variable: htmlStr in /home/biblicoi/public_html/api/users/Passrecovery.php on line 437
+[02-Dec-2019 19:56:40 UTC] PHP Notice:  Undefined variable: htmlStr in /home/biblicoi/public_html/api/users/Passrecovery.php on line 97
+[02-Dec-2019 20:08:24 UTC] PHP Notice:  Undefined variable: htmlStr in /home/biblicoi/public_html/api/users/Passrecovery.php on line 438
+[03-Dec-2019 09:53:02 UTC] PHP Fatal error:  Class 'PHPMailer' not found in /home/biblicoi/public_html/api/users/User.php on line 179
+[03-Dec-2019 11:33:30 UTC] PHP Notice:  Undefined variable: htmlStr in /home/biblicoi/public_html/api/users/Passrecovery.php on line 439
+[03-Dec-2019 11:33:30 UTC] PHP Notice:  Undefined variable: mail_template in /home/biblicoi/public_html/api/users/Passrecovery.php on line 459
+[03-Dec-2019 11:33:30 UTC] PHP Fatal error:  Call to a member function pasword_recovery_mail() on a non-object in /home/biblicoi/public_html/api/users/Passrecovery.php on line 459
+[03-Dec-2019 11:50:56 UTC] PHP Notice:  Undefined variable: htmlStr in /home/biblicoi/public_html/api/users/Passrecovery.php on line 439
+[03-Dec-2019 11:50:56 UTC] PHP Notice:  Undefined variable: mail_template in /home/biblicoi/public_html/api/users/Passrecovery.php on line 459
+[03-Dec-2019 11:50:56 UTC] PHP Fatal error:  Call to a member function pasword_recovery_mail() on a non-object in /home/biblicoi/public_html/api/users/Passrecovery.php on line 459
+[03-Dec-2019 11:51:02 UTC] PHP Notice:  Undefined variable: htmlStr in /home/biblicoi/public_html/api/users/Passrecovery.php on line 439
+[03-Dec-2019 11:51:02 UTC] PHP Notice:  Undefined variable: mail_template in /home/biblicoi/public_html/api/users/Passrecovery.php on line 459
+[03-Dec-2019 11:51:02 UTC] PHP Fatal error:  Call to a member function pasword_recovery_mail() on a non-object in /home/biblicoi/public_html/api/users/Passrecovery.php on line 459
+[03-Dec-2019 12:15:32 UTC] PHP Notice:  Undefined variable: htmlStr in /home/biblicoi/public_html/api/users/Passrecovery.php on line 439
+[03-Dec-2019 12:15:32 UTC] PHP Notice:  Undefined variable: mail_template in /home/biblicoi/public_html/api/users/Passrecovery.php on line 460
+[03-Dec-2019 12:15:32 UTC] PHP Fatal error:  Call to a member function password_recovery_mail() on a non-object in /home/biblicoi/public_html/api/users/Passrecovery.php on line 460
+[03-Dec-2019 12:17:21 UTC] PHP Parse error:  syntax error, unexpected 'echo' (T_ECHO) in /home/biblicoi/public_html/api/users/Passrecovery.php on line 113
+[03-Dec-2019 12:24:04 UTC] PHP Notice:  Undefined variable: mail_template in /home/biblicoi/public_html/api/users/Passrecovery.php on line 95
+[03-Dec-2019 12:24:04 UTC] PHP Fatal error:  Call to a member function password_recovery_mail() on a non-object in /home/biblicoi/public_html/api/users/Passrecovery.php on line 95
+[03-Dec-2019 12:25:45 UTC] PHP Notice:  Undefined variable: Mail_template in /home/biblicoi/public_html/api/users/Passrecovery.php on line 95
+[03-Dec-2019 12:25:45 UTC] PHP Fatal error:  Call to a member function password_recovery_mail() on a non-object in /home/biblicoi/public_html/api/users/Passrecovery.php on line 95
+[04-Dec-2019 09:19:42 UTC] PHP Fatal error:  Class 'PHPMailer' not found in /home/biblicoi/public_html/api/users/Massage.php on line 118
+[01-Jan-2020 18:14:22 UTC] PHP Fatal error:  Call to a member function prepare() on a non-object in /home/biblicoi/public_html/api/users/Login.php on line 56
+[01-Jan-2020 18:14:53 UTC] PHP Fatal error:  Call to a member function prepare() on a non-object in /home/biblicoi/public_html/api/users/Login.php on line 56
+[01-Jan-2020 18:16:42 UTC] PHP Fatal error:  Call to a member function prepare() on a non-object in /home/biblicoi/public_html/api/users/Login.php on line 56
