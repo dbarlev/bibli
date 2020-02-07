@@ -6,7 +6,8 @@ import {
     ACTIVE_BIBLIST,
     LOGGED_IN,
     PASS_RECOVERY,
-    EXPORT_RECORD_TO_WORD
+    EXPORT_RECORD_TO_WORD,
+    INSERT_RECORD_TO_USER
 } from './consts';
 
 

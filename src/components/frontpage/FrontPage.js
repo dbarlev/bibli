@@ -14,8 +14,8 @@ import StickyContact from "../stickyContact/StickyContact";
 class FrontPage extends Component {
   componentDidMount() {
     let isLoggedin = getCookie("auth");
-    // if (isLoggedin && isLoggedin !== "")
-    //this.props.history.push("/records/biblist");
+    if (isLoggedin && isLoggedin !== "")
+      this.props.history.push("/records/biblist");
   }
 
   render() {

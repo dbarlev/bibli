@@ -17,7 +17,8 @@ import {
     PASS_RECOVERY,
     PASS_RECOVERY_EDIT,
     CONTACT_US_MASSAGE,
-    EXPORT_RECORD_TO_WORD
+    EXPORT_RECORD_TO_WORD,
+    INSERT_RECORD_MANUALY
 } from '../actions/consts';
 
 import { populateAPAData, editListName } from './functions.js';
