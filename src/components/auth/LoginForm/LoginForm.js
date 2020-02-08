@@ -15,7 +15,7 @@ import apiPath from '../../../constants/api';
 import { userLogedIn } from "../../../actions";
 import { userLogin } from "../../../actions/ajax";
 import { withRouter } from 'react-router-dom';
-import { LoginServerValidation, sendNewConfMail } from '../LoginPage/LoginServerValidation';
+import { LoginServerValidation, sendNewConfMail } from '../Services/LoginServerValidation';
 import "./LoginForm.scss";
 
 class LoginForm extends Component {

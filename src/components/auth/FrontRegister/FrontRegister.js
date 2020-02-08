@@ -14,22 +14,21 @@ import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
 import {Animated} from "react-animated-css";
 
-import { InsertUserToDB } from "../../../actions/ajax";
+import { InsertUserToStore } from "../../../actions/ajax";
 import { apiClient } from '../../../common/apiClient';
 import { TogglePass } from '../../../common/Util.js';
 import './FrontRegister.scss';
 class FrontRegister extends Component {
-  constructor(props) {
-    super(props);
+  constructor() {
+    super();
+    this.state = {
+      email: "",
+      password: "",
+      package: 1,
+      registerSuccess: false,
+      error: ''
+    };
   }
-
-  state = {
-    email: "",
-    password: "",
-    package: 1,
-    registerSuccess: false,
-    error: ''
-  };
 
   onChange = e => {
     this.setState({
@@ -43,41 +42,6 @@ class FrontRegister extends Component {
       error: ''
     })
   };
-  // formsValidation() {
-  //   let isError = false;
-  //   const errors = {};
-
-  //   const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-  //   let mail = re.test(String(this.state.email).toLowerCase());
-
-  //   if (!mail) {
-  //     isError = true;
-  //     errors.noEmail = "כתובת הדואר שהוזנה אינה תקינה";
-  //   } else if (this.props.user.registerSuccess == "exists") {
-  //     //debugger;
-  //     isError = true;
-  //     errors.noEmail = "כתובת דואר זו כבר קיימת במערכת";
-  //     console.log("state ", this.state);
-  //   } else {
-  //     isError = false;
-  //     errors.noEmail = "";
-  //   }
-
-  //   if (this.state.error.length < 6) {
-  //     isError = true;
-  //     errors.passwordLengthError = "על הסיסמה להיות ארוכה מ 6 תווים";
-  //   } else {
-  //     isError = false;
-  //     errors.passwordLengthError = "";
-  //   }
-
-  //   this.setState({
-  //     ...this.state,
-  //     ...errors
-  //   });
-
-  //   return isError;
-  // }
 
   onSubmitRegister = async e => {
     e.preventDefault();
@@ -87,29 +51,34 @@ class FrontRegister extends Component {
       password: this.state.password,
       package: this.state.package
     };
-    //let err = this.formsValidation();
-    //if (!err) {
+
       let serverResponse = await apiClient("/users/User.php", "post", obj);
-      console.log('serverResponse', serverResponse);
       if (serverResponse.userRegistered === "1") {
-        this.props.InsertUserToDB(serverResponse)
+        this.props.InsertUserToStore(serverResponse)
        
         history.push("/registersuccess");
-      }else{
+      }
+      else
+      {
+        let error = null;
         switch(serverResponse.error){
           case 0:
-              this.setState({ error: 'הסיסמה קטנה מ 6 תווים' });
+          error = 'הסיסמה קטנה מ 6 תווים';
           break;
         case 1:
-          this.setState({ error: 'שדה כתובת מייל ריק' });
+          error = 'שדה כתובת מייל ריק';
           break;
         case 2:
-          this.setState({ error: 'כתובת המייל שהוזנה אינה תקינה' });
+          error = 'כתובת המייל שהוזנה אינה תקינה';
           break;
         case 3:
-          this.setState({ error: 'כתובת המייל קיימת במערכת' });
+          error = 'כתובת המייל קיימת במערכת';
+          break;
+        default:
           break;
       }
+      this.setState({ error });
+
     }
   };
 
@@ -212,7 +181,7 @@ const mapStateToProps = state => {
   };
 };
 
-export default connect(mapStateToProps, { InsertUserToDB })(
+export default connect(mapStateToProps, { InsertUserToStore })(
   withRouter(FrontRegister)
 );
 

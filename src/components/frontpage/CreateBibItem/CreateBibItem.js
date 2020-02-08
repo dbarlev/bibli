@@ -12,15 +12,15 @@ class CreateBibItem extends Component {
                 <Col lg={3} md={1}></Col>
                 <Col lg={7} md={10}>
                     <Row>
-                        <Col md={3} sm={4} xs={12} >
-                            <Col id="home-create-item-title">
-                                <div>
-                                    יצירת פריט
-                                </div>
-                                <div>ביבליוגרפי</div>
-                            </Col>
-                        </Col>
+                        <Col lg="2"></Col>
                         <Col md={9} sm={8} xs={12}>
+                            <div class="headline">
+                                <h2>צרו את פריט הבליוגרפיה שלכם</h2>
+                                <div>
+                                    <strong>בחרו את הפריט, הזינו את הפרטים שלו</strong>
+                                    <strong>המערכת תסדר את ההפניה בהתאם לכללי הכתיבה </strong>
+                                </div>
+                            </div>
                             <HomeApaTabControl homePage={true} />
                         </Col>
                     </Row>

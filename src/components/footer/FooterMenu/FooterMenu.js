@@ -8,8 +8,6 @@ class FooterMenu extends Component {
         super()
     }
 
-
-
     render() {
         return (
             <div id="FooterMenu">
@@ -23,8 +21,8 @@ class FooterMenu extends Component {
                     <LinkContainer to="/">
                         <MenuItem>האזור האישי</MenuItem>
                     </LinkContainer>
-                    <LinkContainer to="/login">
-                        <MenuItem>התחברות לאתר</MenuItem>
+                    <LinkContainer to="/auth">
+                        <MenuItem>הרשמה/התחברות</MenuItem>
                     </LinkContainer>
                     <li>עקבו אחרינו ב- <i className="fab fa-facebook-f"></i></li>
                 </ul>

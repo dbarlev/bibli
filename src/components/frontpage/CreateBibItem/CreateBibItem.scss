@@ -3,13 +3,22 @@
 #home-createBib{
     padding-top: 40px;
     background-color: $mainBlueColor;
-    h2{
-        font-weight: 700;
-        color: $mainBlueColor;
+
+    .headline{
+        margin-right: 50px;
+        margin-bottom: 20px;
+    }
+
+    .tabControlIcons{
+        margin-right:50px;
+    }
+
+    #apaPaperForm form{
+        padding-top: 10px !important;
     }
 
     button{
-        background-color: $buttonOrange
+        background-color: $buttonOrange;
     }
 
     #home-create-item-title{
@@ -44,6 +53,26 @@
 
     li:hover i,div{
         color: #e08222 !important;
+    }
+
+    i.fa-plus{
+        color: #e08222 !important;
+    }
+    
+    i.fa-trash-alt{
+        color: white !important;
+    }
+
+    #writersFeilds strong{
+        color: white;
+        i{
+            margin-left: 10px;
+        }
+
+    }
+
+    h2{
+        color: white;
     }
 }
 

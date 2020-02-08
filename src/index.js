@@ -6,9 +6,7 @@ import { createStore, applyMiddleware, compose } from 'redux'
 import { Provider } from 'react-redux';
 import thunk from 'redux-thunk';
 
-import App from './components/App';
-import Register from './components/auth/Register';
-import Login from './components/auth/LoginPage/LoginPage';
+import AuthPage from './components/auth/AuthPage/AuthPage';
 import FrontPage from './components/frontpage/FrontPage';
 import Faq from './components/frontpage/Faq';
 import rootReducer from './reducers'
@@ -21,7 +19,6 @@ import PasswordRecoveryEdit from './components/auth/PasswordRecoveryEdit';
 import Takanon from './components/pages/Takanon';
 import Odot from './components/pages/Odot';
 import RegisterSuccess from './components/auth/RegisterSuceess';
-
 import './index.css';
 
 
@@ -42,7 +39,7 @@ ReactDOM.render(
                 <Route exact path="/" component={FrontPage} />
                 <Route path="/registersuccess" component={RegisterSuccess} />
                 <Route path="/mailconf/:mailVer" component={MailVerification} />
-                <Route path="/login" component={Login} />
+                <Route path="/auth" component={AuthPage} />
                 <Route path="/front" component={FrontPage} />
                 <Route path="/faq" component={Faq} />
                 <Route path="/takanon" component={Takanon} />

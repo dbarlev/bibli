@@ -1,10 +1,10 @@
 import React, { Component } from "react";
 import { Row, Col, Button, Form, FormGroup, FormControl, Alert } from "react-bootstrap";
 import { withRouter } from 'react-router-dom';
-import { LoginServerValidation, sendNewConfMail } from '../Services/LoginServerValidation';
-import './LoginPage.scss';
+import './RegisterPage.scss';
+import { RegisterServerValidation } from "../Services/RegisterService";
 
-class LoginPage extends Component {
+class RegisterPage extends Component {
 
     constructor() {
         super();
@@ -19,32 +19,7 @@ class LoginPage extends Component {
 
     async FormSubmit(e) {
         e.preventDefault();
-        const email = e.target.elements.email.value.trim();
-        const password = e.target.elements.password.value.trim();
-        this.setState({
-            email
-        });
-        if (this.clinetValidate(email, password)) {
-            let response = await LoginServerValidation(email, password);
-            if (response && response.data == 'mailVerification') {
-                console.log('aaa', response)
-                this.setState({
-                    errorMsg: 'החשבון לא אומת ',
-                    newMailVer: true,
-                    errorState: true
-                });
-            }
-            else if (response && !response.success) {
-                this.setState({
-                    errorMsgState: true,
-                    newMailVer: false,
-                    errorMsg: response.data
-                });
-            }
-            else if (response) {
-                this.props.history.push("/records/biblist");
-            }
-        }
+
     }
 
     clinetValidate(email, password) {
@@ -60,22 +35,32 @@ class LoginPage extends Component {
         return true;
     }
 
-    sendNewConfMailT = (email) => {
-        let mailSent = sendNewConfMail(email)
-            .then((data) => {
-                console.log('mailSent', data.doPush);
-                if (data.doPush) {
-                    this.props.history.push("/registersuccess");
-                }
-            })
+    async submitForm(event) {
+        event.preventDefault();
+        const email = event.target.elements.email.value.trim();
+        const password = event.target.elements.password.value.trim();
+        if (this.clinetValidate(email, password)) {
+            let response = await RegisterServerValidation({email, password, package: 1});
+            if (response && !response.success) {
+                this.setState({
+                    errorMsgState: true,
+                    newMailVer: false,
+                    errorMsg: response.data
+                });
+            }
+            else if (response) {
+                this.props.InsertUserToStore(response.data);
+                this.props.history.push("/registersuccess");
+            }
+        }
     }
 
     render() {
         return (
-            <div id="loginPage">
+            <div id="registerPage">
                 <Row>
-                    <Col md={6} mdOffset={3}>
-                        <h1>התחברות לאתר</h1>
+                    <Col lg={6} md={8} xs={10} mdOffset={3}>
+                        <h1>יצירת חשבון חדש</h1>
                     </Col>
                 </Row>
                 <Row>
@@ -83,18 +68,13 @@ class LoginPage extends Component {
                         {this.state.errorMsgState &&
                             <Alert bsStyle="danger" className="text-right">
                                 {this.state.errorMsg}
-                                {this.state.newMailVer &&
-                                    <a onClick={() => this.sendNewConfMailT(this.state.email)}>
-                                        לקבלת מייל חדש לחץ כאן
-                                </a>
-                                }
                             </Alert>
                         }
                     </Col>
                 </Row>
-                <Form horizontal className="no-border" onSubmit={this.FormSubmit.bind(this)}>
+                <Form horizontal className="no-border" onSubmit={this.submitForm.bind(this)}>
                     <FormGroup>
-                        <Col lg={4} md={4} xs={4} mdOffset={3}>
+                        <Col lg={4} md={8} xs={10} mdOffset={3}>
                             <FormControl
                                 ref="email"
                                 name="email"
@@ -106,7 +86,7 @@ class LoginPage extends Component {
                         </Col>
                     </FormGroup>
                     <FormGroup>
-                        <Col lg={4} md={4} xs={4} mdOffset={3}>
+                        <Col lg={4} md={8} xs={10} mdOffset={3}>
                             <FormControl
                                 ref="password"
                                 name="password"
@@ -121,10 +101,10 @@ class LoginPage extends Component {
                         <Col lg={4} md={6} mdOffset={4}>
                             <Row>
                                 <Col >
-                                    <Button type="submit">התחבר</Button>
+                                    <Button type="submit">הירשם</Button>
                                 </Col>
                                 <Col>
-                                    <a className="linkToRegister" href="#" onClick={() => this.props.changeToRegister()}>אין לך עדיין חשבון?</a>
+                                    <a className="linkToLogin" href="#" onClick={() => this.props.changeToLogin()}>יש לך כבר חשבון?</a>
                                 </Col>
                             </Row>
                         </Col>
@@ -135,4 +115,4 @@ class LoginPage extends Component {
     }
 }
 
-export default withRouter(LoginPage);
+export default withRouter(RegisterPage);

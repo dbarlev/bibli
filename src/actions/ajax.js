@@ -181,7 +181,7 @@ export const InsertBibListToDB = data => {
   };
 };
 
-export const InsertUserToDB = data => {
+export const InsertUserToStore = data => {
   console.log("data ff", data);
   return dispatch => {
     dispatch({ type: INSERT_USER_TO_DB, value: data });
