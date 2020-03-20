@@ -24,9 +24,6 @@ const checkUserValidation = (error) => {
         case 2:
             msg = 'כתובת המייל שהוזנה אינה תקינה';
             break;
-        case 3:
-            msg = 'כתובת המייל קיימת במערכת';
-            break;
         default:
             break;
     }

@@ -27,12 +27,11 @@ export const addBibListNamesToStore = (userid, list) => {
   }
 };
 
-export const saveRecordsOnStore = (userid, list) => {
+export const saveRecordsOnStore = (userid, listOfRecords) => {
   return dispatch => {
-
     dispatch({
       type: GET_BIBLIST_FROM_DB,
-      value: list,
+      value: listOfRecords,
       userid: userid
     });
   }

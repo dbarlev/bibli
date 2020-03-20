@@ -1,10 +1,10 @@
 import React, { Component } from "react";
 import { Row, Col, Button, Form, FormGroup, FormControl, Alert } from "react-bootstrap";
 import { withRouter } from 'react-router-dom';
-import { LoginServerValidation, sendNewConfMail } from '../Services/LoginServerValidation';
-import './LoginPage.scss';
+import { LoginServerValidation, sendNewConfMail } from '../../../auth/Services/LoginServerValidation';
+import './LoginForm.scss';
 
-class LoginPage extends Component {
+class LoginForm extends Component {
 
     constructor() {
         super();
@@ -72,7 +72,7 @@ class LoginPage extends Component {
 
     render() {
         return (
-            <div id="loginPage">
+            <div id="loginForm">
                 <Row>
                     <Col lg={4} md={4} xs={4} mdOffset={3}>
                         {this.state.errorMsgState &&
@@ -89,7 +89,7 @@ class LoginPage extends Component {
                 </Row>
                 <Form horizontal className="no-border" onSubmit={this.FormSubmit.bind(this)}>
                     <FormGroup>
-                        <Col lg={4} md={4} xs={4} mdOffset={3}>
+                        <Col lg={7} md={7} xs={7} mdOffset={3}>
                             <FormControl
                                 ref="email"
                                 name="email"
@@ -101,7 +101,7 @@ class LoginPage extends Component {
                         </Col>
                     </FormGroup>
                     <FormGroup>
-                        <Col lg={4} md={4} xs={4} mdOffset={3}>
+                        <Col lg={7} md={4} xs={7} mdOffset={3}>
                             <FormControl
                                 ref="password"
                                 name="password"
@@ -113,7 +113,7 @@ class LoginPage extends Component {
                         </Col>
                     </FormGroup>
                     <FormGroup>
-                        <Col lg={4} md={6} mdOffset={4}>
+                        <Col lg={7} md={6} mdOffset={4}>
                             <Row>
                                 <Col >
                                     <Button type="submit">התחבר</Button>
@@ -130,4 +130,4 @@ class LoginPage extends Component {
     }
 }
 
-export default withRouter(LoginPage);
+export default withRouter(LoginForm);

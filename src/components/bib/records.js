@@ -9,10 +9,12 @@ import BibList from './records/BibList';
 import ListOfBiblist from './listOfRecords/ListOfBiblist';
 import EditBiblist from './listOfRecords/EditBiblist';
 import { userLogedIn, activeBiblist } from '../../actions';
-import { addBibListNamesToStore, saveRecordsOnStore, InsertBibListToDB } from '../../actions/ajax';
+import { addBibListNamesToStore, saveRecordsOnStore } from '../../actions/ajax';
 import Footer from '../footer/Footer.js';
 import { getCookie } from '../Services/GetCookies';
 import { apiClient } from '../../common/apiClient';
+import { addRecordFromStorage } from './services/addRecordFromStorage';
+import { constructNewUserRecords } from './services/constructNewUserRecords';
 import StickyContact from '../stickyContact/StickyContact';
 import '../App.css';
 
@@ -27,49 +29,40 @@ class Records extends Component {
     }
   }
 
-  componentWillMount() {
+  async componentWillMount() {
     const { userid, auth } = this.state;
 
     if (auth) {
       const json = { userid, auth }
       this.props.userLogedIn(json);
+      await this.init();
     } else {
       this.props.history.push('/');
     }
   }
 
-  async componentDidMount() {
+  async init() {
     let userid = getCookie("userid");
     let serverResponseForBibList = await apiClient(`/biblist/${userid}`, "get");
 
     if (serverResponseForBibList && serverResponseForBibList.length > 0) {
-      await this.addRecordFromStorage(serverResponseForBibList);
+      await addRecordFromStorage(userid, serverResponseForBibList, this.props);
       this.props.addBibListNamesToStore(userid, serverResponseForBibList);
       if (serverResponseForBibList.length == 1) {
         this.props.activeBiblist(serverResponseForBibList[0]);
       }
 
-      let serverResponseForRecords = await apiClient(`/biblioRecords/Records.php?userid=${userid}&biblistID=0`, "get");
+      let serverResponseForRecords = await apiClient(`/biblioRecords/Records.php?userid=${userid}&biblistID=${serverResponseForBibList[0].id}`, "get");
       if (serverResponseForRecords && serverResponseForRecords.length > 0) {
         this.props.saveRecordsOnStore(userid, serverResponseForRecords);
       }
     }
     else {
-      this.props.InsertBibListToDB({ userid, name: "עבודה מספר 1" });
-      this.props.history.push("/records/addRecord/ApaBooks")
+      await constructNewUserRecords(userid, this.props);
     }
   }
 
-  async addRecordFromStorage(bibList) {
-    let recordFromSessionStorage = sessionStorage.getItem("apaRecord");
-    recordFromSessionStorage = recordFromSessionStorage && JSON.parse(recordFromSessionStorage);
-    if (recordFromSessionStorage) {
-      sessionStorage.removeItem("apaRecord");
-      recordFromSessionStorage.userid = this.state.userid;
-      recordFromSessionStorage.activeBiblist = bibList[0].id;
-      await apiClient(`/biblioRecords/Records.php`, "post", recordFromSessionStorage);
-    }
-  }
+
 
   render() {
     return (
@@ -105,4 +98,4 @@ const mapStateToProps = state => {
   }
 }
 
-export default connect(mapStateToProps, { InsertBibListToDB, userLogedIn, addBibListNamesToStore, saveRecordsOnStore, activeBiblist })(withRouter(Records));
+export default connect(mapStateToProps, { addBibListNamesToStore, userLogedIn, saveRecordsOnStore, activeBiblist })(withRouter(Records));

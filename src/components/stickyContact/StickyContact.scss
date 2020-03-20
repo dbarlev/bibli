@@ -5,6 +5,9 @@
     background: #204260;
     padding: 10px 13px;
     border-radius: 0px 10px 10px 0px;
+    border-right: 3px solid white;
+    border-top: 3px solid white;
+    border-bottom: 3px solid white;
    
 
     #stickyContactCont{
@@ -19,4 +22,8 @@
     p{
         color: white;
     }
+}
+
+div#stickyContact:hover {
+    background: #e08222;
 }

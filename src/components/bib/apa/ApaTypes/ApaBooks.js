@@ -61,6 +61,7 @@ class ApaBooks extends Component {
     }
     else if (this.props.homePage) {
       sessionStorage.setItem("apaRecord", JSON.stringify(details));
+      this.props.history.push("/lastStep");
     }
     else {
       this.props.InsertRecordToDB(details);

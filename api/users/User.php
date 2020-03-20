@@ -52,7 +52,7 @@
 		$stmt->execute();
 		
 
-		$records_row = $stmt->fetchAll(PDO::FETCH_ASSOC);
+		$records_row = $stmt->fetch(PDO::FETCH_ASSOC);
 		
 		// var_dump($records_row);
 		// foreach(  $records_row as $key => &$value )
@@ -62,7 +62,7 @@
 			
 		// }
 
-		echo json_encode(array('userRegistered' => '1', 'username'=> 'records_row', 'email'=> $email));
+		echo json_encode(array('userid' => $records_row['userid'], 'userRegistered' => '1', 'username'=> 'records_row', 'email'=> $email));
 		unset($value);
 		// echo json_encode($records_row);
     }
@@ -134,7 +134,7 @@
 			$stmt->execute();
 			$Mail_template = new MailTemplates();
 			
-			$Mail_template->send_conf_mail_to_user($email, $verificationCode);
+			//$Mail_template->send_conf_mail_to_user($email, $verificationCode);
 			//echo json_encode(array('userRegistered' => 'success', 'username'=> '', 'email'=> $email));
 			getRecords($db, $email);
 			

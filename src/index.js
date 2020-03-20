@@ -22,6 +22,7 @@ import RegisterSuccess from './components/auth/RegisterSuceess';
 import NotFound from './components/404';
 
 import './index.css';
+import RegisterPage from './components/auth/RegisterPage/RegisterPage';
 
 
 
@@ -42,6 +43,7 @@ ReactDOM.render(
                 <Route path="/registersuccess" component={RegisterSuccess} />
                 <Route path="/mailconf/:mailVer" component={MailVerification} />
                 <Route path="/auth" component={AuthPage} />
+                <Route path="/lastStep" component={RegisterPage} />
                 <Route path="/front" component={FrontPage} />
                 <Route path="/faq" component={Faq} />
                 <Route path="/takanon" component={Takanon} />
