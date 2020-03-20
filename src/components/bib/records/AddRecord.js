@@ -9,7 +9,7 @@ class AddRecord extends Component {
       <div className="App">
         <br />
         <div className="row mainArea main-area">
-          <div className="col-md-7 col-xs-11">
+          <div>
             <BiblistHeading addRecordBtn="false" />
             <ApaTabControl />
           </div>

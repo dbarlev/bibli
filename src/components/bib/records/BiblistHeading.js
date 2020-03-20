@@ -221,8 +221,8 @@ class BiblistHeading extends Component {
     return (
       <div className="biblistHeading align-right">
         <Row>
-          <Col sm={7} md={7} lg={7}>{this.renderBibListTitle()}</Col>
-          <Col sm={5} md={5} lg={5}>
+          <Col sm={6} md={6} lg={6}>{this.renderBibListTitle()}</Col>
+          <Col sm={6} md={6} lg={6}>
             {this.renderConfigBtns()}
           </Col>
         </Row>
