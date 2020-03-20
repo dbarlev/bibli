@@ -12,12 +12,31 @@ import {
 } from "react-bootstrap";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
-import {Animated} from "react-animated-css";
-
+import { Animated } from "react-animated-css";
+import { setCookie } from "../Services/LoginServerValidation";
 import { InsertUserToStore } from "../../../actions/ajax";
 import { apiClient } from '../../../common/apiClient';
 import { TogglePass } from '../../../common/Util.js';
 import './FrontRegister.scss';
+
+
+const TopMarginLoginBtn = {
+  marginTop: "1px",
+  padding: "5px"
+};
+
+const ColPadd = {
+  padding: "5px"
+};
+
+const marginBottomZero = {
+  marginBottom: "0px"
+};
+
+const YellowBg = {
+  backgroundColor: "#f2b500"
+};
+
 class FrontRegister extends Component {
   constructor() {
     super();
@@ -36,8 +55,8 @@ class FrontRegister extends Component {
     });
 
     this.setState({
-      noEmail:'',
-      passwordLengthError:'',
+      noEmail: '',
+      passwordLengthError: '',
       registerSuccess: false,
       error: ''
     })
@@ -52,17 +71,16 @@ class FrontRegister extends Component {
       package: this.state.package
     };
 
-      let serverResponse = await apiClient("/users/User.php", "post", obj);
-      if (serverResponse.userRegistered === "1") {
-        this.props.InsertUserToStore(serverResponse)
-       
-        history.push("/registersuccess");
-      }
-      else
-      {
-        let error = null;
-        switch(serverResponse.error){
-          case 0:
+    let serverResponse = await apiClient("/users/User.php", "post", obj);
+    if (serverResponse.userRegistered === "1") {
+      this.props.InsertUserToStore(serverResponse);
+      setCookie(true, serverResponse.userid);
+      history.push("/records/biblist");
+    }
+    else {
+      let error = null;
+      switch (serverResponse.error) {
+        case 0:
           error = 'הסיסמה קטנה מ 6 תווים';
           break;
         case 1:
@@ -88,26 +106,26 @@ class FrontRegister extends Component {
         <Col lg={7} md={7} sm={12} xs={12} id="formSectioCont">
           <Row id="formSection">
             <Col lgOffset={4} lg={8} mdOffset={0} md={12} sm={12} xs={12}>
-              <Form inline id="frontregister">
+              <Form inline id="frontregister" onSubmit={this.onSubmitRegister.bind(this)}>
                 <Row>           <h2 className="bold ">
                   רוצים להצטרף אלינו?
-              <span>
+                    <span>
                     הרשמו עכשיו
-              </span>
+                    </span>
                 </h2>
                 </Row>
                 <Row>
-                <Col>
-               
-                {this.state.error && (
-                  <Animated animationIn="zoomIn" animationOut="zoomOut" isVisible={this.state.error} >
-  
-                  <div className="text-right red-alert">{this.state.error}</div>
-                  </Animated>
-                  )}
-                </Col>
-        
-              </Row>
+                  <Col>
+
+                    {this.state.error && (
+                      <Animated animationIn="zoomIn" animationOut="zoomOut" isVisible={this.state.error} >
+
+                        <div className="text-right red-alert">{this.state.error}</div>
+                      </Animated>
+                    )}
+                  </Col>
+
+                </Row>
                 <Row>
                   <Col lg={4} md={4} sm={4} xs={12} style={ColPadd}>
                     <FormGroup className="" controlId="formHorizontalRegister">
@@ -124,7 +142,7 @@ class FrontRegister extends Component {
                     </FormGroup>
                   </Col>
                   <Col lg={4} md={4} sm={4} xs={12} style={ColPadd}>
-                    <FormGroup className="" controlId="formHorizontalRegister1">
+                    <FormGroup controlId="formHorizontalRegister1">
                       <FormControl
                         aria-label="סיסמה"
                         ref="password"
@@ -145,25 +163,22 @@ class FrontRegister extends Component {
                     </FormGroup>
                   </Col>
                   <Col lg={4} md={4} sm={4} xs={12} style={ColPadd}>
-                    <FormGroup className="">
-
+                    <FormGroup>
                       <Button
-                        onClick={this.onSubmitRegister}
                         type="submit"
                         className="full-width-btn submit"
-                       
                         id="registerSubmit"
                       >
                         הצטרפו אלינו >
-                  </Button>
-             
-            
-            </FormGroup>
-            </Col>
-            </Row>
-          
- 
-          </Form>
+                      </Button>
+
+
+                    </FormGroup>
+                  </Col>
+                </Row>
+
+
+              </Form>
             </Col>
           </Row>
         </Col>
@@ -185,20 +200,4 @@ export default connect(mapStateToProps, { InsertUserToStore })(
   withRouter(FrontRegister)
 );
 
-const TopMarginLoginBtn = {
-  marginTop: "1px",
-  padding: "5px"
-};
-
-const ColPadd = {
-  padding: "5px"
-};
-
-const marginBottomZero = {
-  marginBottom: "0px"
-};
-
-const YellowBg = {
-  backgroundColor: "#f2b500"
-};
 
