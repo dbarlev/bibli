@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Row, Col, Button, Form, FormGroup, FormControl, Alert } from "react-bootstrap";
-import { withRouter } from 'react-router-dom';
+import { withRouter, Link } from 'react-router-dom';
 import { LoginServerValidation, sendNewConfMail } from '../../../auth/Services/LoginServerValidation';
 import './LoginForm.scss';
 
@@ -115,6 +115,9 @@ class LoginForm extends Component {
                             <Row>
                                 <Col >
                                     <Button type="submit">התחבר</Button>
+                                </Col>
+                                <Col>
+                                    <Link className="linkToForgetPassword" to="/passwordrecovery">שכחת את הסיסמה?</Link>
                                 </Col>
                                 <Col>
                                     <a className="linkToRegister" href="#" onClick={() => this.props.changeToRegister()}>אין לך עדיין חשבון?</a>

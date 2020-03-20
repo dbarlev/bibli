@@ -117,13 +117,6 @@ class LoginForm extends Component {
                 bsStyle="danger"
               >
                 {this.state.errorMsg}
-                {this.state.newMailVer && (
-                  <a onClick={() => this.sendNewConfMailT(this.state.email)}>
-                    לקבלת מייל חדש לחץ כאן
-                  </a>
-
-              
-                )}
               </div>
             )}
             <Form id="toggleLoginForm">

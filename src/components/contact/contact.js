@@ -4,9 +4,7 @@ import { connect } from 'react-redux';
 import { sendMassage } from '../../actions/ajax';
 import Header from '../header/Header';
 import Footer from '../footer/Footer';
-
-
-
+import './contact.scss';
 
 class Contact extends Component {
     constructor(props) {
@@ -189,7 +187,7 @@ class Contact extends Component {
                                     <div className="col-xs-10 pad-0">
                                         <label>
                                             מעוניין להצטרף לרשימת התפוצה
-                                            </label>
+                                        </label>
                                     </div>
 
                                 </div>
