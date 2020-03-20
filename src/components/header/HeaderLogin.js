@@ -18,18 +18,13 @@ class HeaderLogin extends Component {
     let auth = this.state.auth;
     let username = this.state.username;
 
-    console.log('this auth', this.state.auth);
     if (auth) {
-      console.log('logged in');
       const json = {
         userid,
         auth,
         username
       }
       this.props.userLogedIn(json);
-    } else {
-      // debugger;
-      console.log('no session HeaderLogIn');
     }
   }
 

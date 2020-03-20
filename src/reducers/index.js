@@ -142,7 +142,6 @@ function userReducer(state = [], action) {
                 action.user
             ];
         case INSERT_USER_TO_DB: //comes back from the ajax file response
-            console.log('INSERT_USER_TO_DB', action)
             return {
                 registerSuccess: action.value.userRegistered,
                 username: action.value.username,
@@ -154,12 +153,10 @@ function userReducer(state = [], action) {
                 mailver: action.value
             };
         case PASS_RECOVERY: //password recovery
-            console.log('action.value', action);
             return {
                 passRecoveryData: action.value
             };
         case PASS_RECOVERY_EDIT: //password recovery edit
-            console.log('reducer PASS_RECOVERY_EDIT', action);
             return {
                 passRecoveryEdit: action.value
             };
@@ -171,7 +168,6 @@ function userReducer(state = [], action) {
 function emailMassageReducer(state = [], action) {
     switch (action.type) {
         case CONTACT_US_MASSAGE:
-            console.log('reducer CONTACT_US_MASSAGE', action);
             return {
                 massageSent: action.value
             };
@@ -180,17 +176,9 @@ function emailMassageReducer(state = [], action) {
     }
 }
 
-
-
-
-
-
 function authReducer(state = [], action) {
     switch (action.type) {
         case LOGGED_IN:
-            console.log('LOGGED_IN_reducer');
-            console.log('LOGGED_IN_reducer action', action);
-
             return {
                 ...state,
                 auth: action.auth,
@@ -198,8 +186,6 @@ function authReducer(state = [], action) {
                 email: action.email
             }
         case USER_LOGIN:
-            console.log('USER_LOGIN');
-            console.log('USER_LOGIN_reducer action', action);
             return {
                 ...state,
                 auth: action.value.auth,

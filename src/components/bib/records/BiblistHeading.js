@@ -126,7 +126,6 @@ class BiblistHeading extends Component {
 
     Packer.toBlob(doc).then(blob => {
       saveAs(blob, "bibli.docx");
-      console.log("Document created successfully");
     });
   }
 

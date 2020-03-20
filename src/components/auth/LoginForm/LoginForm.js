@@ -52,10 +52,8 @@ class LoginForm extends Component {
     if (this.clientValidate()) {
 
       let response = await LoginServerValidation(this.state.email, this.state.password);
-      console.log('resp', response);
       
       if (response && response.data == 'mailVerification') {
-        console.log('aaa', response)
         this.setState({
           errorMsg: 'החשבון לא אומת ',
           newMailVer: true,
@@ -79,7 +77,6 @@ class LoginForm extends Component {
   sendNewConfMailT = (email) => {
     let mailSent = sendNewConfMail(email)
     .then((data)=>{
-      console.log('mailSent', data.doPush);
       if(data.doPush){
         this.props.history.push("/registersuccess");
        }

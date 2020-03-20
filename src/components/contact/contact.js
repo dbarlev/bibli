@@ -32,13 +32,11 @@ class Contact extends Component {
     onChange = (e) => {
         const value = e.target.type === 'checkbox' ? e.target.checked : e.target.value;
         this.setState({ [e.target.name]: value });
-        console.log('contact-state', this.state);
 
     }
 
     onSubmit = (e) => {
         e.preventDefault();
-        console.log(e);
         this.props.sendMassage(this.state)
 
     }

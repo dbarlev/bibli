@@ -73,7 +73,6 @@ class BugContact extends Component {
 
     
     massage = () => {
-        console.log('bugMSG ',this.props);
         if (this.props.massageSent.contactussent === 1) {
             this.setState({ msg: 'ההודעה נשלחה בהצלחה ', color: 'green' });
             return this.state.msg;

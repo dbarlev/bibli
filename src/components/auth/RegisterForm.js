@@ -109,11 +109,8 @@ class RegisterForm extends Component {
       isError = true;
       errors.noEmail = "חובה למלא את שדה דואר אלקטרוני";
     }else if(this.props.user.registerSuccess == 'exists'){
-      //debugger;
       isError = true;
-      //this.setState({mailExists: "כתובת דואר זו כבר קיימת במערכת"});
       errors.noEmail = "כתובת דואר זו כבר קיימת במערכת";
-      console.log('state ', this.state);
     }else{
       isError = false;
       errors.noEmail = "";
@@ -167,7 +164,6 @@ class RegisterForm extends Component {
   {
     e.preventDefault();
      
-    console.log(this.props, 'e.props');
 
     let emailVal = e.target.elements.email.value;
     let userNameVal = e.target.elements.username.value;
@@ -184,11 +180,7 @@ class RegisterForm extends Component {
       subscription: packageVal, 
 
     }
-    // console.log('this end onSubmitRegister ',this);
-    // console.log('this end onSubmitRegister.props ',this.props);
-    
     let err = this.formsValidation();
-   console.log('aaa');
     if (!err){
       this.props.onSubmitForm(this.state);
     }

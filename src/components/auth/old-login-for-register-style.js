@@ -36,16 +36,6 @@ class LoginForm extends Component {
        
     }
 
-    componentWillMount(){
-        //console.log('mount', this.props);
-    }
-    componentDidUpdate(){
-        //console.log('Update', this.props);
-//        console.log('Update username',  this.props.userid);
-
-        
-    }
-
     clientValidate = () => {
         let isError = false;
         
@@ -92,12 +82,7 @@ class LoginForm extends Component {
 
     redirectUser = () => {
 
-        //console.log('state', this.state);
         if(this.props.auth === true){
-            // localStorage.setItem('userid', this.props.userid);
-            // localStorage.setItem('auth', this.state.auth);
-            // localStorage.setItem('username', this.props.username);
-
             const timestamp = new Date().getTime(); // current time
             const exp = timestamp + (60 * 60 * 24 * 1000 * 7)                // add one week
 

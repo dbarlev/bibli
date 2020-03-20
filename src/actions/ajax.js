@@ -181,14 +181,12 @@ export const InsertBibListToDB = data => {
 };
 
 export const InsertUserToStore = data => {
-  console.log("data ff", data);
   return dispatch => {
     dispatch({ type: INSERT_USER_TO_DB, value: data });
   };
 };
 
 export const userLogin = userData => {
-  //console.log('userLogin', userData)
   return dispatch => {
     axios({
       url: `${apiPath}/users/Login.php`,

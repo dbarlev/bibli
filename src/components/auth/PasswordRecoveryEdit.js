@@ -55,21 +55,16 @@ class PasswordRecoveryEdit extends Component {
             ...this.state,
             ...errors
         });
-        console.log('isError', isError);
         return isError
     }
 
     onSubmit = (e) => {
         e.preventDefault();
-        //console.log('onSubmit');
-        //console.log('this.state', this.state);
-
         let obj = {
             password: this.state.password,
             token: this.props.match.params.token
         }
         let err = this.formValidation();
-        console.log('err', err);
         if (!err) {
             this.props.PassRecoveryEdit(obj);
         }

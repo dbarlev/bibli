@@ -20,7 +20,6 @@ class BibSearch extends Component {
     onChange = (e) =>{
         e.preventDefault();
         this.setState({q: e.target.value})
-        console.log('q', this.state)
 
         // this.viewResults(this.props.searcResults);
         this.handleFetchResults(this.state.q)
@@ -49,9 +48,6 @@ class BibSearch extends Component {
         return (
          <div>
             <FormGroup className="searchArea">
-            {console.log('this.state.r ',this.state.r)}
-            
-                
                 <InputGroup>
                     <FormControl className="searchRecord" name="bibsearch" onChange={this.onChange} placeholder="חיפוש מאמר" type="text" />
                     <InputGroup.Button>

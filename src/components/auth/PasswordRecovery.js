@@ -14,10 +14,6 @@ class PasswordRecovery extends Component {
         }
     }
 
-    componentDidUpdate() {
-        console.log('passRecoveryData z', this.props.passRecoveryData);
-
-    }
     onChange = e => {
         this.setState({ [e.target.name]: e.target.value });
 

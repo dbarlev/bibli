@@ -12,7 +12,6 @@ export const LoginServerValidation = async (email, password) => {
         return { success: false, data: errorMsg, error: response.error };
     } else {
         setCookie(response.auth, response.userid);
-        console.log('response', response);
         return { success: true, data: response };
     }
 }
