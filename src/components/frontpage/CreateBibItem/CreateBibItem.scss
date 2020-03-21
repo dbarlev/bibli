@@ -1,12 +1,18 @@
  @import '../../../../public/scss/variables';
 
 #home-createBib{
-    padding-top: 40px;
-    background-color: $mainBlueColor;
+    margin-bottom: 40px;
 
     .headline{
         margin-right: 50px;
         margin-bottom: 20px;
+    }
+
+    .card{
+        border: 1px solid gray;
+        background: white;
+        border-radius: 10px;
+        box-shadow: 0 3px 6px 5px rgba(0, 0, 0, 0.12), 0 6px 16px 0 rgba(0, 0, 0, 0.08), 0 9px 28px 7px rgba(0, 0, 0, 0.05);
     }
 
     .tabControlIcons{
@@ -22,7 +28,6 @@
     }
 
     #home-create-item-title{
-        margin-top: 50%;
         font-size: 44px;
         @media(max-width: 768px){
             text-align: center;
@@ -34,7 +39,15 @@
         border-radius: 50%;
        
     }
+
+    .selectDropdown{
+        position: relative;
+        left: 14px;
+    }
     
+    input{
+        width: 100% !important;
+    }
 
     .rounded{
         border-radius: 50%;
@@ -47,32 +60,33 @@
         }
     }
 
-    span,div,a,p,i{
-        color: white;
+    h2{
+        color: black;
+        font-family: cursive;
     }
 
-    li:hover i,div{
+    span,div,a,p{
+        color: black;
+    }
+
+    li:hover i{
         color: #e08222 !important;
     }
 
-    i.fa-plus{
-        color: #e08222 !important;
+    i{
+        color: #204260 !important;
     }
     
     i.fa-trash-alt{
-        color: white !important;
+        color: red !important;
     }
 
     #writersFeilds strong{
-        color: white;
+        color: black;
         i{
             margin-left: 10px;
         }
 
-    }
-
-    h2{
-        color: white;
     }
 }
 

@@ -13,15 +13,18 @@ class CreateBibItem extends Component {
                 <Col lg={7} md={10}>
                     <Row>
                         <Col lg="2"></Col>
-                        <Col md={9} sm={8} xs={12}>
-                            <div class="headline">
-                                <h2>צרו את פריט הבליוגרפיה שלכם</h2>
-                                <div>
-                                    <strong>בחרו את הפריט, הזינו את הפרטים שלו</strong>
-                                    <strong>המערכת תסדר את ההפניה בהתאם לכללי הכתיבה </strong>
+                        <Col md={9} lg={7} sm={8} xs={12}>
+                            <div className="card">
+                                <div class="headline">
+                                    <h2>צרו את פריט הביבליוגרפיה שלכם</h2>
+                                    <ol>
+                                        <li>בחרו סוג פריט ביבליוגרפי</li>
+                                        <li>הזינו את הפרטים שלו בטופס למטה</li>
+                                        <li>המערכת תסדר את הרשומה בהתאם לכללי הכתיבה </li>
+                                    </ol>
                                 </div>
+                                <HomeApaTabControl homePage={true} />
                             </div>
-                            <HomeApaTabControl homePage={true} />
                         </Col>
                     </Row>
                 </Col>

@@ -23,8 +23,8 @@ class FrontPage extends Component {
       <Grid fluid id="frontpage" className="jumbotron-main">
         <Welcome />
         <FrontRegister />
-        <AboutUs />
         <CreateBibItem />
+        <AboutUs />
         <FrontFaq />
         <StatisticsRow />
         <StickyContact />
