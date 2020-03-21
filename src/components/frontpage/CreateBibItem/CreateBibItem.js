@@ -13,7 +13,7 @@ class CreateBibItem extends Component {
                 <Col lg={6} md={10}>
                     <Row>
                         <Col lg="2"></Col>
-                        <Col md={9} lg={7} sm={8} xs={12}>
+                        <Col md={9} lg={7} sm={12} xs={12}>
                             <div className="card">
                                 <div class="headline">
                                     <h2>צרו את פריט הביבליוגרפיה שלכם</h2>
