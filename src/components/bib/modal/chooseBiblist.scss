@@ -1,0 +1,31 @@
+#chooseBiblistModal{
+    .modal-footer{
+        text-align: center;
+        border-top: none;
+    }
+
+    .modal-header{
+        background-color:#f2b500;
+        color: black;
+    }
+
+    .modal-body{
+        min-height: 200px;
+    }
+
+    #selectLabel{
+        margin-bottom: 10px;
+        font-weight: bold;
+    }
+
+    button.btn{
+        border-radius: 10px;
+        width: 100px;
+        font-weight: bold;
+    }
+
+    .cancel{
+        background-color: whitesmoke;
+        color: #e08222;
+    }
+}

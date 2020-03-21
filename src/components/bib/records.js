@@ -13,19 +13,22 @@ import { addBibListNamesToStore, saveRecordsOnStore } from '../../actions/ajax';
 import Footer from '../footer/Footer.js';
 import { getCookie } from '../Services/GetCookies';
 import { apiClient } from '../../common/apiClient';
-import { addRecordFromStorage } from './services/addRecordFromStorage';
+import { addRecordFromStorage, getRecordFromStorage } from './services/addRecordFromStorage';
 import { constructNewUserRecords } from './services/constructNewUserRecords';
 import StickyContact from '../stickyContact/StickyContact';
 import '../App.css';
+import ChooseBiblist from './modal/chooseBiblist';
 
 class Records extends Component {
 
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
       biblistID: -1,
       userid: getCookie("userid"),
       auth: getCookie("auth"),
+      showChooseBiblistModal: false,
+      biblist: []
     }
   }
 
@@ -44,25 +47,56 @@ class Records extends Component {
   async init() {
     let userid = getCookie("userid");
     let serverResponseForBibList = await apiClient(`/biblist/${userid}`, "get");
-
     if (serverResponseForBibList && serverResponseForBibList.length > 0) {
-      await addRecordFromStorage(userid, serverResponseForBibList, this.props);
-      this.props.addBibListNamesToStore(userid, serverResponseForBibList);
-      if (serverResponseForBibList.length == 1) {
-        this.props.activeBiblist(serverResponseForBibList[0]);
-      }
-
-      let serverResponseForRecords = await apiClient(`/biblioRecords/Records.php?userid=${userid}&biblistID=${serverResponseForBibList[0].id}`, "get");
-      if (serverResponseForRecords && serverResponseForRecords.length > 0) {
-        this.props.saveRecordsOnStore(userid, serverResponseForRecords);
-      }
+      await this.constructExistingUser(userid, serverResponseForBibList);
     }
     else {
       await constructNewUserRecords(userid, this.props);
     }
   }
 
+  async constructExistingUser(userid, serverResponseForBibList) {
+    this.props.addBibListNamesToStore(userid, serverResponseForBibList);
+    let hasRecordOnStorage = getRecordFromStorage();
+    if (!hasRecordOnStorage) {
+      await addRecordFromStorage(userid, serverResponseForBibList, this.props);
+      this.props.activeBiblist(serverResponseForBibList[0]);
+      let serverResponseForRecords = await apiClient(`/biblioRecords/Records.php?userid=${userid}&biblistID=${serverResponseForBibList[0].id}`, "get");
+      if (serverResponseForRecords && serverResponseForRecords.length > 0) {
+        this.props.saveRecordsOnStore(userid, serverResponseForRecords);
+      }
+    }
+    else if (hasRecordOnStorage) {
+      let data = serverResponseForBibList.map((item) => {
+        return {
+          id: item.id,
+          value: item.id,
+          label: item.Name
+        }
+      })
+      this.setState({ showChooseBiblistModal: true, biblist: data });
+    }
+  }
 
+  closeModal = () => {
+    this.setState({ showChooseBiblistModal: false, biblist: [] });
+  }
+
+  onBiblistChosen = async (selectedOption) => {
+    let userid = getCookie("userid");
+    let biblist = {
+      id: selectedOption.id,
+      userid: userid,
+      Name: selectedOption.label
+    };
+    this.props.activeBiblist(biblist);
+    await addRecordFromStorage(userid, [biblist], this.props);
+    let serverResponseForRecords = await apiClient(`/biblioRecords/Records.php?userid=${userid}&biblistID=${biblist.id}`, "get");
+    this.closeModal();
+    if (serverResponseForRecords && serverResponseForRecords.length > 0) {
+      this.props.saveRecordsOnStore(userid, serverResponseForRecords);
+    }
+  }
 
   render() {
     return (
@@ -85,6 +119,13 @@ class Records extends Component {
         </div>
         <StickyContact />
         <Footer />
+        {this.state.showChooseBiblistModal &&
+          <ChooseBiblist
+            closeModal={this.closeModal}
+            onBiblistChosen={(selectedOption) => this.onBiblistChosen(selectedOption)}
+            biblist={this.state.biblist}
+          />
+        }
       </div>
     );
   }

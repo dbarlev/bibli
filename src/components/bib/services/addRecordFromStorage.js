@@ -1,7 +1,7 @@
 import { apiClient } from '../../../common/apiClient';
 
 export const addRecordFromStorage = async (userid, bibList, props) => {
-    let recordFromSessionStorage = sessionStorage.getItem("apaRecord");
+    let recordFromSessionStorage = getRecordFromStorage();
     recordFromSessionStorage = recordFromSessionStorage && JSON.parse(recordFromSessionStorage);
     if (recordFromSessionStorage) {
         sessionStorage.removeItem("apaRecord");
@@ -14,4 +14,8 @@ export const addRecordFromStorage = async (userid, bibList, props) => {
     }
     else
         return;
+}
+
+export const getRecordFromStorage = () => {
+    return sessionStorage.getItem("apaRecord");
 }
