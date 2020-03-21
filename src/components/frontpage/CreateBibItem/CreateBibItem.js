@@ -10,7 +10,7 @@ class CreateBibItem extends Component {
         return (
             <Row id="home-createBib">
                 <Col lg={3} md={1}></Col>
-                <Col lg={7} md={10}>
+                <Col lg={6} md={10}>
                     <Row>
                         <Col lg="2"></Col>
                         <Col md={9} lg={7} sm={8} xs={12}>
