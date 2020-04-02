@@ -67,7 +67,7 @@ class ApaArticle extends Component {
     const { getEditRecord, activeBiblist } = this.props;
     let editMode = window.location.href.indexOf("editRecord") > -1;
     let formElements = event.target.form.elements;
-    if (activeBiblist && activeBiblist.length == 0) {
+    if (activeBiblist && activeBiblist.length == 0 && !this.props.homePage) {
       alert("Please choose a list first");
       return;
     }
@@ -100,10 +100,14 @@ class ApaArticle extends Component {
       }
       this.props.EditRecord(details);
     }
+    else if (this.props.homePage) {
+      sessionStorage.setItem("apaRecord", JSON.stringify(details));
+      this.props.history.push("/lastStep");
+    }
     else {
       this.props.InsertRecordToDB(details);
     }
-    this.props.history.push("/records/biblist");
+    !this.props.homePage && this.props.history.push("/records/biblist");
   }
 
   onComboboxChange(value) {

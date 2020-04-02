@@ -1997,7 +1997,7 @@ form .btn-default {
 
 .yellow-bg {
   padding: 15px;
-  background-color: #f2b500; }
+  background-color: #eeb100; }
 
 .grey-bg {
   padding: 15px;
@@ -2027,13 +2027,13 @@ input {
   border-radius: 50px; }
 
 .btn-yellow {
-  background-color: #f2b500; }
+  background-color: #eeb100; }
   .btn-yellow a {
     color: #204260; }
   .btn-yellow:hover {
     background-color: #204260; }
     .btn-yellow:hover a {
-      color: #f2b500;
+      color: #eeb100;
       text-decoration: none; }
 
 /*text*/
@@ -2070,10 +2070,10 @@ button.send {
   font-size: 20px;
   width: 100%;
   background-color: #204260;
-  color: #f2b500; }
+  color: #eeb100; }
   button.send:hover, button.send:active {
     color: #204260;
-    background-color: #f2b500; }
+    background-color: #eeb100; }
 
 .row *,
 .row *:after,
@@ -2130,12 +2130,12 @@ button.send {
   border-radius: 50px; }
 
 #TopNav .nav a:active {
-  background-color: #f2b500;
+  background-color: #eeb100;
   border-radius: 50px;
   transition: 0.3s; }
 
 #TopNav .nav a:hover {
-  background-color: #f2b500;
+  background-color: #eeb100;
   border-radius: 50px;
   transition: 0.3s; }
 
@@ -2146,7 +2146,7 @@ button.send {
   padding-right: 0;
   padding-left: 0; }
   #frontpage #secondline {
-    background-color: #f2b500; }
+    background-color: #eeb100; }
   #frontpage #pricing-table {
     background-color: #204260;
     height: 100%;
@@ -2192,7 +2192,7 @@ button.send {
       margin-top: 15px;
       border-top-right-radius: 35px; }
     #frontpage #pricing-table ul .price-recomended {
-      background-color: #f2b500;
+      background-color: #eeb100;
       padding: 80px 45px;
       margin: 0 20px;
       height: 500px; }
@@ -2311,7 +2311,7 @@ ul#searchresults {
       height: 100px;
       flex-direction: row-reverse; }
     ul#searchresults li button.addToListBtn {
-      background-color: #f2b500;
+      background-color: #eeb100;
       border: 0;
       color: #000;
       align-self: center;
@@ -2321,7 +2321,7 @@ ul#searchresults {
         right: 7px; }
       ul#searchresults li button.addToListBtn:hover {
         background-color: #204260;
-        color: #f2b500; }
+        color: #eeb100; }
     ul#searchresults li .resultBookTitle {
       font-weight: bold; }
 
@@ -2339,7 +2339,7 @@ ul#searchresults.open {
   #App-header .nav-noStyle {
     background: transparent; }
   #App-header .topnav-login-logout-btn > a {
-    background-color: #f2b500; }
+    background-color: #eeb100; }
   #App-header #userNav {
     margin-top: 10px;
     background-color: #204260;

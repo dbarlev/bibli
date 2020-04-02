@@ -16,7 +16,7 @@ class CreateBibItem extends Component {
                         <Col md={9} lg={7} sm={12} xs={12}>
                             <div className="card">
                                 <div class="headline">
-                                    <h2>צרו את פריט הביבליוגרפיה שלכם</h2>
+                                    <h2>צרו את פריט הביבליוגרפיה הראשון שלכם</h2>
                                     <ol>
                                         <li>בחרו סוג פריט ביבליוגרפי</li>
                                         <li>הזינו את הפרטים שלו בטופס למטה</li>
