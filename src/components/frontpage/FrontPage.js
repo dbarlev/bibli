@@ -10,7 +10,6 @@ import StatisticsRow from "./StatisticsRow/StatisticsRow";
 import FrontFaq from "./FrontFaq/FrontFaq";
 import StickyContact from "../stickyContact/StickyContact";
 
-
 class FrontPage extends Component {
   componentDidMount() {
     let isLoggedin = getCookie("auth");

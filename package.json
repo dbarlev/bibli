@@ -5,6 +5,7 @@
   "dependencies": {
     "@babel/core": "7.1.0",
     "@fortawesome/fontawesome-svg-core": "^1.2.26",
+    "@govuk-react/skip-link": "^0.7.1",
     "@svgr/webpack": "2.4.1",
     "axios": "^0.18.0",
     "babel-core": "7.0.0-bridge.0",
@@ -86,6 +87,7 @@
   },
   "devDependencies": {
     "case-sensitive-paths-webpack-plugin": "^2.1.2",
+    "styled-components": "^5.0.1",
     "webpack-cli": "^3.3.10"
   },
   "browserslist": [

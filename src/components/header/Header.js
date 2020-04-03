@@ -1,9 +1,16 @@
 import React, { Component } from "react";
 import TopMenu from "./TopMenu/TopMenu";
-import { Button, Grid, Row } from "react-bootstrap";
-import { connect } from "react-redux";
+import { Grid } from "react-bootstrap";
+import SkipLinks from '../skipLinks';
 import { userLogedIn } from "../../actions";
 import { getCookie } from "../Services/GetCookies";
+
+const skipTo = [
+  { id: "home-createBib", text: "דלג לאזור המרכזי" },
+  { id: "mainMenuRow", text: "דלג לתפריט הראשי" },
+  { id: "footer", text: "דלג לסוף העמוד" },
+  { id: "FrontRegisterRow", text: "דלג להרשמה" }
+]
 
 class Header extends Component {
   state = {
@@ -12,34 +19,16 @@ class Header extends Component {
     username: getCookie("username")
   };
 
-  componentWillMount() {
-
-    // let userid = this.state.userid;
-    // let auth = this.state.auth;
-    // let username = this.state.username;
-    // if (auth) {
-
-    //   const json = {
-    //     userid,
-    //     auth,
-    //     username
-    //   };
-    //   this.props.userLogedIn(json);
-    // } else {
-    //   this.setState({ auth: false });
-
-    // }
-
-
-  }
-
   render() {
     return (
-      <Grid className="show-grid">
-        <div id="App-header">
-          <TopMenu loginState={this.state.auth} />
-        </div>
-      </Grid>
+      <>
+        <SkipLinks skipTo={skipTo} />
+        <Grid className="show-grid">
+          <div id="App-header">
+            <TopMenu loginState={this.state.auth} />
+          </div>
+        </Grid>
+      </>
     );
   }
 }
