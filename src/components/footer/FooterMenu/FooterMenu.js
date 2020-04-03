@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { MenuItem } from 'react-bootstrap';
+import { Nav, Navbar, NavItem } from "react-bootstrap";
 import { LinkContainer, IndexLinkContainer } from "react-router-bootstrap";
 import './FooterMenu.scss';
 
@@ -13,16 +13,13 @@ class FooterMenu extends Component {
             <div id="FooterMenu">
                 <ul>
                     <LinkContainer to="/takanon">
-                        <MenuItem>תקנון</MenuItem>
+                        <NavItem>תקנון</NavItem>
                     </LinkContainer>
                     <LinkContainer to="/contact">
-                        <MenuItem>דברו איתנו</MenuItem>
+                        <NavItem>דברו איתנו</NavItem>
                     </LinkContainer>
                     <LinkContainer to="/">
-                        <MenuItem>האזור האישי</MenuItem>
-                    </LinkContainer>
-                    <LinkContainer to="/auth">
-                        <MenuItem>הרשמה/התחברות</MenuItem>
+                        <NavItem>האזור האישי</NavItem>
                     </LinkContainer>
                     <li>עקבו אחרינו ב- <i className="fab fa-facebook-f"></i></li>
                 </ul>
