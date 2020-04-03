@@ -9,6 +9,15 @@ import CreateBibItem from "./CreateBibItem/CreateBibItem";
 import StatisticsRow from "./StatisticsRow/StatisticsRow";
 import FrontFaq from "./FrontFaq/FrontFaq";
 import StickyContact from "../stickyContact/StickyContact";
+import SkipLinks from '../skipLinks';
+
+const skipTo = [
+  { id: "home-createBib", text: "דלג לאזור המרכזי" },
+  { id: "mainMenuRow", text: "דלג לתפריט הראשי" },
+  { id: "footer", text: "דלג לסוף העמוד" },
+  { id: "FrontRegisterRow", text: "דלג להרשמה" },
+  { id: "home-createBib", text: "דלג ליצירת פריט ביבליוגרפיה ראשון" }
+]
 
 class FrontPage extends Component {
   componentDidMount() {
@@ -20,6 +29,7 @@ class FrontPage extends Component {
   render() {
     return (
       <Grid fluid id="frontpage" className="jumbotron-main">
+        <SkipLinks skipTo={skipTo} />
         <Welcome />
         <FrontRegister />
         <CreateBibItem />

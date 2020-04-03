@@ -8,7 +8,7 @@ import thunk from 'redux-thunk';
 
 import AuthPage from './components/auth/AuthPage/AuthPage';
 import FrontPage from './components/frontpage/FrontPage';
-import Faq from './components/frontpage/Faq';
+import Faq from './components/pages/Faq';
 import rootReducer from './reducers'
 import registerServiceWorker from './registerServiceWorker';
 import Records from './components/bib/records';

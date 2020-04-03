@@ -4,7 +4,15 @@ import { connect } from 'react-redux';
 import { sendMassage } from '../../actions/ajax';
 import Header from '../header/Header';
 import Footer from '../footer/Footer';
+import SkipLinks from '../skipLinks';
 import './contact.scss';
+
+const skipTo = [
+    { id: "contact-main", text: "דלג לאזור המרכזי" },
+    { id: "mainMenuRow", text: "דלג לתפריט הראשי" },
+    { id: "footer", text: "דלג לסוף העמוד" },
+    { id: "contact-main", text: "דלג לטופס יצירת קשר" }
+]
 
 class Contact extends Component {
     constructor(props) {
@@ -83,138 +91,139 @@ class Contact extends Component {
     render() {
         return (
             <div id="contact">
+                <SkipLinks skipTo={skipTo} />
                 <Header />
-                <Row>
-                    <Col md={6} mdOffset={3}>
-                        <h1>צור קשר</h1>
-                    </Col>
-                </Row>
-                <div className="row">
-                    <div className="col-xs-4 col-xs-offset-4">
-                        <h1 className="text-center">
-                            <p className="bold">יש משהו שאתם רוצים לשאול?</p>
-                            <p className="bold">בקשה? בעיה?</p>
-                        </h1>
-                        <h2 className="text-center">
-                            <p>כתבו לנו ונדאג לחזור אליכם בהקדם</p>
-                        </h2>
+                <main id="contact-main">
+                    <Row>
+                        <Col md={6} mdOffset={3}>
+                            <h1>צור קשר</h1>
+                        </Col>
+                    </Row>
+                    <div className="row">
+                        <div className="col-xs-4 col-xs-offset-4">
+                            <h1 className="text-center">
+                                <p className="bold">יש משהו שאתם רוצים לשאול?</p>
+                                <p className="bold">בקשה? בעיה?</p>
+                            </h1>
+                            <h2 className="text-center">
+                                <p>כתבו לנו ונדאג לחזור אליכם בהקדם</p>
+                            </h2>
+                        </div>
                     </div>
-                </div>
-                <div className="row">
-                    <Form horizontal onSubmit={this.onSubmit.bind(this)}>
-                        <div className="col-xs-12 col-md-2 col-md-offset-5">
-                            <div className="row">
+                    <div className="row">
+                        <Form horizontal onSubmit={this.onSubmit.bind(this)}>
+                            <div className="col-xs-12 col-md-2 col-md-offset-5">
+                                <div className="row">
 
-                                <div className="form-group">
-                                    <input
-                                        required
-                                        aria-label="הכנס שם מלא"
-                                        className="form-control"
-                                        Placeholder="הכנס שם מלא"
-                                        ref="name"
-                                        name="name"
-                                        id="name"
-                                        type="text"
-                                        onChange={this.onChange.bind(this)}
-                                    />
-                                </div>
-
-                            </div>
-                            <div className="row">
-
-                                <div className="form-group">
-                                    <input
-                                        required
-                                        aria-label="הכנס כתובת מייל"
-                                        className="form-control"
-                                        Placeholder="כתובת מייל"
-                                        ref="email"
-                                        name="email"
-                                        id="email"
-                                        type="email"
-                                        onChange={this.onChange.bind(this)}
-                                    />
-                                </div>
-
-                            </div>
-                            <div className="row">
-                                <div className="form-group">
-                                    <input
-                                        className="form-control"
-                                        aria-label="הכנס מספר טלפון"
-                                        Placeholder="טלפון"
-                                        ref="phone"
-                                        name="phone"
-                                        id="phone"
-                                        type="text"
-                                        onChange={this.onChange.bind(this)}
-                                    />
-                                </div>
-
-                            </div>
-                            <div className="row">
-                                <div className="form-group">
-                                    <textarea
-                                        rows="7"
-                                        required
-                                        aria-label="תוכן ההודעה, במה נוכל לעזור"
-                                        className="form-control"
-                                        Placeholder="כתוב לנו במה נוכל לעזור..."
-                                        ref="massage"
-                                        name="massage"
-                                        id="massage"
-                                        onChange={this.onChange.bind(this)}
-                                    ></textarea>
-                                </div>
-
-                            </div>
-                            <div className="row">
-
-                                <div className="form-group">
-
-                                    <div className="col-xs-2 pad-0">
+                                    <div className="form-group">
                                         <input
-                                            aria-label="תוכן ההודעה, במה נוכל לעזור"
+                                            required
+                                            aria-label="הכנס שם מלא"
                                             className="form-control"
-                                            Placeholder="כתוב לנו במה נוכל לעזור..."
-                                            ref="checkbox"
-                                            name="addToMailingList"
-                                            id="addToMailingList"
-                                            type="checkbox"
+                                            Placeholder="הכנס שם מלא"
+                                            ref="name"
+                                            name="name"
+                                            id="name"
+                                            type="text"
                                             onChange={this.onChange.bind(this)}
                                         />
                                     </div>
-                                    <div className="col-xs-10 pad-0">
-                                        <label>
-                                            מעוניין להצטרף לרשימת התפוצה
-                                        </label>
-                                    </div>
 
                                 </div>
+                                <div className="row">
 
-                            </div>
-                            <div className="row">
-                                <div className="text-center">
                                     <div className="form-group">
-                                        <button className="btn send" >שלח</button>
+                                        <input
+                                            required
+                                            aria-label="הכנס כתובת מייל"
+                                            className="form-control"
+                                            Placeholder="כתובת מייל"
+                                            ref="email"
+                                            name="email"
+                                            id="email"
+                                            type="email"
+                                            onChange={this.onChange.bind(this)}
+                                        />
+                                    </div>
+
+                                </div>
+                                <div className="row">
+                                    <div className="form-group">
+                                        <input
+                                            className="form-control"
+                                            aria-label="הכנס מספר טלפון"
+                                            Placeholder="טלפון"
+                                            ref="phone"
+                                            name="phone"
+                                            id="phone"
+                                            type="text"
+                                            onChange={this.onChange.bind(this)}
+                                        />
+                                    </div>
+
+                                </div>
+                                <div className="row">
+                                    <div className="form-group">
+                                        <textarea
+                                            rows="7"
+                                            required
+                                            aria-label="תוכן ההודעה, במה נוכל לעזור"
+                                            className="form-control"
+                                            Placeholder="כתוב לנו במה נוכל לעזור..."
+                                            ref="massage"
+                                            name="massage"
+                                            id="massage"
+                                            onChange={this.onChange.bind(this)}
+                                        ></textarea>
+                                    </div>
+
+                                </div>
+                                <div className="row">
+
+                                    <div className="form-group">
+
+                                        <div className="col-xs-2 pad-0">
+                                            <input
+                                                aria-label="תוכן ההודעה, במה נוכל לעזור"
+                                                className="form-control"
+                                                Placeholder="כתוב לנו במה נוכל לעזור..."
+                                                ref="checkbox"
+                                                name="addToMailingList"
+                                                id="addToMailingList"
+                                                type="checkbox"
+                                                onChange={this.onChange.bind(this)}
+                                            />
+                                        </div>
+                                        <div className="col-xs-10 pad-0">
+                                            <label>
+                                                מעוניין להצטרף לרשימת התפוצה
+                                        </label>
+                                        </div>
+
+                                    </div>
+
+                                </div>
+                                <div className="row">
+                                    <div className="text-center">
+                                        <div className="form-group">
+                                            <button className="btn send" >שלח</button>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                        <div className="col-xs-12 col-md-2 col-md-offset-5">
-                            <div className="row">
-                                {this.state.msg &&
-                                    <div className={this.state.color + '-alert'} role="alert">
-                                        {this.state.msg}
-                                    </div>
-                                }
+                            <div className="col-xs-12 col-md-2 col-md-offset-5">
+                                <div className="row">
+                                    {this.state.msg &&
+                                        <div className={this.state.color + '-alert'} role="alert">
+                                            {this.state.msg}
+                                        </div>
+                                    }
+                                </div>
                             </div>
-                        </div>
-                    </Form>
+                        </Form>
 
-                </div>
-
-
+                    </div>
+                </main>
                 <Footer bottom />
             </div>
 

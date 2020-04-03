@@ -2,8 +2,14 @@ import React, { Component } from 'react'
 import { Grid, Row, Col } from 'react-bootstrap';
 import Header from '../header/Header';
 import Footer from '../footer/Footer';
-import videoPlaceholder from '../img/videoPlaceholder.png';
 import StickyContact from '../stickyContact/StickyContact';
+import SkipLinks from '../skipLinks';
+
+const skipTo = [
+    { id: "faq-mainContent", text: "דלג לאזור המרכזי" },
+    { id: "mainMenuRow", text: "דלג לתפריט הראשי" },
+    { id: "footer", text: "דלג לסוף העמוד" },
+]
 
 class Faq extends Component {
 
@@ -58,50 +64,46 @@ class Faq extends Component {
 
         return (
             <Grid fluid id="faq" className="jumbotron-main">
+                <SkipLinks skipTo={skipTo} />
                 <Header headline="" />
-                {/* <Row>
-            <Col className="text-center" mdOffset={3} md={6}>
-                <div>
-                    <img id='video-faq' src={videoPlaceholder} />
-                </div>
-            </Col>
-        </Row> */}
-                <Row>
-                    <Col md={3} mdOffset={3}>
-                        <div>
-                            <h1>שאלות ותשובות</h1>
-                        </div>
-                    </Col>
-                </Row>
-                {
-                    this.state.qa.map((question) => {
-                        return (
+                <main id="faq-mainContent">
+                    <Row>
+                        <Col md={3} mdOffset={3}>
                             <div>
-                                <Row>
-                                    <Col md={7} mdOffset={3}>
-                                        <div className="faq-question">
-                                            <span>
-                                                <i class="fa fa-question-circle" aria-hidden="true"></i>
-                                                <span className="bold">{question.question} </span>
-                                            </span>
-                                        </div>
-                                    </Col>
-                                </Row>
-                                <Row>
-                                    <Col md={7} mdOffset={3}>
-                                        <div className="faq-answer">
-                                            <span>
-                                                <i class="fa fa-exclamation-circle" aria-hidden="true"></i>
-                                                <span>{question.answer} </span>
-                                            </span>
-                                        </div>
-                                        <hr />
-                                    </Col>
-                                </Row>
+                                <h1>שאלות ותשובות</h1>
                             </div>
-                        )
-                    })
-                }
+                        </Col>
+                    </Row>
+                    {
+                        this.state.qa.map((question) => {
+                            return (
+                                <div>
+                                    <Row>
+                                        <Col md={7} mdOffset={3}>
+                                            <div className="faq-question">
+                                                <span>
+                                                    <i class="fa fa-question-circle" aria-hidden="true"></i>
+                                                    <span className="bold">{question.question} </span>
+                                                </span>
+                                            </div>
+                                        </Col>
+                                    </Row>
+                                    <Row>
+                                        <Col md={7} mdOffset={3}>
+                                            <div className="faq-answer">
+                                                <span>
+                                                    <i class="fa fa-exclamation-circle" aria-hidden="true"></i>
+                                                    <span>{question.answer} </span>
+                                                </span>
+                                            </div>
+                                            <hr />
+                                        </Col>
+                                    </Row>
+                                </div>
+                            )
+                        })
+                    }
+                </main>
                 <StickyContact />
                 <Footer />
             </Grid>
