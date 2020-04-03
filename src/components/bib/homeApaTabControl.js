@@ -1,22 +1,20 @@
 import React, { Component } from "react";
-import { Route, NavLink } from "react-router-dom";
 import ApaBooks from "./apa/ApaTypes/ApaBooks";
 import ApaPaper from "./apa/ApaTypes/ApaPaper";
 import ApaArticle from "./apa/ApaTypes/ApaArticle";
 import ApaWebsite from "./apa/ApaTypes/ApaWebsite";
-import { OverlayTrigger, Tooltip } from "react-bootstrap";
 import './apaTabControl.scss';
 
 
 const ApaTab = ({ type, activeClassName = null, text, icon, onChangeTab }) => {
   return (
-    <li className="pull-right" name={type}>
+    <li className="pull-right" name={type} role="tab">
       <a
         href="#"
         activeClassName={activeClassName}
         onClick={(e) => onChangeTab(e)}
       >
-        <i name={type} className={icon}></i>
+        <i aria-hidden="true" name={type} className={icon}></i>
         <div name={type} className="iconText">
           {text}
         </div>
@@ -57,7 +55,7 @@ class HomeApaTabControl extends Component {
     return (
       <div id="apaTabcontrol">
         <div className="row">
-          <ul className="nav tabControlIcons">
+          <ul className="nav tabControlIcons" role="tablist">
             <ApaTab
               type="book"
               activeClassName="is-active"

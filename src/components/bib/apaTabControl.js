@@ -10,7 +10,7 @@ import './apaTabControl.scss';
 const checkActiveLink = (routeToCheck, editMode) => {
   let href = window.location.href;
   if (editMode) return;
-    return href.indexOf(routeToCheck) > -1 ? "is-active" : "";
+  return href.indexOf(routeToCheck) > -1 ? "is-active" : "";
 };
 
 const DisabeldTab = ({ type, activeClassName = null, text, icon }) => {
@@ -19,9 +19,9 @@ const DisabeldTab = ({ type, activeClassName = null, text, icon }) => {
       placement="top"
       overlay={<Tooltip id="tooltip-disabled">בקרוב</Tooltip>}
     >
-      <li className="pull-right notApplicable" name={type}>
+      <li role="tab" className="pull-right notApplicable" name={type}>
         <a className={checkActiveLink(type)} activeClassName={activeClassName}>
-          <i name={type} className={icon}></i>
+          <i aria-hidden="true" name={type} className={icon}></i>
           <div name={type} className="iconText">
             {text}
           </div>
@@ -33,13 +33,13 @@ const DisabeldTab = ({ type, activeClassName = null, text, icon }) => {
 
 const ApaTab = ({ type, navigate, activeClassName = null, text, icon, editMode }) => {
   return (
-    <li className="pull-right" name={type}>
+    <li role="tab" className="pull-right" name={type}>
       <NavLink
         className={checkActiveLink(type, editMode)}
         activeClassName={activeClassName}
         to={navigate}
       >
-        <i name={type} className={icon}></i>
+        <i aria-hidden="true" name={type} className={icon}></i>
         <div name={type} className="iconText">
           {text}
         </div>
@@ -67,7 +67,7 @@ class ApaTabControl extends Component {
     return (
       <div id="apaTabcontrol">
         <div className="row">
-          <ul className="nav tabControlIcons">
+          <ul className="nav tabControlIcons" role="tablist">
             <ApaTab
               type="book"
               navigate="/records/addRecord/ApaBooks"
