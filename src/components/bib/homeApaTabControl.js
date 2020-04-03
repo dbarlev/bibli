@@ -3,16 +3,29 @@ import ApaBooks from "./apa/ApaTypes/ApaBooks";
 import ApaPaper from "./apa/ApaTypes/ApaPaper";
 import ApaArticle from "./apa/ApaTypes/ApaArticle";
 import ApaWebsite from "./apa/ApaTypes/ApaWebsite";
+import { moveFocus } from '../Services/MoveFocus';
 import './apaTabControl.scss';
 
 
-const ApaTab = ({ type, activeClassName = null, text, icon, onChangeTab }) => {
+const ApaTab = ({ type, activeClassName = null, text, icon, onChangeTab, nextType, prevType }) => {
   return (
-    <li className="pull-right" name={type} role="tab">
+    <li className="pull-right" name={type}>
       <a
+        role="tab"
         href="#"
+        id={`tab-${type}`}
         activeClassName={activeClassName}
         onClick={(e) => onChangeTab(e)}
+        onKeyDown={(e) => {
+          let focusObject = {};
+          if (nextType)
+           focusObject.left = `tab-${nextType}`;
+
+          if (prevType)
+            focusObject.right = `tab-${prevType}`
+
+          moveFocus(e, focusObject)
+        }}
       >
         <i aria-hidden="true" name={type} className={icon}></i>
         <div name={type} className="iconText">
@@ -62,6 +75,7 @@ class HomeApaTabControl extends Component {
               onChangeTab={(e) => this.changeTab(e, "book")}
               text="ספר"
               icon="fas fa-book"
+              nextType="paper"
             />
             <ApaTab
               type="paper"
@@ -69,6 +83,8 @@ class HomeApaTabControl extends Component {
               activeClassName="is-active"
               text="עיתון"
               icon="fas fa-book-open"
+              prevType="book"
+              nextType="article"
             />
             <ApaTab
               type="article"
@@ -76,6 +92,8 @@ class HomeApaTabControl extends Component {
               activeClassName="is-active"
               text="כתב עת"
               icon="fas fa-graduation-cap"
+              prevType="paper"
+              nextType="website"
             />
             <ApaTab
               type="website"
@@ -83,6 +101,7 @@ class HomeApaTabControl extends Component {
               activeClassName="is-active"
               text="אתר"
               icon="fab fa-chrome"
+              prevType="article"
             />
           </ul>
         </div>
