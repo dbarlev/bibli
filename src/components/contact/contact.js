@@ -184,9 +184,7 @@ class Contact extends Component {
 
                                         <div className="col-xs-2 pad-0">
                                             <input
-                                                aria-label="תוכן ההודעה, במה נוכל לעזור"
                                                 className="form-control"
-                                                Placeholder="כתוב לנו במה נוכל לעזור..."
                                                 ref="checkbox"
                                                 name="addToMailingList"
                                                 id="addToMailingList"
@@ -195,9 +193,9 @@ class Contact extends Component {
                                             />
                                         </div>
                                         <div className="col-xs-10 pad-0">
-                                            <label>
+                                            <label htmlFor="addToMailingList">
                                                 מעוניין להצטרף לרשימת התפוצה
-                                        </label>
+                                            </label>
                                         </div>
 
                                     </div>

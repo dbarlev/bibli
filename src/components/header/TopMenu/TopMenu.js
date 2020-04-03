@@ -75,7 +75,7 @@ class TopMenu extends Component {
                                         <NavItem>צור קשר</NavItem>
                                     </LinkContainer>
                                     <li className="facebook">
-                                        <a href="https://www.facebook.com/biblio.co.il/" target="__blank">
+                                        <a aria-label="facebook" href="https://www.facebook.com/biblio.co.il/" target="__blank">
                                             <i className="fab fa-facebook-f"></i>
                                         </a>
                                     </li>

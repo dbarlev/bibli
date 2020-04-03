@@ -81,12 +81,12 @@ class FooterForm extends Component {
                         <Col xs={12} sm={10} md={6} lg={6} className="form-container" >
                             <Col xs={4} md={4} className="css-reset">
                                 <FormGroup controlId="formName">
-                                    <FormControl required name="name" type="text" placeholder="שם" />
+                                    <FormControl aria-label="שם" required name="name" type="text" placeholder="שם" />
                                 </FormGroup>
                             </Col>
                             <Col xs={4} md={6} className="css-reset">
                                 <FormGroup controlId="formBasicEmail">
-                                    <FormControl required name="email" type="email" placeholder="אימייל" />
+                                    <FormControl aria-label="כתובת מייל" required name="email" type="email" placeholder="אימייל" />
                                 </FormGroup>
                             </Col>
                             <Col md={2} className="css-reset">

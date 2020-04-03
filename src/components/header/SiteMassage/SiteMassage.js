@@ -10,7 +10,7 @@ export default class SiteMassage extends Component {
                 <Col xs={12} className="text-center">
                     <span>ברוכים הבאים לממשק החדש של ביבלי. מוזמנים להירשם ולהתרשם.</span>
                     <a href="http://old.biblio.co.il" target="_blank" className="bold">לחזרה לממשק הישן לחצו כאן
-                    <img src={biblio} />
+                    <img alt="" src={biblio} />
                     </a>
                 </Col>
             </Row>

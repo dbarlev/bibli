@@ -120,7 +120,7 @@ class FrontRegister extends Component {
                     {this.state.error && (
                       <Animated animationIn="zoomIn" animationOut="zoomOut" isVisible={this.state.error} >
 
-                        <div className="text-right red-alert">{this.state.error}</div>
+                        <div role="alert" className="text-right red-alert">{this.state.error}</div>
                       </Animated>
                     )}
                   </Col>
@@ -154,6 +154,7 @@ class FrontRegister extends Component {
                       />
                       <button
                         onClick={TogglePass}
+                        aria-label="הצג סיסמה"
                         id="toggleBtn"
                         className="glyphicon glyphicon-eye-open"
                         type="button"

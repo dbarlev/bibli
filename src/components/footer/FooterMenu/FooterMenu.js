@@ -21,7 +21,9 @@ class FooterMenu extends Component {
                     <LinkContainer to="/">
                         <NavItem>האזור האישי</NavItem>
                     </LinkContainer>
-                    <li>עקבו אחרינו ב- <i className="fab fa-facebook-f"></i></li>
+                    <li>עקבו אחרינו ב- <i className="fab fa-facebook-f"></i>
+                        <span className="sr-only">facebook</span>
+                    </li>
                 </ul>
             </div>
         )
