@@ -18,7 +18,12 @@ const ApaTab = ({ type, activeClassName = null, text, icon, onChangeTab, nextTyp
         activeClassName={activeClassName}
         onClick={(e) => onChangeTab(e)}
         onKeyDown={(e) => {
-          let focusObject = { activateOnFocus: true };
+          let focusObject = {
+            current: `tab-${type}`,
+            activateOnFocus: true,
+            tab: `#${type}Form input`,
+            enter: `#${type}Form input`
+          };
           if (nextType)
             focusObject.left = `tab-${nextType}`;
 

@@ -210,7 +210,6 @@ class BiblistHeading extends Component {
           >
             <li
               role="button"
-              tabIndex="0"
               aria-label="ייצוא הרשימה"
               className="notApplicable"
             >

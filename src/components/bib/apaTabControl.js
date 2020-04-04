@@ -22,7 +22,7 @@ const DisabeldTab = ({ type, activeClassName = null, text, icon }) => {
     >
       <li className="pull-right notApplicable" name={type}>
         <a role="tab" className={checkActiveLink(type)} activeClassName={activeClassName}>
-          <i aria-hidden="true" name={type} className={icon}></i>
+          <i aria-hidden="true" name={type} id={`${type}-disabled`} className={icon}></i>
           <div name={type} className="iconText">
             {text}
           </div>
@@ -43,7 +43,12 @@ const ApaTab = ({ type, navigate, activeClassName = null, text, icon, editMode, 
         aria-controls={`${type}Form`}
         role="tab"
         onKeyDown={(e) => {
-          let focusObject = { activateOnFocus: true };
+          let focusObject = {
+            current: `tab-${type}`,
+            activateOnFocus: true,
+            tab: `#${type}Form input`,
+            enter: `#${type}Form input`
+          };
           if (nextType)
             focusObject.left = `tab-${nextType}`;
 

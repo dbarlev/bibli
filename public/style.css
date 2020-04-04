@@ -2385,7 +2385,7 @@ ul#searchresults.open {
   /* Firefox 18- */
   color: black; }
 
-#mainApp.contrastMode *:not(.tooltip) {
+#mainApp.contrastMode *:not(.tooltip):not([role=alert]):not(.backToBiblist):not(button):not(.btn):not(.fa-file-export) {
   color: black !important; }
 
 #mainApp.contrastMode *:not(h1):not(h2):not(h3):not(h4):not(h5):not(h6):not(.counter) {
@@ -2424,6 +2424,26 @@ ul#searchresults.open {
 #mainApp.contrastMode ::placeholder {
   color: black;
   font-size: 14px; }
+
+#mainApp.contrastMode #addRecordBtn * {
+  color: white !important; }
+
+#mainApp.contrastMode #userNav li:not(.active) a {
+  color: white !important; }
+
+#mainApp.contrastMode #logout {
+  font-size: 14px;
+  margin: 5px !important; }
+
+#mainApp.contrastMode #logout * {
+  margin: 10px !important;
+  font-size: 14px !important; }
+
+#mainApp.contrastMode #openLoginForm, #mainApp.contrastMode #loginSubmit, #mainApp.contrastMode #logout a {
+  color: white !important; }
+
+#mainApp.contrastMode #movie-disabled, #mainApp.contrastMode #audio-disabled {
+  color: #d0d0d0 !important; }
 
 /*scss from componnents themself*/
 .newWelcomeBg {

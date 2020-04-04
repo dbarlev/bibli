@@ -137,9 +137,8 @@ class ApaPaper extends Component {
   }
 
   render() {
-
     return (
-      <div id="paperForm" className="apaForm">
+      <div id="paperForm" className="apaForm" role="tabpanel">
         <div className="row">
           <ApaForm
             formFeilds={this.state.formFeilds}

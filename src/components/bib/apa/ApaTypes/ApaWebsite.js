@@ -82,7 +82,7 @@ class ApaWebsite extends Component {
 
   render() {
     return (
-      <div id="websiteForm" className="apaForm">
+      <div id="websiteForm" className="apaForm" role="tabpanel">
         <div className="row">
           <ApaForm
             formFeilds={this.state.formFeilds}

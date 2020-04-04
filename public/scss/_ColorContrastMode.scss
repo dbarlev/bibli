@@ -1,5 +1,5 @@
 #mainApp.contrastMode{
-    *:not(.tooltip){
+    *:not(.tooltip):not([role=alert]):not(.backToBiblist):not(button):not(.btn):not(.fa-file-export){
         color: black !important
     }
 
@@ -45,5 +45,31 @@
     ::placeholder {
         color: black;
         font-size: 14px;
+    }
+
+    #addRecordBtn *{
+        color: white !important;
+    }
+
+    #userNav li:not(.active) a{
+        color: white !important;
+    }
+
+    #logout{
+        font-size: 14px;
+        margin: 5px !important;
+    }
+
+    #logout *{
+        margin: 10px !important;
+        font-size: 14px !important;
+    }
+
+    #openLoginForm, #loginSubmit, #logout a {
+        color: white !important;
+    }
+
+    #movie-disabled, #audio-disabled{
+        color: #d0d0d0 !important;
     }
 }
