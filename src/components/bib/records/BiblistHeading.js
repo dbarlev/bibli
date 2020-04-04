@@ -57,16 +57,16 @@ class BiblistHeading extends Component {
     const { activeBiblistData, getBiblistNamesFromDB } = this.props;
     if (activeBiblistData && activeBiblistData.Name) {
       return (
-        <h2>
+        <h1>
           ביבליוגרפיה של <strong>{activeBiblistData.Name}</strong>
-        </h2>
+        </h1>
       );
     }
     else if (getBiblistNamesFromDB && getBiblistNamesFromDB.length === 1) {
       return (
-        <h2>
+        <h1>
           ביבליוגרפיה של <strong>{getBiblistNamesFromDB[0].Name}</strong>
-        </h2>
+        </h1>
       );
     }
   }

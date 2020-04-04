@@ -101,13 +101,13 @@ class Contact extends Component {
                     </Row>
                     <div className="row">
                         <div className="col-xs-4 col-xs-offset-4">
-                            <h1 className="text-center">
+                            <h2 className="text-center">
                                 <p className="bold">יש משהו שאתם רוצים לשאול?</p>
                                 <p className="bold">בקשה? בעיה?</p>
-                            </h1>
-                            <h2 className="text-center">
-                                <p>כתבו לנו ונדאג לחזור אליכם בהקדם</p>
                             </h2>
+                            <h3 className="text-center">
+                                <p>כתבו לנו ונדאג לחזור אליכם בהקדם</p>
+                            </h3>
                         </div>
                     </div>
                     <div className="row">

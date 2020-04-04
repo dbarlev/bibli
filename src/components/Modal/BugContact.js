@@ -90,7 +90,7 @@ class BugContact extends Component {
                 <Modal.Header closeButton closeLabel="סגור" className="modalHeader">
                     <div className="text-center">
                         <h2>נתקלתם בתקלה באתר?</h2>
-                        <h4>דווחו לנו בטופס למטה</h4>
+                        <h3>דווחו לנו בטופס למטה</h3>
                     </div>
                 </Modal.Header>
                 <Modal.Body>
