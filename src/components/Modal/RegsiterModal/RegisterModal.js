@@ -45,7 +45,7 @@ class RegisterModal extends Component {
     render() {
         return (
             <Modal id="registerModal" size="sm" show={true}>
-                <Modal.Header closeButton closeLabel="סגור" className="modalHeader">
+                <Modal.Header className="modalHeader">
                     <div className="text-center">
                         <h2>{this.state.level2Text}</h2>
                         <h3>{this.state.level3Text}</h3>

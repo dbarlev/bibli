@@ -5,6 +5,7 @@ import ApaPaper from "./apa/ApaTypes/ApaPaper";
 import ApaArticle from "./apa/ApaTypes/ApaArticle";
 import ApaWebsite from "./apa/ApaTypes/ApaWebsite";
 import { OverlayTrigger, Tooltip } from "react-bootstrap";
+import { moveFocus } from '../Services/MoveFocus';
 import './apaTabControl.scss';
 
 const checkActiveLink = (routeToCheck, editMode) => {
@@ -19,8 +20,8 @@ const DisabeldTab = ({ type, activeClassName = null, text, icon }) => {
       placement="top"
       overlay={<Tooltip id="tooltip-disabled">בקרוב</Tooltip>}
     >
-      <li role="tab" className="pull-right notApplicable" name={type}>
-        <a className={checkActiveLink(type)} activeClassName={activeClassName}>
+      <li className="pull-right notApplicable" name={type}>
+        <a role="tab" className={checkActiveLink(type)} activeClassName={activeClassName}>
           <i aria-hidden="true" name={type} className={icon}></i>
           <div name={type} className="iconText">
             {text}
@@ -31,13 +32,26 @@ const DisabeldTab = ({ type, activeClassName = null, text, icon }) => {
   );
 };
 
-const ApaTab = ({ type, navigate, activeClassName = null, text, icon, editMode }) => {
+const ApaTab = ({ type, navigate, activeClassName = null, text, icon, editMode, nextType, prevType }) => {
   return (
-    <li role="tab" className="pull-right" name={type}>
+    <li className="pull-right" name={type}>
       <NavLink
         className={checkActiveLink(type, editMode)}
         activeClassName={activeClassName}
         to={navigate}
+        id={`tab-${type}`}
+        aria-controls={`${type}Form`}
+        role="tab"
+        onKeyDown={(e) => {
+          let focusObject = { activateOnFocus: true };
+          if (nextType)
+            focusObject.left = `tab-${nextType}`;
+
+          if (prevType)
+            focusObject.right = `tab-${prevType}`
+
+          moveFocus(e, focusObject)
+        }}
       >
         <i aria-hidden="true" name={type} className={icon}></i>
         <div name={type} className="iconText">
@@ -74,6 +88,7 @@ class ApaTabControl extends Component {
               activeClassName="is-active"
               text="ספר"
               icon="fas fa-book"
+              nextType="paper"
             />
             <ApaTab
               type="paper"
@@ -81,6 +96,8 @@ class ApaTabControl extends Component {
               activeClassName="is-active"
               text="עיתון"
               icon="fas fa-book-open"
+              prevType="book"
+              nextType="article"
             />
             <ApaTab
               type="article"
@@ -88,6 +105,8 @@ class ApaTabControl extends Component {
               activeClassName="is-active"
               text="כתב עת"
               icon="fas fa-graduation-cap"
+              prevType="paper"
+              nextType="website"
             />
             <ApaTab
               type="website"
@@ -95,6 +114,7 @@ class ApaTabControl extends Component {
               activeClassName="is-active"
               text="אתר"
               icon="fab fa-chrome"
+              prevType="article"
             />
             <DisabeldTab
               type="movie"

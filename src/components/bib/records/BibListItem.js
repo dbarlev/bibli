@@ -178,7 +178,7 @@ class BibListItem extends Component {
   }
 
   CapitalizeWriters(writers) {
-      return writers;
+    return writers;
   }
 
   render() {
@@ -193,6 +193,12 @@ class BibListItem extends Component {
                 role="button"
                 tabIndex="0"
                 aria-label="מחק"
+                onKeyDown={(e) => {
+                  const keyCode = e.keyCode || e.which;
+                  if (keyCode === 13) {
+                    this.setState({ ...this.state, show: true })
+                  }
+                }}
               >
                 <i className="fas fa-trash-alt hover-orange"></i>
               </span>
@@ -205,6 +211,12 @@ class BibListItem extends Component {
                 role="link"
                 tabIndex="0"
                 aria-label="עריכה"
+                onKeyDown={(e) => {
+                  const keyCode = e.keyCode || e.which;
+                  if (keyCode === 13) {
+                    this.onEditRecord()
+                  }
+                }}
               >
                 <i className="fas fa-edit hover-orange"></i>
               </span>
@@ -218,6 +230,13 @@ class BibListItem extends Component {
                 onClick={(e) => {
                   copyToClipboard.single(".recordQuery", e.target);
                   this.copy();
+                }}
+                onKeyDown={(e) => {
+                  const keyCode = e.keyCode || e.which;
+                  if (keyCode === 13) {
+                    copyToClipboard.single(".recordQuery", e.target);
+                    this.copy();
+                  }
                 }}
               >
                 <i className={this.state.copyClass}></i>

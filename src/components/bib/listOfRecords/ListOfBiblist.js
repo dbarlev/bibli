@@ -62,8 +62,15 @@ class ListOfBiblist extends Component {
                 return (
                   <li key={index}>
                     <div
+                      tabindex="0"
                       className="pointer sideMenuLinks hover-orange"
-                      onClick={this.onListClicked.bind(this, item)}
+                      onClick={() => this.onListClicked(item)}
+                      onKeyDown={(e) => {
+                        const keyCode = e.keyCode || e.which;
+                        if (keyCode === 13) {
+                          this.onListClicked(item);
+                        }
+                      }}
                     >
                       <span className="black">{item.Name}</span>
                     </div>

@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { LinkContainer } from "react-router-bootstrap";
 import { DeleteBibList, InsertBibListToDB } from "../../../actions/ajax";
+import { withRouter } from 'react-router-dom';
 import { activeBiblist } from "../../../actions";
 import { OverlayTrigger, Tooltip, Row, Col } from "react-bootstrap";
 import Confirm from "../../Modal/Confirm";
@@ -154,6 +155,13 @@ class BiblistHeading extends Component {
                 copyToClipboard.bulk(".recordQuery");
                 this.copy();
               }}
+              onKeyDown={(e) => {
+                const keyCode = e.keyCode || e.which;
+                if (keyCode === 13) {
+                  copyToClipboard.bulk(".recordQuery");
+                  this.copy();
+                }
+              }}
             >
               <i className={`${this.state.copyClass} hover-orange`}></i>
             </li>
@@ -167,17 +175,30 @@ class BiblistHeading extends Component {
               tabIndex="0"
               aria-label="מחיקת רשימה"
               onClick={() => this.setState({ ...this.state, show: true })}
+              onKeyDown={(e) => {
+                const keyCode = e.keyCode || e.which;
+                if (keyCode === 13) {
+                  this.setState({ ...this.state, show: true })
+                }
+              }}
             >
               <i className="fas fa-trash-alt hover-orange"></i>
             </li>
           </OverlayTrigger>
           <OverlayTrigger
             placement="top"
-            overlay={<Tooltip>עריכת הרשימה</Tooltip>}
+            overlay={<Tooltip>עריכת שם העבודה</Tooltip>}
           >
-            <li role="link" tabIndex="0" aria-label="עריכת הרשימה">
+            <li aria-label="עריכת שם העבודה">
               <LinkContainer className="pointer" to="/records/editlist">
-                <a>
+                <a
+                  onKeyDown={(e) => {
+                    const keyCode = e.keyCode || e.which;
+                    if (keyCode === 13) {
+                      this.props.history.push("/records/editlist");
+                    }
+                  }}
+                >
                   <i className="fas fa-edit hover-orange"></i>
                 </a>
               </LinkContainer>
@@ -255,6 +276,6 @@ const mapStateToProps = state => {
   };
 };
 
-export default connect(mapStateToProps, { DeleteBibList, activeBiblist, InsertBibListToDB })(
+export default connect(mapStateToProps, { DeleteBibList, activeBiblist, InsertBibListToDB })(withRouter(
   BiblistHeading
-);
+));

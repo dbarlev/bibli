@@ -45,7 +45,7 @@ class EditBiblist extends Component {
         <br />
         <div className="row">
           <div className="col-sm-6">
-            <h2>עריכת רשימה</h2>
+            <h2>עריכת שם העבודה</h2>
             <br />
             <Form horizontal>
               <FormGroup>
@@ -55,7 +55,7 @@ class EditBiblist extends Component {
                     className="editListName"
                     name="editListName"
                     refs="editListName"
-                    aria-label="עריכת רשימה"
+                    aria-label="שם העבודה"
                     type="text"
                   />
                 </Col>

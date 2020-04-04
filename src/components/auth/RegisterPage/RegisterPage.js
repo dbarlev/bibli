@@ -9,6 +9,9 @@ import RegisterModal from "../../Modal/RegsiterModal/RegisterModal";
 class RegisterPage extends Component {
 
 
+    onClose() {
+        this.props.history.push("/");
+    }
 
     render() {
         return (
@@ -21,12 +24,11 @@ class RegisterPage extends Component {
                             <ListOfBiblist />
                         </div>
                         <div className="col-md-8 col-sm-8" >
-                            <RegisterModal />
+                            <RegisterModal onClose={() => this.onClose()} />
                         </div>
                     </div>
                 </div>
                 <StickyContact />
-                <footer />
             </div>
         );
     }

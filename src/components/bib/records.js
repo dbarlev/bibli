@@ -16,8 +16,15 @@ import { apiClient } from '../../common/apiClient';
 import { addRecordFromStorage, getRecordFromStorage } from './services/addRecordFromStorage';
 import { constructNewUserRecords } from './services/constructNewUserRecords';
 import StickyContact from '../sticky/stickyContact/StickyContact';
-import '../App.css';
 import ChooseBiblist from './modal/chooseBiblist';
+import SkipLinks from '../skipLinks';
+import '../App.css';
+
+const skipTo = [
+  { id: "recordsMain", text: "דלג לאזור המרכזי" },
+  { id: "mainMenuRow", text: "דלג לתפריט הראשי" },
+  { id: "footer", text: "דלג לסוף העמוד" },
+]
 
 class Records extends Component {
 
@@ -101,9 +108,10 @@ class Records extends Component {
   render() {
     return (
       <div className="App">
+        <SkipLinks skipTo={skipTo} />
         <HeaderLogin />
         <br />
-        <div className="mainArea userBiblist">
+        <main id="recordsMain" className="mainArea userBiblist">
           <div className="row">
             <div className="col-md-2 col-md-offset-2 col-sm-4 col-xs-12">
               <ListOfBiblist userid={Number(this.state.userid)} />
@@ -116,7 +124,7 @@ class Records extends Component {
               <Route path="/records/editRecord/:type/:id" component={EditRecord} />
             </div>
           </div>
-        </div>
+        </main>
         <StickyContact />
         <Footer />
         {this.state.showChooseBiblistModal &&
