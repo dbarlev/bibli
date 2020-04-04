@@ -1,0 +1,49 @@
+#mainApp.contrastMode{
+    *:not(.tooltip){
+        color: black !important
+    }
+
+    *:not(h1):not(h2):not(h3):not(h4):not(h5):not(h6):not(.counter){
+        font-size: 18px !important;
+    }
+
+    .btn{
+        color: white !important; background: #204260 !important;
+    }
+
+    #footer *,
+    #stickyContact *{
+        color: white !important;
+    }
+
+    #frontregister *{
+        color: white !important;
+    }
+
+    .tooltip *{
+        color: white !important
+    }
+
+    #registerSubmit{
+        border-color: white;
+    }
+
+    #accessibility{
+        background: #d8d8d8 !important;
+    }
+
+    ::-webkit-input-placeholder { /* Edge */
+        color: black;
+        font-size: 14px;
+    }
+
+    :-ms-input-placeholder { /* Internet Explorer 10-11 */
+        color: black;
+        font-size: 14px;
+    }
+
+    ::placeholder {
+        color: black;
+        font-size: 14px;
+    }
+}

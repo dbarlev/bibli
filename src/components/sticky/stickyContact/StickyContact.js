@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { OverlayTrigger, Tooltip, Button } from "react-bootstrap";
-import BugContact from '../Modal/BugContact';
+import BugContact from '../../Modal/BugContact';
 import './StickyContact.scss';
 
 class StickyContact extends Component {

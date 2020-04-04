@@ -8,7 +8,7 @@ import AboutUs from "./AboutUs/AboutUs";
 import CreateBibItem from "./CreateBibItem/CreateBibItem";
 import StatisticsRow from "./StatisticsRow/StatisticsRow";
 import FrontFaq from "./FrontFaq/FrontFaq";
-import StickyContact from "../stickyContact/StickyContact";
+import StickyContact from "../sticky/stickyContact/StickyContact";
 import SkipLinks from '../skipLinks';
 
 const skipTo = [
@@ -20,6 +20,11 @@ const skipTo = [
 ]
 
 class FrontPage extends Component {
+
+  constructor() {
+    super();
+  }
+
   componentDidMount() {
     let isLoggedin = getCookie("auth");
     if (isLoggedin && isLoggedin !== "")

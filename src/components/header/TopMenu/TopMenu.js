@@ -108,6 +108,7 @@ class TopMenu extends Component {
                                     <li className="facebook">
                                         <a href="https://www.facebook.com/biblio.co.il/" target="__blank">
                                             <i className="fab fa-facebook-f"></i>
+                                            <span class="sr-only">facebook</span>
                                         </a>
                                     </li>
                                 </Nav>

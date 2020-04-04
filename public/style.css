@@ -2385,6 +2385,46 @@ ul#searchresults.open {
   /* Firefox 18- */
   color: black; }
 
+#mainApp.contrastMode *:not(.tooltip) {
+  color: black !important; }
+
+#mainApp.contrastMode *:not(h1):not(h2):not(h3):not(h4):not(h5):not(h6):not(.counter) {
+  font-size: 18px !important; }
+
+#mainApp.contrastMode .btn {
+  color: white !important;
+  background: #204260 !important; }
+
+#mainApp.contrastMode #footer *,
+#mainApp.contrastMode #stickyContact * {
+  color: white !important; }
+
+#mainApp.contrastMode #frontregister * {
+  color: white !important; }
+
+#mainApp.contrastMode .tooltip * {
+  color: white !important; }
+
+#mainApp.contrastMode #registerSubmit {
+  border-color: white; }
+
+#mainApp.contrastMode #accessibility {
+  background: #d8d8d8 !important; }
+
+#mainApp.contrastMode ::-webkit-input-placeholder {
+  /* Edge */
+  color: black;
+  font-size: 14px; }
+
+#mainApp.contrastMode :-ms-input-placeholder {
+  /* Internet Explorer 10-11 */
+  color: black;
+  font-size: 14px; }
+
+#mainApp.contrastMode ::placeholder {
+  color: black;
+  font-size: 14px; }
+
 /*scss from componnents themself*/
 .newWelcomeBg {
   box-shadow: -12px 6px 5px -6px;

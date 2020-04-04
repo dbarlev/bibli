@@ -31,7 +31,7 @@ class BugContact extends Component {
     }
 
     onFormSubmit(e) {
-        let  browser = detect();
+        let browser = detect();
         e.preventDefault();
         let elements = e.currentTarget.elements;
         /*let browser = elements.browser.value ? elements.browser.value.trim() : "";*/
@@ -71,7 +71,7 @@ class BugContact extends Component {
 
     }
 
-    
+
     massage = () => {
         if (this.props.massageSent.contactussent === 1) {
             this.setState({ msg: 'ההודעה נשלחה בהצלחה ', color: 'green' });
@@ -87,7 +87,7 @@ class BugContact extends Component {
     render() {
         return (
             <Modal id="bugContact" onHide={() => this.props.close()} size="sm" show={true}>
-                <Modal.Header closeButton closeLabel className="modalHeader">
+                <Modal.Header closeButton closeLabel="סגור" className="modalHeader">
                     <div className="text-center">
                         <h2>נתקלתם בתקלה באתר?</h2>
                         <h4>דווחו לנו בטופס למטה</h4>
@@ -119,7 +119,7 @@ class BugContact extends Component {
                                 type="email"
                             />
                         </FormGroup>
-                      {/*  <FormGroup controlId="browser">
+                        {/*  <FormGroup controlId="browser">
                             <ControlLabel>דפדפן - שדה חובה</ControlLabel>
                             <FormControl componentClass="select" placeholder="browser">
                                 <option value="select">בחרו מהרשימה...</option>

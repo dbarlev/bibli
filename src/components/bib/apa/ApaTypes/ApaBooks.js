@@ -77,7 +77,7 @@ class ApaBooks extends Component {
 
   render() {
     return (
-      <div id="apaBooksForm" className="apaForm">
+      <div id="bookForm" className="apaForm">
         <div className="row">
           <ApaForm
             formFeilds={this.state.formFeilds}

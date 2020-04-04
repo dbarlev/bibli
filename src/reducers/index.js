@@ -18,7 +18,7 @@ import {
     PASS_RECOVERY_EDIT,
     CONTACT_US_MASSAGE,
     EXPORT_RECORD_TO_WORD,
-    INSERT_RECORD_MANUALY
+    ACCESSIBILITY
 } from '../actions/consts';
 
 import { populateAPAData, editListName } from './functions.js';
@@ -32,6 +32,15 @@ function recordsDataForExport(state = [], action) {
             }
         default:
             return state
+    }
+}
+
+function getAccessibility(state = [], action) {
+    switch (action.type) {
+        case ACCESSIBILITY:
+            return action.value
+        default:
+            return false
     }
 }
 
@@ -222,7 +231,8 @@ const rootReducer = combineReducers({
     searcResultsReducer,
     getEditRecord,
     emailMassageReducer,
-    recordsDataForExport
+    recordsDataForExport,
+    getAccessibility
 });
 
 export default rootReducer;

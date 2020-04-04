@@ -14,12 +14,13 @@ const ApaTab = ({ type, activeClassName = null, text, icon, onChangeTab, nextTyp
         role="tab"
         href="#"
         id={`tab-${type}`}
+        aria-controls={`${type}Form`}
         activeClassName={activeClassName}
         onClick={(e) => onChangeTab(e)}
         onKeyDown={(e) => {
-          let focusObject = {};
+          let focusObject = { activateOnFocus: true };
           if (nextType)
-           focusObject.left = `tab-${nextType}`;
+            focusObject.left = `tab-${nextType}`;
 
           if (prevType)
             focusObject.right = `tab-${prevType}`

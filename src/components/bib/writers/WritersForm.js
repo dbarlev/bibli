@@ -72,13 +72,13 @@ class WritersForm extends Component {
         <Row>
           <Col md={5} lg={5} xs={4} className="col">
             <FormGroup controlId={"firstName" + this.props.index}>
-              <FormControl placeholder="שם פרטי" value={this.state.firstName} onChange={(event) => this.firstNameChange(event.target.value)} ref="editorPrivateName" type="text" />
+              <FormControl aria-label="שם פרטי" placeholder="שם פרטי" value={this.state.firstName} onChange={(event) => this.firstNameChange(event.target.value)} ref="editorPrivateName" type="text" />
               <HelpBlock role="status" aria-live="polite"></HelpBlock>
             </FormGroup>
           </Col>
           <Col md={5} lg={5} xs={5}>
             <FormGroup controlId={"lastName" + this.props.index}>
-              <FormControl placeholder="שם משפחה" onChange={(event) => this.lastNameChange(event.target.value)} value={this.state.lastName} ref="editorLastName" type="text" />
+              <FormControl aria-label="שם משפחה" placeholder="שם משפחה" onChange={(event) => this.lastNameChange(event.target.value)} value={this.state.lastName} ref="editorLastName" type="text" />
               <HelpBlock role="status" aria-live="polite"></HelpBlock>
             </FormGroup>
           </Col>

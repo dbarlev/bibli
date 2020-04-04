@@ -139,7 +139,7 @@ class ApaPaper extends Component {
   render() {
 
     return (
-      <div id="apaPaperForm" className="apaForm">
+      <div id="paperForm" className="apaForm">
         <div className="row">
           <ApaForm
             formFeilds={this.state.formFeilds}

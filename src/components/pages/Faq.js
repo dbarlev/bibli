@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { Grid, Row, Col } from 'react-bootstrap';
 import Header from '../header/Header';
 import Footer from '../footer/Footer';
-import StickyContact from '../stickyContact/StickyContact';
+import StickyContact from '../sticky/stickyContact/StickyContact';
 import SkipLinks from '../skipLinks';
 
 const skipTo = [

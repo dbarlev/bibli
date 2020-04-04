@@ -15,7 +15,7 @@ import { getCookie } from '../Services/GetCookies';
 import { apiClient } from '../../common/apiClient';
 import { addRecordFromStorage, getRecordFromStorage } from './services/addRecordFromStorage';
 import { constructNewUserRecords } from './services/constructNewUserRecords';
-import StickyContact from '../stickyContact/StickyContact';
+import StickyContact from '../sticky/stickyContact/StickyContact';
 import '../App.css';
 import ChooseBiblist from './modal/chooseBiblist';
 

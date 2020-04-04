@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Nav, Navbar, NavItem } from "react-bootstrap";
 import { LinkContainer, IndexLinkContainer } from "react-router-bootstrap";
 import './FooterMenu.scss';
+import Accessibility from './accessibility';
 
 class FooterMenu extends Component {
     constructor() {
@@ -21,6 +22,7 @@ class FooterMenu extends Component {
                     <LinkContainer to="/">
                         <NavItem>האזור האישי</NavItem>
                     </LinkContainer>
+                    <Accessibility />
                     <li>עקבו אחרינו ב- <i className="fab fa-facebook-f"></i>
                         <span className="sr-only">facebook</span>
                     </li>

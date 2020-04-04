@@ -7,8 +7,9 @@ import {
     LOGGED_IN,
     PASS_RECOVERY,
     EXPORT_RECORD_TO_WORD,
-    INSERT_RECORD_TO_USER
+    ACCESSIBILITY
 } from './consts';
+import Accessibility from '../components/footer/FooterMenu/accessibility';
 
 
 export function exportRecordData(value) {
@@ -69,6 +70,13 @@ export function PassRecovery(data) {
     return {
         type: PASS_RECOVERY,
         email: data
+    }
+}
+
+export function setAccessibility(value) {
+    return {
+        type: ACCESSIBILITY,
+        value: value
     }
 }
 
