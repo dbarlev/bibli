@@ -2388,8 +2388,8 @@ ul#searchresults.open {
 #mainApp.contrastMode *:not(.tooltip):not([role=alert]):not(.backToBiblist):not(button):not(.btn):not(.fa-file-export) {
   color: black !important; }
 
-#mainApp.contrastMode *:not(h1):not(h2):not(h3):not(h4):not(h5):not(h6):not(.counter) {
-  font-size: 18px !important; }
+#mainApp.contrastMode *:not(h2):not(h3):not(h4):not(h5):not(h6):not(.counter) {
+  font-size: 18px; }
 
 #mainApp.contrastMode .btn {
   color: white !important;
@@ -2444,6 +2444,12 @@ ul#searchresults.open {
 
 #mainApp.contrastMode #movie-disabled, #mainApp.contrastMode #audio-disabled {
   color: #d0d0d0 !important; }
+
+#mainApp.contrastMode #TopNav button.navbar-toggle {
+  background: #204260 !important; }
+
+#mainApp.contrastMode h1, #mainApp.contrastMode h1 * {
+  font-size: 35px !important; }
 
 /*scss from componnents themself*/
 .newWelcomeBg {

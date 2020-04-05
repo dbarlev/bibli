@@ -29,17 +29,17 @@ class Confirm extends Component {
   render() {
     return (
       <Modal keyboard="true" className="confirmModal" onHide={this.props.onHide} size="sm" show={this.props.show}>
-        <Modal.Header closeButton>
-          <Modal.Title className="text-center"> {this.props.msg}</Modal.Title>
+        <Modal.Header>
+          <h2 className="text-center"> {this.props.msg}</h2>
         </Modal.Header>
         <Modal.Footer>
           <div className="text-center">
-            <Button className="confirmBtn" size="lg" variant="primary" onClick={this.props.onConfirm}>
-              OK
-                </Button>
             <Button className="confirmCancel" size="lg" variant="secondary" onClick={this.props.onHide}>
-              Cancel
-                </Button>
+              ביטול
+            </Button>
+            <Button className="confirmBtn" size="lg" variant="primary" onClick={this.props.onConfirm}>
+              אישור
+            </Button>
           </div>
         </Modal.Footer>
       </Modal>

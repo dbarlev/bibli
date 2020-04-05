@@ -88,7 +88,11 @@ class WritersForm extends Component {
               <OverlayTrigger placement="top" overlay={<Tooltip>מחק מחבר</Tooltip>}>
                 <span tabindex="0"
                   onKeyDown={(e) => { if ((e.keyCode || e.which) === 13) this.props.onRemoveWriter() }}
-                  onClick={() => this.props.onRemoveWriter()} aria-label="מחק מחבר"><i class="far fa-trash-alt"></i></span>
+                  onClick={() => this.props.onRemoveWriter()}
+                  aria-label="מחק מחבר"
+                  role="button"
+                >
+                  <i class="far fa-trash-alt"></i></span>
               </OverlayTrigger>
             </Col>
           }
@@ -98,7 +102,11 @@ class WritersForm extends Component {
                 <OverlayTrigger placement="top" overlay={<Tooltip>הוסף מחבר</Tooltip>}>
                   <span tabindex="0"
                     onKeyDown={(e) => { if ((e.keyCode || e.which) === 13) this.props.onAddMoreWriter() }}
-                    onClick={() => this.props.onAddMoreWriter()} aria-label="הוסף מחבר"><i class="fas fa-plus"></i></span>
+                    onClick={() => this.props.onAddMoreWriter()}
+                    aria-label="הוסף מחבר"
+                    role="button"
+                  >
+                    <i class="fas fa-plus"></i></span>
                 </OverlayTrigger>
               </Col>
             )

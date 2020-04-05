@@ -44,74 +44,74 @@ class PasswordRecovery extends Component {
     render() {
         return (
             <div>
-            <Grid fluid className="page-wrap">
-                <Header/>
-               
+                <Grid fluid className="page-wrap">
+                    <Header />
+
                     <Row>
-                        <Col md={6} mdOffset={3}>   
+                        <Col md={6} mdOffset={3}>
                             <h1>שכחתי סיסמה</h1>
                         </Col>
                     </Row>
                     <Row>
-                        <Col md={6} mdOffset={3}>   
+                        <Col md={6} mdOffset={3}>
                             <p>יש להזין את כתובת המייל איתה נרשמתם לאתר</p>
                         </Col>
                     </Row>
                     <Row>
                         <div className="col-xs-12 col-md-4 col-md-offset-4">
                             <Form horizontal onSubmit={this.onSubmitPassRec.bind(this)}>
-                               
-                            <FormGroup controlId="formHorizontalusername">
-                            {
-                                this.state.emailIsEmpty ?
-                                <div className="red-alert" bsStyle="danger">לא הוזנה כתובת דואר אלקטרוני</div>
-                                 :
-                                    ''
-                            }
-                                    
-                                        <FormControl ref="email" name="email" type="email" onChange={this.onChange} placeholder="הקלד דואר אלקטרוני" />
 
-                                       
+                                <FormGroup controlId="formHorizontalusername">
+                                    {
+                                        this.state.emailIsEmpty ?
+                                            <div className="red-alert" bsStyle="danger" role="alert">לא הוזנה כתובת דואר אלקטרוני</div>
+                                            :
+                                            ''
+                                    }
 
-                                        <Button type="submit" className="full-width-btn btn send" id="loginSubmit">שחזר סיסמה</Button>
+                                    <FormControl ref="email" name="email" type="email" aria-label="הקלד כתובת מייל" onChange={this.onChange} placeholder="הקלד דואר אלקטרוני" />
 
-                                   
+
+
+                                    <Button type="submit" className="full-width-btn btn send" id="loginSubmit">שחזר סיסמה</Button>
+
+
 
                                 </FormGroup>
                             </Form>
-                         
+
 
                             {this.props.passRecoveryData &&
-                                <div  className="text-right">
+                                <div className="text-right">
                                     {this.props.passRecoveryData.mailexists == 1 ?
-                                        <div className="green-alert" bsStyle="danger">הודעה נשלחה לתיבת הדואר שלך</div> :
-                                        <div className="red-alert" bsStyle="danger">תיבת הדואר שהוזנה לא קיימת במערכת</div>
-                                    }                               
+                                        <div className="green-alert" bsStyle="danger" role="alert">הודעה נשלחה לתיבת הדואר שלך</div> :
+                                        <div className="red-alert" bsStyle="danger" role="alert">תיבת הדואר שהוזנה לא קיימת במערכת</div>
+                                    }
                                 </div>
 
-                                
+
                             }
-                            </div>
-                            </Row>
-                            
-               
-                   
+                        </div>
+                    </Row>
+
+
+
                 </Grid>
-                 
+
                 <Footer bottom />
-                </div>
-                
-                )
-            }
-        }
-        
-        
-        
+            </div>
+
+        )
+    }
+}
+
+
+
 const mapStateToProps = state => {
-    
-    return{
-                    passRecoveryData: state.userReducer.passRecoveryData
-            }
-        }
-        
-export default connect(mapStateToProps, {PassRecoveryAction})(PasswordRecovery)
+
+    return {
+        passRecoveryData: state.userReducer.passRecoveryData
+    }
+}
+
+export default connect(mapStateToProps, { PassRecoveryAction })(PasswordRecovery)

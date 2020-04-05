@@ -63,6 +63,7 @@ class ListOfBiblist extends Component {
                   <li key={index}>
                     <div
                       tabindex="0"
+                      role="link"
                       className="pointer sideMenuLinks hover-orange"
                       onClick={() => this.onListClicked(item)}
                       onKeyDown={(e) => {

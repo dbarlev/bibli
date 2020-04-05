@@ -20,7 +20,7 @@ class UserMenu extends Component {
             <LinkContainer className="topNavMenuItems white" to="/records/biblist" >
               <NavItem>ניהול רשימות ביבליוגרפיות</NavItem>
             </LinkContainer>
-            <LinkContainer className="topNavMenuItems white" to="/faq" >
+            <LinkContainer className="topNavMenuItems white hidden" to="/faq" >
               <NavItem>עזרה</NavItem>
             </LinkContainer>
 

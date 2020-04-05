@@ -168,12 +168,12 @@ class BiblistHeading extends Component {
           </OverlayTrigger>
           <OverlayTrigger
             placement="top"
-            overlay={<Tooltip>מחיקת רשימה</Tooltip>}
+            overlay={<Tooltip>מחיקת עבודה</Tooltip>}
           >
             <li
               role="button"
               tabIndex="0"
-              aria-label="מחיקת רשימה"
+              aria-label="מחיקת עבודה"
               onClick={() => this.setState({ ...this.state, show: true })}
               onKeyDown={(e) => {
                 const keyCode = e.keyCode || e.which;
