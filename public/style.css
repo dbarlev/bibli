@@ -2408,9 +2408,6 @@ ul#searchresults.open {
 #mainApp.contrastMode #registerSubmit {
   border-color: white; }
 
-#mainApp.contrastMode #accessibility {
-  background: #d8d8d8 !important; }
-
 #mainApp.contrastMode ::-webkit-input-placeholder {
   /* Edge */
   color: black;
@@ -2450,6 +2447,16 @@ ul#searchresults.open {
 
 #mainApp.contrastMode h1, #mainApp.contrastMode h1 * {
   font-size: 35px !important; }
+
+#mainApp.contrastMode #footer-form #formBasicEmail {
+  border-right-color: black !important; }
+
+#mainApp.contrastMode input {
+  border-color: black !important; }
+
+#mainApp.contrastMode .btn:hover {
+  color: white !important;
+  background: #204260 !important; }
 
 /*scss from componnents themself*/
 .newWelcomeBg {

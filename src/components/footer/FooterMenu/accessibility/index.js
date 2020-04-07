@@ -58,9 +58,7 @@ class Accessibility extends Component {
     render() {
         this.isAccessibilityOn();
         return (
-            <a onClick={() => this.toggleActivation()} id="accessibility">
-                <NavItem>{this.state.isActive ? "כיבוי נגישות" : "הפעלת נגישות"}</NavItem>
-            </a>
+            <NavItem onClick={() => this.toggleActivation()} id="accessibility">{this.state.isActive ? "כיבוי נגישות" : "הפעלת נגישות"}</NavItem>
         )
     }
 }

@@ -189,9 +189,10 @@ class BiblistHeading extends Component {
             placement="top"
             overlay={<Tooltip>עריכת שם העבודה</Tooltip>}
           >
-            <li aria-label="עריכת שם העבודה">
+            <li>
               <LinkContainer className="pointer" to="/records/editlist">
                 <a
+                  aria-label="עריכת שם העבודה"
                   onKeyDown={(e) => {
                     const keyCode = e.keyCode || e.which;
                     if (keyCode === 13) {

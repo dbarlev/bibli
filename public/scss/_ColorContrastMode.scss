@@ -28,10 +28,6 @@
         border-color: white;
     }
 
-    #accessibility{
-        background: #d8d8d8 !important;
-    }
-
     ::-webkit-input-placeholder { /* Edge */
         color: black;
         font-size: 14px;
@@ -79,5 +75,18 @@
 
     h1, h1 *{
         font-size: 35px !important;
+    }
+
+    #footer-form #formBasicEmail{
+        border-right-color: black !important;
+    }
+
+    input{
+        border-color: black !important;
+    }
+
+    .btn:hover{
+        color: white !important;
+        background: #204260 !important;
     }
 }
