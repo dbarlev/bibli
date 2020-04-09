@@ -12,6 +12,11 @@ const skipTo = [
 ]
 
 class Odot extends Component {
+
+    componentDidMount() {
+        document.querySelector("title").textContent = "ביבלי | אודות";
+    }
+
     render() {
         return (
             <Grid fluid id="Odot">

@@ -26,6 +26,8 @@ class FrontPage extends Component {
   }
 
   componentDidMount() {
+    document.querySelector("title").textContent = "ביבלי | מערכת ליצירת רשומות ביבליוגרפיות";
+
     let isLoggedin = getCookie("auth");
     if (isLoggedin && isLoggedin !== "")
       this.props.history.push("/records/biblist");

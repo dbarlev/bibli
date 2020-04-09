@@ -19,8 +19,8 @@ class FooterMenu extends Component {
                     <LinkContainer to="/contact">
                         <NavItem>דברו איתנו</NavItem>
                     </LinkContainer>
-                    <LinkContainer to="/">
-                        <NavItem>האזור האישי</NavItem>
+                    <LinkContainer to="/faq">
+                        <NavItem>שאלות ותשובות</NavItem>
                     </LinkContainer>
                     <Accessibility />
                     <li>עקבו אחרינו ב- <i className="fab fa-facebook-f"></i>

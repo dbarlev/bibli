@@ -163,7 +163,6 @@ input.searchRecord {
 
 .apaForm .selectDropdown .sourceTypeCombobox > div {
   border: 1px solid black !important;
-  width: 330px !important;
 }
 
 .apaForm input::-webkit-input-placeholder {
@@ -290,13 +289,6 @@ button.searchRecordBtn {
 
   i {
     color: #d0d0d0 !important;
-  }
-}
-
-.selectDropdown {
-  * {
-    background: white !important;
-    color: black !important;
   }
 }
 

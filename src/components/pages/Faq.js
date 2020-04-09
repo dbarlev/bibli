@@ -51,6 +51,10 @@ class Faq extends Component {
         }
     }
 
+    componentDidMount() {
+        document.querySelector("title").textContent = "ביבלי | שאלות ותשובות";
+    }
+
     populateQuestions() {
         const { qa } = this.state;
         if (qa.length == 0)

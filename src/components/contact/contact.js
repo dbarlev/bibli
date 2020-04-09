@@ -29,6 +29,10 @@ class Contact extends Component {
         }
     }
 
+    componentDidMount() {
+        document.querySelector("title").textContent = "ביבלי | צור קשר";
+    }
+
     componentDidUpdate(prevProps) {
         if (this.props.massageSent !== prevProps.massageSent) {
             this.massage()

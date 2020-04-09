@@ -51,6 +51,10 @@ class Records extends Component {
     }
   }
 
+  componentDidMount() {
+    document.querySelector("title").textContent = "ביבלי | מערכת ליצירת רשומות ביבליוגרפיות";
+  }
+
   async init() {
     let userid = getCookie("userid");
     let serverResponseForBibList = await apiClient(`/biblist/${userid}`, "get");

@@ -13,6 +13,11 @@ const skipTo = [
 ]
 
 class Takanon extends Component {
+
+  componentDidMount() {
+    document.querySelector("title").textContent = "ביבלי | תקנון";
+  }
+
   render() {
     return (
       <Grid fluid id="takanon">

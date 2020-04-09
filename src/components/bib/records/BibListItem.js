@@ -57,19 +57,41 @@ class BibListItem extends Component {
 
   populateBook() {
     let data = this.props.record;
-    return (
-      <div>
-        <span>{this.CapitalizeWriters(data.writers)}</span>
-        <span>({data.year}). </span>
-        <span style={{ fontWeight: "bold" }}>
-          {this.verifyLangAndCapitalize(data.name)}
-        </span>
-        <span>. </span>
-        <span>{this.verifyLangAndCapitalize(data.location)}: </span>
-        <span>{this.verifyLangAndCapitalize(data.publisherName)}</span>
-        <span>.</span>
-      </div>
-    );
+    let pagesSeperator = data.lang === "en" ? "pp." : "עמ'";
+    if (data.chapter != null && data.chapter.trim() != "") {
+      return (
+        <div>
+          <span>{this.CapitalizeWriters(data.writers)}</span>
+          <span>({data.year}). </span>
+          <span>
+            {this.verifyLangAndCapitalize(data.chapter)}
+          </span>
+          <span>. </span>
+          <span style={{ fontWeight: "bold" }}>
+            {this.verifyLangAndCapitalize(data.name)}
+          </span>
+          <span> ({pagesSeperator} {data.pages}). </span>
+          <span>{this.verifyLangAndCapitalize(data.location)}: </span>
+          <span>{this.verifyLangAndCapitalize(data.publisherName)}</span>
+          <span>.</span>
+        </div>
+      );
+    }
+    else {
+      return (
+        <div>
+          <span>{this.CapitalizeWriters(data.writers)}</span>
+          <span>({data.year}). </span>
+          <span style={{ fontWeight: "bold" }}>
+            {this.verifyLangAndCapitalize(data.name)}
+          </span>
+          <span>. </span>
+          <span>{this.verifyLangAndCapitalize(data.location)}: </span>
+          <span>{this.verifyLangAndCapitalize(data.publisherName)}</span>
+          <span>.</span>
+        </div>
+      );
+    }
   }
 
   populateArticle() {

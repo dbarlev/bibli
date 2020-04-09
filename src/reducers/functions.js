@@ -21,6 +21,7 @@ export function populateAPAData(action) {
             url: data.url,
             articleHeadline: data.title,
             pages: data.pages,
+            chapter: data.chapter,
             recordID: data.bookid,
             lang, // get the first letter of the first writer and check it's language
             writers: getWriters(data, lang)
