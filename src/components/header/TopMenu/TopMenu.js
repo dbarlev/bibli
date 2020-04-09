@@ -56,55 +56,63 @@ class TopMenu extends Component {
                                             })
                                         }}
                                     >
-                                        <MenuItem className="logo">
-                                            <img alt="Bibli Logo" src={logoSrc} />
-                                        </MenuItem>
+                                        <a className="logo">
+                                            <img alt="ביבלי לוגו" src={logoSrc} />
+                                        </a>
                                     </LinkContainer>
                                 </Navbar.Brand>
                                 <Navbar.Toggle />
                             </Navbar.Header>
                             <Navbar.Collapse>
                                 <Nav>
-                                    <IndexLinkContainer id="aboutUsLink" className="topNavMenuItems black" to="/odot"
-                                        onKeyDown={(e) => {
-                                            moveFocus(e, {
-                                                left: "faqLink",
-                                                right: "logo"
-                                            })
-                                        }}
-                                    >
-                                        <NavItem>מי אנחנו</NavItem>
-                                    </IndexLinkContainer>
+                                    <li>
+                                        <IndexLinkContainer id="aboutUsLink" className="topNavMenuItems black" to="/odot"
+                                            onKeyDown={(e) => {
+                                                moveFocus(e, {
+                                                    left: "faqLink",
+                                                    right: "logo",
+                                                })
+                                            }}
+                                        >
+                                            <a>מי אנחנו</a>
 
-                                    <LinkContainer id="faqLink" className="topNavMenuItems black" to="/faq"
-                                        onKeyDown={(e) => {
-                                            moveFocus(e, {
-                                                left: "takanonLink",
-                                                right: "aboutUsLink"
-                                            })
-                                        }}
-                                    >
-                                        <NavItem>שאלות ותשובות</NavItem>
-                                    </LinkContainer>
-                                    <LinkContainer id="takanonLink" className="topNavMenuItems black" to="/takanon"
-                                        onKeyDown={(e) => {
-                                            moveFocus(e, {
-                                                left: "contactLink",
-                                                right: "faqLink"
-                                            })
-                                        }}
-                                    >
-                                        <NavItem>תנאי שימוש</NavItem>
-                                    </LinkContainer>
-                                    <LinkContainer id="contactLink" className="topNavMenuItems black" to="/contact"
-                                        onKeyDown={(e) => {
-                                            moveFocus(e, {
-                                                right: "takanonLink"
-                                            })
-                                        }}
-                                    >
-                                        <NavItem>צור קשר</NavItem>
-                                    </LinkContainer>
+                                        </IndexLinkContainer>
+                                    </li>
+                                    <li>
+                                        <LinkContainer id="faqLink" className="topNavMenuItems black" to="/faq"
+                                            onKeyDown={(e) => {
+                                                moveFocus(e, {
+                                                    left: "takanonLink",
+                                                    right: "aboutUsLink"
+                                                })
+                                            }}
+                                        >
+                                            <a>שאלות ותשובות</a>
+                                        </LinkContainer>
+                                    </li>
+                                    <li>
+                                        <LinkContainer id="takanonLink" className="topNavMenuItems black" to="/takanon"
+                                            onKeyDown={(e) => {
+                                                moveFocus(e, {
+                                                    left: "contactLink",
+                                                    right: "faqLink"
+                                                })
+                                            }}
+                                        >
+                                            <a>תנאי שימוש</a>
+                                        </LinkContainer>
+                                    </li>
+                                    <li>
+                                        <LinkContainer id="contactLink" className="topNavMenuItems black" to="/contact"
+                                            onKeyDown={(e) => {
+                                                moveFocus(e, {
+                                                    right: "takanonLink"
+                                                })
+                                            }}
+                                        >
+                                            <a>צור קשר</a>
+                                        </LinkContainer>
+                                    </li>
                                     <li className="facebook">
                                         <a href="https://www.facebook.com/biblio.co.il/" target="__blank">
                                             <i aria-hidden="true" className="fab fa-facebook-f"></i>

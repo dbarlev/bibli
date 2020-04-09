@@ -4,7 +4,7 @@
         current: id of the current element
         left: ID of the element on the left
         right: ID of the element on the right
-        enter: selector of the tabpanel
+        enter: selector of focus after press
         tab: selector of the element to focus
         activateOnFocus: default false - if on focus the element should be triggered ( for tabcontrol porpuses )
     }
@@ -29,8 +29,8 @@ export function moveFocus(keydownEvent, options) {
                 element = document.getElementById(options.right);
             break;
         case 13:
-            keydownEvent.preventDefault();
             if (options.enter) {
+                keydownEvent.preventDefault();
                 currentElement && currentElement.click();
                 element = document.querySelector(options.enter);
             }
