@@ -22,6 +22,7 @@ const ApaTab = ({ type, activeClassName = null, text, icon, onChangeTab, nextTyp
             current: `tab-${type}`,
             activateOnFocus: true,
             tab: `#${type}Form input`,
+            shift: `#registerSubmit`,
             enter: `#${type}Form input`
           };
           if (nextType)

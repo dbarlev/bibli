@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
-import { Nav, Navbar, NavItem } from "react-bootstrap";
-import { LinkContainer, IndexLinkContainer } from "react-router-bootstrap";
+import { LinkContainer } from "react-router-bootstrap";
 import './FooterMenu.scss';
 import Accessibility from './accessibility';
 
@@ -13,16 +12,24 @@ class FooterMenu extends Component {
         return (
             <div id="FooterMenu">
                 <ul>
-                    <LinkContainer to="/takanon">
-                        <NavItem>תקנון</NavItem>
-                    </LinkContainer>
-                    <LinkContainer to="/contact">
-                        <NavItem>דברו איתנו</NavItem>
-                    </LinkContainer>
-                    <LinkContainer to="/faq">
-                        <NavItem>שאלות ותשובות</NavItem>
-                    </LinkContainer>
-                    <Accessibility />
+                    <li>
+                        <LinkContainer to="/takanon">
+                            <a>תקנון</a>
+                        </LinkContainer>
+                    </li>
+                    <li>
+                        <LinkContainer to="/contact">
+                            <a>דברו איתנו</a>
+                        </LinkContainer>
+                    </li>
+                    <li>
+                        <LinkContainer to="/faq">
+                            <a>שאלות ותשובות</a>
+                        </LinkContainer>
+                    </li>
+                    <li>
+                        <Accessibility />
+                    </li>
                     <li>עקבו אחרינו ב- <i aria-hidden="true" className="fab fa-facebook-f"></i>
                         <span className="sr-only">facebook</span>
                     </li>
