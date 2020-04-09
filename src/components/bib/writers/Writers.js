@@ -106,9 +106,9 @@ class Writers extends Component {
     return (
       <div id="writersFeilds">
         <div className="row">
-          <strong role="heading" aria-level="3" className="pull-right level3">
+          <strong role="heading" aria-level="2" className="pull-right level3">
             <span>שם המחבר</span>
-            <i class="fas fa-user-edit pull-right"></i>
+            <i aria-hidden="true" class="fas fa-user-edit pull-right"></i>
           </strong>
         </div>
         {writers.map((writer, index) =>

@@ -25,7 +25,7 @@ const myLists = () => {
             to="/records/addNewList"
           >
             <a aria-label="הוסף רשימה">
-              <i className="fas fa-plus hover-orange"></i>
+              <i aria-hidden="true" className="fas fa-plus hover-orange"></i>
             </a>
           </LinkContainer>
         </OverlayTrigger>

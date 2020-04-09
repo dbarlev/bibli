@@ -222,7 +222,7 @@ class BibListItem extends Component {
                   }
                 }}
               >
-                <i className="fas fa-trash-alt hover-orange"></i>
+                <i aria-hidden="true" className="fas fa-trash-alt hover-orange"></i>
               </span>
             </OverlayTrigger>
             <OverlayTrigger placement="top" overlay={<Tooltip>עריכה</Tooltip>}>
@@ -240,7 +240,7 @@ class BibListItem extends Component {
                   }
                 }}
               >
-                <i className="fas fa-edit hover-orange"></i>
+                <i aria-hidden="true" className="fas fa-edit hover-orange"></i>
               </span>
             </OverlayTrigger>
             <OverlayTrigger placement="top" overlay={<Tooltip>העתק פריט</Tooltip>}>
@@ -261,7 +261,7 @@ class BibListItem extends Component {
                   }
                 }}
               >
-                <i className={this.state.copyClass}></i>
+                <i aria-hidden="true" className={this.state.copyClass}></i>
               </span>
             </OverlayTrigger>
           </div>

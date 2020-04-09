@@ -23,7 +23,7 @@ class FooterMenu extends Component {
                         <NavItem>שאלות ותשובות</NavItem>
                     </LinkContainer>
                     <Accessibility />
-                    <li>עקבו אחרינו ב- <i className="fab fa-facebook-f"></i>
+                    <li>עקבו אחרינו ב- <i aria-hidden="true" className="fab fa-facebook-f"></i>
                         <span className="sr-only">facebook</span>
                     </li>
                 </ul>

@@ -31,7 +31,7 @@ class StickyContact extends Component {
                     <Button id="stickyContact">
                         <div id="stickyContactCont">
                             <span>
-                                <i class="fas fa-envelope"></i>
+                                <i aria-hidden="true" class="fas fa-envelope"></i>
                             </span>
                             <p>
                                 צריכים עזרה?

@@ -92,7 +92,7 @@ class WritersForm extends Component {
                   aria-label="מחק מחבר"
                   role="button"
                 >
-                  <i class="far fa-trash-alt"></i></span>
+                  <i aria-hidden="true" class="far fa-trash-alt"></i></span>
               </OverlayTrigger>
             </Col>
           }
@@ -106,7 +106,7 @@ class WritersForm extends Component {
                     aria-label="הוסף מחבר"
                     role="button"
                   >
-                    <i class="fas fa-plus"></i></span>
+                    <i aria-hidden="true" class="fas fa-plus"></i></span>
                 </OverlayTrigger>
               </Col>
             )

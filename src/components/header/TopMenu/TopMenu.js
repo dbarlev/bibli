@@ -107,7 +107,7 @@ class TopMenu extends Component {
                                     </LinkContainer>
                                     <li className="facebook">
                                         <a href="https://www.facebook.com/biblio.co.il/" target="__blank">
-                                            <i className="fab fa-facebook-f"></i>
+                                            <i aria-hidden="true" className="fab fa-facebook-f"></i>
                                             <span class="sr-only">facebook</span>
                                         </a>
                                     </li>

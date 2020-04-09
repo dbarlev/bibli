@@ -12,7 +12,7 @@ class UserMenu extends Component {
         <Navbar.Collapse >
           <Nav pullRight>
             <li className="hidden">
-              <a href="#" className="white"><Badge>2</Badge> <i className="far fa-bell"></i></a>
+              <a href="#" className="white"><Badge>2</Badge> <i aria-hidden="true" className="far fa-bell"></i></a>
             </li >
             <LinkContainer className="topNavMenuItems white hidden" to="#" >
               <NavItem>אזור אישי  </NavItem>

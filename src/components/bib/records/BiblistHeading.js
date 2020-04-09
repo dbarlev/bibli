@@ -163,7 +163,7 @@ class BiblistHeading extends Component {
                 }
               }}
             >
-              <i className={`${this.state.copyClass} hover-orange`}></i>
+              <i aria-hidden="true" className={`${this.state.copyClass} hover-orange`}></i>
             </li>
           </OverlayTrigger>
           <OverlayTrigger
@@ -182,7 +182,7 @@ class BiblistHeading extends Component {
                 }
               }}
             >
-              <i className="fas fa-trash-alt hover-orange"></i>
+              <i aria-hidden="true" className="fas fa-trash-alt hover-orange"></i>
             </li>
           </OverlayTrigger>
           <OverlayTrigger
@@ -200,7 +200,7 @@ class BiblistHeading extends Component {
                     }
                   }}
                 >
-                  <i className="fas fa-edit hover-orange"></i>
+                  <i aria-hidden="true" className="fas fa-edit hover-orange"></i>
                 </a>
               </LinkContainer>
             </li>
@@ -214,7 +214,7 @@ class BiblistHeading extends Component {
               aria-label="ייצוא הרשימה"
               className="notApplicable"
             >
-              <i className="fas fa-file-export"></i>
+              <i aria-hidden="true" className="fas fa-file-export"></i>
             </li>
           </OverlayTrigger>
         </ul>
@@ -228,7 +228,7 @@ class BiblistHeading extends Component {
       return (
         <LinkContainer to={`/records/addRecord/ApaBooks`}>
           <button className="btn pull-right" id="addRecordBtn">
-            <i className="fas fa-plus"></i>
+            <i aria-hidden="true" className="fas fa-plus"></i>
             הוספת פריט
           </button>
         </LinkContainer>

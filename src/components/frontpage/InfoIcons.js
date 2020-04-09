@@ -11,7 +11,7 @@ class InfoIcons extends Component {
             <Col className="text-center" xs={12} sm={4}>
             <div className="m50bottom"> 
               <div className="lightBlueBG blob1"></div>   
-              <i class="fas fa-graduation-cap fa-7x"></i>
+              <i aria-hidden="true" class="fas fa-graduation-cap fa-7x"></i>
             </div>
                 
                  <h3 className="text-">מערכת חכמה ליצירת</h3>
@@ -20,7 +20,7 @@ class InfoIcons extends Component {
             <Col  className="text-center" xs={12} sm={4}>
             <div className="m50bottom"> 
             <div className="lightBlueBG blob2"></div>   
-            <i class="fas fa-clock fa-7x"></i>
+              <i aria-hidden="true" class="fas fa-clock fa-7x"></i>
             </div>
                  <h3 className="text-center">יותר זמן להתעמק</h3>
                  <h3 className="text-center secondH3">בגוף העבודה שלכם</h3>
@@ -28,7 +28,7 @@ class InfoIcons extends Component {
             <Col className="text-center" xs={12} sm={4}>
             <div className="m50bottom"> 
               <div className="lightBlueBG blob3"></div>   
-              <i class="fas fa-file-download fa-7x"></i>
+              <i aria-hidden="true" class="fas fa-file-download fa-7x"></i>
             </div>
       
                  
