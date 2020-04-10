@@ -1,3 +1,4 @@
+
 import React, { Component } from 'react';
 import { Grid, Row, Col, Nav, NavItem, Navbar, MenuItem, FormGroup, FormControl, Button } from 'react-bootstrap';
 import './Footer.scss';
@@ -13,7 +14,7 @@ class Footer extends Component {
     render() {
         const stickToBottom = this.props.bottom ? "stickToBottom" : null;
         return (
-            <div id="footer" className={stickToBottom}>
+            <footer id="footer" className={stickToBottom}>
                 <Row>
                     <Col md={12}>
                         <FooterForm />
@@ -26,7 +27,7 @@ class Footer extends Component {
                     </Col>
                     <Col md={4}></Col>
                 </Row>
-            </div>
+            </footer>
         )
     }
 }

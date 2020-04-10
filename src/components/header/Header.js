@@ -13,9 +13,9 @@ class Header extends Component {
   render() {
     return (
       <Grid className="show-grid">
-        <div id="App-header">
+        <header id="App-header">
           <TopMenu loginState={this.state.auth} />
-        </div>
+        </header>
       </Grid>
     );
   }

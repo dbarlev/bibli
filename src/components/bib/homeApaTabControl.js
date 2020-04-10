@@ -21,7 +21,6 @@ const ApaTab = ({ type, activeClassName = null, text, icon, onChangeTab, nextTyp
           let focusObject = {
             current: `tab-${type}`,
             activateOnFocus: true,
-            tab: `#${type}Form input`,
             shift: `#registerSubmit`,
             enter: `#${type}Form input`
           };

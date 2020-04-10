@@ -46,7 +46,6 @@ const ApaTab = ({ type, navigate, activeClassName = null, text, icon, editMode, 
           let focusObject = {
             current: `tab-${type}`,
             activateOnFocus: true,
-            tab: `#${type}Form input`,
             enter: `#${type}Form input`
           };
           if (nextType)

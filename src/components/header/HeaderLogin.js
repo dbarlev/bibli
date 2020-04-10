@@ -32,14 +32,14 @@ class HeaderLogin extends Component {
 
 
     return (
-      <div id="App-header" className="container-fluid">
+      <header id="App-header" className="container-fluid">
         <TopMenu loginState={this.state.auth} />
         <div className="row user-menu">
           <div className="col-md-12 col-lg-12">
             <UserMenu loginState={this.state.auth} />
           </div>
         </div>
-      </div>
+      </header>
     );
   }
 }
