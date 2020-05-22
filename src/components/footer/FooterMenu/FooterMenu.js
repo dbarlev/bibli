@@ -27,9 +27,9 @@ class FooterMenu extends Component {
                             <a>שאלות ותשובות</a>
                         </LinkContainer>
                     </li>
-                    <li>
+                    {/* <li>
                         <Accessibility />
-                    </li>
+                    </li> */}
                     <li>עקבו אחרינו ב- <i aria-hidden="true" className="fab fa-facebook-f"></i>
                         <span className="sr-only">facebook</span>
                     </li>
