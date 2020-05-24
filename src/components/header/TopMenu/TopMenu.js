@@ -113,12 +113,18 @@ class TopMenu extends Component {
                                             <a>צור קשר</a>
                                         </LinkContainer>
                                     </li>
+                                    <li>
+                                            <a href="/blog">
+                                                בלוג
+                                            </a>
+                                    </li>
                                     <li className="facebook">
                                         <a href="https://www.facebook.com/biblio.co.il/" target="__blank">
                                             <i aria-hidden="true" className="fab fa-facebook-f"></i>
                                             <span class="sr-only">facebook</span>
                                         </a>
                                     </li>
+
                                 </Nav>
                             </Navbar.Collapse>
                         </Navbar>
