@@ -3,7 +3,7 @@ import React, { Component } from 'react'
 class Blog extends Component {
     render() {
         return (
-            (window.location = 'https://bibli.co.il/blog')
+            (window.location.href = 'https://bibli.co.il/blog')
         )
     }
 }
