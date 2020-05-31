@@ -19,6 +19,7 @@ import PasswordRecoveryEdit from './components/auth/PasswordRecoveryEdit';
 import Takanon from './components/pages/Takanon';
 import Odot from './components/pages/Odot';
 import Blog from './components/pages/Blog';
+import UserData from './components/auth/UserData';
 import RegisterSuccess from './components/auth/RegisterSuceess';
 import NotFound from './components/404';
 
@@ -51,6 +52,7 @@ ReactDOM.render(
                 <Route path="/odot" component={Odot} />
                 <Route path="/blog" component={Blog} />
                 <Route path="/contact" component={Contact} />
+                <Route path="/userdata" component={UserData} />
                 <Route path="/passwordrecovery" component={PasswordRecovery} /> //טופס הזנת כתובת מייל לשחזור סיסמא
                 <Route path="/passwordrecoveryedit/:token" component={PasswordRecoveryEdit} /> //שינוי של הסיסמא
                 <Route path="/records/biblist" component={Records} />
