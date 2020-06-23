@@ -44,26 +44,37 @@
 		}
     }
 	
-    function getRecords($db, $email)
+    function getRecords($db, $email = null, $userid = null)
     {
-		 $query = 'SELECT * FROM users WHERE email = ?';				
-		$stmt = $db->prepare($query);
-		$stmt->bindParam(1, $email);
-		$stmt->execute();
-		
+		if(isset($email)){
+			$query = 'SELECT * FROM users WHERE email = ?';				
+			$stmt = $db->prepare($query);
+			$stmt->bindParam(1, $email);
+			$stmt->execute();
+		}
+
+
+		if(isset($userid)){
+			$query = 'SELECT * FROM users WHERE userid = ?';				
+			$stmt = $db->prepare($query);
+			$stmt->bindParam(1, $userid);
+			$stmt->execute();
+		}
 
 		$records_row = $stmt->fetch(PDO::FETCH_ASSOC);
 		
-		// var_dump($records_row);
-		// foreach(  $records_row as $key => &$value )
-		// {
-		// 	// $records_row[$key]["wFname"] = unserialize($value["wFname"]);
-		// 	// $records_row[$key]["wLname"] = unserialize($value["wLname"]);
-			
-		// }
-
-		echo json_encode(array('userid' => $records_row['userid'], 'userRegistered' => '1', 'username'=> 'records_row', 'email'=> $email));
-		unset($value);
+		echo json_encode(
+			array(
+				'userid' => $records_row['userid'],
+				'userRegistered' => '1',
+				'username'=> 'records_row',
+				'email'=> $records_row['email'],
+				'fname'=> $records_row['fname'],
+				'lname'=> $records_row['lname'],
+				'mosad'=> $records_row['mosad'],
+				'maslul'=> $records_row['maslul']
+			 ));
+	
 		// echo json_encode($records_row);
     }
 
@@ -140,7 +151,58 @@
 			
 		}
 		
-    }
+	}
+	
+
+	
+	function update_user($db)
+	{	
+		$data = json_decode(file_get_contents('php://input'));	
+	
+		
+
+			if(isset($data->userid)) {$userid = $data->userid; };
+
+		
+				$query = 'SELECT * FROM users WHERE userid = ?';				
+				$stmt = $db->prepare($query);
+				$stmt->bindParam(1, $userid);
+				$stmt->execute();
+				
+	
+				$records_row = $stmt->fetch(PDO::FETCH_ASSOC);
+				
+
+			
+			
+			( isset($data->fname) && !empty($data->fname) ? $fname = $data->fname : $fname = $records_row['fname']);
+			( isset($data->lname) && !empty($data->lname) ? $lname = $data->lname : $lname = $records_row['lname']);
+			( isset($data->email) && !empty($data->email)  ? $email = $data->email : $email = $records_row['email']);
+			( isset($data->mosad) && !empty($data->mosad) ? $mosad = $data->mosad : $mosad = $records_row['mosad']);
+			( isset($data->maslul) && !empty($data->maslul) ? $maslul = $data->maslul : $maslul = $records_row['maslul']);
+
+		
+			$query = "UPDATE users
+			SET fname = :fname, lname = :lname, email = :email, mosad = :mosad, maslul = :maslul
+			WHERE userid = :userid";
+			
+			$stmt = $db->prepare($query);
+			$stmt->bindParam(':fname', $fname);
+			$stmt->bindParam(':lname', $lname);
+			$stmt->bindParam(':email', $email);
+			$stmt->bindParam(':mosad', $mosad);
+			$stmt->bindParam(':maslul', $maslul);
+			$stmt->bindParam(':userid', $userid);
+
+
+
+			$stmt->execute();
+
+			getRecords($db, null, $userid);
+		
+			
+
+	}
 
     function deleteRecordFromUser($db)
     {

@@ -3,6 +3,7 @@ import {
   DELETE_RECORD_FROM_USER,
   INSERT_RECORD_TO_USER,
   INSERT_USER_TO_DB,
+  UPDATE_USER_DATA,
   GET_BIBLIST_FROM_DB,
   USER_MAIL_VERIFICATION,
   DELETE_BIBLIST,
@@ -206,6 +207,31 @@ export const userLogin = userData => {
   };
 };
 
+/*edit/insert user data from userdata page */ 
+export const EditUserData = data => {
+  console.log('ajax EditUserData', data)
+  return dispatch => {
+    axios({
+      url: `${apiPath}/users/User.php`,
+      method: "put",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json"
+      },
+      data: JSON.stringify(data)
+    })
+      .then(function (response) {
+        console.log('return from php EditUserData', response)
+        dispatch({ type: UPDATE_USER_DATA, value: response.data });
+       
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  };
+};
+
+
 
 export const MailVerAction = data => {
   console.log("data ", data);
@@ -301,3 +327,4 @@ export const joinMalList = data => {
       });
   };
 };
+

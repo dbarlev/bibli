@@ -5,6 +5,7 @@ import {
     SET_RETRIVED_DATE,
     ADD_USER,
     INSERT_USER_TO_DB,
+    UPDATE_USER_DATA,
     GET_BIBLIST_FROM_DB,
     USER_MAIL_VERIFICATION,
     ACTIVE_BIBLIST,
@@ -156,6 +157,15 @@ function userReducer(state = [], action) {
                 username: action.value.username,
                 email: action.value.email
 
+            };
+
+        case UPDATE_USER_DATA: //edit user data in user area page
+            return {
+                fname: action.value.fname,
+                lname: action.value.lname,
+                email: action.value.email,
+                maslul: action.value.maslul,
+                mosad: action.value.mosad
             };
         case USER_MAIL_VERIFICATION: //comes back from the ajax file response
             return {

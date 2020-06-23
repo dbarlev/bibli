@@ -8,7 +8,10 @@ import {
   FormGroup,
   FormControl,
 } from "react-bootstrap";
-import { Link } from "react-router-dom";
+// import { Link } from "react-router-dom";
+import { connect } from 'react-redux';
+import { EditUserData } from "../../actions/ajax"
+// import { userReducer } from "../../reducers"
 import Header from "../header/Header";
 import Footer from "../footer/Footer";
 import UserMenu from "../header/UserMenu";
@@ -18,13 +21,28 @@ import "./UserData.scss";
 class UserData extends Component {
   constructor(){
       super();
+    this.items = [
+      'אחוה',
+      'ספיר',
+      'אשקלון',
+      'תל אביב',
+
+    ]
     this.state = {
     fname: "",
+    lname: "",
+    email: "",
+    mosadOptions: [],
+    maslul: "",
     userid: getCookie("userid"),
     auth: getCookie("auth"),
     username: getCookie("username"),
   };
+
   this.onChange = this.onChange.bind(this);
+  this.handleSubmit = this.handleSubmit.bind(this);
+
+
 }
 
   componentWillMount() {
@@ -38,9 +56,20 @@ class UserData extends Component {
         auth,
         username,
       };
+      console.log('json', json)
       //this.props.userLogedIn(json);
+      this.props.EditUserData(json);
     }
   }
+
+  clientValidate() {
+    return true;
+  }
+
+  handleSubmit = (event) => {
+    event.preventDefault();
+    this.props.EditUserData(this.state);
+  };
 
   onChange(event) {
       console.log('event', event);
@@ -49,10 +78,20 @@ class UserData extends Component {
     });
   }
 
+  onMosadChange = (e) => {
+    const value = e.target.value;
+    if (value.length === 0){
+      this.setState.mosadOptions(() => ({
+        mosadOptions: [],
+      }));
+    }else{
+
+    }
+  }
   render() {
     return (
       <Grid fluid id="userdata">
-        {console.log("state", this.state)}
+        {console.log("props", this.props.email)}
         <Header />
         <div className="row user-menu">
           <div className="col-md-12 col-lg-12">
@@ -70,7 +109,7 @@ class UserData extends Component {
                     className="round-circle"
                     width="150"
                   />
-                  <h4 className="card-title m-t-10">אבי ביטר</h4>
+                  <h4 className="card-title m-t-10">{this.props.lname} {this.props.fname}</h4>
                   <h6 className="card-subtitle">סטודנט במכללה</h6>
                   <div className="row text-center justify-content-md-center">
                     <Col md={6}>
@@ -91,11 +130,11 @@ class UserData extends Component {
               <hr />
               <div className="card-body">
                 <h6>דואר אלקטרוני </h6>
-                <h4>hannagover@gmail.com</h4>
+                <h4>{this.props.email}</h4>
                 <h6>מוסד לימודי </h6>
-                <h4>המכללה האקדמית אחוה</h4>
+                <h4>{this.props.mosad}</h4>
                 <h6>מסלול לימודים </h6>
-                <h4>חינוך לגיל הרך</h4>
+                <h4>{this.props.maslul}</h4>
               </div>
             </Col>
             <Col md={6} mdOffset={0}>
@@ -111,6 +150,7 @@ class UserData extends Component {
                         onChange={this.onChange}
                         placeholder="שם פרטי"
                         aria-label="שם פרטי"
+                        value={this.props.fname}
                       />
                     </Col>
                     <Col sm={6}>
@@ -120,8 +160,9 @@ class UserData extends Component {
                       name="lname"
                       type="text"
                         onChange={this.onChange}
-                        placeholder="שם משפחה"
+                        placeholder={this.props.lname}
                         aria-label="שם משפחה"
+                        
                       />
                     </Col>
                   </Row>
@@ -135,6 +176,7 @@ class UserData extends Component {
                         onChange={this.onChange}
                         placeholder="דואר אלקטרוני"
                         aria-label="דואר אלקטרוני"
+                        value={this.props.email}
                       />
                     </Col>
                   </Row>
@@ -155,8 +197,8 @@ class UserData extends Component {
                     <Col sm={12}>
                       <label htmlFor="">מסלול לימודים</label>
                       <FormControl
-                        ref="toar"
-                        name="toar"
+                        ref="maslul"
+                        name="maslul"
                         type="text"
                         onChange={this.onChange}
                         placeholder="מסלול לימודים"
@@ -188,4 +230,20 @@ class UserData extends Component {
   }
 }
 
-export default UserData;
+const mapStateToProps = state => {
+     return{
+      fname: state.userReducer.fname,
+      lname: state.userReducer.lname,
+      email: state.userReducer.email,
+      maslul: state.userReducer.maslul,
+      mosad: state.userReducer.mosad
+   }
+}
+
+const mapDispatchToProps = dispatch => {
+  return {
+    EditUserData: (params) => dispatch(EditUserData(params))
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(UserData);
