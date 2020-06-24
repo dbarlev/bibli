@@ -19,7 +19,8 @@ import {
     PASS_RECOVERY_EDIT,
     CONTACT_US_MASSAGE,
     EXPORT_RECORD_TO_WORD,
-    ACCESSIBILITY
+    ACCESSIBILITY,
+    GET_POSTS_FROM_WP
 } from '../actions/consts';
 
 import { populateAPAData, editListName } from './functions.js';
@@ -165,7 +166,9 @@ function userReducer(state = [], action) {
                 lname: action.value.lname,
                 email: action.value.email,
                 maslul: action.value.maslul,
-                mosad: action.value.mosad
+                mosad: action.value.mosad,
+                numOfLists: action.value.numOfLists,
+                numOfBibs: action.value.numOfBibs,
             };
         case USER_MAIL_VERIFICATION: //comes back from the ajax file response
             return {
@@ -229,6 +232,21 @@ function searcResultsReducer(state = [{ searchRes: [] }], action) {
     }
 }
 
+function PostsFromWPReducer(state = [{posts: [] }], action){
+    switch(action.type){
+        case GET_POSTS_FROM_WP:
+            console.log(action);
+            return{
+                ...state,
+                posts: action.value
+            }
+        default:
+            return state;
+    }
+   
+
+}
+
 const rootReducer = combineReducers({
     chooseSubscription,
     deleteRecordFromUser,
@@ -242,7 +260,8 @@ const rootReducer = combineReducers({
     getEditRecord,
     emailMassageReducer,
     recordsDataForExport,
-    getAccessibility
+    getAccessibility,
+    PostsFromWPReducer
 });
 
 export default rootReducer;

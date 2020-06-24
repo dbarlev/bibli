@@ -63,6 +63,8 @@
 
 		$records_row = $stmt->fetch(PDO::FETCH_ASSOC);
 		
+		$nums = bibs_and_lists($db, $userid);
+
 		echo json_encode(
 			array(
 				'userid' => $records_row['userid'],
@@ -72,11 +74,42 @@
 				'fname'=> $records_row['fname'],
 				'lname'=> $records_row['lname'],
 				'mosad'=> $records_row['mosad'],
-				'maslul'=> $records_row['maslul']
+				'maslul'=> $records_row['maslul'],
+				'numOfBibs'=> $nums['num_of_bibs'],
+				'numOfLists'=> $nums['num_of_lists'],
+				
 			 ));
 	
 		// echo json_encode($records_row);
-    }
+	}
+	
+	/*
+	Shows the number of bibs and lists pre user
+	called by getRecords function
+	*/
+	function bibs_and_lists($db, $userid){
+
+
+
+		$user_Items_query = 'SELECT COUNT(userid) AS numofItems FROM refactor_books_new WHERE userid = ? ';				
+		$user_Items_stmt = $db->prepare($user_Items_query);
+		$user_Items_stmt->bindParam(1, $userid);
+		$user_Items_stmt->execute();
+		$records_num_of_Items = $user_Items_stmt->fetch(PDO::FETCH_ASSOC);
+		$num_of_Items = $records_num_of_Items['numofItems'];
+
+
+		$user_bib_query = 'SELECT COUNT(Userid) AS numoflists FROM biblist WHERE userid = ? ';				
+		$user_bib_stmt = $db->prepare($user_bib_query);
+		$user_bib_stmt->bindParam(1, $userid);
+		$user_bib_stmt->execute();
+		$records_num_of_lists = $user_bib_stmt->fetch(PDO::FETCH_ASSOC);
+		$num_of_lists = $records_num_of_lists['numoflists'];
+
+		$nums = array('num_of_bibs' => $num_of_Items, 'num_of_lists' => $num_of_lists);
+		return($nums);
+
+	}
 
 	function check_if_users_with_same_mail($db, $email)
 	{	
@@ -169,38 +202,44 @@
 				$stmt->bindParam(1, $userid);
 				$stmt->execute();
 				
-	
+
 				$records_row = $stmt->fetch(PDO::FETCH_ASSOC);
 				
 
-			
-			
 			( isset($data->fname) && !empty($data->fname) ? $fname = $data->fname : $fname = $records_row['fname']);
 			( isset($data->lname) && !empty($data->lname) ? $lname = $data->lname : $lname = $records_row['lname']);
-			( isset($data->email) && !empty($data->email)  ? $email = $data->email : $email = $records_row['email']);
-			( isset($data->mosad) && !empty($data->mosad) ? $mosad = $data->mosad : $mosad = $records_row['mosad']);
-			( isset($data->maslul) && !empty($data->maslul) ? $maslul = $data->maslul : $maslul = $records_row['maslul']);
 
-		
-			$query = "UPDATE users
-			SET fname = :fname, lname = :lname, email = :email, mosad = :mosad, maslul = :maslul
-			WHERE userid = :userid";
 			
-			$stmt = $db->prepare($query);
-			$stmt->bindParam(':fname', $fname);
-			$stmt->bindParam(':lname', $lname);
-			$stmt->bindParam(':email', $email);
-			$stmt->bindParam(':mosad', $mosad);
-			$stmt->bindParam(':maslul', $maslul);
-			$stmt->bindParam(':userid', $userid);
 
-
-
-			$stmt->execute();
-
-			getRecords($db, null, $userid);
-		
 			
+
+				( isset($data->email) && !empty($data->email)  ? $email = $data->email : $email = $records_row['email']);
+				( isset($data->mosad) && !empty($data->mosad) ? $mosad = $data->mosad : $mosad = $records_row['mosad']);
+				( isset($data->maslul) && !empty($data->maslul) ? $maslul = $data->maslul : $maslul = $records_row['maslul']);
+				
+				$mail_val = mail_validation($db, $email);
+
+					// if(!isset($mail_val)){
+			
+				$query = "UPDATE users
+				SET fname = :fname, lname = :lname, email = :email, mosad = :mosad, maslul = :maslul
+				WHERE userid = :userid";
+				
+				$stmt = $db->prepare($query);
+				$stmt->bindParam(':fname', $fname);
+				$stmt->bindParam(':lname', $lname);
+				$stmt->bindParam(':email', $email);
+				$stmt->bindParam(':mosad', $mosad);
+				$stmt->bindParam(':maslul', $maslul);
+				$stmt->bindParam(':userid', $userid);
+
+
+
+				$stmt->execute();
+
+				getRecords($db, null, $userid);
+		
+			// }
 
 	}
 
@@ -220,7 +259,31 @@
 	
 
 	
-	
+	function mail_validation($db, $email){
 
+		//check if mail already exists in the database
+		$q = 'SELECT * FROM users WHERE email = ?';
+		$res = $db->prepare($q);
+		$res->bindParam(1, $email);
+		$res->execute();
+
+		//if emial is empty
+		if($email == null || empty($email) ){
+			$error =  json_encode(array('error' => 1));
+
+		//if emailis valid or not
+		}else if (!filter_var($email, FILTER_VALIDATE_EMAIL)){
+			$error =  json_encode(array('error' => 2));
+
+		//if mail already exists
+		}else if($res->fetchColumn()){
+			$error = json_encode(array('error' => 3));
+		
+		//no error
+		}else {
+			$error = json_encode(array('error' => 0));
+		}
+		return $error;
+	}
 
 ?>

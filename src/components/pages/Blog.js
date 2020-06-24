@@ -1,11 +1,20 @@
 import React, { Component } from 'react'
-
+import { connect } from 'react-redux'
 class Blog extends Component {
     render() {
         return (
-            (window.location = 'https://bibli.co.il/blog')
+            <div>
+                {this.props.posts}
+            </div>
         )
     }
+
 }
 
-export default Blog
+const mapStateToProps = state => {
+    return{
+     posts: state.PostsFromWPReducer.posts
+  }
+}
+export default connect(mapStateToProps, null)(Blog);
+

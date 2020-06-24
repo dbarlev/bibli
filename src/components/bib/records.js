@@ -114,7 +114,7 @@ class Records extends Component {
       <div className="App">
         <SkipLinks skipTo={skipTo} />
         <HeaderLogin />
-        <br />
+    
         <main id="recordsMain" className="mainArea userBiblist">
           <div className="row">
             <div className="col-md-2 col-md-offset-2 col-sm-4 col-xs-12">

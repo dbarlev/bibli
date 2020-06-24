@@ -13,10 +13,13 @@ import {
   PASS_RECOVERY_EDIT,
   CONTACT_US_MASSAGE,
   JOIN_MAIL_LIST,
-  USER_LOGIN
+  USER_LOGIN,
+  GET_POSTS_FROM_WP
 } from "./consts";
 import axios from "axios";
 import apiPath from "../constants/api";
+
+const WordpressApiPath = "http://blog.bibli.co.il/wp-json/wp/v2";
 
 export const addBibListNamesToStore = (userid, list) => {
   return dispatch => {
@@ -328,3 +331,18 @@ export const joinMalList = data => {
   };
 };
 
+
+
+export const getPostsFromWp = () =>{
+  return dispatch => {
+    axios
+      .get(`${WordpressApiPath}/posts`)
+      .then(function (response) {
+        console.log(response)
+        dispatch({ type: GET_POSTS_FROM_WP, value: response });
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  };
+}
