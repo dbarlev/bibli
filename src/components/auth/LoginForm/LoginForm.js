@@ -62,6 +62,7 @@ class LoginForm extends Component {
           newMailVer: true,
           errorState: true
         });
+        this.props.showError();
       }
       else if (response && !response.success) {
         this.setState({

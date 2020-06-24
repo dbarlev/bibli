@@ -96,7 +96,6 @@ class BiblistHeading extends Component {
           after: 400
         },
         alignment: AlignmentType.LEFT,
-        bidirectional: lang === "he"
       });
       paragraphs.push(paragraph);
     });
@@ -112,7 +111,7 @@ class BiblistHeading extends Component {
     });
 
     Packer.toBlob(doc).then(blob => {
-      saveAs(blob, "bibli.docx");
+      saveAs(blob, "bibli.doc");
       console.log("Document created successfully");
     });
   }
