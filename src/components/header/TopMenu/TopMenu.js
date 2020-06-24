@@ -1,23 +1,21 @@
 import React, { Component } from "react";
 import { Nav, Navbar, NavItem, MenuItem, Row, Col, Grid } from "react-bootstrap";
 import { LinkContainer, IndexLinkContainer } from "react-router-bootstrap";
-// import { Redirect } from "react-route-dom";
 import { Redirect, Link } from "react-router-dom";
 import { connect } from "react-redux";
-
 import { userLogedIn } from "../../../actions"; //deletes the cookie value 
-
 import logoSrc from "../../img/bibli-logo.png";
 import { LogOut } from "../LogOut/LogOut";
 import LoginForm from "../../auth/LoginForm/LoginForm";
-import Takanon from "../../pages/Takanon";
 import SiteMassage from '../SiteMassage/SiteMassage'
+import { moveFocus } from '../../Services/MoveFocus';
 import "./TopMenu.scss"
 
 
 function eraseCookie(name) {
     document.cookie = name + "=; Max-Age=-99999999;";
 }
+
 
 class TopMenu extends Component {
 
@@ -47,38 +45,86 @@ class TopMenu extends Component {
             <Grid fluid className="container">
                 <SiteMassage />
                 <Row id="mainMenuRow" className={showErrClass ? "showMsg" : ""}>
-                    <Col xs={12} sm={8} md={9} lg={8} style={TopMargin}>
+                    <Col xs={12} sm={8} md={9} lg={8} className="mainMenuRowCol">
                         <Navbar id="TopNav" className="nav-noStyle">
                             <Navbar.Header>
                                 <Navbar.Brand>
-                                    <LinkContainer to="/">
-                                        <MenuItem className="logo">
-                                            <img alt="Bibli Logo" src={logoSrc} />
-                                        </MenuItem>
+                                    <LinkContainer id="logo" to="/"
+                                        onKeyDown={(e) => {
+                                            moveFocus(e, {
+                                                left: "aboutUsLink"
+                                            })
+                                        }}
+                                    >
+                                        <a className="logo">
+                                            <img alt="ביבלי לוגו" src={logoSrc} />
+                                        </a>
                                     </LinkContainer>
                                 </Navbar.Brand>
                                 <Navbar.Toggle />
                             </Navbar.Header>
                             <Navbar.Collapse>
                                 <Nav>
-                                    <IndexLinkContainer className="topNavMenuItems black" to="/odot">
-                                        <NavItem>מי אנחנו</NavItem>
-                                    </IndexLinkContainer>
+                                    <li>
+                                        <IndexLinkContainer id="aboutUsLink" className="topNavMenuItems black" to="/odot"
+                                            onKeyDown={(e) => {
+                                                moveFocus(e, {
+                                                    left: "faqLink",
+                                                    right: "logo",
+                                                })
+                                            }}
+                                        >
+                                            <a>מי אנחנו</a>
 
-                                    <LinkContainer className="topNavMenuItems black" to="/faq">
-                                        <NavItem>שאלות ותשובות</NavItem>
-                                    </LinkContainer>
-                                    <LinkContainer className="topNavMenuItems black" to="/takanon">
-                                        <NavItem>תנאי שימוש</NavItem>
-                                    </LinkContainer>
-                                    <LinkContainer className="topNavMenuItems black" to="/contact">
-                                        <NavItem>צור קשר</NavItem>
-                                    </LinkContainer>
+                                        </IndexLinkContainer>
+                                    </li>
+                                    <li>
+                                        <LinkContainer id="faqLink" className="topNavMenuItems black" to="/faq"
+                                            onKeyDown={(e) => {
+                                                moveFocus(e, {
+                                                    left: "takanonLink",
+                                                    right: "aboutUsLink"
+                                                })
+                                            }}
+                                        >
+                                            <a>שאלות ותשובות</a>
+                                        </LinkContainer>
+                                    </li>
+                                    <li>
+                                        <LinkContainer id="takanonLink" className="topNavMenuItems black" to="/takanon"
+                                            onKeyDown={(e) => {
+                                                moveFocus(e, {
+                                                    left: "contactLink",
+                                                    right: "faqLink"
+                                                })
+                                            }}
+                                        >
+                                            <a>תנאי שימוש</a>
+                                        </LinkContainer>
+                                    </li>
+                                    <li>
+                                        <LinkContainer id="contactLink" className="topNavMenuItems black" to="/contact"
+                                            onKeyDown={(e) => {
+                                                moveFocus(e, {
+                                                    right: "takanonLink"
+                                                })
+                                            }}
+                                        >
+                                            <a>צור קשר</a>
+                                        </LinkContainer>
+                                    </li>
+                                    <li>
+                                            <a href="/blog" target="_self">
+                                                בלוג
+                                            </a>
+                                    </li>
                                     <li className="facebook">
                                         <a href="https://www.facebook.com/biblio.co.il/" target="__blank">
-                                            <i className="fab fa-facebook-f"></i>
+                                            <i aria-hidden="true" className="fab fa-facebook-f"></i>
+                                            <span class="sr-only">facebook</span>
                                         </a>
                                     </li>
+
                                 </Nav>
                             </Navbar.Collapse>
                         </Navbar>
@@ -110,7 +156,3 @@ export default connect(
     null,
     mapDispatchToProps
 )(TopMenu);
-
-const TopMargin = {
-    marginTop: "27px"
-};

@@ -1,0 +1,40 @@
+#contact {
+    input[type=text],
+    input[type=email] {
+        border: 1px solid black;
+        height: 40px;
+    }
+    #checkbox {
+        height: 20px;
+    }
+    textarea {
+        border: 1px solid black;
+        border-radius: 20px;
+    }
+    .center-footer {
+        right: 22%;
+    }
+    .row {
+        margin-bottom: 0;
+    }
+    .contact-form {
+        margin-top: 20px;
+        margin-left: 60px;
+    }
+     ::-webkit-input-placeholder {
+        /* Chrome/Opera/Safari */
+        color: black;
+    }
+     ::-moz-placeholder {
+        /* Firefox 19+ */
+        color: black;
+    }
+     :-ms-input-placeholder {
+        /* IE 10+ */
+        color: black;
+    }
+     :-moz-placeholder {
+        /* Firefox 18- */
+        color: black;
+    }
+}

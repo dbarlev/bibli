@@ -1997,7 +1997,7 @@ form .btn-default {
 
 .yellow-bg {
   padding: 15px;
-  background-color: #f2b500; }
+  background-color: #eeb100; }
 
 .grey-bg {
   padding: 15px;
@@ -2027,13 +2027,13 @@ input {
   border-radius: 50px; }
 
 .btn-yellow {
-  background-color: #f2b500; }
+  background-color: #eeb100; }
   .btn-yellow a {
     color: #204260; }
   .btn-yellow:hover {
     background-color: #204260; }
     .btn-yellow:hover a {
-      color: #f2b500;
+      color: #eeb100;
       text-decoration: none; }
 
 /*text*/
@@ -2046,7 +2046,7 @@ li,
 button,
 input,
 label {
-  font-family: 'Open Sans Hebrew', serif;
+  font-family: 'Open Sans Hebrew', sans-serif;
   font-size: 16px; }
 
 h1,
@@ -2055,7 +2055,7 @@ h3,
 h4,
 h5,
 h6 {
-  font-family: 'Open Sans Hebrew Condensed', serif; }
+  font-family: 'Open Sans Hebrew Condensed', sans-serif; }
 
 h5 {
   font-weight: bold; }
@@ -2070,10 +2070,10 @@ button.send {
   font-size: 20px;
   width: 100%;
   background-color: #204260;
-  color: #f2b500; }
+  color: #eeb100; }
   button.send:hover, button.send:active {
     color: #204260;
-    background-color: #f2b500; }
+    background-color: #eeb100; }
 
 .row *,
 .row *:after,
@@ -2130,12 +2130,12 @@ button.send {
   border-radius: 50px; }
 
 #TopNav .nav a:active {
-  background-color: #f2b500;
+  background-color: #eeb100;
   border-radius: 50px;
   transition: 0.3s; }
 
 #TopNav .nav a:hover {
-  background-color: #f2b500;
+  background-color: #eeb100;
   border-radius: 50px;
   transition: 0.3s; }
 
@@ -2146,7 +2146,7 @@ button.send {
   padding-right: 0;
   padding-left: 0; }
   #frontpage #secondline {
-    background-color: #f2b500; }
+    background-color: #eeb100; }
   #frontpage #pricing-table {
     background-color: #204260;
     height: 100%;
@@ -2192,7 +2192,7 @@ button.send {
       margin-top: 15px;
       border-top-right-radius: 35px; }
     #frontpage #pricing-table ul .price-recomended {
-      background-color: #f2b500;
+      background-color: #eeb100;
       padding: 80px 45px;
       margin: 0 20px;
       height: 500px; }
@@ -2311,7 +2311,7 @@ ul#searchresults {
       height: 100px;
       flex-direction: row-reverse; }
     ul#searchresults li button.addToListBtn {
-      background-color: #f2b500;
+      background-color: #eeb100;
       border: 0;
       color: #000;
       align-self: center;
@@ -2321,7 +2321,7 @@ ul#searchresults {
         right: 7px; }
       ul#searchresults li button.addToListBtn:hover {
         background-color: #204260;
-        color: #f2b500; }
+        color: #eeb100; }
     ul#searchresults li .resultBookTitle {
       font-weight: bold; }
 
@@ -2339,7 +2339,7 @@ ul#searchresults.open {
   #App-header .nav-noStyle {
     background: transparent; }
   #App-header .topnav-login-logout-btn > a {
-    background-color: #f2b500; }
+    background-color: #eeb100; }
   #App-header #userNav {
     margin-top: 10px;
     background-color: #204260;
@@ -2384,6 +2384,79 @@ ul#searchresults.open {
 #contact :-moz-placeholder {
   /* Firefox 18- */
   color: black; }
+
+#mainApp.contrastMode *:not(.tooltip):not([role=alert]):not(.backToBiblist):not(button):not(.btn):not(.fa-file-export) {
+  color: black !important; }
+
+#mainApp.contrastMode *:not(h2):not(h3):not(h4):not(h5):not(h6):not(.counter) {
+  font-size: 18px; }
+
+#mainApp.contrastMode .btn {
+  color: white !important;
+  background: #204260 !important; }
+
+#mainApp.contrastMode #footer *,
+#mainApp.contrastMode #stickyContact * {
+  color: white !important; }
+
+#mainApp.contrastMode #frontregister * {
+  color: white !important; }
+
+#mainApp.contrastMode .tooltip * {
+  color: white !important; }
+
+#mainApp.contrastMode #registerSubmit {
+  border-color: white; }
+
+#mainApp.contrastMode ::-webkit-input-placeholder {
+  /* Edge */
+  color: black;
+  font-size: 14px; }
+
+#mainApp.contrastMode :-ms-input-placeholder {
+  /* Internet Explorer 10-11 */
+  color: black;
+  font-size: 14px; }
+
+#mainApp.contrastMode ::placeholder {
+  color: black;
+  font-size: 14px; }
+
+#mainApp.contrastMode #addRecordBtn * {
+  color: white !important; }
+
+#mainApp.contrastMode #userNav li:not(.active) a {
+  color: white !important; }
+
+#mainApp.contrastMode #logout {
+  font-size: 14px;
+  margin: 5px !important; }
+
+#mainApp.contrastMode #logout * {
+  margin: 10px !important;
+  font-size: 14px !important; }
+
+#mainApp.contrastMode #openLoginForm, #mainApp.contrastMode #loginSubmit, #mainApp.contrastMode #logout a {
+  color: white !important; }
+
+#mainApp.contrastMode #movie-disabled, #mainApp.contrastMode #audio-disabled {
+  color: #d0d0d0 !important; }
+
+#mainApp.contrastMode #TopNav button.navbar-toggle {
+  background: #204260 !important; }
+
+#mainApp.contrastMode h1, #mainApp.contrastMode h1 * {
+  font-size: 35px !important; }
+
+#mainApp.contrastMode #footer-form #formBasicEmail {
+  border-right-color: black !important; }
+
+#mainApp.contrastMode input {
+  border-color: black !important; }
+
+#mainApp.contrastMode .btn:hover {
+  color: white !important;
+  background: #204260 !important; }
 
 /*scss from componnents themself*/
 .newWelcomeBg {

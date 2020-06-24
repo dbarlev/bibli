@@ -2,11 +2,12 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { LinkContainer } from "react-router-bootstrap";
 import { DeleteBibList, InsertBibListToDB } from "../../../actions/ajax";
+import { withRouter } from 'react-router-dom';
 import { activeBiblist } from "../../../actions";
 import { OverlayTrigger, Tooltip, Row, Col } from "react-bootstrap";
 import Confirm from "../../Modal/Confirm";
 import Alert from "../../Modal/Alert";
-
+import { CopyToClipboard } from '../services/clipboard';
 import { He } from './texts';
 import {
   Document,
@@ -20,14 +21,27 @@ import {
 } from "docx";
 import { saveAs } from "file-saver";
 import { base64Logo } from "./const";
+import './BiblistHeading.scss';
+
+const copyToClipboard = new CopyToClipboard();
+const COPY_ICON = "fas fa-paste";
+const CHECK_ICON = "fas fa-check";
 
 class BiblistHeading extends Component {
   constructor() {
     super();
     this.state = {
       show: false,
-      export: false
+      export: false,
+      copyClass: COPY_ICON
     };
+  }
+
+  copy() {
+    this.setState({ copyClass: CHECK_ICON });
+    setTimeout(() => {
+      this.setState({ copyClass: COPY_ICON });
+    }, 3000);
   }
 
   onDeleteList() {
@@ -43,16 +57,16 @@ class BiblistHeading extends Component {
     const { activeBiblistData, getBiblistNamesFromDB } = this.props;
     if (activeBiblistData && activeBiblistData.Name) {
       return (
-        <h2>
+        <h1>
           ביבליוגרפיה של <strong>{activeBiblistData.Name}</strong>
-        </h2>
+        </h1>
       );
     }
     else if (getBiblistNamesFromDB && getBiblistNamesFromDB.length === 1) {
       return (
-        <h2>
+        <h1>
           ביבליוגרפיה של <strong>{getBiblistNamesFromDB[0].Name}</strong>
-        </h2>
+        </h1>
       );
     }
   }
@@ -96,6 +110,7 @@ class BiblistHeading extends Component {
           after: 400
         },
         alignment: AlignmentType.LEFT,
+        bidirectional: lang === "he"
       });
       paragraphs.push(paragraph);
     });
@@ -111,8 +126,7 @@ class BiblistHeading extends Component {
     });
 
     Packer.toBlob(doc).then(blob => {
-      saveAs(blob, "bibli.doc");
-      console.log("Document created successfully");
+      saveAs(blob, "bibli.docx");
     });
   }
 
@@ -130,55 +144,77 @@ class BiblistHeading extends Component {
       return (
         <ul className="list-no-style list-inline" id="biblist-heading-list">
           <OverlayTrigger
-            overlay={
-              <Tooltip id="tooltip-disabled">העתקת רשימה - בקרוב</Tooltip>
-            }
+            placement="top"
+            overlay={<Tooltip>העתקת פריטים ביבליוגרפים</Tooltip>}
           >
             <li
               role="button"
               tabIndex="0"
-              aria-label="העתקת רשימה"
-              className="cursor-normal"
+              aria-label="העתקת פריטים ביבליוגרפים"
+              onClick={() => {
+                copyToClipboard.bulk(".recordQuery");
+                this.copy();
+              }}
+              onKeyDown={(e) => {
+                const keyCode = e.keyCode || e.which;
+                if (keyCode === 13) {
+                  copyToClipboard.bulk(".recordQuery");
+                  this.copy();
+                }
+              }}
             >
-              <i className="fas fa-copy" style={{ color: "lightGray" }}></i>
+              <i aria-hidden="true" className={`${this.state.copyClass} hover-orange`}></i>
             </li>
           </OverlayTrigger>
           <OverlayTrigger
             placement="top"
-            overlay={<Tooltip>מחיקת רשימה</Tooltip>}
+            overlay={<Tooltip>מחיקת עבודה</Tooltip>}
           >
             <li
               role="button"
               tabIndex="0"
-              aria-label="מחיקת רשימה"
+              aria-label="מחיקת עבודה"
               onClick={() => this.setState({ ...this.state, show: true })}
+              onKeyDown={(e) => {
+                const keyCode = e.keyCode || e.which;
+                if (keyCode === 13) {
+                  this.setState({ ...this.state, show: true })
+                }
+              }}
             >
-              <i className="fas fa-trash-alt hover-orange"></i>
+              <i aria-hidden="true" className="fas fa-trash-alt hover-orange"></i>
             </li>
           </OverlayTrigger>
           <OverlayTrigger
             placement="top"
-            overlay={<Tooltip>עריכת הרשימה</Tooltip>}
+            overlay={<Tooltip>עריכת שם העבודה</Tooltip>}
           >
-            <li role="link" tabIndex="0" aria-label="עריכת הרשימה">
+            <li>
               <LinkContainer className="pointer" to="/records/editlist">
-                <a>
-                  <i className="fas fa-edit hover-orange"></i>
+                <a
+                  aria-label="עריכת שם העבודה"
+                  onKeyDown={(e) => {
+                    const keyCode = e.keyCode || e.which;
+                    if (keyCode === 13) {
+                      this.props.history.push("/records/editlist");
+                    }
+                  }}
+                >
+                  <i aria-hidden="true" className="fas fa-edit hover-orange"></i>
                 </a>
               </LinkContainer>
             </li>
           </OverlayTrigger>
           <OverlayTrigger
             placement="top"
-            overlay={<Tooltip>ייצוא הרשימה</Tooltip>}
+            overlay={<Tooltip>ייצוא רשימה - בקרוב</Tooltip>}
           >
             <li
               role="button"
-              tabIndex="0"
-              onClick={() => this.exportDocx()}
               aria-label="ייצוא הרשימה"
+              className="notApplicable"
             >
-              <i className="fas fa-file-export hover-orange"></i>
+              <i aria-hidden="true" className="fas fa-file-export"></i>
             </li>
           </OverlayTrigger>
         </ul>
@@ -192,7 +228,8 @@ class BiblistHeading extends Component {
       return (
         <LinkContainer to={`/records/addRecord/ApaBooks`}>
           <button className="btn pull-right" id="addRecordBtn">
-            <i className="fas fa-plus"></i> הוספת פריט{" "}
+            <i aria-hidden="true" className="fas fa-plus"></i>
+            הוספת פריט
           </button>
         </LinkContainer>
       );
@@ -205,8 +242,10 @@ class BiblistHeading extends Component {
     return (
       <div className="biblistHeading align-right">
         <Row>
-          <Col sm={7} md={7} lg={7}>{this.renderBibListTitle()}</Col>
-          <Col sm={5} md={5} lg={5}>{this.renderConfigBtns()}</Col>
+          <Col sm={6} md={6} lg={6}>{this.renderBibListTitle()}</Col>
+          <Col sm={6} md={6} lg={6}>
+            {this.renderConfigBtns()}
+          </Col>
         </Row>
         {this.renderAddItemBtn()}
         {getBiblistNamesFromDB && getBiblistNamesFromDB.length > 1 ?
@@ -223,6 +262,7 @@ class BiblistHeading extends Component {
             show={this.state.show}
           />
         }
+
       </div>
     );
   }
@@ -236,6 +276,6 @@ const mapStateToProps = state => {
   };
 };
 
-export default connect(mapStateToProps, { DeleteBibList, activeBiblist, InsertBibListToDB })(
+export default connect(mapStateToProps, { DeleteBibList, activeBiblist, InsertBibListToDB })(withRouter(
   BiblistHeading
-);
+));

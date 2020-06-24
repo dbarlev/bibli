@@ -1,11 +1,14 @@
 #stickyContact{
     position: fixed;
     top: 70vh;
-    left: 0;
+    left: -1px;
     background: #204260;
     padding: 10px 13px;
     border-radius: 0px 10px 10px 0px;
-   
+    border-right: 3px solid black;
+    border-top: 3px solid black;
+    border-bottom: 3px solid black;
+    width: 125px;
 
     #stickyContactCont{
         text-align: center;
@@ -19,4 +22,8 @@
     p{
         color: white;
     }
+}
+
+div#stickyContact:hover {
+    background: #e08222;
 }

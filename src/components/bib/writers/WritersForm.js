@@ -70,15 +70,15 @@ class WritersForm extends Component {
     return (
       <div id="writersForm">
         <Row>
-          <Col md={4} lg={4} xs={4} className="col">
+          <Col md={5} lg={5} xs={4} className="col">
             <FormGroup controlId={"firstName" + this.props.index}>
-              <FormControl placeholder="שם פרטי" value={this.state.firstName} onChange={(event) => this.firstNameChange(event.target.value)} ref="editorPrivateName" type="text" />
+              <FormControl aria-label="שם פרטי" placeholder="שם פרטי" value={this.state.firstName} onChange={(event) => this.firstNameChange(event.target.value)} ref="editorPrivateName" type="text" />
               <HelpBlock role="status" aria-live="polite"></HelpBlock>
             </FormGroup>
           </Col>
-          <Col md={4} lg={4} xs={5}>
+          <Col md={5} lg={5} xs={5}>
             <FormGroup controlId={"lastName" + this.props.index}>
-              <FormControl placeholder="שם משפחה" onChange={(event) => this.lastNameChange(event.target.value)} value={this.state.lastName} ref="editorLastName" type="text" />
+              <FormControl aria-label="שם משפחה" placeholder="שם משפחה" onChange={(event) => this.lastNameChange(event.target.value)} value={this.state.lastName} ref="editorLastName" type="text" />
               <HelpBlock role="status" aria-live="polite"></HelpBlock>
             </FormGroup>
           </Col>
@@ -86,7 +86,13 @@ class WritersForm extends Component {
             this.props.writerLength > 1 &&
             <Col md={1} lg={1} xs={1} className="btnCol">
               <OverlayTrigger placement="top" overlay={<Tooltip>מחק מחבר</Tooltip>}>
-                <span onClick={() => this.props.onRemoveWriter()} aria-label="מחק מחבר"><i class="far fa-trash-alt"></i></span>
+                <span tabindex="0"
+                  onKeyDown={(e) => { if ((e.keyCode || e.which) === 13) this.props.onRemoveWriter() }}
+                  onClick={() => this.props.onRemoveWriter()}
+                  aria-label="מחק מחבר"
+                  role="button"
+                >
+                  <i aria-hidden="true" class="far fa-trash-alt"></i></span>
               </OverlayTrigger>
             </Col>
           }
@@ -94,7 +100,13 @@ class WritersForm extends Component {
             this.props.addMoreButton && (
               <Col md={1} lg={1} xs={1} className="btnCol">
                 <OverlayTrigger placement="top" overlay={<Tooltip>הוסף מחבר</Tooltip>}>
-                  <span onClick={() => this.props.onAddMoreWriter()} aria-label="הוסף מחבר"><i class="fas fa-plus"></i></span>
+                  <span tabindex="0"
+                    onKeyDown={(e) => { if ((e.keyCode || e.which) === 13) this.props.onAddMoreWriter() }}
+                    onClick={() => this.props.onAddMoreWriter()}
+                    aria-label="הוסף מחבר"
+                    role="button"
+                  >
+                    <i aria-hidden="true" class="fas fa-plus"></i></span>
                 </OverlayTrigger>
               </Col>
             )

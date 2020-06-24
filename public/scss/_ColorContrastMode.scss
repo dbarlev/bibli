@@ -1,0 +1,92 @@
+#mainApp.contrastMode{
+    *:not(.tooltip):not([role=alert]):not(.backToBiblist):not(button):not(.btn):not(.fa-file-export){
+        color: black !important
+    }
+
+    *:not(h2):not(h3):not(h4):not(h5):not(h6):not(.counter){
+        font-size: 18px;
+    }
+
+    .btn{
+        color: white !important; background: #204260 !important;
+    }
+
+    #footer *,
+    #stickyContact *{
+        color: white !important;
+    }
+
+    #frontregister *{
+        color: white !important;
+    }
+
+    .tooltip *{
+        color: white !important
+    }
+
+    #registerSubmit{
+        border-color: white;
+    }
+
+    ::-webkit-input-placeholder { /* Edge */
+        color: black;
+        font-size: 14px;
+    }
+
+    :-ms-input-placeholder { /* Internet Explorer 10-11 */
+        color: black;
+        font-size: 14px;
+    }
+
+    ::placeholder {
+        color: black;
+        font-size: 14px;
+    }
+
+    #addRecordBtn *{
+        color: white !important;
+    }
+
+    #userNav li:not(.active) a{
+        color: white !important;
+    }
+
+    #logout{
+        font-size: 14px;
+        margin: 5px !important;
+    }
+
+    #logout *{
+        margin: 10px !important;
+        font-size: 14px !important;
+    }
+
+    #openLoginForm, #loginSubmit, #logout a {
+        color: white !important;
+    }
+
+    #movie-disabled, #audio-disabled{
+        color: #d0d0d0 !important;
+    }
+
+    #TopNav button.navbar-toggle{
+        background: #204260 !important;
+    }
+
+    h1, h1 *{
+        font-size: 35px !important;
+    }
+
+    #footer-form #formBasicEmail{
+        border-right-color: black !important;
+    }
+
+    input{
+        border-color: black !important;
+    }
+
+    .btn:hover{
+        color: white !important;
+        background: #204260 !important;
+    }
+}

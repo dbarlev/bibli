@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import { OverlayTrigger, Tooltip } from "react-bootstrap";
-import BugContact from '../Modal/BugContact';
+import { OverlayTrigger, Tooltip, Button } from "react-bootstrap";
+import BugContact from '../../Modal/BugContact';
 import './StickyContact.scss';
 
 class StickyContact extends Component {
@@ -28,16 +28,16 @@ class StickyContact extends Component {
         return (
             <div>
                 <OverlayTrigger onClick={() => this.onContact()} placement="right" overlay={<Tooltip>דיווח על תקלות</Tooltip>}>
-                    <div id="stickyContact">
+                    <Button id="stickyContact">
                         <div id="stickyContactCont">
                             <span>
-                                <i class="fas fa-envelope"></i>
+                                <i aria-hidden="true" class="fas fa-envelope"></i>
                             </span>
                             <p>
                                 צריכים עזרה?
                             </p>
                         </div>
-                    </div>
+                    </Button>
                 </OverlayTrigger>
                 {
                     this.state.showModal && <BugContact close={() => this.onHide()} />

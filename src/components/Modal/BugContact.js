@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { detect } from 'detect-browser';
 import { connect } from 'react-redux';
 import { sendMassage } from '../../actions/ajax';
 import {
@@ -18,22 +19,34 @@ class BugContact extends Component {
         super();
         this.state = {
             show: false,
-            errors: []
+            errors: [],
+            msg: ''
+        }
+    }
+
+    componentDidUpdate(prevProps) {
+        if (this.props.massageSent !== prevProps.massageSent) {
+            this.massage()
         }
     }
 
     onFormSubmit(e) {
+        let browser = detect();
         e.preventDefault();
         let elements = e.currentTarget.elements;
-        let browser = elements.browser.value ? elements.browser.value.trim() : "";
+        /*let browser = elements.browser.value ? elements.browser.value.trim() : "";*/
         let name = elements.name.value ? elements.name.value.trim() : "";
         let email = elements.email.value ? elements.email.value.trim() : "";
         let text = elements.issueDetails.value ? elements.issueDetails.value.trim() : "";
+        let formName = 'דיווח תקלה';
+        let browserName = browser.name;
+        let browserOs = browser.os;
+        let browserVersion = browser.version;
         let isValid = this.validation(browser, text, email);
         if (!isValid)
             return;
 
-        this.props.sendMassage({ name, email, browser, message: text });
+        this.props.sendMassage({ name, email, browserName, browserOs, browserVersion, message: text, formName });
     }
 
     validation(browser, text, email) {
@@ -58,13 +71,26 @@ class BugContact extends Component {
 
     }
 
+
+    massage = () => {
+        if (this.props.massageSent.contactussent === 1) {
+            this.setState({ msg: 'ההודעה נשלחה בהצלחה ', color: 'green' });
+            return this.state.msg;
+        } else {
+            this.setState({ msg: 'ההודעה לא נשלחה, נסה שנית מאוחר יותר', color: 'red' });
+            return this.state.msg
+        }
+
+    }
+
+
     render() {
         return (
             <Modal id="bugContact" onHide={() => this.props.close()} size="sm" show={true}>
-                <Modal.Header closeButton closeLabel className="modalHeader">
+                <Modal.Header closeButton closeLabel="סגור" className="modalHeader">
                     <div className="text-center">
                         <h2>נתקלתם בתקלה באתר?</h2>
-                        <h4>דווחו לנו בטופס למטה</h4>
+                        <h3>דווחו לנו בטופס למטה</h3>
                     </div>
                 </Modal.Header>
                 <Modal.Body>
@@ -93,7 +119,7 @@ class BugContact extends Component {
                                 type="email"
                             />
                         </FormGroup>
-                        <FormGroup controlId="browser">
+                        {/*  <FormGroup controlId="browser">
                             <ControlLabel>דפדפן - שדה חובה</ControlLabel>
                             <FormControl componentClass="select" placeholder="browser">
                                 <option value="select">בחרו מהרשימה...</option>
@@ -102,12 +128,16 @@ class BugContact extends Component {
                                 <option value="Edge">Edge</option>
                             </FormControl>
                         </FormGroup>
-
+                */}
                         <FormGroup controlId="issueDetails">
                             <ControlLabel>תיאור הבעיה - שדה חובה</ControlLabel>
                             <FormControl rows={5} componentClass="textarea" placeholder="תיאור התקלה" />
                         </FormGroup>
-
+                        {this.state.msg &&
+                            <div className={this.state.color + '-alert'} role="alert">
+                                {this.state.msg}
+                            </div>
+                        }
                         <div id="submitBtn">
                             <Button variant="primary" type="submit">
                                 שלח
@@ -120,4 +150,10 @@ class BugContact extends Component {
     }
 }
 
-export default connect(null, { sendMassage })(BugContact);
+const mapStateToProps = state => {
+    return {
+        massageSent: state.emailMassageReducer.massageSent
+    }
+}
+
+export default connect(mapStateToProps, { sendMassage })(BugContact);

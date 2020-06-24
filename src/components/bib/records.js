@@ -9,71 +9,113 @@ import BibList from './records/BibList';
 import ListOfBiblist from './listOfRecords/ListOfBiblist';
 import EditBiblist from './listOfRecords/EditBiblist';
 import { userLogedIn, activeBiblist } from '../../actions';
-import { addBibListNamesToStore, saveRecordsOnStore, InsertBibListToDB } from '../../actions/ajax';
+import { addBibListNamesToStore, saveRecordsOnStore } from '../../actions/ajax';
 import Footer from '../footer/Footer.js';
 import { getCookie } from '../Services/GetCookies';
 import { apiClient } from '../../common/apiClient';
-import StickyContact from '../stickyContact/StickyContact';
+import { addRecordFromStorage, getRecordFromStorage } from './services/addRecordFromStorage';
+import { constructNewUserRecords } from './services/constructNewUserRecords';
+import StickyContact from '../sticky/stickyContact/StickyContact';
+import ChooseBiblist from './modal/chooseBiblist';
+import SkipLinks from '../skipLinks';
 import '../App.css';
+
+const skipTo = [
+  { id: "recordsMain", text: "דלג לאזור המרכזי" },
+  { id: "mainMenuRow", text: "דלג לתפריט הראשי" },
+  { id: "footer", text: "דלג לסוף העמוד" },
+]
 
 class Records extends Component {
 
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
       biblistID: -1,
       userid: getCookie("userid"),
       auth: getCookie("auth"),
+      showChooseBiblistModal: false,
+      biblist: []
     }
   }
 
-  async componentDidMount() {
-    let userid = getCookie("userid");
-    let serverResponseForRecords = await apiClient(`/biblioRecords/Records.php?userid=${userid}&biblistID=0`, "get");
-    let serverResponseForBibList = await apiClient(`/biblist/${userid}`, "get");
-
-    if (serverResponseForBibList && serverResponseForBibList.length > 0) {
-      this.props.addBibListNamesToStore(userid, serverResponseForBibList);
-      if (serverResponseForBibList.length == 1) {
-        this.props.activeBiblist(serverResponseForBibList[0]);
-      }
-
-      if (serverResponseForRecords && serverResponseForRecords.length > 0) {
-        this.props.saveRecordsOnStore(userid, serverResponseForRecords);
-      }
-    }
-    else {
-      this.props.InsertBibListToDB({ userid, name: "עבודה מספר 1" });
-      this.props.history.push("/records/addRecord/ApaBooks")
-    }
-  }
-
-
-  componentWillMount() {
-    let userid = this.state.userid;
-    let auth = this.state.auth;
-
+  async componentWillMount() {
+    const { userid, auth } = this.state;
 
     if (auth) {
-      const json = {
-        userid,
-        auth
-      }
+      const json = { userid, auth }
       this.props.userLogedIn(json);
+      await this.init();
     } else {
-      // debugger;
       this.props.history.push('/');
     }
   }
 
+  componentDidMount() {
+    document.querySelector("title").textContent = "ביבלי | מערכת ליצירת רשומות ביבליוגרפיות";
+  }
+
+  async init() {
+    let userid = getCookie("userid");
+    let serverResponseForBibList = await apiClient(`/biblist/${userid}`, "get");
+    if (serverResponseForBibList && serverResponseForBibList.length > 0) {
+      await this.constructExistingUser(userid, serverResponseForBibList);
+    }
+    else {
+      await constructNewUserRecords(userid, this.props);
+    }
+  }
+
+  async constructExistingUser(userid, serverResponseForBibList) {
+    this.props.addBibListNamesToStore(userid, serverResponseForBibList);
+    let hasRecordOnStorage = getRecordFromStorage();
+    if (!hasRecordOnStorage) {
+      await addRecordFromStorage(userid, serverResponseForBibList, this.props);
+      this.props.activeBiblist(serverResponseForBibList[0]);
+      let serverResponseForRecords = await apiClient(`/biblioRecords/Records.php?userid=${userid}&biblistID=${serverResponseForBibList[0].id}`, "get");
+      if (serverResponseForRecords && serverResponseForRecords.length > 0) {
+        this.props.saveRecordsOnStore(userid, serverResponseForRecords);
+      }
+    }
+    else if (hasRecordOnStorage) {
+      let data = serverResponseForBibList.map((item) => {
+        return {
+          id: item.id,
+          value: item.id,
+          label: item.Name
+        }
+      })
+      this.setState({ showChooseBiblistModal: true, biblist: data });
+    }
+  }
+
+  closeModal = () => {
+    this.setState({ showChooseBiblistModal: false, biblist: [] });
+  }
+
+  onBiblistChosen = async (selectedOption) => {
+    let userid = getCookie("userid");
+    let biblist = {
+      id: selectedOption.id,
+      userid: userid,
+      Name: selectedOption.label
+    };
+    this.props.activeBiblist(biblist);
+    await addRecordFromStorage(userid, [biblist], this.props);
+    let serverResponseForRecords = await apiClient(`/biblioRecords/Records.php?userid=${userid}&biblistID=${biblist.id}`, "get");
+    this.closeModal();
+    if (serverResponseForRecords && serverResponseForRecords.length > 0) {
+      this.props.saveRecordsOnStore(userid, serverResponseForRecords);
+    }
+  }
 
   render() {
     return (
       <div className="App">
-
+        <SkipLinks skipTo={skipTo} />
         <HeaderLogin />
         <br />
-        <div className="mainArea userBiblist">
+        <main id="recordsMain" className="mainArea userBiblist">
           <div className="row">
             <div className="col-md-2 col-md-offset-2 col-sm-4 col-xs-12">
               <ListOfBiblist userid={Number(this.state.userid)} />
@@ -86,9 +128,16 @@ class Records extends Component {
               <Route path="/records/editRecord/:type/:id" component={EditRecord} />
             </div>
           </div>
-        </div>
+        </main>
         <StickyContact />
         <Footer />
+        {this.state.showChooseBiblistModal &&
+          <ChooseBiblist
+            closeModal={this.closeModal}
+            onBiblistChosen={(selectedOption) => this.onBiblistChosen(selectedOption)}
+            biblist={this.state.biblist}
+          />
+        }
       </div>
     );
   }
@@ -102,4 +151,4 @@ const mapStateToProps = state => {
   }
 }
 
-export default connect(mapStateToProps, { InsertBibListToDB, userLogedIn, addBibListNamesToStore, saveRecordsOnStore, activeBiblist })(withRouter(Records));
+export default connect(mapStateToProps, { addBibListNamesToStore, userLogedIn, saveRecordsOnStore, activeBiblist })(withRouter(Records));

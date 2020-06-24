@@ -1,6 +1,7 @@
  @import '../../../../public/scss/variables';
 
 #home-aboutus{
+    background-color: #f2b500;
 
     h2{
         font-weight: 700;
@@ -8,7 +9,7 @@
     }
 
     button{
-        background-color: $buttonOrange
+        background-color: $mainBlueColor
     }
 
     #home-aboutus_image{

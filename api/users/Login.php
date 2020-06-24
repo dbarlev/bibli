@@ -65,12 +65,11 @@
 
         if($result == 0) { // user dosent exist
             echo json_encode(array('userid' => $user_row['userid'], 'auth'=> false, 'error' => 1));
-        }else if($result > 0 && !password_verify($password, $db_password) ){ // pasword exists and user activated but wrong password
+        }
+        else if($result > 0 && !password_verify($password, $db_password) ){ // pasword exists and user activated but wrong password
             echo json_encode(array('userid' => $user_row['userid'], 'auth'=> false, 'error' => 2));
-      
-        }else if($result > 0 && $user_row['active'] == 0 ) { //user exists but not active
-            echo json_encode(array('userid' => $user_row['userid'], 'auth'=> false, 'error' => 3));
-         }else { 
+        }
+        else { 
             echo json_encode(array('userid' => $user_row['userid'], 'auth'=> true, 'error' => null));
         }
     }

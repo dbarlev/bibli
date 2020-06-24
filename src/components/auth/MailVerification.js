@@ -13,21 +13,14 @@ import LoginForm from './LoginForm/LoginForm';
 class MailVerification extends Component {
     constructor(props) {
         super(props);
-        console.log('props ', props);
 
         this.state = {
             showLogin: false
         }
     }
 
-    // MailVerAction(data){
-    //     this.props.MailVerAction(data)
-    //     {console.log('all MailVerAction props ', data)}
-    // }
-
     componentDidMount() {
         this.props.MailVerAction(this.props.match.params.mailVer);
-        console.log('all MailVerAction props ', this.props)
     }
 
     isVerified = (mailVer) => {
@@ -80,7 +73,6 @@ const footer = {
 
 // export default MailVerification
 const mapStateToProps = (state) => {
-    // console.log("state", state)
     return {
         chooseSubscription: state.chooseSubscription,
         user: state.userReducer,

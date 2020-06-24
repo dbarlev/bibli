@@ -55,15 +55,12 @@ class LoginForm extends Component {
   checkUserValidation() {
     switch (this.state.error) {
       case 1:
-        console.log("this.state 1", this.state);
         this.setState({ afterValError: "משתשמש לא קיים" });
         break;
       case 2:
-        console.log("this.state 2", this.state);
         this.setState({ afterValError: "חשבון לא מאומת" });
         break;
       case 3:
-        console.log("this.state 3", this.state);
         this.setState({ afterValError: "סיסמה שגויה" });
         break;
     }
@@ -91,7 +88,6 @@ class LoginForm extends Component {
         data: JSON.stringify(userData)
       })
         .then(json => {
-          console.log("json", json.data);
 
           this.setState({
             auth: json.data.auth,
@@ -111,11 +107,7 @@ class LoginForm extends Component {
     */
 
   redirectUser = () => {
-    //console.log('state', this.state);
     if (this.state.auth === true && this.state.userid != null) {
-      // localStorage.setItem('userid', this.props.userid);
-      // localStorage.setItem('auth', this.state.auth);
-      // localStorage.setItem('username', this.props.username);
 
       const timestamp = new Date().getTime(); // current time
       const exp = timestamp + 60 * 60 * 24 * 1000 * 7; // add one week

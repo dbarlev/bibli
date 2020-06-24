@@ -1,9 +1,7 @@
 import React, { Component } from "react";
-import { Grid, Row, Col, Button, Form, FormGroup, FormControl, Alert } from "react-bootstrap";
-import Header from "../../header/Header";
-import Footer from "../../footer/Footer";
+import { Row, Col, Button, Form, FormGroup, FormControl, Alert } from "react-bootstrap";
 import { withRouter } from 'react-router-dom';
-import { LoginServerValidation } from './LoginServerValidation';
+import { LoginServerValidation, sendNewConfMail } from '../Services/LoginServerValidation';
 import './LoginPage.scss';
 
 class LoginPage extends Component {
@@ -12,20 +10,33 @@ class LoginPage extends Component {
         super();
 
         this.state = {
-            errorMsg: "",
-            errorMsgState: false
+            errorMsg: '',
+            errorMsgState: false,
+            newMailVer: false,
+            email: ''
         }
     }
 
     async FormSubmit(e) {
         e.preventDefault();
-        let email = e.target.elements.email.value.trim();
-        let password = e.target.elements.password.value.trim();
+        const email = e.target.elements.email.value.trim();
+        const password = e.target.elements.password.value.trim();
+        this.setState({
+            email
+        });
         if (this.clinetValidate(email, password)) {
             let response = await LoginServerValidation(email, password);
-            if (response && !response.success) {
+            if (response && response.data == 'mailVerification') {
+                this.setState({
+                    errorMsg: 'החשבון לא אומת ',
+                    newMailVer: true,
+                    errorState: true
+                });
+            }
+            else if (response && !response.success) {
                 this.setState({
                     errorMsgState: true,
+                    newMailVer: false,
                     errorMsg: response.data
                 });
             }
@@ -48,20 +59,28 @@ class LoginPage extends Component {
         return true;
     }
 
+    sendNewConfMailT = (email) => {
+        let mailSent = sendNewConfMail(email)
+            .then((data) => {
+                if (data.doPush) {
+                    this.props.history.push("/registersuccess");
+                }
+            })
+    }
+
     render() {
         return (
-            <Grid fluid id="loginPage">
-                <Header />
-                <Row>
-                    <Col md={6} mdOffset={3}>
-                        <h1>התחברות לאתר</h1>
-                    </Col>
-                </Row>
+            <div id="loginPage">
                 <Row>
                     <Col lg={4} md={4} xs={4} mdOffset={3}>
                         {this.state.errorMsgState &&
                             <Alert bsStyle="danger" className="text-right">
                                 {this.state.errorMsg}
+                                {this.state.newMailVer &&
+                                    <a onClick={() => this.sendNewConfMailT(this.state.email)}>
+                                        לקבלת מייל חדש לחץ כאן
+                                </a>
+                                }
                             </Alert>
                         }
                     </Col>
@@ -92,13 +111,19 @@ class LoginPage extends Component {
                         </Col>
                     </FormGroup>
                     <FormGroup>
-                        <Col lg={4} mdOffset={3}>
-                            <Button type="submit">התחבר</Button>
+                        <Col lg={4} md={6} mdOffset={4}>
+                            <Row>
+                                <Col >
+                                    <Button type="submit">התחבר</Button>
+                                </Col>
+                                <Col>
+                                    <a className="linkToRegister" href="#" onClick={() => this.props.changeToRegister()}>אין לך עדיין חשבון?</a>
+                                </Col>
+                            </Row>
                         </Col>
                     </FormGroup>
                 </Form>
-                <Footer bottom />
-            </Grid>
+            </div>
         );
     }
 }

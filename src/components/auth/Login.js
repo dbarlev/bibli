@@ -13,7 +13,6 @@ class Login extends Component {
   render() {
     return (
         <Grid fluid className="App" id="login">
-        DAV
             <Header headline="התחברות"/>
             <LoginForm onLoginForm={this}/>
         </Grid>

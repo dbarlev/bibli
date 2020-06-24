@@ -3,7 +3,7 @@ import { Row, Col, Image, Button } from "react-bootstrap";
 import { withRouter } from "react-router-dom";
 import './AboutUs.scss';
 import imgSrc from '../../img/about-us-pic.jpg';
-
+import HomeApaTabControl from '../../bib/homeApaTabControl';
 class AboutUs extends Component {
 
     render() {
@@ -12,7 +12,7 @@ class AboutUs extends Component {
                 <Col lg={3} md={1}></Col>
                 <Col lg={5} md={10}>
                     <Row>
-                        <Col md={3} sm={4} xs={12} > 
+                        <Col md={3} sm={4} xs={12} >
                             <Col xs={12} md={4} id="home-aboutus_image">
                                 <div className="rounded text-left">
                                     <Image src={imgSrc} alt="" />

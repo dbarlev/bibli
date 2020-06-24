@@ -28,8 +28,8 @@ class ApaForm extends Component {
   }
 
   componentDidMount() {
-    const { activeBiblist } = this.props;
-    if (activeBiblist && activeBiblist.length === 0)
+    const { activeBiblist, homePage } = this.props;
+    if (activeBiblist && activeBiblist.length === 0 && !homePage)
       this.props.history.push("/records/biblist");
   }
 
@@ -89,8 +89,8 @@ class ApaForm extends Component {
 
   formValidation(event) {
     event.preventDefault();
-    const { activeBiblist } = this.props;
-    if (activeBiblist && activeBiblist.length == 0) {
+    const { activeBiblist, homePage } = this.props;
+    if (activeBiblist && activeBiblist.length == 0 && !homePage) {
       this.setState({ showModal: true })
       return;
     }
@@ -149,7 +149,6 @@ class ApaForm extends Component {
           </Form>
         </div>
         {this.checkFormMode()}
-        {this.state.showModal && <AddOrChooseList onClose={() => this.setState({ showModal: false })} />}
       </div>
     );
   }

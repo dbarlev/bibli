@@ -12,7 +12,7 @@ class UserMenu extends Component {
         <Navbar.Collapse >
           <Nav pullRight>
             <li className="hidden">
-              <a href="#" className="white"><Badge>2</Badge> <i className="far fa-bell"></i></a>
+              <a href="#" className="white"><Badge>2</Badge> <i aria-hidden="true" className="far fa-bell"></i></a>
             </li >
             <LinkContainer className="topNavMenuItems white hidden" to="#" >
               <NavItem>אזור אישי  </NavItem>
@@ -20,7 +20,7 @@ class UserMenu extends Component {
             <LinkContainer className="topNavMenuItems white" to="/records/biblist" >
               <NavItem>ניהול רשימות ביבליוגרפיות</NavItem>
             </LinkContainer>
-            <LinkContainer className="topNavMenuItems white" to="/faq" >
+            <LinkContainer className="topNavMenuItems white hidden" to="/faq" >
               <NavItem>עזרה</NavItem>
             </LinkContainer>
 

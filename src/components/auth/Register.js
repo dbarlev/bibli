@@ -35,7 +35,6 @@ class Register extends Component {
 }
 
 const mapStateToProps = (state) => {
-  // console.log("state", state)
   return {
   chooseSubscription: state.chooseSubscription,
   user: state.userReducer

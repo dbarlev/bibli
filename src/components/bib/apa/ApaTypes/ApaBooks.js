@@ -6,8 +6,7 @@ import { FormatWriters } from '../../services/FormatWriters';
 import { VerifyLang } from '../../services/VerifyLang';
 import ApaForm from '../ApaForm/ApaForm';
 import { withRouter } from 'react-router-dom';
-import Spinner from '../../../Spinner/Spinner';
-
+import { FULL_BOOK, CHAPTER } from './consts';
 
 class ApaBooks extends Component {
 
@@ -15,12 +14,26 @@ class ApaBooks extends Component {
     super();
     this.state = {
       names: [],
+      combobox: {
+        id: "sourceType",
+        type: "select",
+        options: [
+          FULL_BOOK,
+          CHAPTER
+        ],
+        label: "סוג מקור",
+        chapterFeilds: [
+          { id: "chapter_name", label: "שם הפרק" },
+          { id: "chapter_pages", label: "עמודים" }
+        ]
+      },
       formFeilds: [
         { id: "name", label: "שם הספר" },
         { id: "publishname", label: "שם ההוצאה לאור" },
         { id: "publishcity", label: "מיקום ההוצאה לאור" },
         { id: "year", label: "שנת ההוצאה" }
       ],
+      selectedSourceOption: FULL_BOOK,
       formSubmited: false,
       writersHandler: new FormatWriters()
     }
@@ -32,14 +45,17 @@ class ApaBooks extends Component {
     const { getEditRecord, activeBiblist } = this.props;
     let editMode = window.location.href.indexOf("editRecord") > -1;
     let formElements = event.target.form.elements;
-    if (activeBiblist && activeBiblist.length == 0) {
+    if (activeBiblist && activeBiblist.length == 0 && !this.props.homePage) {
       alert("Please choose a list first");
       return;
     }
     let name = formElements.namedItem("name").value;
     let lang = new VerifyLang(name).checkLanguage();
+    let chapterName = formElements.namedItem("chapter_name");
+    let chapterPages = formElements.namedItem("chapter_pages");
+
     var details = {
-      userid: this.props.userid,
+      userid: this.props.userid || null,
       recordType: 1,
       name,
       publishname: formElements.namedItem("publishname").value,
@@ -47,7 +63,9 @@ class ApaBooks extends Component {
       year: formElements.namedItem("year").value,
       writers: this.state.writersHandler.formatWriters(this.state.names),
       retrived: new GetFormatDate().populateText(lang),
-      activeBiblist: activeBiblist.id
+      activeBiblist: activeBiblist.id || null,
+      chapter: chapterName && chapterName.value || null,
+      pages: chapterPages && chapterPages.value || null
     }
     if (editMode) {
       let recordToEdit = getEditRecord[0];
@@ -59,13 +77,38 @@ class ApaBooks extends Component {
       }
       this.props.EditRecord(details);
     }
+    else if (this.props.homePage) {
+      sessionStorage.setItem("apaRecord", JSON.stringify(details));
+      this.props.history.push("/lastStep");
+    }
     else {
       this.props.InsertRecordToDB(details);
     }
-    this.props.history.push("/records/biblist");
+    !this.props.homePage && this.props.history.push("/records/biblist");
   }
 
+  onComboboxChange(value) {
 
+    let fields = this.state.formFeilds;
+    let selectedSourceOption = FULL_BOOK;
+    if (value === "chapter") {
+      if (!fields[fields.length - 1].id.startsWith("chapter")) {
+        fields = fields.concat(this.state.combobox.chapterFeilds);
+        selectedSourceOption = CHAPTER;
+      }
+    }
+    else {
+      if (fields[fields.length - 1].id.startsWith("chapter")) {
+        fields.pop();
+        fields.pop();
+      }
+    }
+
+    this.setState({
+      formFeilds: fields,
+      selectedSourceOption
+    })
+  }
 
   getWritersNames(newName) {
     this.setState({ names: newName });
@@ -73,13 +116,17 @@ class ApaBooks extends Component {
 
   render() {
     return (
-      <div id="apaBooksForm" className="apaForm">
+      <div id="bookForm" className="apaForm" role="tabpanel">
         <div className="row">
-            <ApaForm
-              formFeilds={this.state.formFeilds}
-              onSubmitForm={(e) => this.onSubmitApa(e)}
-              onWriterNameChanged={(name) => this.getWritersNames(name)}
-            />
+          <ApaForm
+            defaultValue={this.state.selectedSourceOption}
+            combobox={this.state.combobox}
+            formFeilds={this.state.formFeilds}
+            onSubmitForm={(e) => this.onSubmitApa(e)}
+            handleComboboxChange={(value) => this.onComboboxChange(value)}
+            onWriterNameChanged={(name) => this.getWritersNames(name)}
+            homePage={this.props.homePage}
+          />
         </div>
 
       </div>

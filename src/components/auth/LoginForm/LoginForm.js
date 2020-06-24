@@ -15,7 +15,7 @@ import apiPath from '../../../constants/api';
 import { userLogedIn } from "../../../actions";
 import { userLogin } from "../../../actions/ajax";
 import { withRouter } from 'react-router-dom';
-import { LoginServerValidation, sendNewConfMail } from '../LoginPage/LoginServerValidation';
+import { LoginServerValidation, sendNewConfMail } from '../Services/LoginServerValidation';
 import "./LoginForm.scss";
 
 class LoginForm extends Component {
@@ -52,11 +52,8 @@ class LoginForm extends Component {
     if (this.clientValidate()) {
 
       let response = await LoginServerValidation(this.state.email, this.state.password);
-      console.log('resp', response);
       
       if (response && response.data == 'mailVerification') {
-        //let sendNewMail = <div> החשבון לא אומת <a onClick = { () => this.sendNewConfMail(this.state.email) } > לחץ כאן כדי לקבל מייל אימות חדש </a></div>;
-        console.log('aaa', response)
         this.setState({
           errorMsg: 'החשבון לא אומת ',
           newMailVer: true,
@@ -80,7 +77,6 @@ class LoginForm extends Component {
   sendNewConfMailT = (email) => {
     let mailSent = sendNewConfMail(email)
     .then((data)=>{
-      console.log('mailSent', data.doPush);
       if(data.doPush){
         this.props.history.push("/registersuccess");
        }
@@ -121,13 +117,6 @@ class LoginForm extends Component {
                 bsStyle="danger"
               >
                 {this.state.errorMsg}
-                {this.state.newMailVer && (
-                  <a onClick={() => this.sendNewConfMailT(this.state.email)}>
-                    לקבלת מייל חדש לחץ כאן
-                  </a>
-
-              
-                )}
               </div>
             )}
             <Form id="toggleLoginForm">
@@ -221,5 +210,3 @@ const ShowLoginButton = {
   top: "36px",
   padding: "5px 35px"
 };
-
-

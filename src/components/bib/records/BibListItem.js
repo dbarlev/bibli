@@ -5,6 +5,11 @@ import { exportRecordData } from "../../../actions";
 import Confirm from "../../Modal/Confirm";
 import { Redirect, withRouter } from "react-router-dom";
 import { OverlayTrigger, Tooltip } from "react-bootstrap";
+import { CopyToClipboard } from '../services/clipboard';
+import './BiblistItem.scss';
+const copyToClipboard = new CopyToClipboard();
+const COPY_ICON = "fas fa-paste";
+const CHECK_ICON = "fas fa-check";
 
 class BibListItem extends Component {
   constructor() {
@@ -13,8 +18,16 @@ class BibListItem extends Component {
       record: "",
       allRecords: [],
       permission: false,
-      show: false
+      show: false,
+      copyClass: COPY_ICON
     };
+  }
+
+  copy() {
+    this.setState({ copyClass: CHECK_ICON });
+    setTimeout(() => {
+      this.setState({ copyClass: COPY_ICON });
+    }, 3000);
   }
 
   componentDidMount() {
@@ -44,19 +57,41 @@ class BibListItem extends Component {
 
   populateBook() {
     let data = this.props.record;
-    return (
-      <div>
-        <span>{data.writers}</span>
-        <span>({data.year}). </span>
-        <span style={{ fontWeight: "bold" }}>
-          {this.verifyLangAndCapitalize(data.name)}
-        </span>
-        <span>. </span>
-        <span>{this.verifyLangAndCapitalize(data.location)}: </span>
-        <span>{this.verifyLangAndCapitalize(data.publisherName)}</span>
-        <span>.</span>
-      </div>
-    );
+    let pagesSeperator = data.lang === "en" ? "pp." : "עמ'";
+    if (data.chapter != null && data.chapter.trim() != "") {
+      return (
+        <div>
+          <span>{this.CapitalizeWriters(data.writers)}</span>
+          <span>({data.year}). </span>
+          <span>
+            {this.verifyLangAndCapitalize(data.chapter)}
+          </span>
+          <span>. </span>
+          <span style={{ fontWeight: "bold" }}>
+            {this.verifyLangAndCapitalize(data.name)}
+          </span>
+          <span> ({pagesSeperator} {data.pages}). </span>
+          <span>{this.verifyLangAndCapitalize(data.location)}: </span>
+          <span>{this.verifyLangAndCapitalize(data.publisherName)}</span>
+          <span>.</span>
+        </div>
+      );
+    }
+    else {
+      return (
+        <div>
+          <span>{this.CapitalizeWriters(data.writers)}</span>
+          <span>({data.year}). </span>
+          <span style={{ fontWeight: "bold" }}>
+            {this.verifyLangAndCapitalize(data.name)}
+          </span>
+          <span>. </span>
+          <span>{this.verifyLangAndCapitalize(data.location)}: </span>
+          <span>{this.verifyLangAndCapitalize(data.publisherName)}</span>
+          <span>.</span>
+        </div>
+      );
+    }
   }
 
   populateArticle() {
@@ -65,7 +100,7 @@ class BibListItem extends Component {
     if (data.url != null && data.url.trim() != "") {
       return (
         <div>
-          <span>{data.writers}</span>
+          <span>{this.CapitalizeWriters(data.writers)}</span>
           <span>({data.year}). </span>
           <span style={{ fontWeight: "bold" }}>
             {this.verifyLangAndCapitalize(data.articleHeadline)}
@@ -81,7 +116,7 @@ class BibListItem extends Component {
     } else {
       return (
         <div>
-          <span>{data.writers}</span>
+          <span>{this.CapitalizeWriters(data.writers)}</span>
           <span>({data.year}). </span>
           <span style={{ fontWeight: "bold" }}>
             {this.verifyLangAndCapitalize(data.articleHeadline)}
@@ -101,7 +136,7 @@ class BibListItem extends Component {
     if (data.url != null && data.url.trim() != "") {
       return (
         <div>
-          <span>{data.writers}</span>
+          <span>{this.CapitalizeWriters(data.writers)}</span>
           <span>({data.year}). </span>
           <span style={{ fontWeight: "bold" }}>
             {this.verifyLangAndCapitalize(data.articleHeadline)}
@@ -116,7 +151,7 @@ class BibListItem extends Component {
     } else {
       return (
         <div>
-          <span>{data.writers}</span>
+          <span>{this.CapitalizeWriters(data.writers)}</span>
           <span>({data.year}). </span>
           <span style={{ fontWeight: "bold" }}>
             {this.verifyLangAndCapitalize(data.articleHeadline)}
@@ -133,7 +168,7 @@ class BibListItem extends Component {
     let preUrlSeperator = data.lang === "en" ? "from" : "מ";
     return (
       <div>
-        <span>{data.writers}</span>
+        <span>{this.CapitalizeWriters(data.writers)}</span>
         <span>({data.year}). </span>
         <span style={{ fontWeight: "bold" }}>
           {this.verifyLangAndCapitalize(data.articleHeadline)}
@@ -158,10 +193,14 @@ class BibListItem extends Component {
     this.props.history.push(`editRecord/${type}/${this.props.recordID}`);
   }
 
-  verifyLangAndCapitalize(string) {
-    if (typeof string !== "string" || this.props.record.lang === "he")
-      return string;
-    return string.charAt(0).toUpperCase() + string.slice(1);
+  verifyLangAndCapitalize(str) {
+    if (this.props.record && this.props.record.lang === "he")
+      return str;
+    return str.charAt(0).toUpperCase() + str.slice(1);
+  }
+
+  CapitalizeWriters(writers) {
+    return writers;
   }
 
   render() {
@@ -176,8 +215,14 @@ class BibListItem extends Component {
                 role="button"
                 tabIndex="0"
                 aria-label="מחק"
+                onKeyDown={(e) => {
+                  const keyCode = e.keyCode || e.which;
+                  if (keyCode === 13) {
+                    this.setState({ ...this.state, show: true })
+                  }
+                }}
               >
-                <i className="fas fa-trash-alt hover-orange"></i>
+                <i aria-hidden="true" className="fas fa-trash-alt hover-orange"></i>
               </span>
             </OverlayTrigger>
             <OverlayTrigger placement="top" overlay={<Tooltip>עריכה</Tooltip>}>
@@ -188,19 +233,35 @@ class BibListItem extends Component {
                 role="link"
                 tabIndex="0"
                 aria-label="עריכה"
+                onKeyDown={(e) => {
+                  const keyCode = e.keyCode || e.which;
+                  if (keyCode === 13) {
+                    this.onEditRecord()
+                  }
+                }}
               >
-                <i className="fas fa-edit hover-orange"></i>
+                <i aria-hidden="true" className="fas fa-edit hover-orange"></i>
               </span>
             </OverlayTrigger>
-            <OverlayTrigger placement="top" overlay={<Tooltip>העתק - בקרוב</Tooltip>}>
+            <OverlayTrigger placement="top" overlay={<Tooltip>העתק פריט</Tooltip>}>
               <span
                 data-id={this.props.recordID}
                 role="button"
                 tabIndex="0"
-                aria-label="העתק - בקרוב"
-                className="notApplicable cursor-normal"
+                aria-label="העתק פריט"
+                onClick={(e) => {
+                  copyToClipboard.single(".recordQuery", e.target);
+                  this.copy();
+                }}
+                onKeyDown={(e) => {
+                  const keyCode = e.keyCode || e.which;
+                  if (keyCode === 13) {
+                    copyToClipboard.single(".recordQuery", e.target);
+                    this.copy();
+                  }
+                }}
               >
-                <i className="fas fa-paste"></i>
+                <i aria-hidden="true" className={this.state.copyClass}></i>
               </span>
             </OverlayTrigger>
           </div>
@@ -216,7 +277,7 @@ class BibListItem extends Component {
             onConfirm={this.deleteRecord.bind(this)}
           />
         </div>
-      </div>
+      </div >
     );
   }
 }

@@ -17,7 +17,7 @@ class newWelcome extends Component {
                     <h1 className="bold">ברוכים הבאים ל- Bibli</h1>
                     <p className="BigText">מערכת חכמה לכתיבת ביבליוגרפיות<br /> שמותאמת לכללי הכתיבה האקדמיים (APA).
                     </p>
-                    <h3 className="h3 bold">איך זה עובד?</h3>
+                    <h2 className="bold">איך זה עובד?</h2>
                     <p className="BigText">מזינים את הפרטים הטכניים במערכת והיא  <br />יוצרת עבורכם דף ביבליוגרפיה מדויק ומסודר.
 </p>
                     <p  className="bold BigText">בקיצור, אתם תשקיעו בכתיבת עבודה <br />מצוינת, ואת הביבליוגרפיה תשאירו לנו!</p>

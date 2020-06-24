@@ -27,12 +27,11 @@ export const addBibListNamesToStore = (userid, list) => {
   }
 };
 
-export const saveRecordsOnStore = (userid, list) => {
+export const saveRecordsOnStore = (userid, listOfRecords) => {
   return dispatch => {
-
     dispatch({
       type: GET_BIBLIST_FROM_DB,
-      value: list,
+      value: listOfRecords,
       userid: userid
     });
   }
@@ -181,15 +180,13 @@ export const InsertBibListToDB = data => {
   };
 };
 
-export const InsertUserToDB = data => {
-  console.log("data ff", data);
+export const InsertUserToStore = data => {
   return dispatch => {
     dispatch({ type: INSERT_USER_TO_DB, value: data });
   };
 };
 
 export const userLogin = userData => {
-  //console.log('userLogin', userData)
   return dispatch => {
     axios({
       url: `${apiPath}/users/Login.php`,

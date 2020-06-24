@@ -34,7 +34,7 @@ class ApaWebsite extends Component {
     const { getEditRecord, activeBiblist } = this.props;
     let editMode = window.location.href.indexOf("editRecord") > -1;
     let formElements = event.target.form.elements;
-    if (activeBiblist && activeBiblist.length == 0) {
+    if (activeBiblist && activeBiblist.length == 0 && !this.props.homePage) {
       alert("Please choose a list first");
       return;
     }
@@ -63,10 +63,14 @@ class ApaWebsite extends Component {
       }
       this.props.EditRecord(details);
     }
+    else if (this.props.homePage) {
+      sessionStorage.setItem("apaRecord", JSON.stringify(details));
+      this.props.history.push("/lastStep");
+    }
     else {
       this.props.InsertRecordToDB(details);
     }
-    this.props.history.push("/records/biblist");
+    !this.props.homePage && this.props.history.push("/records/biblist");
 
   }
 
@@ -78,12 +82,13 @@ class ApaWebsite extends Component {
 
   render() {
     return (
-      <div id="apaWebsiteForm" className="apaForm">
+      <div id="websiteForm" className="apaForm" role="tabpanel">
         <div className="row">
           <ApaForm
             formFeilds={this.state.formFeilds}
             onSubmitForm={(e) => this.onSubmitApa(e)}
             onWriterNameChanged={(name) => this.getWritersNames(name)}
+            homePage={this.props.homePage}
           />
         </div>
 

@@ -6,7 +6,7 @@ import { FormatWriters } from '../../services/FormatWriters';
 import { VerifyLang } from '../../services/VerifyLang';
 import ApaForm from '../ApaForm/ApaForm';
 import { withRouter } from 'react-router-dom';
-import { SELECT_PRINT_TYPE, SELECT_ONLINE_TYPE } from './consts';
+import { SELECT_PRINT_TYPE, SELECT_ONLINE_ARTICLE_TYPE } from './consts';
 
 class ApaArticle extends Component {
 
@@ -20,7 +20,7 @@ class ApaArticle extends Component {
         type: "select",
         options: [
           SELECT_PRINT_TYPE,
-          SELECT_ONLINE_TYPE
+          SELECT_ONLINE_ARTICLE_TYPE
         ],
         label: "סוג מקור",
         value: "",
@@ -48,7 +48,7 @@ class ApaArticle extends Component {
     let selectedSourceOption = SELECT_PRINT_TYPE;
     if (getEditRecord && getEditRecord.length > 0 && window.location.href.indexOf("editRecord") > -1) {
       if (getEditRecord[0].url.trim() !== "") {
-        selectedSourceOption = SELECT_ONLINE_TYPE;
+        selectedSourceOption = SELECT_ONLINE_ARTICLE_TYPE;
       }
       this.setState({
         modeChange: true
@@ -67,7 +67,7 @@ class ApaArticle extends Component {
     const { getEditRecord, activeBiblist } = this.props;
     let editMode = window.location.href.indexOf("editRecord") > -1;
     let formElements = event.target.form.elements;
-    if (activeBiblist && activeBiblist.length == 0) {
+    if (activeBiblist && activeBiblist.length == 0 && !this.props.homePage) {
       alert("Please choose a list first");
       return;
     }
@@ -100,10 +100,14 @@ class ApaArticle extends Component {
       }
       this.props.EditRecord(details);
     }
+    else if (this.props.homePage) {
+      sessionStorage.setItem("apaRecord", JSON.stringify(details));
+      this.props.history.push("/lastStep");
+    }
     else {
       this.props.InsertRecordToDB(details);
     }
-    this.props.history.push("/records/biblist");
+    !this.props.homePage && this.props.history.push("/records/biblist");
   }
 
   onComboboxChange(value) {
@@ -112,8 +116,8 @@ class ApaArticle extends Component {
     let selectedSourceOption = SELECT_PRINT_TYPE;
     if (value === "url") {
       if (fields[fields.length - 1].id !== "url") {
-        fields.push(SELECT_ONLINE_TYPE);
-        selectedSourceOption = SELECT_ONLINE_TYPE;
+        fields.push(SELECT_ONLINE_ARTICLE_TYPE);
+        selectedSourceOption = SELECT_ONLINE_ARTICLE_TYPE;
       }
     }
     else {
@@ -130,7 +134,7 @@ class ApaArticle extends Component {
 
   render() {
     return (
-      <div id="apaPaperForm" className="apaForm">
+      <div id="articleForm" className="apaForm" role="tabpanel">
         <div className="row">
           <ApaForm
             formFeilds={this.state.formFeilds}
@@ -139,6 +143,7 @@ class ApaArticle extends Component {
             combobox={this.state.combobox}
             handleComboboxChange={(value) => this.onComboboxChange(value)}
             onWriterNameChanged={(name) => this.getWritersNames(name)}
+            homePage={this.props.homePage}
           />
         </div>
         {

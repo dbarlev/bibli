@@ -4,7 +4,7 @@ import axios from 'axios';
 import apiPath from '../../../constants/api';
 const CryptoJS = require('crypto-js');
 
-export const LoginServerValidation = async(email, password) => {
+export const LoginServerValidation = async (email, password) => {
     let userData = { email, password };
     let response = await apiClient("/users/Login.php", "post", userData);
     let errorMsg = checkUserValidation(response.error);
@@ -12,7 +12,6 @@ export const LoginServerValidation = async(email, password) => {
         return { success: false, data: errorMsg, error: response.error };
     } else {
         setCookie(response.auth, response.userid);
-        console.log('response', response);
         return { success: true, data: response };
     }
 }
@@ -37,15 +36,14 @@ const checkUserValidation = (error) => {
 }
 
 
-export const sendNewConfMail = async(email) => {
+export const sendNewConfMail = async (email) => {
     let response = await axios.get(`${apiPath}/users/Mailconf.php?email=${email}`);
-    if(response && response.data.error == 0){
-        return {doPush: true};
-      
+    if (response && response.data.error == 0) {
+        return { doPush: true };
     }
-  }
+}
 
-const setCookie = (auth, userid) => {
+export const setCookie = (auth, userid) => {
     const timestamp = new Date().getTime(); // current time
     const exp = timestamp + 60 * 60 * 24 * 1000 * 7; // add one week
 

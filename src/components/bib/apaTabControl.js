@@ -5,12 +5,13 @@ import ApaPaper from "./apa/ApaTypes/ApaPaper";
 import ApaArticle from "./apa/ApaTypes/ApaArticle";
 import ApaWebsite from "./apa/ApaTypes/ApaWebsite";
 import { OverlayTrigger, Tooltip } from "react-bootstrap";
+import { moveFocus } from '../Services/MoveFocus';
 import './apaTabControl.scss';
 
 const checkActiveLink = (routeToCheck, editMode) => {
   let href = window.location.href;
   if (editMode) return;
-    return href.indexOf(routeToCheck) > -1 ? "is-active" : "";
+  return href.indexOf(routeToCheck) > -1 ? "is-active" : "";
 };
 
 const DisabeldTab = ({ type, activeClassName = null, text, icon }) => {
@@ -20,8 +21,8 @@ const DisabeldTab = ({ type, activeClassName = null, text, icon }) => {
       overlay={<Tooltip id="tooltip-disabled">בקרוב</Tooltip>}
     >
       <li className="pull-right notApplicable" name={type}>
-        <a className={checkActiveLink(type)} activeClassName={activeClassName}>
-          <i name={type} className={icon}></i>
+        <a role="tab" className={checkActiveLink(type)} activeClassName={activeClassName}>
+          <i aria-hidden="true" name={type} id={`${type}-disabled`} className={icon}></i>
           <div name={type} className="iconText">
             {text}
           </div>
@@ -31,15 +32,32 @@ const DisabeldTab = ({ type, activeClassName = null, text, icon }) => {
   );
 };
 
-const ApaTab = ({ type, navigate, activeClassName = null, text, icon, editMode }) => {
+const ApaTab = ({ type, navigate, activeClassName = null, text, icon, editMode, nextType, prevType }) => {
   return (
     <li className="pull-right" name={type}>
       <NavLink
         className={checkActiveLink(type, editMode)}
         activeClassName={activeClassName}
         to={navigate}
+        id={`tab-${type}`}
+        aria-controls={`${type}Form`}
+        role="tab"
+        onKeyDown={(e) => {
+          let focusObject = {
+            current: `tab-${type}`,
+            activateOnFocus: true,
+            enter: `#${type}Form input`
+          };
+          if (nextType)
+            focusObject.left = `tab-${nextType}`;
+
+          if (prevType)
+            focusObject.right = `tab-${prevType}`
+
+          moveFocus(e, focusObject)
+        }}
       >
-        <i name={type} className={icon}></i>
+        <i aria-hidden="true" name={type} className={icon}></i>
         <div name={type} className="iconText">
           {text}
         </div>
@@ -67,13 +85,14 @@ class ApaTabControl extends Component {
     return (
       <div id="apaTabcontrol">
         <div className="row">
-          <ul className="nav tabControlIcons">
+          <ul className="nav tabControlIcons" role="tablist">
             <ApaTab
               type="book"
               navigate="/records/addRecord/ApaBooks"
               activeClassName="is-active"
               text="ספר"
               icon="fas fa-book"
+              nextType="paper"
             />
             <ApaTab
               type="paper"
@@ -81,6 +100,8 @@ class ApaTabControl extends Component {
               activeClassName="is-active"
               text="עיתון"
               icon="fas fa-book-open"
+              prevType="book"
+              nextType="article"
             />
             <ApaTab
               type="article"
@@ -88,6 +109,8 @@ class ApaTabControl extends Component {
               activeClassName="is-active"
               text="כתב עת"
               icon="fas fa-graduation-cap"
+              prevType="paper"
+              nextType="website"
             />
             <ApaTab
               type="website"
@@ -95,6 +118,7 @@ class ApaTabControl extends Component {
               activeClassName="is-active"
               text="אתר"
               icon="fab fa-chrome"
+              prevType="article"
             />
             <DisabeldTab
               type="movie"

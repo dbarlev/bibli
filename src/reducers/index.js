@@ -17,13 +17,12 @@ import {
     PASS_RECOVERY,
     PASS_RECOVERY_EDIT,
     CONTACT_US_MASSAGE,
-    EXPORT_RECORD_TO_WORD
+    EXPORT_RECORD_TO_WORD,
+    ACCESSIBILITY
 } from '../actions/consts';
 
 import { populateAPAData, editListName } from './functions.js';
 import { combineReducers } from 'redux';
-
-
 
 function recordsDataForExport(state = [], action) {
     switch (action.type) {
@@ -33,6 +32,15 @@ function recordsDataForExport(state = [], action) {
             }
         default:
             return state
+    }
+}
+
+function getAccessibility(state = [], action) {
+    switch (action.type) {
+        case ACCESSIBILITY:
+            return action.value
+        default:
+            return false
     }
 }
 
@@ -106,6 +114,7 @@ function getBiblistFromDB(state = [], action) {
     switch (action.type) {
         case GET_BIBLIST_FROM_DB:
             let data = populateAPAData(action);
+            data = data.sort((a, b) => (a.writers > b.writers) ? 1 : ((b.writers > a.writers) ? -1 : 0));
             if (data == undefined)
                 data = [];
             return data;
@@ -116,6 +125,7 @@ function getBiblistFromDB(state = [], action) {
             return data2;
         case INSERT_RECORD_TO_USER:
             let data3 = populateAPAData(action);
+            data3 = data3.sort((a, b) => (a.writers > b.writers) ? 1 : ((b.writers > a.writers) ? -1 : 0));
             if (data3 == undefined)
                 data3 = [];
             return data3;
@@ -141,7 +151,6 @@ function userReducer(state = [], action) {
                 action.user
             ];
         case INSERT_USER_TO_DB: //comes back from the ajax file response
-console.log('INSERT_USER_TO_DB', action )
             return {
                 registerSuccess: action.value.userRegistered,
                 username: action.value.username,
@@ -153,12 +162,10 @@ console.log('INSERT_USER_TO_DB', action )
                 mailver: action.value
             };
         case PASS_RECOVERY: //password recovery
-            console.log('action.value', action);
             return {
                 passRecoveryData: action.value
             };
         case PASS_RECOVERY_EDIT: //password recovery edit
-            console.log('reducer PASS_RECOVERY_EDIT', action);
             return {
                 passRecoveryEdit: action.value
             };
@@ -170,7 +177,6 @@ console.log('INSERT_USER_TO_DB', action )
 function emailMassageReducer(state = [], action) {
     switch (action.type) {
         case CONTACT_US_MASSAGE:
-            console.log('reducer CONTACT_US_MASSAGE', action);
             return {
                 massageSent: action.value
             };
@@ -179,17 +185,9 @@ function emailMassageReducer(state = [], action) {
     }
 }
 
-
-
-
-
-
 function authReducer(state = [], action) {
     switch (action.type) {
         case LOGGED_IN:
-            console.log('LOGGED_IN_reducer');
-            console.log('LOGGED_IN_reducer action', action);
-
             return {
                 ...state,
                 auth: action.auth,
@@ -197,8 +195,6 @@ function authReducer(state = [], action) {
                 email: action.email
             }
         case USER_LOGIN:
-            console.log('USER_LOGIN');
-            console.log('USER_LOGIN_reducer action', action);
             return {
                 ...state,
                 auth: action.value.auth,
@@ -235,7 +231,8 @@ const rootReducer = combineReducers({
     searcResultsReducer,
     getEditRecord,
     emailMassageReducer,
-    recordsDataForExport
+    recordsDataForExport,
+    getAccessibility
 });
 
 export default rootReducer;

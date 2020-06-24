@@ -6,11 +6,9 @@ import { createStore, applyMiddleware, compose } from 'redux'
 import { Provider } from 'react-redux';
 import thunk from 'redux-thunk';
 
-import App from './components/App';
-import Register from './components/auth/Register';
-import Login from './components/auth/LoginPage/LoginPage';
+import AuthPage from './components/auth/AuthPage/AuthPage';
 import FrontPage from './components/frontpage/FrontPage';
-import Faq from './components/frontpage/Faq';
+import Faq from './components/pages/Faq';
 import rootReducer from './reducers'
 import registerServiceWorker from './registerServiceWorker';
 import Records from './components/bib/records';
@@ -20,9 +18,12 @@ import PasswordRecovery from './components/auth/PasswordRecovery';
 import PasswordRecoveryEdit from './components/auth/PasswordRecoveryEdit';
 import Takanon from './components/pages/Takanon';
 import Odot from './components/pages/Odot';
+import Blog from './components/pages/Blog';
 import RegisterSuccess from './components/auth/RegisterSuceess';
+import NotFound from './components/404';
 
 import './index.css';
+import RegisterPage from './components/auth/RegisterPage/RegisterPage';
 
 
 
@@ -40,14 +41,15 @@ ReactDOM.render(
         <BrowserRouter basename='/'>
             <Switch>
                 <Route exact path="/" component={FrontPage} />
-                <Route path="/register" component={Register} />
                 <Route path="/registersuccess" component={RegisterSuccess} />
                 <Route path="/mailconf/:mailVer" component={MailVerification} />
-                <Route path="/login" component={Login} />
+                <Route path="/auth" component={AuthPage} />
+                <Route path="/lastStep" component={RegisterPage} />
                 <Route path="/front" component={FrontPage} />
                 <Route path="/faq" component={Faq} />
                 <Route path="/takanon" component={Takanon} />
                 <Route path="/odot" component={Odot} />
+                <Route path="/blog" component={Blog} />
                 <Route path="/contact" component={Contact} />
                 <Route path="/passwordrecovery" component={PasswordRecovery} /> //טופס הזנת כתובת מייל לשחזור סיסמא
                 <Route path="/passwordrecoveryedit/:token" component={PasswordRecoveryEdit} /> //שינוי של הסיסמא
@@ -56,9 +58,10 @@ ReactDOM.render(
                 <Route path="/records/addRecord" component={Records} />
                 <Route path="/records/editList" component={Records} />
                 <Route path="/records/editRecord" component={Records} />
+                <Route component={NotFound} />
             </Switch>
         </BrowserRouter>
     </Provider>
     ,
-    document.getElementById('root'));
+    document.getElementById('mainApp'));
 registerServiceWorker();
