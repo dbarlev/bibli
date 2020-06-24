@@ -210,5 +210,3 @@ const ShowLoginButton = {
   top: "36px",
   padding: "5px 35px"
 };
-
-
