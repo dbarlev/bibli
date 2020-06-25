@@ -4,6 +4,7 @@ import {
   INSERT_RECORD_TO_USER,
   INSERT_USER_TO_DB,
   UPDATE_USER_DATA,
+  GET_ALL_USER_DATA,
   GET_BIBLIST_FROM_DB,
   USER_MAIL_VERIFICATION,
   DELETE_BIBLIST,
@@ -203,6 +204,30 @@ export const userLogin = userData => {
     })
       .then(function (response) {
         dispatch({ type: USER_LOGIN, value: response.data });
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  };
+};
+
+
+/*get user data from userdata page */ 
+export const GetUserData = userid => {
+  console.log('ajax GetUserData', userid)
+  return dispatch => {
+    axios({
+      url: `${apiPath}/users/Userupdate.php?userid=${userid}`,
+      method: "get",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json"
+      },
+      data: JSON.stringify(userid)
+    })
+      .then(function (response) {
+        dispatch({ type: GET_ALL_USER_DATA, value: response.data });
+       
       })
       .catch(function (error) {
         console.log(error);

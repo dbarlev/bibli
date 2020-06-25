@@ -44,7 +44,7 @@
 		}
     }
 	
-    function getRecords($db, $email = null, $userid = null)
+    function get_user_data($db, $email = null, $userid = null)
     {
 		if(isset($email)){
 			$query = 'SELECT * FROM users WHERE email = ?';				
@@ -53,39 +53,22 @@
 			$stmt->execute();
 		}
 
-
-		if(isset($userid)){
-			$query = 'SELECT * FROM users WHERE userid = ?';				
-			$stmt = $db->prepare($query);
-			$stmt->bindParam(1, $userid);
-			$stmt->execute();
-		}
-
 		$records_row = $stmt->fetch(PDO::FETCH_ASSOC);
 		
-		$nums = bibs_and_lists($db, $userid);
-
 		echo json_encode(
 			array(
 				'userid' => $records_row['userid'],
 				'userRegistered' => '1',
 				'username'=> 'records_row',
-				'email'=> $records_row['email'],
-				'fname'=> $records_row['fname'],
-				'lname'=> $records_row['lname'],
-				'mosad'=> $records_row['mosad'],
-				'maslul'=> $records_row['maslul'],
-				'numOfBibs'=> $nums['num_of_bibs'],
-				'numOfLists'=> $nums['num_of_lists'],
-				
+				'email'=> $records_row['email']
 			 ));
 	
-		// echo json_encode($records_row);
+		echo json_encode($records_row);
 	}
 	
 	/*
 	Shows the number of bibs and lists pre user
-	called by getRecords function
+	called by get_user_data function
 	*/
 	function bibs_and_lists($db, $userid){
 
@@ -180,66 +163,58 @@
 			
 			//$Mail_template->send_conf_mail_to_user($email, $verificationCode);
 			//echo json_encode(array('userRegistered' => 'success', 'username'=> '', 'email'=> $email));
-			getRecords($db, $email);
+			get_user_data($db, $email);
 			
 		}
 		
 	}
 	
 
-	
+	function userdata_select_on_page_load($db, $userid)
+	{
+		
+		$query = 'SELECT * FROM users WHERE userid = ?';				
+		$stmt = $db->prepare($query);
+		$stmt->bindParam(1, $userid);
+		$stmt->execute();
+		
+
+		$records_row = $stmt->fetch(PDO::FETCH_ASSOC);
+	}
+
 	function update_user($db)
 	{	
 		$data = json_decode(file_get_contents('php://input'));	
+
+		if( isset($data->fname) && !empty($data->fname)) $fname = $data->fname;
+		if( isset($data->lname) && !empty($data->lname)) $lname = $data->lname;
+		if( isset($data->email) && !empty($data->email)) $email = $data->email;
+		if( isset($data->mosad) && !empty($data->mosad))$mosad = $data->mosad;
+		if( isset($data->maslul) && !empty($data->maslul)) $maslul = $data->maslul;
+			
+		$mail_val = mail_validation($db, $email);
+
+			// if(!isset($mail_val)){
 	
+		$query = "UPDATE users
+		SET fname = :fname, lname = :lname, email = :email, mosad = :mosad, maslul = :maslul
+		WHERE userid = :userid";
 		
-
-			if(isset($data->userid)) {$userid = $data->userid; };
-
-		
-				$query = 'SELECT * FROM users WHERE userid = ?';				
-				$stmt = $db->prepare($query);
-				$stmt->bindParam(1, $userid);
-				$stmt->execute();
-				
-
-				$records_row = $stmt->fetch(PDO::FETCH_ASSOC);
-				
-
-			( isset($data->fname) && !empty($data->fname) ? $fname = $data->fname : $fname = $records_row['fname']);
-			( isset($data->lname) && !empty($data->lname) ? $lname = $data->lname : $lname = $records_row['lname']);
-
-			
-
-			
-
-				( isset($data->email) && !empty($data->email)  ? $email = $data->email : $email = $records_row['email']);
-				( isset($data->mosad) && !empty($data->mosad) ? $mosad = $data->mosad : $mosad = $records_row['mosad']);
-				( isset($data->maslul) && !empty($data->maslul) ? $maslul = $data->maslul : $maslul = $records_row['maslul']);
-				
-				$mail_val = mail_validation($db, $email);
-
-					// if(!isset($mail_val)){
-			
-				$query = "UPDATE users
-				SET fname = :fname, lname = :lname, email = :email, mosad = :mosad, maslul = :maslul
-				WHERE userid = :userid";
-				
-				$stmt = $db->prepare($query);
-				$stmt->bindParam(':fname', $fname);
-				$stmt->bindParam(':lname', $lname);
-				$stmt->bindParam(':email', $email);
-				$stmt->bindParam(':mosad', $mosad);
-				$stmt->bindParam(':maslul', $maslul);
-				$stmt->bindParam(':userid', $userid);
+		$stmt = $db->prepare($query);
+		$stmt->bindParam(':fname', $fname);
+		$stmt->bindParam(':lname', $lname);
+		$stmt->bindParam(':email', $email);
+		$stmt->bindParam(':mosad', $mosad);
+		$stmt->bindParam(':maslul', $maslul);
+		$stmt->bindParam(':userid', $userid);
 
 
 
-				$stmt->execute();
+		$stmt->execute();
 
-				getRecords($db, null, $userid);
-		
-			// }
+		get_user_data($db, null, $userid);
+
+	// }
 
 	}
 
@@ -254,7 +229,7 @@
 		$stmt->bindParam(1, $recordID);
 		$stmt->execute();
 
-		getRecords($db, $userid);
+		get_user_data($db, $userid);
 	}
 	
 

@@ -8,12 +8,9 @@ import {
   FormGroup,
   FormControl,
 } from "react-bootstrap";
-// import { Link } from "react-router-dom";
 import { connect } from 'react-redux';
-import { EditUserData } from "../../actions/ajax"
-import Header from "../header/Header";
+import { GetUserData, EditUserData } from "../../actions/ajax"
 import Footer from "../footer/Footer";
-//import UserMenu from "../header/UserMenu";
 import HeaderLogin from '../header/HeaderLogin.js';
 
 import { getCookie } from "../Services/GetCookies";
@@ -60,7 +57,7 @@ class UserData extends Component {
       };
       console.log('json', json)
       //this.props.userLogedIn(json);
-      this.props.EditUserData(json);
+      this.props.GetUserData(userid);
     }
   }
 
@@ -268,4 +265,4 @@ const mapDispatchToProps = dispatch => {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(UserData);
+export default connect(mapStateToProps, {EditUserData, GetUserData})(UserData);

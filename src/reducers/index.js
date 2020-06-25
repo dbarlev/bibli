@@ -6,6 +6,7 @@ import {
     ADD_USER,
     INSERT_USER_TO_DB,
     UPDATE_USER_DATA,
+    GET_ALL_USER_DATA,
     GET_BIBLIST_FROM_DB,
     USER_MAIL_VERIFICATION,
     ACTIVE_BIBLIST,
@@ -161,6 +162,16 @@ function userReducer(state = [], action) {
             };
 
         case UPDATE_USER_DATA: //edit user data in user area page
+            return {
+                fname: action.value.fname,
+                lname: action.value.lname,
+                email: action.value.email,
+                maslul: action.value.maslul,
+                mosad: action.value.mosad,
+                numOfLists: action.value.numOfLists,
+                numOfBibs: action.value.numOfBibs,
+            };
+        case GET_ALL_USER_DATA: //GET ALL user data in user area page, USED IN PAGE LOAD
             return {
                 fname: action.value.fname,
                 lname: action.value.lname,
