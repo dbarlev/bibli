@@ -37,69 +37,48 @@ require '../inc/inc.php';
 			
 				break;
 			case 'PUT':
-				
+				update_user($db);
 				break;
 		
 		}
     }
 
 
-    function get_user_data_for_details_page($db, $userid)
-	{
-		
 
-		$query = 'SELECT * FROM users WHERE userid = ?';				
+
+
+	function update_user($db)
+	{	
+		$data = json_decode(file_get_contents('php://input'));	
+
+		if( isset($data->fname) && !empty($data->fname)) $fname = $data->fname;
+		if( isset($data->lname) && !empty($data->lname)) $lname = $data->lname;
+		if( isset($data->email) && !empty($data->email)) $email = $data->email;
+		if( isset($data->mosad) && !empty($data->mosad))$mosad = $data->mosad;
+		if( isset($data->maslul) && !empty($data->maslul)) $maslul = $data->maslul;
+			
+		$mail_val = mail_validation($db, $email);
+
+			// if(!isset($mail_val)){
+	
+		$query = "UPDATE users
+		SET fname = :fname, lname = :lname, email = :email, mosad = :mosad, maslul = :maslul
+		WHERE userid = :userid";
+		
 		$stmt = $db->prepare($query);
-		$stmt->bindParam(1, $userid);
+		$stmt->bindParam(':fname', $fname);
+		$stmt->bindParam(':lname', $lname);
+		$stmt->bindParam(':email', $email);
+		$stmt->bindParam(':mosad', $mosad);
+		$stmt->bindParam(':maslul', $maslul);
+		$stmt->bindParam(':userid', $userid);
+
+
+
 		$stmt->execute();
 
+		get_user_data($db, null, $userid);
 
-		$records_row = $stmt->fetch(PDO::FETCH_ASSOC);
-		
-		$nums = bibs_and_lists($db, $userid);
-
-		echo json_encode(
-			array(
-				'userid' => $records_row['userid'],
-				'userRegistered' => '1',
-				'username'=> 'records_row',
-				'email'=> $records_row['email'],
-				'fname'=> $records_row['fname'],
-				'lname'=> $records_row['lname'],
-				'mosad'=> $records_row['mosad'],
-				'maslul'=> $records_row['maslul'],
-				'numOfBibs'=> $nums['num_of_bibs'],
-				'numOfLists'=> $nums['num_of_lists'],
-				
-			));
-		
-			return json_encode($records_row);
-    }
-    
-    	/*
-	Shows the number of bibs and lists pre user
-	called by get_user_data function
-	*/
-	function bibs_and_lists($db, $userid){
-
-
-
-		$user_Items_query = 'SELECT COUNT(userid) AS numofItems FROM refactor_books_new WHERE userid = ? ';				
-		$user_Items_stmt = $db->prepare($user_Items_query);
-		$user_Items_stmt->bindParam(1, $userid);
-		$user_Items_stmt->execute();
-		$records_num_of_Items = $user_Items_stmt->fetch(PDO::FETCH_ASSOC);
-		$num_of_Items = $records_num_of_Items['numofItems'];
-
-
-		$user_bib_query = 'SELECT COUNT(Userid) AS numoflists FROM biblist WHERE userid = ? ';				
-		$user_bib_stmt = $db->prepare($user_bib_query);
-		$user_bib_stmt->bindParam(1, $userid);
-		$user_bib_stmt->execute();
-		$records_num_of_lists = $user_bib_stmt->fetch(PDO::FETCH_ASSOC);
-		$num_of_lists = $records_num_of_lists['numoflists'];
-
-		$nums = array('num_of_bibs' => $num_of_Items, 'num_of_lists' => $num_of_lists);
-		return($nums);
+	// }
 
 	}

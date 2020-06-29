@@ -217,7 +217,7 @@ export const GetUserData = userid => {
   console.log('ajax GetUserData', userid)
   return dispatch => {
     axios({
-      url: `${apiPath}/users/Userupdate.php?userid=${userid}`,
+      url: `${apiPath}/users/User.php?userid=${userid}&page='userdata'`,
       method: "get",
       headers: {
         Accept: "application/json",
@@ -240,7 +240,7 @@ export const EditUserData = data => {
   console.log('ajax EditUserData', data)
   return dispatch => {
     axios({
-      url: `${apiPath}/users/User.php`,
+      url: `${apiPath}/users/User.php?userid=${data.userid}`,
       method: "put",
       headers: {
         Accept: "application/json",
@@ -363,7 +363,7 @@ export const getPostsFromWp = () =>{
     axios
       .get(`${WordpressApiPath}/posts`)
       .then(function (response) {
-        console.log(response)
+        console.log('all posts from wp', response)
         dispatch({ type: GET_POSTS_FROM_WP, value: response });
       })
       .catch(function (error) {

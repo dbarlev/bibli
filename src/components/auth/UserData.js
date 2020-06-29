@@ -32,9 +32,10 @@ class UserData extends Component {
     email: "",
     mosadOptions: [],
     maslul: "",
+    page: "userdata", //used in user.php file to destinct the function
     userid: getCookie("userid"),
     auth: getCookie("auth"),
-    username: getCookie("username"),
+    username: getCookie("username")
   };
 
   this.onChange = this.onChange.bind(this);
@@ -48,17 +49,12 @@ class UserData extends Component {
     let auth = this.state.auth;
     let username = this.state.username;
     
-
-    if (auth) {
-      const json = {
-        userid,
-        auth,
-        username,
-      };
-      console.log('json', json)
-      //this.props.userLogedIn(json);
       this.props.GetUserData(userid);
-    }
+
+    
+      console.log('state', this.state)
+    
+      this.setState({ fname : this.props.fname });
   }
 
   clientValidate() {
@@ -111,7 +107,7 @@ class UserData extends Component {
                     width="150"
                   />
         
-                  <h4 className="card-title m-t-10">{this.props.lname} {this.props.fname}</h4>
+                  <h4 className="card-title m-t-10">{this.state.lname} {this.state.fname}</h4>
                   <div className="row text-center justify-content-md-center">
                     <Col md={6}>
                       <a href="javascript:void(0)" className="link">
