@@ -28,8 +28,12 @@
         switch($request_method)
 		{
 			case 'GET':
-				$userID = ($_GET["userid"]);
-				get_user_data($db, $userID);
+				$userid = ($_GET["userid"]);
+				if($_GET["page"] == "userdata"){
+					get_user_data_for_details_page($db, $userid);
+				}else{
+					get_user_data($db, $userID);
+				}
 				break;
 			case 'POST':
 				return set_user_data($db);
@@ -182,6 +186,85 @@
 		$records_row = $stmt->fetch(PDO::FETCH_ASSOC);
 	}
 
+	
+
+    function deleteRecordFromUser($db)
+    {
+		$userid = ($_GET["userid"]);
+		$recordID = ($_GET["recordID"]);
+		
+		$query = 'UPDATE refactor_books SET userid = 9000 WHERE bookid = ?';
+							
+		$stmt = $db->prepare($query);
+		$stmt->bindParam(1, $recordID);
+		$stmt->execute();
+
+		get_user_data($db, $userid);
+	}
+	
+
+	function get_user_data_for_details_page($db, $userid)
+	{
+		
+
+		$query = 'SELECT * FROM users WHERE userid = ?';				
+		$stmt = $db->prepare($query);
+		$stmt->bindParam(1, $userid);
+		$stmt->execute();
+
+
+		$records_row = $stmt->fetch(PDO::FETCH_ASSOC);
+		
+		$nums = bibs_and_lists($db, $userid);
+
+		echo json_encode(
+			array(
+				'userid' => $records_row['userid'],
+				'userRegistered' => '1',
+				'username'=> 'records_row',
+				'email'=> $records_row['email'],
+				'fname'=> $records_row['fname'],
+				'lname'=> $records_row['lname'],
+				'mosad'=> $records_row['mosad'],
+				'maslul'=> $records_row['maslul'],
+				'numOfBibs'=> $nums['num_of_bibs'],
+				'numOfLists'=> $nums['num_of_lists'],
+				
+			));
+		
+			return json_encode($records_row);
+    }
+    
+    	/*
+	Shows the number of bibs and lists pre user
+	called by get_user_data function
+	*/
+	function bibs_and_lists($db, $userid){
+
+
+
+		$user_Items_query = 'SELECT COUNT(userid) AS numofItems FROM refactor_books_new WHERE userid = ? ';				
+		$user_Items_stmt = $db->prepare($user_Items_query);
+		$user_Items_stmt->bindParam(1, $userid);
+		$user_Items_stmt->execute();
+		$records_num_of_Items = $user_Items_stmt->fetch(PDO::FETCH_ASSOC);
+		$num_of_Items = $records_num_of_Items['numofItems'];
+
+
+		$user_bib_query = 'SELECT COUNT(Userid) AS numoflists FROM biblist WHERE userid = ? ';				
+		$user_bib_stmt = $db->prepare($user_bib_query);
+		$user_bib_stmt->bindParam(1, $userid);
+		$user_bib_stmt->execute();
+		$records_num_of_lists = $user_bib_stmt->fetch(PDO::FETCH_ASSOC);
+		$num_of_lists = $records_num_of_lists['numoflists'];
+
+		$nums = array('num_of_bibs' => $num_of_Items, 'num_of_lists' => $num_of_lists);
+		return($nums);
+
+	}
+
+
+
 	function update_user($db)
 	{	
 		$data = json_decode(file_get_contents('php://input'));	
@@ -216,49 +299,8 @@
 
 	// }
 
-	}
-
-    function deleteRecordFromUser($db)
-    {
-		$userid = ($_GET["userid"]);
-		$recordID = ($_GET["recordID"]);
-		
-		$query = 'UPDATE refactor_books SET userid = 9000 WHERE bookid = ?';
-							
-		$stmt = $db->prepare($query);
-		$stmt->bindParam(1, $recordID);
-		$stmt->execute();
-
-		get_user_data($db, $userid);
-	}
-	
 
 	
-	function mail_validation($db, $email){
-
-		//check if mail already exists in the database
-		$q = 'SELECT * FROM users WHERE email = ?';
-		$res = $db->prepare($q);
-		$res->bindParam(1, $email);
-		$res->execute();
-
-		//if emial is empty
-		if($email == null || empty($email) ){
-			$error =  json_encode(array('error' => 1));
-
-		//if emailis valid or not
-		}else if (!filter_var($email, FILTER_VALIDATE_EMAIL)){
-			$error =  json_encode(array('error' => 2));
-
-		//if mail already exists
-		}else if($res->fetchColumn()){
-			$error = json_encode(array('error' => 3));
-		
-		//no error
-		}else {
-			$error = json_encode(array('error' => 0));
-		}
-		return $error;
 	}
 
 ?>
