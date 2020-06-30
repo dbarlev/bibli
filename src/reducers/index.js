@@ -243,11 +243,11 @@ function searcResultsReducer(state = [{ searchRes: [] }], action) {
     }
 }
 
-function PostsFromWPReducer(state = [{posts: [] }], action){
-    console.log('wp Reducer', state.posts);
-    switch(action.type){
+function PostsFromWPReducer(state = [], action) {
+    console.log('wp Reducer', state);
+    switch (action.type) {
         case GET_POSTS_FROM_WP:
-            return{
+            return {
                 ...state,
                 posts: action.value
             }

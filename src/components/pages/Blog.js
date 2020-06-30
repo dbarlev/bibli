@@ -27,14 +27,14 @@ class Blog extends Component {
         
         const posts = this.props.posts && this.props.posts.map(post => (
             <div key={post.id}>
-                {console.log('props ', this.props)}
-                <h2>{post.title}</h2>
-                <p>{post.excerpt}</p>
+                {console.log('post ', post)}
+                <h2>{post.title.rendered}</h2>
+                <p>{post.id}</p>
                 <button>קראו עוד</button>
             </div>
             ))
         return (
-            <Grid fluid id="Odot">
+            <Grid fluid>
                 <Header />
                 <main id="aboutUs-main">
                     <Row>
