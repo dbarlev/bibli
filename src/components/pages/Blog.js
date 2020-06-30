@@ -6,19 +6,33 @@ import Footer from "../footer/Footer";
 import { getPostsFromWp } from "../../actions/ajax";
 import StickyContact from '../sticky/stickyContact/StickyContact';
 class Blog extends Component {
+ constructor(props){
+     super(props);
 
-    // componentWillMount() {
-    //     getPostsFromWp();
-    // }
 
+ }
+
+    
+    componentWillMount() {
+        this.props.getPostsFromWp();
+    }
+
+//     wpPosts() {
+//         console.log('props ', this.props)
+       
+    
+//     return posts
+// }
     render() {
-        const wpPosts = this.props.posts.map(post => (
+        
+        const posts = this.props.posts && this.props.posts.map(post => (
             <div key={post.id}>
+                {console.log('props ', this.props)}
                 <h2>{post.title}</h2>
                 <p>{post.excerpt}</p>
                 <button>קראו עוד</button>
             </div>
-        ))
+            ))
         return (
             <Grid fluid id="Odot">
                 <Header />
@@ -30,7 +44,7 @@ class Blog extends Component {
                     </Row>
                     <Row>
                         <Col md={6} mdOffset={3}>
-                          {wpPosts}
+                          {posts}
                         </Col>
                     </Row>
                 </main>
@@ -39,13 +53,11 @@ class Blog extends Component {
             </Grid>
         );
     }
-
 }
-
 const mapStateToProps = state => {
     return{
      posts: state.PostsFromWPReducer.posts
   }
 }
-export default connect(mapStateToProps, getPostsFromWp)(Blog);
+export default connect(mapStateToProps, {getPostsFromWp})(Blog);
 

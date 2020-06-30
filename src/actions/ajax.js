@@ -363,7 +363,7 @@ export const getPostsFromWp = () =>{
     axios
       .get(`${WordpressApiPath}/posts`)
       .then(function (response) {
-        console.log('all posts from wp', response)
+        console.log('all posts from', response.data)
         dispatch({ type: GET_POSTS_FROM_WP, value: response });
       })
       .catch(function (error) {
