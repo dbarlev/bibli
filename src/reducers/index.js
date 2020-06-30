@@ -244,9 +244,9 @@ function searcResultsReducer(state = [{ searchRes: [] }], action) {
 }
 
 function PostsFromWPReducer(state = [{posts: [] }], action){
+    console.log('wp Reducer', state.posts);
     switch(action.type){
         case GET_POSTS_FROM_WP:
-            console.log(action);
             return{
                 ...state,
                 posts: action.value
@@ -254,8 +254,6 @@ function PostsFromWPReducer(state = [{posts: [] }], action){
         default:
             return state;
     }
-   
-
 }
 
 const rootReducer = combineReducers({
