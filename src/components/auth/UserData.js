@@ -237,7 +237,7 @@ class UserData extends Component {
           </Row>
         </main>
         <StickyContact />
-        <Footer bottom />
+        <Footer  />
       </Grid>
     );
   }

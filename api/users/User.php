@@ -52,13 +52,14 @@
 	
     function get_user_data($db, $email = null, $userid = null)
     {
-		if(isset($email)){
-			$query = 'SELECT * FROM users WHERE email = ?';				
+		
+			$query = 'SELECT * FROM users WHERE (email = ?) OR (userid = ?)';				
 			$stmt = $db->prepare($query);
 			$stmt->bindParam(1, $email);
+			$stmt->bindParam(2, $userid);
 			$stmt->execute();
 		}
-
+		
 		$records_row = $stmt->fetch(PDO::FETCH_ASSOC);
 		
 		echo json_encode(

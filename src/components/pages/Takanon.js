@@ -106,7 +106,7 @@ class Takanon extends Component {
           </Row>
         </main>
         <StickyContact />
-        <Footer bottom />
+        <Footer />
       </Grid>
     );
   }

@@ -2,7 +2,7 @@
     class Database{
 
         private $host = '127.0.0.1';
-        private $db_name = 'bibli-test';
+        private $db_name = 'bibli';
         private $username = 'root';
         private $password = '';
         private $conn;

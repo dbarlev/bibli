@@ -12,9 +12,9 @@ class Footer extends Component {
 
 
     render() {
-        const stickToBottom = this.props.bottom ? "stickToBottom" : null;
+        const footerStyle = this.props.bottom ? "stickToBottom" : "relative-inline";
         return (
-            <footer id="footer" className={stickToBottom}>
+            <footer id="footer" className={footerStyle}>
                 <Row>
                     <Col md={12}>
                         <FooterForm />
