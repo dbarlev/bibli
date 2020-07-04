@@ -15,7 +15,8 @@ import {
     CONTACT_US_MASSAGE,
     JOIN_MAIL_LIST,
     USER_LOGIN,
-    GET_POSTS_FROM_WP
+    GET_POSTS_FROM_WP,
+    GET_SINGLE_POST_FROM_WP
 } from "./consts";
 import axios from "axios";
 import apiPath from "../constants/api";
@@ -365,6 +366,20 @@ export const getPostsFromWp = () => {
             .then(function(response) {
                 console.log('all posts from', response.data)
                 dispatch({ type: GET_POSTS_FROM_WP, value: response.data });
+            })
+            .catch(function(error) {
+                console.log(error);
+            });
+    };
+}
+
+export const getSinlePostFromWP = (postSlug) => {
+    return dispatch => {
+        axios
+            .get(`${WordpressApiPath}/posts?slug=${postSlug}`)
+            .then(function(response) {
+                console.log('single post', response.data)
+                dispatch({ type: GET_SINGLE_POST_FROM_WP, value: response.data });
             })
             .catch(function(error) {
                 console.log(error);

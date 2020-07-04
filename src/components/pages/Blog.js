@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
-import { connect } from 'react-redux'
+import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 import { Grid, Row, Col } from "react-bootstrap";
+import ReactHtmlParser from 'react-html-parser'; 
 import Header from "../header/Header";
 import Footer from "../footer/Footer";
 import { getPostsFromWp } from "../../actions/ajax";
@@ -28,9 +30,9 @@ class Blog extends Component {
         const posts = this.props.posts && this.props.posts.map(post => (
             <div key={post.id}>
                 {console.log('post ', post)}
-                <h2>{post.title.rendered}</h2>
-                <p>{post.id}</p>
-                <button>קראו עוד</button>
+                <h2>{ReactHtmlParser(post.title.rendered)}</h2>
+                <p>{ReactHtmlParser(post.excerpt.rendered)}</p>
+                 <Link to={"/blogi/"+ post.slug} >קראו עוד</Link>
             </div>
             ))
         return (
@@ -49,7 +51,7 @@ class Blog extends Component {
                     </Row>
                 </main>
                 <StickyContact />
-                <Footer bottom />
+                <Footer />
             </Grid>
         );
     }

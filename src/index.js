@@ -18,13 +18,15 @@ import PasswordRecovery from './components/auth/PasswordRecovery';
 import PasswordRecoveryEdit from './components/auth/PasswordRecoveryEdit';
 import Takanon from './components/pages/Takanon';
 import Odot from './components/pages/Odot';
-import Blog from './components/pages/Blog';
+import Blog from './components/pages/Blog'; 
+import BlogSingle from './components/pages/BlogSingle'; 
 import UserData from './components/auth/UserData';
 import RegisterSuccess from './components/auth/RegisterSuceess';
 import NotFound from './components/404';
 
 import './index.css';
 import RegisterPage from './components/auth/RegisterPage/RegisterPage';
+
 
 
 
@@ -51,6 +53,7 @@ ReactDOM.render(
                 <Route path="/takanon" component={Takanon} />
                 <Route path="/odot" component={Odot} />
                 <Route path="/blog" component={Blog} />
+                <Route path="/blogi/:postSlug"  component={BlogSingle} />
                 <Route path="/contact" component={Contact} />
                 <Route path="/userdata" component={UserData} />
                 <Route path="/passwordrecovery" component={PasswordRecovery} /> //טופס הזנת כתובת מייל לשחזור סיסמא

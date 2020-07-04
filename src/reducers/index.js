@@ -21,7 +21,8 @@ import {
     CONTACT_US_MASSAGE,
     EXPORT_RECORD_TO_WORD,
     ACCESSIBILITY,
-    GET_POSTS_FROM_WP
+    GET_POSTS_FROM_WP,
+    GET_SINGLE_POST_FROM_WP
 } from '../actions/consts';
 
 import { populateAPAData, editListName } from './functions.js';
@@ -244,12 +245,17 @@ function searcResultsReducer(state = [{ searchRes: [] }], action) {
 }
 
 function PostsFromWPReducer(state = [], action) {
-    console.log('wp Reducer', state);
+    console.log('PostsFromWPReducer action.value', action.value);
     switch (action.type) {
         case GET_POSTS_FROM_WP:
             return {
                 ...state,
                 posts: action.value
+            }
+        case GET_SINGLE_POST_FROM_WP:
+            return {
+                ...state,
+                post: action.value
             }
         default:
             return state;
