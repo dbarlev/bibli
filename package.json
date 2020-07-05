@@ -54,7 +54,7 @@
     "react-bootstrap": "^0.32.1",
     "react-bootstrap-combobox": "^3.0.1",
     "react-bootstrap-select": "^0.14.0",
-    "react-bootstrap-tabs": "^1.0.2",
+    "react-bootstrap-tabs": "^1.0.3",
     "react-countup": "^4.3.3",
     "react-dev-utils": "^6.0.3",
     "react-dom": "^16.13.1",
