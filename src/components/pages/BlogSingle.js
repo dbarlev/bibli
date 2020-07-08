@@ -8,22 +8,41 @@ import Footer from "../footer/Footer";
 import { getSinlePostFromWP } from "../../actions/ajax";
 import StickyContact from '../sticky/stickyContact/StickyContact';
 import './BlogSingle.scss';
+import { WPapiClient } from '../../common/apiClient';
+
 
 class BlogSingle extends Component {
     constructor(props){
         super(props);
-   
+        this.state = {
+            src:'',
+            isImgRendered: false
+        }
    
     }
     
- componentDidMount() {
-    
+componentDidMount() {    
     this.props.getSinlePostFromWP(this.props.match.params.postSlug);
     console.log('the post slug is ', this.props.match.params.postSlug);
 }
 
+async getrFeaturedImage(){
+    if(this.props.post && this.props.post.length > 0 && this.state.isImgRendered == false){
+        let serverResponse = await WPapiClient(this.props.post[0]['_links']['wp:featuredmedia'][0].href, "get");
+       if(serverResponse){
+           console.log('serverResponse', serverResponse)
+           this.setState({src: serverResponse.guid.rendered})
+           this.setState({isImgRendered: true});
+       }
+    }
+}
+
     render() {
         const post =this.props.post;
+        (async () => {
+            await this.getrFeaturedImage();
+        })()
+       
         return (
             
             <Grid fluid>
@@ -36,8 +55,7 @@ class BlogSingle extends Component {
                             this.props.post &&
                             <div>
                             <h1>{ReactHtmlParser(post[0].title.rendered)} </h1>
-                            <img style={image} alt="aa" src={post[0]['_links']['wp:featuredmedia'].href} />
-                            <p>{console.log('post', post)}</p>
+                            <img style={image} alt="aa" src={this.state.src} />
 
                             <div>{ReactHtmlParser(post[0].content.rendered)} </div>
 
