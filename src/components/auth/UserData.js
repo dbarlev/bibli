@@ -9,7 +9,9 @@ import {
   FormControl,
 } from "react-bootstrap";
 import { connect } from 'react-redux';
-import { GetUserData, EditUserData } from "../../actions/ajax"
+import { Typeahead } from 'react-bootstrap-typeahead';
+import 'react-bootstrap-typeahead/css/Typeahead.css';
+import { GetUserData, EditUserData } from "../../actions/ajax";
 import Footer from "../footer/Footer";
 import HeaderLogin from '../header/HeaderLogin.js';
 
@@ -19,13 +21,7 @@ import "./UserData.scss";
 class UserData extends Component {
   constructor(){
       super();
-    this.items = [
-      'אחוה',
-      'ספיר',
-      'אשקלון',
-      'תל אביב',
 
-    ]
     this.state = {
     fname: "",
     lname: "",
@@ -36,7 +32,6 @@ class UserData extends Component {
     userid: getCookie("userid"),
     auth: getCookie("auth"),
     username: getCookie("username"),
-    ...this.props
   };
 
   this.onChange = this.onChange.bind(this);
@@ -74,21 +69,17 @@ class UserData extends Component {
   // }
 
   onChange(event) {
+ 
       console.log('event', event);
     this.setState({
       [event.target.name]: event.target.value
     });
   }
 
-  onMosadChange = (e) => {
-    const value = e.target.value;
-    if (value.length === 0){
-      this.setState.mosadOptions(() => ({
-        mosadOptions: [],
-      }));
-    }else{
-
-    }
+  onSelectChange = (event) => {
+    console.log('event onSelectChange', event);
+    const value = event.target.value;
+    
   }
   
   render() {
@@ -197,29 +188,58 @@ class UserData extends Component {
                   <Row>
                     <Col sm={12}>
                       <label htmlFor="">מוסד לימודים</label>
-                      <FormControl
+                      <Typeahead
                         ref="mosad"
                         name="mosad"
+                        id="mosad"
                         type="text"
-                        onChange={this.onChange}
-                        placeholder="בחר מרשימה"
+                       
+                        onChange={(mosad) => {
+                          this.setState({mosad});
+                        }}
+                        placeholder={this.props.mosad}
                         aria-label="בחר מרשימה"
-                        value={this.props.mosad}
+                        options={['אחוה',
+                        'ספיר',
+                        'אשקלון',
+                        'תל אביב']}
+                        selected={this.state.mosad}
                       />
                     </Col>
                   </Row>
                   <Row>
+ 
                     <Col sm={12}>
                       <label htmlFor="">מסלול לימודים</label>
-                      <FormControl
-                        ref="maslul"
-                        name="maslul"
-                        type="text"
-                        onChange={this.onChange}
-                        placeholder="מסלול לימודים"
-                        aria-label="מסלול לימודים"
-                        value={this.props.maslul}
-                      />
+                      <Typeahead
+                      ref="maslul"
+                      id="maslul"
+                      name="maslul"
+                      type="text"
+         
+                      onChange={(maslul) => {
+                        this.setState({maslul});
+                      }}
+                      placeholder={this.props.maslul}
+                      aria-label="בחר מרשימה"
+                      options={[
+                        'ספרות כללית והשוואתית',
+                        'ספרות עברית',
+                       ' עבודה סוציאלית',
+                        'פילוסופיה',
+                        'פיסיקה',
+                        'פסיכולוגיה',
+                        'צירוף פסיכולוגיה ומדעי החיים',
+                        'קוגניציה',
+                        'קרימינולוגיה',
+                        'רוקחות',
+                        'רוקחות - תכנית מצוינות, מסלול מואץ לתואר שלישי',
+                        'רוקחות : תכנית הסבה לאקדמאים -לימודי בוקר',
+                        'רוקחות: תכנית הסבה לאקדמאיים- לימודי ערב',
+                        'ריפוי בעיסוק',
+                        'רפואה' ]}
+                        selected={this.state.maslul}
+                    />
                     </Col>
                   </Row>
                   <Row>
