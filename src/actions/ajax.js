@@ -215,10 +215,9 @@ export const userLogin = userData => {
 
 /*get user data from userdata page */
 export const GetUserData = userid => {
-    console.log('ajax GetUserData', userid)
     return dispatch => {
         axios({
-                url: `${apiPath}/users/User.php?userid=${userid}&page='userdata'`,
+                url: `${apiPath}/users/User.php?userid=${userid}&page=userdata`,
                 method: "get",
                 headers: {
                     Accept: "application/json",

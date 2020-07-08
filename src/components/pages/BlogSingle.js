@@ -36,7 +36,7 @@ class BlogSingle extends Component {
                             this.props.post &&
                             <div>
                             <h1>{ReactHtmlParser(post[0].title.rendered)} </h1>
-                            <img style={image} alt="aa" src="http://blog.bibli.co.il/wp-json/wp/v2/media/8" />
+                            <img style={image} alt="aa" src={post[0]['_links']['wp:featuredmedia'].href} />
                             <p>{console.log('post', post)}</p>
 
                             <div>{ReactHtmlParser(post[0].content.rendered)} </div>

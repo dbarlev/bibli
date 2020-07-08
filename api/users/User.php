@@ -58,7 +58,7 @@
 			$stmt->bindParam(1, $email);
 			$stmt->bindParam(2, $userid);
 			$stmt->execute();
-		}
+		
 		
 		$records_row = $stmt->fetch(PDO::FETCH_ASSOC);
 		
@@ -280,7 +280,7 @@
 
 		if( isset($data->fname) && !empty($data->fname)) $fname = $data->fname;
 		if( isset($data->lname) && !empty($data->lname)) $lname = $data->lname;
-		if( isset($data->email) && !empty($data->email)) $email = $data->email;
+		if( isset($data->email)) $email = $data->email;
 		if( isset($data->mosad) && !empty($data->mosad))$mosad = $data->mosad;
 		if( isset($data->maslul) && !empty($data->maslul)) $maslul = $data->maslul;
 			
