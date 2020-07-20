@@ -55,8 +55,9 @@ async getrFeaturedImage(){
                             this.props.post &&
                             <div>
                             <h1>{ReactHtmlParser(post[0].title.rendered)} </h1>
-                            <img style={image} alt="aa" src={this.state.src} />
-
+                            {this.state.src &&
+                                <img style={image} alt="aa" src={this.state.src} />
+                            }
                             <div>{ReactHtmlParser(post[0].content.rendered)} </div>
 
                             </div>

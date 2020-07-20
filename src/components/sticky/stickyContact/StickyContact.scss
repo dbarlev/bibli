@@ -1,4 +1,4 @@
-#stickyContact{
+#stickyContact {
     position: fixed;
     top: 70vh;
     left: -1px;
@@ -9,17 +9,17 @@
     border-top: 3px solid black;
     border-bottom: 3px solid black;
     width: 125px;
-
-    #stickyContactCont{
+    z-index: 9999;
+    #stickyContactCont {
         text-align: center;
         margin-top: 10px;
     }
     cursor: pointer;
-    i{
+    i {
         font-size: 25px;
         color: white !important;
     }
-    p{
+    p {
         color: white;
     }
 }

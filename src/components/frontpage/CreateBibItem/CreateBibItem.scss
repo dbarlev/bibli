@@ -1,98 +1,83 @@
  @import '../../../../public/scss/variables';
-
-#home-createBib{
-    margin-bottom: 40px;
-
-    .headline{
-        margin-right: 50px;
-        margin-bottom: 20px;
-    }
-
-    .card{
-        border: 1px solid gray;
-        background: white;
-        border-radius: 10px;
-        box-shadow: 0 3px 6px 5px rgba(0, 0, 0, 0.12), 0 6px 16px 0 rgba(0, 0, 0, 0.08), 0 9px 28px 7px rgba(0, 0, 0, 0.05);
-    }
-
-    .tabControlIcons{
-        margin-right:50px;
-    }
-
-    #apaPaperForm form{
-        padding-top: 10px !important;
-    }
-
-    button{
-        background-color: $mainBlueColor;
-    }
-
-    #home-create-item-title{
-        font-size: 44px;
-        @media(max-width: 768px){
-            text-align: center;
-        }
-    }
-    img{
-        width: 180px;
-        height: 180px;
-        border-radius: 50%;
-       
-    }
-
-    .selectDropdown{
-        position: relative;
-        left: 14px;
-    }
-    
-    input{
-        width: 100% !important;
-    }
-
-    .rounded{
-        border-radius: 50%;
-        border: 2px solid #3bd2ff;
-        width: 184px;
-        height: 184px;
-        margin-top: 30px;
-        @media(max-width: 768px){
-           margin: 0 auto;
-        }
-    }
-
-    h2{
-        color: black;
-        font-family: 'Open Sans Hebrew', serif;
-    }
-
-    span,div,a,p{
-        color: black;
-    }
-
-    li:hover i{
-        color: #e08222 !important;
-    }
-
-    i{
-        color: #204260 !important;
-    }
-    
-    i.fa-trash-alt{
-        color: red !important;
-    }
-
-    #writersFeilds strong{
-        color: black;
-        i{
-            margin-left: 10px;
-        }
-
-    }
-}
-
-@media screen and (max-width: 600px) {
-      #front-faq button{
-        margin-right: 4px;
-        font-size: 13px;
-      }  
-}
+ #home-createBib {
+     margin-bottom: 40px;
+     .headline {
+         margin-right: 50px;
+         margin-bottom: 20px;
+     }
+     .card {
+         border: 1px solid gray;
+         background: white;
+         border-radius: 10px;
+         box-shadow: 0 3px 6px 5px rgba(0, 0, 0, 0.12), 0 6px 16px 0 rgba(0, 0, 0, 0.08), 0 9px 28px 7px rgba(0, 0, 0, 0.05);
+     }
+     .tabControlIcons {
+         margin-right: 50px;
+     }
+     #apaPaperForm form {
+         padding-top: 10px !important;
+     }
+     button {
+         background-color: $mainBlueColor;
+     }
+     #home-create-item-title {
+         font-size: 44px;
+         @media(max-width: 768px) {
+             text-align: center;
+         }
+     }
+     img {
+         width: 180px;
+         height: 180px;
+         border-radius: 50%;
+     }
+     .selectDropdown {
+         position: relative;
+         left: 14px;
+     }
+     input {
+         width: 100% !important;
+     }
+     .rounded {
+         border-radius: 50%;
+         border: 2px solid #3bd2ff;
+         width: 184px;
+         height: 184px;
+         margin-top: 30px;
+         @media(max-width: 768px) {
+             margin: 0 auto;
+         }
+     }
+     h2 {
+         color: black;
+         font-family: 'Open Sans Hebrew', sans-serif;
+     }
+     span,
+     div,
+     a,
+     p {
+         color: black;
+     }
+     li:hover i {
+         color: #e08222 !important;
+     }
+     i {
+         color: #204260 !important;
+     }
+     i.fa-trash-alt {
+         color: red !important;
+     }
+     #writersFeilds strong {
+         color: black;
+         i {
+             margin-left: 10px;
+         }
+     }
+ }
+ 
+ @media screen and (max-width: 600px) {
+     #front-faq button {
+         margin-right: 4px;
+         font-size: 13px;
+     }
+ }

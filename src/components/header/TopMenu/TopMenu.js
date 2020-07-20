@@ -114,9 +114,9 @@ class TopMenu extends Component {
                                         </LinkContainer>
                                     </li>
                                     <li>
-                                            <a href="/blog" target="_self">
+                                            <Link to="/blog/arch" target="_self">
                                                 בלוג
-                                            </a>
+                                            </Link>
                                     </li>
                                     <li className="facebook">
                                         <a href="https://www.facebook.com/biblio.co.il/" target="__blank">

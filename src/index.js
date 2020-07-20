@@ -52,8 +52,8 @@ ReactDOM.render(
                 <Route path="/faq" component={Faq} />
                 <Route path="/takanon" component={Takanon} />
                 <Route path="/odot" component={Odot} />
-                <Route path="/blog" component={Blog} />
-                <Route path="/blogi/:postSlug"  component={BlogSingle} />
+                <Route path="/blog/arch" component={Blog} />
+                <Route path="/blog/:postSlug"  component={BlogSingle} />
                 <Route path="/contact" component={Contact} />
                 <Route path="/userdata" component={UserData} />
                 <Route path="/passwordrecovery" component={PasswordRecovery} /> //טופס הזנת כתובת מייל לשחזור סיסמא

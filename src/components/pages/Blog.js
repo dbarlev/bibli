@@ -7,10 +7,14 @@ import Header from "../header/Header";
 import Footer from "../footer/Footer";
 import { getPostsFromWp } from "../../actions/ajax";
 import StickyContact from '../sticky/stickyContact/StickyContact';
+import { WPapiClient } from '../../common/apiClient';
 class Blog extends Component {
  constructor(props){
      super(props);
-
+     this.state = {
+        src:'',
+        isImgRendered: false
+    }
 
  }
 
@@ -19,22 +23,41 @@ class Blog extends Component {
         this.props.getPostsFromWp();
     }
 
-//     wpPosts() {
-//         console.log('props ', this.props)
-       
-    
-//     return posts
-// }
+
+
+async getrFeaturedImage(postid){
+    if(this.props.post && this.props.post.length > 0 && this.state.isImgRendered == false){
+        let serverResponse = await WPapiClient(this.props.post[postid]['_links']['wp:featuredmedia'][0].href, "get");
+       if(serverResponse){
+           console.log('serverResponse', serverResponse)
+           this.setState({src: serverResponse.guid.rendered})
+           this.setState({isImgRendered: true});
+       }
+    }
+}
     render() {
-        
-        const posts = this.props.posts && this.props.posts.map(post => (
+      
+
+
+
+        const posts = this.props.posts && this.props.posts.map(post => {return(
             <div key={post.id}>
+
                 {console.log('post ', post)}
                 <h2>{ReactHtmlParser(post.title.rendered)}</h2>
+                {this.state.src &&
+                    <img  alt="aa" src={this.state.src} />
+                }
                 <p>{ReactHtmlParser(post.excerpt.rendered)}</p>
-                 <Link to={"/blogi/"+ post.slug} >קראו עוד</Link>
+                 <Link to={"/blog/"+ post.slug} >קראו עוד</Link>
             </div>
-            ))
+            )}
+            
+            )
+
+
+            
+         
         return (
             <Grid fluid>
                 <Header />
@@ -42,6 +65,7 @@ class Blog extends Component {
                     <Row>
                         <Col md={6} mdOffset={3}>
                             <h1>בלוג</h1>
+                            
                         </Col>
                     </Row>
                     <Row>
