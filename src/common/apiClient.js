@@ -3,7 +3,7 @@ import apiPath from "../constants/api";
 
 export const apiClient = async(url, method, data) => {
     return new Promise((resolve, reject) => {
-        axios({ method, url: `${apiPath}${url}`, data })
+        axios({ method, url: `${apiPath}${url}`, params: data })
             .then(function(response) {
                 resolve(response.data);
             })

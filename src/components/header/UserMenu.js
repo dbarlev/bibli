@@ -11,10 +11,10 @@ class UserMenu extends Component {
       <Navbar id="userNav" className="nav-noStyle">
         <Navbar.Collapse >
           <Nav pullRight>
-            <li className="hidden">
+            <li >
               <a href="#" className="white"><Badge>2</Badge> <i aria-hidden="true" className="far fa-bell"></i></a>
             </li >
-            <LinkContainer className="topNavMenuItems white hidden" to="/userdata" >
+            <LinkContainer className="topNavMenuItems white" to="/userdata" >
               <NavItem>אזור אישי  </NavItem>
             </LinkContainer>
             <LinkContainer className="topNavMenuItems white" to="/records/biblist" >

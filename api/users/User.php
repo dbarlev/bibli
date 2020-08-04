@@ -28,7 +28,8 @@
         switch($request_method)
 		{
 			case 'GET':
-				$userid = ($_GET["userid"]);
+				
+				$userid = $_GET["userid"];
 				if($_GET["page"] = "userdata"){
 					get_user_data_for_details_page($db, $userid);
 				}else{
@@ -100,8 +101,8 @@
 				'email'=> $records_row['email'],
 				'fname'=> $records_row['fname'],
 				'lname'=> $records_row['lname'],
-				'mosad'=> $records_row['mosad'],
-				'maslul'=> $records_row['maslul'],
+				'mosad'=> unserialize($records_row['mosad']),
+				'maslul'=> unserialize($records_row['maslul']),
 				'numOfBibs'=> $nums['num_of_bibs'],
 				'numOfLists'=> $nums['num_of_lists'],
 				
@@ -216,6 +217,7 @@
 	function userdata_select_on_page_load($db, $userid)
 	{
 		
+
 		$query = 'SELECT * FROM users WHERE userid = ?';				
 		$stmt = $db->prepare($query);
 		$stmt->bindParam(1, $userid);
@@ -281,8 +283,8 @@
 		if( isset($data->fname) && !empty($data->fname)) $fname = $data->fname;
 		if( isset($data->lname) && !empty($data->lname)) $lname = $data->lname;
 		if( isset($data->email)) $email = $data->email;
-		if( isset($data->mosad) && !empty($data->mosad))$mosad = $data->mosad;
-		if( isset($data->maslul) && !empty($data->maslul)) $maslul = $data->maslul;
+		if( isset($data->mosad) && !empty($data->mosad))$mosad = serialize($data->mosad);
+		if( isset($data->maslul) && !empty($data->maslul)) $maslul = serialize($data->maslul);
 			
 		$mail_val = mail_validation($db, $email);
 

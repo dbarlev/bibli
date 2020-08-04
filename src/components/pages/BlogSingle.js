@@ -27,7 +27,7 @@ componentDidMount() {
 }
 
 async getrFeaturedImage(){
-    if(this.props.post && this.props.post.length > 0 && this.state.isImgRendered == false){
+    if(this.props.post && this.props.post.length > 0 && this.props.post[0]['_links']['wp:featuredmedia'] && this.state.isImgRendered == false){
         let serverResponse = await WPapiClient(this.props.post[0]['_links']['wp:featuredmedia'][0].href, "get");
        if(serverResponse){
            console.log('serverResponse', serverResponse)

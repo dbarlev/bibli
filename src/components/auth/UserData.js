@@ -17,7 +17,16 @@ import HeaderLogin from '../header/HeaderLogin.js';
 import profileImage from '../img/profileImage'
 import { getCookie } from "../Services/GetCookies";
 import StickyContact from "../sticky/stickyContact/StickyContact";
+import { apiClient } from "../../common/apiClient"
 import "./UserData.scss";
+
+
+const mosadOpts = ['אחוה',
+'ספיר',
+'אשקלון',
+'תל אביב'];
+
+
 class UserData extends Component {
   constructor(){
       super();
@@ -27,12 +36,14 @@ class UserData extends Component {
     lname: "",
     email: "",
     mosadOptions: [],
+    mosad: "",
     maslul: "",
     page: "userdata", //used in user.php file to destinct the function
     userid: getCookie("userid"),
     auth: getCookie("auth"),
     username: getCookie("username"),
   };
+
 
   this.onChange = this.onChange.bind(this);
   this.handleSubmit = this.handleSubmit.bind(this);
@@ -41,22 +52,43 @@ class UserData extends Component {
 }
 
 
-  componentWillMount() {
-    let userid = this.state.userid;
+  componentDidMount() {
+    const userid = this.state.userid;
     let auth = this.state.auth;
     let username = this.state.username;
+    const page = this.state.page;
   
-      this.props.GetUserData(userid);
+      // this.props.GetUserData(userid);
+    this.getUserDataAPI( userid, page);
 
+    }
     
-    
+    async getUserDataAPI (userid, page){
+      let userDataKey = { userid, page }
+      console.log( ' userDataKey value is on userdata.js ', userDataKey);
+      let response = await apiClient('/users/User.php', 'get', userDataKey)
+      console.log('apiclient response is ', response);
+
+      this.setState({
+        fname: response.fname,
+        lname: response.lname,
+        email: response.email,
+        mosad: response.mosad,
+        maslul: response.maslul,
+        numOfBibs: response.numOfBibs,
+        numOfLists: response.numOfLists,
+
+      })
+
+      console.log('new state ', this.state)
+    }
 
      
-  }
 
   clientValidate() {
     return true;
   }
+
 
   handleSubmit = (event) => {
     event.preventDefault();
@@ -64,28 +96,20 @@ class UserData extends Component {
   };
 
 
-  // changeImageOnClick(e) {
-  //   this.refs.fileUploader.click();
-  // }
-
   onChange(event) {
  
       console.log('event', event);
     this.setState({
-      [event.target.name]: event.target.value
+      [event.target.name]: event.target.value.toString()
     });
-  }
-
-  onSelectChange = (event) => {
-    console.log('event onSelectChange', event);
-    const value = event.target.value;
     
   }
-  
+
   render() {
+
     return (
       <Grid fluid id="userdata">
-        {console.log("props", this.props.email)}
+        {console.log("props", this.state.email)}
         <HeaderLogin />
 
         <main id="userdata-main">
@@ -106,13 +130,13 @@ class UserData extends Component {
                     <Col md={6}>
                       <a href="javascript:void(0)" className="link">
                         <i className="icon-people">רשימות</i>{" "}
-                        <font className="font-medium">{this.props.numOfLists}</font>
+                        <font className="font-medium">{this.state.numOfLists}</font>
                       </a>
                     </Col>
                     <Col md={6}>
                       <a href="javascript:void(0)" className="link">
                         <i className="icon-picture">פריטים</i>{" "}
-                        <font className="font-medium">{this.props.numOfBibs}</font>
+                        <font className="font-medium">{this.state.numOfBibs}</font>
                       </a>
                     </Col>
                   </div>
@@ -122,7 +146,7 @@ class UserData extends Component {
               <div className="card-body">
 
                 <h6>דואר אלקטרוני </h6>
-                <h4>{this.props.email}</h4>
+                <h4>{this.state.email}</h4>
 
                 {this.props.mosad &&
                   <div>
@@ -151,7 +175,7 @@ class UserData extends Component {
                         ref="fname"
                         name="fname"
                         type="text"
-                        value={this.props.fname}
+                        value={this.state.fname}
                         onChange={this.onChange}
                         placeholder="שם פרטי"
                         aria-label="שם פרטי"
@@ -164,8 +188,9 @@ class UserData extends Component {
                       ref="lname"
                       name="lname"
                       type="text"
+                      value={this.state.lname}
                         onChange={this.onChange}
-                        placeholder={this.props.lname}
+                        placeholder="שם משפחה"
                         aria-label="שם משפחה"
                         
                       />
@@ -181,7 +206,7 @@ class UserData extends Component {
                         onChange={this.onChange}
                         placeholder="דואר אלקטרוני"
                         aria-label="דואר אלקטרוני"
-                        value={this.props.email}
+                        value={this.state.email}
                       />
                     </Col>
                   </Row>
@@ -197,12 +222,9 @@ class UserData extends Component {
                         onChange={(mosad) => {
                           this.setState({mosad});
                         }}
-                        placeholder={this.props.mosad}
+                        placeholder={this.state.mosad}
                         aria-label="בחר מרשימה"
-                        options={['אחוה',
-                        'ספיר',
-                        'אשקלון',
-                        'תל אביב']}
+                        options={mosadOpts}
                         selected={this.state.mosad}
                       />
                     </Col>
@@ -220,7 +242,7 @@ class UserData extends Component {
                       onChange={(maslul) => {
                         this.setState({maslul});
                       }}
-                      placeholder={this.props.maslul}
+                      placeholder="בחר מרשימה"
                       aria-label="בחר מרשימה"
                       options={[
                         'ספרות כללית והשוואתית',
@@ -284,4 +306,6 @@ const mapDispatchToProps = dispatch => {
   }
 }
 
-export default connect(mapStateToProps, {EditUserData, GetUserData})(UserData);
+export default connect(mapStateToProps, {EditUserData})(UserData);
+
+// export default UserData;
