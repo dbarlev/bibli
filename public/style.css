@@ -1880,22 +1880,6 @@ button.searchRecordBtn {
   border: 0 !important;
   border-radius: 0; }
 
-.searchRecord::-webkit-input-placeholder {
-  /* Chrome/Opera/Safari */
-  color: white !important; }
-
-.searchRecord::-moz-placeholder {
-  /* Firefox 19+ */
-  color: white !important; }
-
-.searchRecord:-ms-input-placeholder {
-  /* IE 10+ */
-  color: white !important; }
-
-.searchRecord:-moz-placeholder {
-  /* Firefox 18- */
-  color: white; }
-
 .badge {
   background-color: #f2b500 !important;
   color: black !important; }

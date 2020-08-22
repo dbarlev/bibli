@@ -206,7 +206,7 @@ function authReducer(state = [], action) {
     }
 }
 
-function searcResultsReducer(state = [{ searchRes: [] }], action) {
+function searcResultsReducer(state = [], action) {
     switch (action.type) {
         case BIB_SEARCH:
             //return action.value

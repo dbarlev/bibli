@@ -1,72 +1,125 @@
-import React, { Component } from 'react'
-import {Nav, Navbar,Badge, NavItem,InputGroup, MenuItem, Button, FormGroup, FormControl } from 'react-bootstrap';
-import { BibSearchAction } from '../../actions/ajax';
+import React, { useState, useEffect, useReducer } from 'react'
+import { Form, FormGroup, Button, FormControl, Row, Col } from 'react-bootstrap';
+import { connect } from "react-redux";
+import { saveRecordsOnStore } from '../../actions/ajax';
+import { apiClient } from '../../common/apiClient';
+import './BibSearch.scss';
 
-import { connect } from 'react-redux';
+const reducer = (state, action) => {
+    switch (action.type) {
+        case 'options':
+            return action.data;
+        case "reset":
+            return [];
+        default:
+            throw state;
+    }
+}
 
-class BibSearch extends Component {
+const isEngText = (text) => {
+    return /.*[a-zA-Z]/.test(text);
+}
 
-    state = {
-        q: '',
-        r: ''
+const BibSearch = ({ activeBiblistData, saveRecordsOnStore }) => {
+    const [isVisible, setVisible] = useState(false);
+    const [isEng, setIsEng] = useState(false);
+    const [options, setOptions] = useReducer(reducer, []);
+
+    let loading = false;
+    let timeout = false;
+
+    const getSearchedValues = async (value) => {
+        let data = await apiClient(`/biblioRecords/Bibsearch.php?q=${value}`, "get", {});
+        data = data || [];
+        const uniqueValues = [];
+        data.forEach((result, i) => {
+            if (!uniqueValues.some(u => u.name == result.title)) {
+                uniqueValues.push({
+                    key: result.title + i,
+                    name: result.title,
+                    data: result
+                })
+            }
+        })
+        setVisible(true);
+        setOptions({ type: "options", data: uniqueValues });
+        setIsEng(isEngText(value));
+        return uniqueValues;
     }
 
-    //shows search results after response comes back from the api
-    handleFetchResults = async results => {
-        await this.props.BibSearchAction(results);  
-        this.setState({r: this.props.searcResults})
+    useEffect(async () => {
+        loading = true;
+        setTimeout(async () => {
+            await getSearchedValues();
+            loading = false;
+        }, 500)
+    }, [])
+
+    const onChange = async (e) => {
+        await getSearchedValues(e.target.value);
     }
 
-    onChange = (e) =>{
-        e.preventDefault();
-        this.setState({q: e.target.value})
-
-        // this.viewResults(this.props.searcResults);
-        this.handleFetchResults(this.state.q)
+    const addBIb = (data) => {
+        (async () => {
+            if (data) {
+                data["userid"] = Number(activeBiblistData.userid);
+                data["BiblistID"] = Number(activeBiblistData.id);
+                const response = await apiClient(`/biblioRecords/Bibsearch.php`, "post", data);
+                if (response && response.length > 0) {
+                    setVisible(false);
+                    saveRecordsOnStore(activeBiblistData.userid, response);
+                }
+            }
+        })()
 
     }
-    render() {
-    
-        const sr = this.props.searcResults.map(res => {
-            return(
-                <li key={res && res.bookid}>
-                    <div className="row">
-                        <div className="col-xs-9 text-right">
-                            <h5 className="resultBookTitle">{res.articleHeadline}</h5>
-                      
-                            <div>מחבר:  <span>{res.writers}</span></div>
-                            <div>שנת פרסום: {res.year}</div>
-                        </div>
-                        <div className="col-xs-3 addToList">
-                        <button className="addToListBtn">הוסף לרשימה<i class="fa fa-chevron-left black" aria-hidden="true"></i></button>
-                    </div>
-                    </div>
-                </li>
-            );
-    });
 
-        return (
-         <div>
-            <FormGroup className="searchArea">
-                <InputGroup>
-                    <FormControl className="searchRecord" name="bibsearch" onChange={this.onChange} placeholder="חיפוש מאמר" type="text" />
-                    <InputGroup.Button>
-                        <Button className="searchRecordBtn"><i className="fas fa-search"></i></Button>
-                    </InputGroup.Button>
-                </InputGroup>
-                <ul id="searchresults" className={this.props.searcResults.length > 1 ? 'open' : ''}>
-                {this.state.q ? sr : ''}
-            </ul>
-            </FormGroup>            
-           
+
+    return (
+        <div>
+            <Form>
+                <FormGroup>
+                    <FormControl
+                        id="search"
+                        onChange={async (e) => await onChange(e)}
+                        name="bibsearch"
+                        placeholder="חיפוש מאמר"
+                        type="text"
+                    />
+                </FormGroup>
+            </Form>
+            <Row>
+                <Col md="2"></Col>
+                <Col md="10">
+                    {isVisible && options.length > 0 && <div id="searchArea" style={{ background: 'white' }}>
+                        <ul style={{ listStyle: 'none' }}>
+                            {
+                                options.map((item, index) => (
+                                    <li style={{
+                                        textAlign: isEng ? 'left' : 'right',
+                                        direction: isEng ? 'ltr' : 'rtl'
+                                    }} key={item.key}>
+                                        <span>{index + 1}: {item.name} </span>
+                                        <Button
+                                            onClick={() => addBIb(item.data)}
+                                            style={{
+                                                textAlign: isEng ? 'right' : 'left',
+                                            }}>הוסף</Button>
+                                    </li>
+                                ))
+                            }
+                        </ul>
+                    </div>}
+                </Col>
+            </Row>
         </div>
-        )
-    }
+    );
 }
 
-const MapStateToProps = state => {
+const mapStateToProps = state => {
     return {
-        searcResults: state.searcResultsReducer
-    }
-}
-export default connect(MapStateToProps, {BibSearchAction})(BibSearch);
+        activeBiblistData: state.activeBiblist,
+    };
+};
+
+export default connect(mapStateToProps, { saveRecordsOnStore })(BibSearch);

@@ -1,0 +1,49 @@
+#search{
+    width: 700px !important;
+    margin: 2px;
+    height: 37px;
+    color: black !important;
+}
+
+#searchArea{
+    position: absolute;
+    z-index: 1000;
+    border: 1px solid;
+    width: 700px !important;
+    max-height: 600px;
+    overflow-x: auto;
+
+    ul{
+        padding: 0;
+            li{
+                padding: 10px;
+                font-size: 14px;
+            }
+
+            li:not(:last-child){
+                border-bottom: 1px solid #e8e8e8;
+            }
+    }
+
+}
+    
+/* width */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: rgb(119, 118, 118);
+  border-radius: 5px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}

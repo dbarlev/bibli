@@ -228,10 +228,10 @@ export const MailVerAction = data => {
   };
 };
 
-export const BibSearchAction = q => {
+export const BibSearchAction = value => {
   return dispatch => {
     axios
-      .get(`${apiPath}/biblioRecords/Bibsearch.php?q=${q}`)
+      .get(`${apiPath}/biblioRecords/Bibsearch.php?q=${value}`)
       .then(function (response) {
         dispatch({ type: BIB_SEARCH, value: response.data });
       })

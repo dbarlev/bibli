@@ -4,3 +4,16 @@
          display: none;
     }  
 }
+
+#basic-typeahead-single a{
+    display: block !important;
+}
+
+#userNav{
+    li{
+        margin-top: 2px;
+    }
+    li > a {
+        padding: 9px;
+    }
+}
