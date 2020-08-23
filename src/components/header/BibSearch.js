@@ -96,10 +96,10 @@ class BibSearch extends Component {
                         position: "bottom-right",
                         autoClose: 5000,
                         hideProgressBar: false,
-                        closeOnClick: true,
+                        closeOnClick: false,
                         pauseOnHover: true,
                         draggable: true,
-                        progress: true,
+                        progress: false,
                     });
                     this.props.saveRecordsOnStore(this.props.activeBiblistData.userid, response);
                 }
