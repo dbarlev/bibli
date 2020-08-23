@@ -27,8 +27,9 @@
         switch($request_method)
 		{
 			case 'GET':
-			$q = $_GET['q'];
-				getSearchResults($db, $q);
+				$q = $_GET['q'];
+				$startIndex = $_GET['startIndex'];
+				getSearchResults($db, $q, $startIndex);
 				break;
 			case 'POST':
 				addBibToUser($db);
@@ -47,13 +48,18 @@
 		}
     }
 	
-	function getSearchResults($db, $q)
+	function getSearchResults($db, $q, $startIndex)
     {
     
-		$query = "SELECT distinct * FROM refactor_books_new  WHERE title LIKE ? LIMIT 30";
+		$query = "SELECT distinct * FROM refactor_books_new  WHERE title LIKE ? LIMIT ? OFFSET ?";
 		$q = "$q%";
+		$startIndex = intval($startIndex);
+		$end = $startIndex + 20;
+
 		$stmt = $db->prepare($query);
 		$stmt->bindParam(1, $q);
+		$stmt->bindParam(2, $end, PDO::PARAM_INT);
+		$stmt->bindParam(3, $startIndex, PDO::PARAM_INT);
 
 		$stmt->execute();
 		$records_row = $stmt->fetchAll(PDO::FETCH_ASSOC);
