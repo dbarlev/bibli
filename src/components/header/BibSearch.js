@@ -20,6 +20,15 @@ const isEngText = (text) => {
     return /.*[a-zA-Z]/.test(text);
 }
 
+const elipsis = (text, maxLength) => {
+    maxLength = maxLength || 30;
+    if (text.length > maxLength) {
+        text = text.substr(0, maxLength);
+        text = isEngText(text) ? `...${text}` : `${text}...`;
+    }
+    return text;
+}
+
 const BibSearch = ({ activeBiblistData, saveRecordsOnStore }) => {
     const [isVisible, setVisible] = useState(false);
     const [isEng, setIsEng] = useState(false);
@@ -34,10 +43,15 @@ const BibSearch = ({ activeBiblistData, saveRecordsOnStore }) => {
         const uniqueValues = [];
         data.forEach((result, i) => {
             if (!uniqueValues.some(u => u.name == result.title)) {
+                let writers = [];
+                result.wFname && result.wFname.forEach((f, i) => {
+                    writers.push(`${f} ${result.wLname[i]}`)
+                });
                 uniqueValues.push({
                     key: result.title + i,
                     name: result.title,
-                    data: result
+                    data: result,
+                    writers: writers.join(",")
                 })
             }
         })
@@ -92,14 +106,14 @@ const BibSearch = ({ activeBiblistData, saveRecordsOnStore }) => {
                 <Col md="2"></Col>
                 <Col md="10">
                     {isVisible && options.length > 0 && <div id="searchArea" style={{ background: 'white' }}>
-                        <ul style={{ listStyle: 'none' }}>
+                        <ul className="searchList" style={{ listStyle: 'none' }}>
                             {
                                 options.map((item, index) => (
-                                    <li style={{
+                                    <li className="searchListItem" style={{
                                         textAlign: isEng ? 'left' : 'right',
                                         direction: isEng ? 'ltr' : 'rtl'
                                     }} key={item.key}>
-                                        <span>{index + 1}: {item.name} </span>
+                                        <span>{elipsis(item.name, 70)} <p className="writers">{item.writers}</p></span>
                                         <Button
                                             onClick={() => addBIb(item.data)}
                                             style={{
@@ -112,7 +126,7 @@ const BibSearch = ({ activeBiblistData, saveRecordsOnStore }) => {
                     </div>}
                 </Col>
             </Row>
-        </div>
+        </div >
     );
 }
 

@@ -9,19 +9,36 @@
     position: absolute;
     z-index: 1000;
     border: 1px solid;
+    border-radius: 2px;
     width: 700px !important;
     max-height: 600px;
     overflow-x: auto;
+    box-shadow: 0 3px 6px -4px rgba(0,0,0,.12), 0 6px 16px 0 rgba(0,0,0,.08), 0 9px 28px 8px rgba(0,0,0,.05);
 
-    ul{
+    ul.searchList{
         padding: 0;
-            li{
+            li.searchListItem{
                 padding: 10px;
                 font-size: 14px;
+                display: flex;
+
+                span{
+                  flex: 1;
+                  line-height: 30px;
+                }
+
+                .writers{
+                  font-size: 12px;
+                  color: gray;
+                }
             }
 
             li:not(:last-child){
                 border-bottom: 1px solid #e8e8e8;
+            }
+
+            button{
+              max-height: 35px;
             }
     }
 

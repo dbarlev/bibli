@@ -265,7 +265,7 @@ class BibListItem extends Component {
               </span>
             </OverlayTrigger>
           </div>
-          <div className="col-md-7">
+          <div className="col-md-7" style={{ maxWidth: '47%' }}>
             <div className={"recordQuery " + this.props.record.lang}>
               {this.getRecord()}
             </div>
