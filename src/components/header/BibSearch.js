@@ -3,7 +3,9 @@ import { Form, FormGroup, Button, FormControl, Row, Col, Toast } from 'react-boo
 import { connect } from "react-redux";
 import { saveRecordsOnStore } from '../../actions/ajax';
 import { apiClient } from '../../common/apiClient';
+import { ToastContainer, toast } from 'react-toastify';
 import './BibSearch.scss';
+import 'react-toastify/dist/ReactToastify.css';
 
 const reducer = (state, action) => {
     switch (action.type) {
@@ -90,6 +92,15 @@ class BibSearch extends Component {
                 data["BiblistID"] = Number(this.props.activeBiblistData.id);
                 const response = await apiClient(`/biblioRecords/Bibsearch.php`, "post", data);
                 if (response && response.length > 0) {
+                    toast.success('פריט ביבליוגרפי נוסף בהצלחה!', {
+                        position: "bottom-right",
+                        autoClose: 5000,
+                        hideProgressBar: false,
+                        closeOnClick: true,
+                        pauseOnHover: true,
+                        draggable: true,
+                        progress: true,
+                    });
                     this.props.saveRecordsOnStore(this.props.activeBiblistData.userid, response);
                 }
             }
@@ -162,7 +173,8 @@ class BibSearch extends Component {
                             </div>}
                     </Col>
                 </Row>
-            </div >
+                <ToastContainer />
+            </div>
         );
     }
 }
