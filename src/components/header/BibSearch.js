@@ -102,9 +102,29 @@ class BibSearch extends Component {
                         progress: false,
                     });
                     this.props.saveRecordsOnStore(this.props.activeBiblistData.userid, response);
+                    this.highlightSelectedRecord(data.title);
                 }
             }
         })()
+    }
+
+    highlightSelectedRecord(title) {
+        const escapeTitle = escape(title.toLowerCase());
+        let limitCounter = 0;
+        const interval = setInterval(() => {
+            const el = document.querySelector(`[record_name='${escapeTitle}']`);
+            if (limitCounter > 50) {
+                clearInterval(interval);
+            }
+            if (el) {
+                clearInterval(interval);
+                el.style.color = "green";
+                setTimeout(() => {
+                    el.style.color = "black";
+                }, 5000)
+            }
+            limitCounter++;
+        }, 100);
     }
 
     addScrollEvent() {
@@ -136,6 +156,7 @@ class BibSearch extends Component {
     }
 
     render() {
+        const userNotPermited = this.props.userPacakge === "free";
         return (
             <div>
                 <Form>
@@ -161,11 +182,21 @@ class BibSearch extends Component {
                                             direction: this.state.isEng ? 'ltr' : 'rtl'
                                         }} key={item.key}>
                                             <span>{elipsis(item.name, 70)} <p className="writers">{item.writers}</p></span>
-                                            <Button
-                                                onClick={() => this.addBIb(item.data)}
-                                                style={{
-                                                    textAlign: this.state.isEng ? 'right' : 'left',
-                                                }}>הוסף</Button>
+                                            {
+                                                userNotPermited
+                                                    ?
+                                                    <Button
+                                                        onClick={() => console.log("שדרג")}
+                                                        style={{
+                                                            textAlign: this.state.isEng ? 'right' : 'left',
+                                                        }}>שדרג חבילה</Button>
+                                                    :
+                                                    <Button
+                                                        onClick={() => this.addBIb(item.data)}
+                                                        style={{
+                                                            textAlign: this.state.isEng ? 'right' : 'left',
+                                                        }}>הוסף</Button>
+                                            }
                                         </li>
                                     ))
                                     }
@@ -182,6 +213,7 @@ class BibSearch extends Component {
 const mapStateToProps = state => {
     return {
         activeBiblistData: state.activeBiblist,
+        userPacakge: state.userPacakge
     };
 };
 

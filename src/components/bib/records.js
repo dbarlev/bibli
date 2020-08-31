@@ -9,7 +9,7 @@ import BibList from './records/BibList';
 import ListOfBiblist from './listOfRecords/ListOfBiblist';
 import EditBiblist from './listOfRecords/EditBiblist';
 import { userLogedIn, activeBiblist } from '../../actions';
-import { addBibListNamesToStore, saveRecordsOnStore } from '../../actions/ajax';
+import { addBibListNamesToStore, saveRecordsOnStore, getUserPackage } from '../../actions/ajax';
 import Footer from '../footer/Footer.js';
 import { getCookie } from '../Services/GetCookies';
 import { apiClient } from '../../common/apiClient';
@@ -41,6 +41,7 @@ class Records extends Component {
 
   async componentWillMount() {
     const { userid, auth } = this.state;
+    this.props.getUserPackage(userid);
 
     if (auth) {
       const json = { userid, auth }
@@ -151,4 +152,4 @@ const mapStateToProps = state => {
   }
 }
 
-export default connect(mapStateToProps, { addBibListNamesToStore, userLogedIn, saveRecordsOnStore, activeBiblist })(withRouter(Records));
+export default connect(mapStateToProps, { addBibListNamesToStore, userLogedIn, saveRecordsOnStore, activeBiblist, getUserPackage })(withRouter(Records));

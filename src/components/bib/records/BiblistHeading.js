@@ -4,7 +4,7 @@ import { LinkContainer } from "react-router-bootstrap";
 import { DeleteBibList, InsertBibListToDB } from "../../../actions/ajax";
 import { withRouter } from 'react-router-dom';
 import { activeBiblist } from "../../../actions";
-import { OverlayTrigger, Tooltip, Row, Col } from "react-bootstrap";
+import { OverlayTrigger, Tooltip, Row, Col, Button } from "react-bootstrap";
 import Confirm from "../../Modal/Confirm";
 import Alert from "../../Modal/Alert";
 import { CopyToClipboard } from '../services/clipboard';
@@ -223,15 +223,32 @@ class BiblistHeading extends Component {
   }
 
   renderAddItemBtn() {
-    const { activeBiblistData, addRecordBtn } = this.props;
+    const { activeBiblistData, addRecordBtn, userPacakge, records } = this.props;
+    const userNotPermited = userPacakge === "free" && records.length > 6;
     if (activeBiblistData.Name && addRecordBtn != "false") {
       return (
-        <LinkContainer to={`/records/addRecord/ApaBooks`}>
-          <button className="btn pull-right" id="addRecordBtn">
-            <i aria-hidden="true" className="fas fa-plus"></i>
-            הוספת פריט
-          </button>
-        </LinkContainer>
+        <>
+          {
+            userNotPermited
+              ?
+              <OverlayTrigger placement="top" overlay={<Tooltip>הינך בחבילה בסיסית עד 7 פריטים. שדרג עכשיו</Tooltip>}>
+                <span>
+                  <Button disabled id="addRecordBtn" style={{ pointerEvents: 'none' }}>
+                    <i aria-hidden="true" className="fas fa-plus"></i>
+                    הוספת פריט
+                  </Button>
+                </span>
+              </OverlayTrigger>
+              :
+              <LinkContainer to={`/records/addRecord/ApaBooks`}>
+                <Button className="btn pull-right" id="addRecordBtn">
+                  <i aria-hidden="true" className="fas fa-plus"></i>
+                  הוספת פריט
+              </Button>
+              </LinkContainer>
+          }
+        </>
+
       );
     }
   }
@@ -272,7 +289,9 @@ const mapStateToProps = state => {
   return {
     activeBiblistData: state.activeBiblist,
     getBiblistNamesFromDB: state.getBiblistNamesFromDB,
-    exportData: state.recordsDataForExport
+    exportData: state.recordsDataForExport,
+    userPacakge: state.userPacakge,
+    records: state.getBiblistFromDB
   };
 };
 

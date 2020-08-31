@@ -60,7 +60,7 @@ class BibListItem extends Component {
     let pagesSeperator = data.lang === "en" ? "pp." : "עמ'";
     if (data.chapter != null && data.chapter.trim() != "") {
       return (
-        <div>
+        <div record_name={escape(data.name.toLowerCase())}>
           <span>{this.CapitalizeWriters(data.writers)}</span>
           <span>({data.year}). </span>
           <span>
@@ -79,7 +79,7 @@ class BibListItem extends Component {
     }
     else {
       return (
-        <div>
+        <div record_name={escape(data.name.toLowerCase())}>
           <span>{this.CapitalizeWriters(data.writers)}</span>
           <span>({data.year}). </span>
           <span style={{ fontWeight: "bold" }}>
@@ -99,7 +99,7 @@ class BibListItem extends Component {
     let preUrlSeperator = data.lang === "en" ? "from" : "מ";
     if (data.url != null && data.url.trim() != "") {
       return (
-        <div>
+        <div record_name={escape(data.articleHeadline.toLowerCase())}>
           <span>{this.CapitalizeWriters(data.writers)}</span>
           <span>({data.year}). </span>
           <span style={{ fontWeight: "bold" }}>
@@ -115,7 +115,7 @@ class BibListItem extends Component {
       );
     } else {
       return (
-        <div>
+        <div record_name={escape(data.articleHeadline.toLowerCase())}>
           <span>{this.CapitalizeWriters(data.writers)}</span>
           <span>({data.year}). </span>
           <span style={{ fontWeight: "bold" }}>
@@ -135,7 +135,7 @@ class BibListItem extends Component {
     let preUrlSeperator = data.lang === "en" ? "from" : "מ";
     if (data.url != null && data.url.trim() != "") {
       return (
-        <div>
+        <div record_name={escape(data.articleHeadline.toLowerCase())}>
           <span>{this.CapitalizeWriters(data.writers)}</span>
           <span>({data.year}). </span>
           <span style={{ fontWeight: "bold" }}>
@@ -150,7 +150,7 @@ class BibListItem extends Component {
       );
     } else {
       return (
-        <div>
+        <div record_name={escape(data.articleHeadline.toLowerCase())}>
           <span>{this.CapitalizeWriters(data.writers)}</span>
           <span>({data.year}). </span>
           <span style={{ fontWeight: "bold" }}>
@@ -167,7 +167,7 @@ class BibListItem extends Component {
     let data = this.props.record;
     let preUrlSeperator = data.lang === "en" ? "from" : "מ";
     return (
-      <div>
+      <div record_name={escape(data.articleHeadline.toLowerCase())}>
         <span>{this.CapitalizeWriters(data.writers)}</span>
         <span>({data.year}). </span>
         <span style={{ fontWeight: "bold" }}>
@@ -266,7 +266,7 @@ class BibListItem extends Component {
             </OverlayTrigger>
           </div>
           <div className="col-md-7" style={{ maxWidth: '47%' }}>
-            <div className={"recordQuery " + this.props.record.lang}>
+            <div style={{ lineBreak: 'anywhere' }} className={"recordQuery " + this.props.record.lang}>
               {this.getRecord()}
             </div>
           </div>

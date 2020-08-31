@@ -20,4 +20,4 @@ export const JOIN_MAIL_LIST = "JOIN_MAIL_LIST";
 export const USER_LOGIN = "USER_LOGIN";
 export const EXPORT_RECORD_TO_WORD = "EXPORT_RECORD_TO_WORD";
 export const ACCESSIBILITY = "ACCESSIBILITY";
-
+export const USER_PACAKGE = "USER_PACAKGE";

@@ -1,0 +1,54 @@
+#pricing-table {
+    ul{
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+        list-style: none;
+        grid-gap: 20px;
+        height:500px;
+    }
+
+    li{    
+        padding: 15px;
+        height:420px;
+    }
+
+    li.price-regular{
+        background: #e4e4e4;
+        border-radius: 0 44px 0 0;
+        margin-top: 45px;
+    }
+
+    li.price-recomended{
+        background: #eeb100;
+        height:480px;
+        padding-top: 25px;
+        display: grid;
+        padding-left: 0;
+
+        button *{
+            color: white !important;
+        }
+
+        .recomended-badge{
+            background: white;
+            width: 130px;
+            height: 30px;
+            line-height: 30px;
+            justify-self: end;
+        }
+    }
+
+    li.price-premium{
+        background: #e4e4e4;
+        border-radius: 44px 0 0 0;  
+        margin-top: 45px;
+    }
+}
+
+.modal-dialog{
+    width: 800px !important;
+
+    .close {
+        float: right !important;
+    }
+}

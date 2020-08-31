@@ -12,7 +12,8 @@ import {
   PASS_RECOVERY_EDIT,
   CONTACT_US_MASSAGE,
   JOIN_MAIL_LIST,
-  USER_LOGIN
+  USER_LOGIN,
+  USER_PACAKGE
 } from "./consts";
 import axios from "axios";
 import apiPath from "../constants/api";
@@ -295,6 +296,21 @@ export const joinMalList = data => {
       .put(url)
       .then(function (response) {
         dispatch({ type: JOIN_MAIL_LIST, value: response.data });
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  };
+};
+
+export const getUserPackage = userid => {
+  let url = `${apiPath}/users/Package.php?userid=${userid}`;
+
+  return dispatch => {
+    axios
+      .get(url)
+      .then(function (response) {
+        dispatch({ type: USER_PACAKGE, value: response.data });
       })
       .catch(function (error) {
         console.log(error);

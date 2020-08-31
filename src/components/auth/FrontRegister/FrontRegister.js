@@ -18,6 +18,7 @@ import { InsertUserToStore } from "../../../actions/ajax";
 import { apiClient } from '../../../common/apiClient';
 import { TogglePass } from '../../../common/Util.js';
 import './FrontRegister.scss';
+import PackagesModal from "../../pages/packages/PackagesModal";
 
 
 const TopMarginLoginBtn = {
@@ -45,7 +46,8 @@ class FrontRegister extends Component {
       password: "",
       package: 1,
       registerSuccess: false,
-      error: ''
+      error: '',
+      showPacakgesModal: false
     };
   }
 
@@ -62,12 +64,24 @@ class FrontRegister extends Component {
     })
   };
 
-  onSubmitRegister = async e => {
+  onSubmitRegister = e => {
     e.preventDefault();
+    const { email, password } = this.state;
+
+    if (email.trim() === "" || password.trim() === "") {
+      this.setState({ error: 'חובה למלא אימייל וסיסמה' });
+      return;
+    }
+    this.setState({ showPacakgesModal: true });
+  };
+
+  onPackageChoosen = async () => {
     const { history } = this.props;
+    const { email, password } = this.state;
+
     let obj = {
-      email: this.state.email,
-      password: this.state.password,
+      email,
+      password,
       package: this.state.package
     };
 
@@ -95,10 +109,10 @@ class FrontRegister extends Component {
         default:
           break;
       }
-      this.setState({ error });
+      this.setState({ error, showPacakgesModal: false });
 
     }
-  };
+  }
 
   render() {
     return (
@@ -183,10 +197,8 @@ class FrontRegister extends Component {
             </Col>
           </Row>
         </Col>
+        {this.state.showPacakgesModal && <PackagesModal onClose={() => this.setState({ showPacakgesModal: false })} onPackageChoosen={() => this.onPackageChoosen()} />}
       </Row>
-
-
-
     );
   }
 }

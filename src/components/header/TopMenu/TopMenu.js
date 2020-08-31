@@ -94,7 +94,7 @@ class TopMenu extends Component {
                                         <LinkContainer id="takanonLink" className="topNavMenuItems black" to="/takanon"
                                             onKeyDown={(e) => {
                                                 moveFocus(e, {
-                                                    left: "contactLink",
+                                                    left: "packagesLink",
                                                     right: "faqLink"
                                                 })
                                             }}
@@ -103,10 +103,23 @@ class TopMenu extends Component {
                                         </LinkContainer>
                                     </li>
                                     <li>
+                                        <LinkContainer id="packagesLink" className="topNavMenuItems black" to="/packages"
+                                            onKeyDown={(e) => {
+                                                moveFocus(e, {
+                                                    left: "contactLink",
+                                                    right: "takanonLink"
+                                                })
+                                            }}
+                                        >
+                                            <a>חבילות</a>
+                                        </LinkContainer>
+                                    </li>
+                                    <li>
                                         <LinkContainer id="contactLink" className="topNavMenuItems black" to="/contact"
                                             onKeyDown={(e) => {
                                                 moveFocus(e, {
-                                                    right: "takanonLink"
+                                                    right: "packagesLink",
+                                                    left: "blogLink"
                                                 })
                                             }}
                                         >
@@ -114,8 +127,14 @@ class TopMenu extends Component {
                                         </LinkContainer>
                                     </li>
                                     <li>
-                                            <a href="/blog" target="_self">
-                                                בלוג
+                                        <a id="blogLink" href="/blog" target="_self"
+                                            onKeyDown={(e) => {
+                                                moveFocus(e, {
+                                                    right: "contactLink",
+                                                })
+                                            }}
+                                        >
+                                            בלוג
                                             </a>
                                     </li>
                                     <li className="facebook">

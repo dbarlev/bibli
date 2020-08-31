@@ -18,7 +18,8 @@ import {
     PASS_RECOVERY_EDIT,
     CONTACT_US_MASSAGE,
     EXPORT_RECORD_TO_WORD,
-    ACCESSIBILITY
+    ACCESSIBILITY,
+    USER_PACAKGE
 } from '../actions/consts';
 
 import { populateAPAData, editListName } from './functions.js';
@@ -219,6 +220,15 @@ function searcResultsReducer(state = [], action) {
     }
 }
 
+function userPacakge(state = [], action) {
+    switch (action.type) {
+        case USER_PACAKGE:
+            return action.value[0].Name;
+        default:
+            return state;
+    }
+}
+
 const rootReducer = combineReducers({
     chooseSubscription,
     deleteRecordFromUser,
@@ -232,7 +242,8 @@ const rootReducer = combineReducers({
     getEditRecord,
     emailMassageReducer,
     recordsDataForExport,
-    getAccessibility
+    getAccessibility,
+    userPacakge
 });
 
 export default rootReducer;
