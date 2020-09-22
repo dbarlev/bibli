@@ -64,7 +64,7 @@ class FrontRegister extends Component {
     })
   };
 
-  onSubmitRegister = e => {
+  onSubmitRegister = async (e) => {
     e.preventDefault();
     const { email, password } = this.state;
 
@@ -72,7 +72,32 @@ class FrontRegister extends Component {
       this.setState({ error: 'חובה למלא אימייל וסיסמה' });
       return;
     }
-    this.setState({ showPacakgesModal: true });
+
+    let serverValidation = await apiClient("/users/User.php?validate=true", "post", { email, password });
+    if (serverValidation === "success") {
+      this.setState({ showPacakgesModal: true });
+    }
+    else {
+      let error = null;
+      switch (serverValidation.error) {
+        case 0:
+          error = 'הסיסמה קטנה מ 6 תווים';
+          break;
+        case 1:
+          error = 'שדה כתובת מייל ריק';
+          break;
+        case 2:
+          error = 'כתובת המייל שהוזנה אינה תקינה';
+          break;
+        case 3:
+          error = 'כתובת המייל קיימת במערכת';
+          break;
+        default:
+          break;
+      }
+
+      this.setState({ error});
+    }
   };
 
   onPackageChoosen = async () => {

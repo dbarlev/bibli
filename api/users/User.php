@@ -32,6 +32,10 @@
 				get_user_data($db, $userID);
 				break;
 			case 'POST':
+				$validate = ($_GET["validate"]);
+				if($validate){
+					return validate($db);
+				}
 				return set_user_data($db);
 				break;
 			case 'DELETE':
@@ -140,7 +144,39 @@
 			
 		}
 		
-    }
+	}
+
+	function validate($db){
+		$data = json_decode(file_get_contents('php://input'));	
+
+		$usertype = 9;
+		if(isset($data->email)) $email = $data->email; else  $email = null;
+		if(isset($data->password)) $password = password_hash($data->password, PASSWORD_DEFAULT); else  $password = null;
+		
+		//check if mail already exists in the database
+		$q = 'SELECT * FROM users WHERE email = ?';
+		$res = $db->prepare($q);
+		$res->bindParam(1, $email);
+		$res->execute();
+		
+		//validation:
+		if(strlen($data->password) < 6){
+			echo json_encode(array('error' => 0, 'email'=> $email));
+		}else if($data->email == null){
+			echo json_encode(array('error' => 1, 'email'=> $email));
+
+		//if emailis valid or not
+		}else if (!filter_var($email, FILTER_VALIDATE_EMAIL)){
+			echo json_encode(array('error' => 2, 'email'=> $email));
+
+		//if mail already exists
+		}else if($res->fetchColumn()){
+			echo json_encode(array('error' => 3, 'userRegistered' => 'exists', 'email'=> $email));
+		}
+		else{
+			echo json_encode("success");
+		}
+	}
 
     function deleteRecordFromUser($db)
     {
