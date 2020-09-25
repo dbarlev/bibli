@@ -20,6 +20,7 @@ import Takanon from './components/pages/Takanon';
 import Odot from './components/pages/Odot';
 import Blog from './components/pages/Blog';
 import Packages from './components/pages/packages/Packages';
+import Checkout from './components/pages/packages/Checkout';
 import RegisterSuccess from './components/auth/RegisterSuceess';
 import NotFound from './components/404';
 
@@ -49,6 +50,7 @@ ReactDOM.render(
                 <Route path="/front" component={FrontPage} />
                 <Route path="/faq" component={Faq} />
                 <Route path="/packages" component={Packages} />
+                <Route path="/checkout" component={Checkout} />
                 <Route path="/takanon" component={Takanon} />
                 <Route path="/odot" component={Odot} />
                 <Route path="/blog" component={Blog} />
