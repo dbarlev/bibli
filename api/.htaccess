@@ -10,3 +10,4 @@ RewriteRule ^passwordrecovery/([a-zA-Z0-9_\-.@]+)/?$ users/Passrecovery.php?emai
 RewriteRule ^passwordrecoveryedit/([a-zA-Z0-9_\-.@]+)/?$ users/Passrecovery.php?data=$1 [NC,L]
 RewriteRule ^massage/([a-zA-Z0-9_\-.@]+)/?$ users/Massage.php?data=$1 [NC,L]
 RewriteRule ^package/([a-zA-Z0-9_\-.@]+)/?$ users/Package.php?userid=$1 [NC,L]
+#RewriteRule ^credit/([a-zA-Z0-9_\-.@]+) users/Credit.php?data=$1 [NC,L]

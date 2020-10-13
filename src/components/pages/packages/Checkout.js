@@ -15,7 +15,7 @@ import Footer from "../../footer/Footer";
 import StickyContact from '../../sticky/stickyContact/StickyContact';
 import SkipLinks from '../../skipLinks';
 import './Packages.scss';
-
+import Zcredit from './Zcredit';
 
 class checkout extends React.Component {
 
@@ -31,12 +31,13 @@ class checkout extends React.Component {
                     </Col>
                 </Row>
                 <Col md={6}>
-                    <Tabs defaultActiveKey={2} id="uncontrolled-tab-example">
+                    <Tabs defaultActiveKey={1} id="uncontrolled-tab-example">
                         <Tab eventKey={1} title="כרטיס אשראי">
    
   
                     <Row>
-                    <Form id="toggleLoginForm">
+                    <Form id="toggleLoginForm" className="hidden">
+                        
                 <FormGroup controlId="formHorizontalusername">
                     <Col xs={12} sm={12}>
                     <Row >
@@ -180,8 +181,10 @@ class checkout extends React.Component {
                     </Button>
                     </Col>
                 </FormGroup>
+               
                 <Row className="show-grid"></Row>
                 </Form>
+                <Zcredit />
                     </Row>
                     </Tab>
                     <Tab eventKey={2} title="paypal">

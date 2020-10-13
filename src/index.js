@@ -20,6 +20,8 @@ import Takanon from './components/pages/Takanon';
 import Odot from './components/pages/Odot';
 import Blog from './components/pages/Blog';
 import Packages from './components/pages/packages/Packages';
+import Zcredit from './components/pages/packages/Zcredit';
+import SucceessUrl from './components/pages/packages/SuccessUrl';
 import Checkout from './components/pages/packages/Checkout';
 import RegisterSuccess from './components/auth/RegisterSuceess';
 import NotFound from './components/404';
@@ -62,6 +64,8 @@ ReactDOM.render(
                 <Route path="/records/addRecord" component={Records} />
                 <Route path="/records/editList" component={Records} />
                 <Route path="/records/editRecord" component={Records} />
+                <Route path="/zcredit" component={Zcredit} />
+                <Route path="/succeessurl" component={SucceessUrl} />
                 <Route component={NotFound} />
             </Switch>
         </BrowserRouter>
