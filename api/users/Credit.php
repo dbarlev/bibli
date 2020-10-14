@@ -27,10 +27,10 @@
 		$request_method = $_SERVER["REQUEST_METHOD"];
         switch($request_method)
 		{
-			case 'GET':
+			case 'POST':
 				get_iframe($db);
 				break;
-			case 'POST':
+			case 'GET':
 				recive_payment_data($db);
 				break;
 			case 'DELETE':
@@ -46,11 +46,13 @@
 	
 	function get_iframe($db){
 	
-		$data = json_decode(file_get_contents('php://input'));	
-		if(isset($data->price)) $package_price = $data->price; else  $package_price = null;
-		if(isset($data->userid)) $userid = $data->userid; else  $userid = null;
-		 $package_price = '80';
-		// $package_desc = 'חבילת סטודנט';
+		// $data = json_decode(file_get_contents('php://input'));	
+		// if(isset($data->price)) $package_price = $data->price; else  $package_price = null;
+		// if(isset($data->userid)) $userid = $data->userid; else  $userid = null;
+		// $x = 'my ass';
+		$package = '120';
+		// $y = '321';
+		
 		// $package_name = 'החבילה המשתלמת ביותר עבור סטודנטים';
 	
 		
@@ -66,7 +68,7 @@
 		curl_setopt($ch, CURLOPT_POSTFIELDS, "{
 			\"Key\": \"a908debc4f05f424e8fee6fa92fb4e74e309c66a0dde138504eb9c722a799c5e\",
 			\"Local\": \"He\",
-			\"UniqueId\": ". $userid.",
+			\"UniqueId\": \"1\",
 			\"SuccessUrl\": \"http://davdev.co.il/post/post.php\",
 			\"CancelUrl\": \"\",
 			\"CallbackUrl\": \"http://davdev.co.il/post/post.php\",
@@ -91,10 +93,10 @@
 				}
 			},
 		   \"CartItems\": [{
-				\"Amount\": ". $package_price.",
+				\"Description\": \"תיאור החבילה\", 
+				\"Amount\": $package,
 				\"Currency\": \"ILS\",
 				\"Name\": \" חבילת סטודנט \",
-				\"Description\": \"  package_desc \" , 
 				\"Quantity\": 1 ,
 				\"Image\": \"https://bibli.co.il/static/media/bibli-logo.5af20d79.png\" ,
 				\"IsTaxFree\":  \"false\"

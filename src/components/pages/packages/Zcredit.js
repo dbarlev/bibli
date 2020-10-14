@@ -21,7 +21,7 @@ class Zcredit extends Component {
             console.log('in onComponentLoad', this.state)
             const { iframe, userid } = this.state;
            
-           let serverResponse = await apiGetClient("/users/Credit.php","get", userid);
+           let serverResponse = await apiClient("/users/Credit.php","POST", {userid});
            
            if (serverResponse) {
             this.setState({ iframe: serverResponse });
@@ -39,11 +39,11 @@ class Zcredit extends Component {
         return (
 
             <div id="zcredit">
-dav
                 <iframe frameBorder="0" src={this.state.iframe} />
             </div>
         );
     }
 }
+
 
 export default Zcredit;
