@@ -5,41 +5,42 @@ import { getCookie } from '../../Services/GetCookies';
 import './Zcredit.scss';
 
 class Zcredit extends Component {
-    constructor(){
+    constructor() {
         super();
-        this.state ={
+        this.state = {
             iframe: 'not valid',
             userid: getCookie("userid")
         }
     }
-    componentDidMount(){
-            this.onComponentLoad();
-        }
-                
+    componentDidMount() {
+        this.onComponentLoad();
+    }
 
-        onComponentLoad = async () => {
-            console.log('in onComponentLoad', this.state)
-            const { iframe, userid } = this.state;
-           
-           let serverResponse = await apiClient("/users/Credit.php","POST", {userid});
-           
-           if (serverResponse) {
+
+    onComponentLoad = async () => {
+        console.log('in onComponentLoad', this.state)
+        const { iframe, userid } = this.state;
+
+        let serverResponse = await apiClient("/users/Credit.php", "POST", { userid });
+
+        if (serverResponse) {
             this.setState({ iframe: serverResponse });
-               console.log('serverResponse', serverResponse);
-           }
-           else {
-               console.log('error2', serverResponse.error);
-           }
-           
+            console.log('serverResponse', serverResponse);
         }
+        else {
+            console.log('error2', serverResponse.error);
+        }
+
+    }
 
     render() {
-        console.log('zcredit', this.state.sentData)
-     
         return (
 
             <div id="zcredit">
-                <iframe frameBorder="0" src={this.state.iframe} />
+                {
+                    this.state.iframe !== "not valid" &&
+                    <iframe frameBorder="0" src={this.state.iframe} />
+                }
             </div>
         );
     }

@@ -46,26 +46,16 @@
 	
 	function get_iframe($db){
 	
-		// $data = json_decode(file_get_contents('php://input'));	
-		// if(isset($data->price)) $package_price = $data->price; else  $package_price = null;
-		// if(isset($data->userid)) $userid = $data->userid; else  $userid = null;
-		// $x = 'my ass';
+		$data = json_decode(file_get_contents('php://input'));	
+		if(isset($data->price)) $package_price = $data->price; else  $package_price = null;
+		if(isset($data->userid)) $userid = $data->userid; else  $userid = null;
+		$description = 'Student package';
 		$package = '120';
 		// $y = '321';
 		
 		// $package_name = 'החבילה המשתלמת ביותר עבור סטודנטים';
-	
-		
 
-		$ch = curl_init();
-
-		curl_setopt($ch, CURLOPT_URL, "https://pci.zcredit.co.il/webcheckout/api/WebCheckout/CreateSession");
-		curl_setopt($ch, CURLOPT_RETURNTRANSFER, TRUE);
-		curl_setopt($ch, CURLOPT_HEADER, false);
-		curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
-		curl_setopt($ch, CURLOPT_POST, TRUE);
-		
-		curl_setopt($ch, CURLOPT_POSTFIELDS, "{
+		$data = "{
 			\"Key\": \"a908debc4f05f424e8fee6fa92fb4e74e309c66a0dde138504eb9c722a799c5e\",
 			\"Local\": \"He\",
 			\"UniqueId\": \"1\",
@@ -93,14 +83,23 @@
 				}
 			},
 		   \"CartItems\": [{
-				\"Description\": \"תיאור החבילה\", 
+				\"Description\": '$description', 
 				\"Amount\": $package,
 				\"Currency\": \"ILS\",
 				\"Name\": \" חבילת סטודנט \",
 				\"Quantity\": 1 ,
 				\"Image\": \"https://bibli.co.il/static/media/bibli-logo.5af20d79.png\" ,
 				\"IsTaxFree\":  \"false\"
-			}");
+			}";
+
+		$ch = curl_init();
+		curl_setopt($ch, CURLOPT_URL, "https://pci.zcredit.co.il/webcheckout/api/WebCheckout/CreateSession");
+		curl_setopt($ch, CURLOPT_RETURNTRANSFER, TRUE);
+		curl_setopt($ch, CURLOPT_HEADER, false);
+		curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+		curl_setopt($ch, CURLOPT_POST, TRUE);
+		
+		curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
 		
 		curl_setopt($ch, CURLOPT_HTTPHEADER, array(
 		  "Content-Type: application/json; charset=utf-8"
