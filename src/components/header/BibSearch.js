@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { Form, FormGroup, Button, FormControl, Row, Col, Toast } from 'react-bootstrap';
 import { connect } from "react-redux";
+import { Link } from 'react-router-dom';
 import { saveRecordsOnStore } from '../../actions/ajax';
 import { apiClient } from '../../common/apiClient';
 import { ToastContainer, toast } from 'react-toastify';
@@ -185,11 +186,10 @@ class BibSearch extends Component {
                                             {
                                                 userNotPermited
                                                     ?
-                                                    <Button
-                                                        onClick={() => console.log("שדרג")}
+                                                    <Link
                                                         style={{
                                                             textAlign: this.state.isEng ? 'right' : 'left',
-                                                        }}>שדרג חבילה</Button>
+                                                        }} to="/checkout">שדרג חבילה</Link>
                                                     :
                                                     <Button
                                                         onClick={() => this.addBIb(item.data)}
