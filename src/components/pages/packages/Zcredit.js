@@ -1,15 +1,16 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import { apiClient } from '../../../common/apiClient';
-import { apiGetClient } from '../../../common/apiClient';
-import { getCookie } from '../../Services/GetCookies';
 import './Zcredit.scss';
 
 class Zcredit extends Component {
     constructor() {
         super();
+        
         this.state = {
             iframe: 'not valid',
-            userid: getCookie("userid")
+            email: 'davseveloff@gmail.com',
+            price: '80',
         }
     }
     componentDidMount() {
@@ -21,7 +22,7 @@ class Zcredit extends Component {
         console.log('in onComponentLoad', this.state)
         const { iframe, userid } = this.state;
 
-        let serverResponse = await apiClient("/users/Credit.php", "POST", { userid });
+        let serverResponse = await apiClient("/users/Credit.php", "POST", this.state);
 
         if (serverResponse) {
             this.setState({ iframe: serverResponse });
@@ -30,13 +31,13 @@ class Zcredit extends Component {
         else {
             console.log('error2', serverResponse.error);
         }
-
     }
 
     render() {
         return (
 
             <div id="zcredit">
+                {console.log('props', this.props)}
                 {
                     this.state.iframe !== "not valid" &&
                     <iframe frameBorder="0" src={this.state.iframe} />
@@ -47,4 +48,10 @@ class Zcredit extends Component {
 }
 
 
-export default Zcredit;
+const mapStateToProps = (state) => {
+    return {
+        user: state.userReducer,
+    }
+}
+
+export default connect(mapStateToProps)(Zcredit);

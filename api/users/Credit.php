@@ -25,6 +25,11 @@
 	function verifyRequestMethod($db)
     {
 		$request_method = $_SERVER["REQUEST_METHOD"];
+		
+		//$data = json_decode(file_get_contents('php://input'));	
+		//if(isset($data->email)) $email = $data->email; else  $email = null;
+
+		//$email = "davseveloff@gmail.com";
         switch($request_method)
 		{
 			case 'POST':
@@ -46,22 +51,25 @@
 	
 	function get_iframe($db){
 	
-		$data = json_decode(file_get_contents('php://input'));	
-		if(isset($data->price)) $package_price = $data->price; else  $package_price = null;
-		if(isset($data->userid)) $userid = $data->userid; else  $userid = null;
+		if(isset($data->price)) $package_price = $data->price; else  $package_price = '80';
+		if(isset($data->email)) $email = $data->email; else  $email = null;
+		if(isset($data->annual)) $annual = $data->annual; else  $annual = null;
 		$description = 'Student package';
-		$package = '120';
-		// $y = '321';
+
 		
+
+		switch($package_price){
+
+		}
 		// $package_name = 'החבילה המשתלמת ביותר עבור סטודנטים';
 
 		$data = "{
 			\"Key\": \"a908debc4f05f424e8fee6fa92fb4e74e309c66a0dde138504eb9c722a799c5e\",
 			\"Local\": \"He\",
-			\"UniqueId\": \"1\",
-			\"SuccessUrl\": \"http://davdev.co.il/post/post.php\",
+			\"UniqueId\": '$email',
+			\"SuccessUrl\": \"/successurl\",
 			\"CancelUrl\": \"\",
-			\"CallbackUrl\": \"http://davdev.co.il/post/post.php\",
+			\"CallbackUrl\": \"https://www.bibli.co.il/api/users/receivePayment.php\",
 			\"PaymentType\": \"regular\",
 			\"CreateInvoice\": \"false\",
 			\"AdditionalText\": \"\",
@@ -72,7 +80,7 @@
 				MaxQuantity: \"12\"
 			},
 			\"Customer\": {
-				\"Email\": \"davseveloff@gmail.com\",
+				\"Email\": \"dav@gmail.com\",
 				\"Name\": \"\" ,
 				\"PhoneNumber\":  \"\",
 				\"Attributes\": {
@@ -84,7 +92,7 @@
 			},
 		   \"CartItems\": [{
 				\"Description\": '$description', 
-				\"Amount\": $package,
+				\"Amount\": '$package_price',
 				\"Currency\": \"ILS\",
 				\"Name\": \" חבילת סטודנט \",
 				\"Quantity\": 1 ,
@@ -127,18 +135,21 @@
 
 
 	function recive_payment_data($db){
-		$data = json_decode(file_get_contents('php://input'));	
-		if(isset($data->Total)) $total = $data->Total; else  $total = null;
-		if(isset($data->CustomerEmail)) $email = $data->CustomerEmail; else  $email = null;
-		if(isset($data->UniqueID)) $userid = $data->UniqueID; else  $userid = null;
+        
+        
+		if(isset($data->Total)) $total = $data->Total; else  $total = 'null';
+		if(isset($data->UniqueID)) $email = $data->UniqueId; else  $email = null;
 		if(isset($data->CustomerEmail)) $payemail = $data->CustomerEmail; else  $payemail = null;
 		$paymenttime = time();
 
+
+		mail("davseveloff@gmail.com","bibli payment receives", var_export($_GET, true));
+
 		switch($total){
-			case '80.0': 
+			case '80': 
 				$package = 1;
 				break;
-			case '120.0': 
+			case '120': 
 				$package = 3;
 				break;
 			default: 
@@ -148,16 +159,20 @@
 		}
 
 
-		$query = "UPDATE users SET Package = ?, paytime = ?, payemail = ? 
-		WHERE userid = ?";
+		$query = "UPDATE users SET package = ?, paytime = ?, paymail = ? 
+		WHERE email = ?";
 		
 		$stmt = $db->prepare($query);
 		$stmt->bindParam(1, $package);
 		$stmt->bindParam(2, $paymenttime);
 		$stmt->bindParam(3, $payemail);
-		$stmt->bindParam(4, $userid);
+		$stmt->bindParam(4, $email);
 
-		$stmt->execute();
+        $stmt->execute();
+        
+        
+
+        //mail("davseveloff@gmail.com","bibli payment receives", (bool)$stmt->fetchColumn());
 	}
 
 ?>
