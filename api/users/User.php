@@ -32,8 +32,7 @@
 				get_user_data($db, $userID);
 				break;
 			case 'POST':
-				$validate = ($_GET["validate"]);
-				if($validate){
+				if(isset($_GET["validate"])){
 					return validate($db);
 				}
 				return set_user_data($db);

@@ -55,7 +55,7 @@ export class PricingTable extends Component {
                             <p>7</p>
                         </Row>
                         <Row>
-                            <Button bsStyle="primary" className="btn-yellow blue-text" onClick={() => this.props.onPackageChoosen()}> לבחירת התכנית <i className="fas fa-chevron-left btn-yellow"></i></Button>
+                            <Button onClick={async () => await this.props.onPackageChoosen()} bsStyle="primary" className="btn-yellow blue-text">לבחירת התכנית <i className="fas fa-chevron-left btn-yellow"></i></Button>
                         </Row>
                     </li>
                     <li className="text-center price-recomended">
@@ -78,7 +78,7 @@ export class PricingTable extends Component {
                                 <p className="large">ללא הגבלה</p>
                             </Row>
                             <Row>
-                                <Button bsStyle="primary"> <Link to="/register"> לבחירת התכנית <i className="fas fa-chevron-left"></i></Link></Button>
+                                <Button bsStyle="primary"> <Link to="/checkout"> לבחירת התכנית <i className="fas fa-chevron-left"></i></Link></Button>
                             </Row>
                         </div>
                     </li>
@@ -100,7 +100,7 @@ export class PricingTable extends Component {
                             <p className="large">ללא הגבלה</p>
                         </Row>
                         <Row>
-                            <Button bsStyle="primary" className="btn-yellow blue-text"> <Link to="/register"> לבחירת התכנית <i className="fas fa-chevron-left btn-yellow"></i></Link></Button>
+                            <Button bsStyle="primary" className="btn-yellow blue-text"> <Link to="/checkout"> לבחירת התכנית <i className="fas fa-chevron-left btn-yellow"></i></Link></Button>
                         </Row>
                     </li>
                 </ul>

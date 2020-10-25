@@ -96,7 +96,7 @@ class FrontRegister extends Component {
           break;
       }
 
-      this.setState({ error});
+      this.setState({ error });
     }
   };
 
@@ -222,7 +222,7 @@ class FrontRegister extends Component {
             </Col>
           </Row>
         </Col>
-        {this.state.showPacakgesModal && <PackagesModal onClose={() => this.setState({ showPacakgesModal: false })} onPackageChoosen={() => this.onPackageChoosen()} />}
+        {this.state.showPacakgesModal && <PackagesModal onClose={() => this.setState({ showPacakgesModal: false })} onPackageChoosen={async () => await this.onPackageChoosen()} />}
       </Row>
     );
   }
