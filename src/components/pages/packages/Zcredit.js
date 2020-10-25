@@ -4,12 +4,12 @@ import { apiClient } from '../../../common/apiClient';
 import './Zcredit.scss';
 
 class Zcredit extends Component {
-    constructor() {
+    constructor(props) {
         super();
         
         this.state = {
             iframe: 'not valid',
-            email: 'davseveloff@gmail.com',
+            //email: 'davseveloff@gmail.com',
             price: '80',
         }
     }
@@ -20,6 +20,7 @@ class Zcredit extends Component {
 
     onComponentLoad = async () => {
         console.log('in onComponentLoad', this.state)
+        console.log('in props', this.props)
         const { iframe, userid } = this.state;
 
         let serverResponse = await apiClient("/users/Credit.php", "POST", this.state);
@@ -50,7 +51,7 @@ class Zcredit extends Component {
 
 const mapStateToProps = (state) => {
     return {
-        user: state.userReducer,
+        user: state.userReducer
     }
 }
 

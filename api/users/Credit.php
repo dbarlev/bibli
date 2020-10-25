@@ -50,7 +50,7 @@
 	
 	
 	function get_iframe($db){
-	
+		$data = json_decode(file_get_contents('php://input'));
 		if(isset($data->price)) $package_price = $data->price; else  $package_price = '80';
 		if(isset($data->email)) $email = $data->email; else  $email = null;
 		if(isset($data->annual)) $annual = $data->annual; else  $annual = null;
