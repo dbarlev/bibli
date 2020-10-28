@@ -1,22 +1,43 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+
 import { apiClient } from '../../../common/apiClient';
+import { userLogedIn } from '../../../actions';
+import { getCookie } from '../../Services/GetCookies';
 import './Zcredit.scss';
 
 class Zcredit extends Component {
     constructor(props) {
-        super();
+        super(props);
         
         this.state = {
             iframe: 'not valid',
             //email: 'davseveloff@gmail.com',
             price: '80',
+            userid: getCookie("userid"),
+            auth: getCookie("auth"),
+            username: getCookie("username")
         }
     }
     componentDidMount() {
+        
         this.onComponentLoad();
     }
 
+    componentWillMount() {
+        let userid = this.state.userid;
+        let auth = this.state.auth;
+        let username = this.state.username;
+    
+        if (auth) {
+          const json = {
+            userid,
+            auth,
+            username
+          }
+          this.props.userLogedIn(json);
+        }
+      }
 
     onComponentLoad = async () => {
         console.log('in onComponentLoad', this.state)
@@ -49,10 +70,21 @@ class Zcredit extends Component {
 }
 
 
-const mapStateToProps = (state) => {
-    return {
-        user: state.userReducer
-    }
-}
 
-export default connect(mapStateToProps)(Zcredit);
+
+const mapDispatchToProps = dispatch => {
+    return {
+      userLogedIn: (params) => dispatch(userLogedIn(params))
+    };
+  };
+  
+  
+  const mapStateToProps = state => {
+    return {
+      userid: state.authReducer.userid,
+      auth: state.authReducer.auth,
+      username: state.authReducer.username
+    }
+  }
+  
+  export default connect(mapStateToProps, mapDispatchToProps)(Zcredit);

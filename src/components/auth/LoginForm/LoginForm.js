@@ -33,6 +33,8 @@ class LoginForm extends Component {
     this.handleSubmit = this.handleSubmit.bind(this);
     this.onChange = this.onChange.bind(this);
     this.toggleLogin = this.toggleLogin.bind(this);
+
+ 
   }
 
   clientValidate() {
@@ -92,7 +94,7 @@ class LoginForm extends Component {
       newMailVer: false
     });
 
-
+    console.log('this.state', this.state)
   }
 
 

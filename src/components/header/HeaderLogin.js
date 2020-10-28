@@ -9,20 +9,20 @@ class HeaderLogin extends Component {
   state = {
     userid: getCookie("userid"),
     auth: getCookie("auth"),
-    username: getCookie("username")
+    email: getCookie("email")
   }
 
 
   componentWillMount() {
     let userid = this.state.userid;
     let auth = this.state.auth;
-    let username = this.state.username;
+    let email = this.state.email;
 
     if (auth) {
       const json = {
         userid,
         auth,
-        username
+        email
       }
       this.props.userLogedIn(json);
     }
@@ -54,7 +54,7 @@ const mapStateToProps = state => {
   return {
     userid: state.authReducer.userid,
     auth: state.authReducer.auth,
-    username: state.authReducer.username
+    email: state.authReducer.email
   }
 }
 
