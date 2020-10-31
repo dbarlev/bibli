@@ -1,4 +1,4 @@
-import React, {  } from 'react';
+import React, { } from 'react';
 import { Image, Row, Button } from 'react-bootstrap';
 import { connect } from 'react-redux';
 import researcher from '../../img/researcher.png';
@@ -8,21 +8,27 @@ import "./Packages.scss";
 
 const data = {
     free: {
-        price: () => <div><span>ללא עלות</span></div>,
+        name: "free",
+        price: 0,
+        priceComponent: () => <div><span>ללא עלות</span></div>,
         period: "",
         src: free,
         lists: 1,
         items: 7,
     },
     student: {
-        price: () => <div><span className="smallNum bold">₪</span><span>8</span></div>,
+        name: "student",
+        price: 8,
+        priceComponent: () => <div><span className="smallNum bold">₪</span><span>{data.student.price}</span></div>,
         period: "לחודש",
         src: student,
         lists: "ללא הגבלה",
         items: 200
     },
     researcher: {
-        price: () => <div><span className="smallNum bold">₪</span><span>45</span></div>,
+        name: "researcher",
+        price: 45,
+        priceComponent: () => <div><span className="smallNum bold">₪</span><span>{data.researcher.price}</span></div>,
         period: "לחודש",
         src: researcher,
         lists: "ללא הגבלה",
@@ -59,7 +65,7 @@ const PricingItem = ({ packageName, value, onPackageChoosen, upgrade }) => {
             <div className={recomended && 'recomended-container'}>
                 <Image src={value.src} alt="משתמש מסוג אורח" />
                 <Row>
-                    {value.price()}
+                    {value.priceComponent()}
                     <p>{value.period}</p>
                 </Row>
 
@@ -75,7 +81,7 @@ const PricingItem = ({ packageName, value, onPackageChoosen, upgrade }) => {
                     {
                         !currentPackage ?
                             <Button
-                                onClick={() => onPackageChoosen(packageName)}
+                                onClick={async () => await onPackageChoosen(value)}
                                 bsStyle="primary"
                                 className="btn-yellow blue-text">
                                 לבחירת התכנית

@@ -7,8 +7,8 @@ import './Packages.scss';
 
 
 export const UpgradePackagesModal = ({ ShowUpgradeModal, SelectedPackage, history }) => {
-    const onPackageChoosen = (name) => {
-        SelectedPackage(name);
+    const onPackageChoosen = (data) => {
+        SelectedPackage(data);
         history.push("/checkout");
     }
 

@@ -96,8 +96,8 @@ export const ShowUpgradeModal = state => {
 };
 
 
-export const SelectedPackage = name => {
+export const SelectedPackage = data => {
     return dispatch => {
-        dispatch({ type: SELECTED_PACAKGE, value: name });
+        dispatch({ type: SELECTED_PACAKGE, value: data });
     };
 };

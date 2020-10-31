@@ -14,7 +14,7 @@ import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
 import { Animated } from "react-animated-css";
 import { setCookie } from "../Services/LoginServerValidation";
-import { InsertUserToStore } from "../../../actions";
+import { InsertUserToStore, SelectedPackage } from "../../../actions";
 import { apiClient } from '../../../common/apiClient';
 import { TogglePass } from '../../../common/Util.js';
 import './FrontRegister.scss';
@@ -100,9 +100,15 @@ class FrontRegister extends Component {
     }
   };
 
-  onPackageChoosen = async (name) => {
-    const { history } = this.props;
+  onPackageChoosen = async (packageData) => {
+    const { history, SelectedPackage } = this.props;
     const { email, password } = this.state;
+
+    if (packageData && packageData.name !== "free") {
+      SelectedPackage(packageData);
+      history.push("/checkout");
+      return;
+    }
 
     let obj = {
       email,
@@ -222,7 +228,7 @@ class FrontRegister extends Component {
             </Col>
           </Row>
         </Col>
-        {this.state.showPacakgesModal && <PackagesModal onClose={() => this.setState({ showPacakgesModal: false })} onPackageChoosen={async () => await this.onPackageChoosen()} />}
+        {this.state.showPacakgesModal && <PackagesModal onClose={() => this.setState({ showPacakgesModal: false })} onPackageChoosen={async (packageData) => await this.onPackageChoosen(packageData)} />}
       </Row>
     );
   }
@@ -234,7 +240,7 @@ const mapStateToProps = state => {
   };
 };
 
-export default connect(mapStateToProps, { InsertUserToStore })(
+export default connect(mapStateToProps, { InsertUserToStore, SelectedPackage })(
   withRouter(FrontRegister)
 );
 

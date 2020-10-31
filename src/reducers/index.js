@@ -226,6 +226,13 @@ function userPackage(state = [], action) {
     switch (action.type) {
         case USER_PACAKGE:
             return action.value[0].Name;
+        default:
+            return state;
+    }
+}
+
+function selectedPackage(state = [], action) {
+    switch (action.type) {
         case SELECTED_PACAKGE:
             return action.value
         default:
@@ -259,7 +266,8 @@ const rootReducer = combineReducers({
     recordsDataForExport,
     getAccessibility,
     userPackage,
-    showPackages
+    showPackages,
+    selectedPackage
 });
 
 export default rootReducer;

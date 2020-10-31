@@ -11,7 +11,7 @@ class StatisticsRow extends Component {
                 <Col md="4">
                     <div>
                         <span className="star"><i class="fa fa-star" aria-hidden="true"></i></span>
-                        <CountUp className="counter" end={170641} duration={3} separator="," />
+                        <CountUp className="counter" end={175137} duration={3} separator="," />
                         <span className="star"><i class="fa fa-star" aria-hidden="true"></i></span>
                     </div>
                     <div>

@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 
 import { apiClient } from '../../../../common/apiClient';
@@ -6,69 +6,50 @@ import { userLogedIn } from '../../../../actions';
 import { getCookie } from '../../../Services/GetCookies';
 import './Zcredit.scss';
 
-class Zcredit extends Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      iframe: 'not valid',
-      //email: 'davseveloff@gmail.com',
-      price: '80',
-      userid: getCookie("userid"),
-      auth: getCookie("auth"),
-      username: getCookie("username")
-    }
-  }
-  componentDidMount() {
-
-    this.onComponentLoad();
+const Zcredit = ({ selectedPackage, userLogedIn }) => {
+  const [iframe, setIframe] = useState('not valid');
+  const data = {
+    userid: getCookie("userid"),
+    auth: getCookie("auth"),
+    username: getCookie("username")
   }
 
-  componentWillMount() {
-    let userid = this.state.userid;
-    let auth = this.state.auth;
-    let username = this.state.username;
-
-    if (auth) {
-      const json = {
-        userid,
-        auth,
-        username
-      }
-      this.props.userLogedIn(json);
+  useEffect(() => {
+    if (data.auth) {
+      const { userid, auth, username } = data;
+      userLogedIn({ userid, auth, username });
     }
-  }
+  }, [data])
 
-  onComponentLoad = async () => {
-    const { iframe, userid } = this.state;
+  useEffect(() => {
+    if (selectedPackage) {
+      (async () => {
+        let serverResponse = await apiClient("/users/Credit.php", "POST", { ...data, price: selectedPackage.price });
 
-    let serverResponse = await apiClient("/users/Credit.php", "POST", this.state);
-
-    if (serverResponse) {
-      this.setState({ iframe: serverResponse });
-    }
-    else {
-      console.log('error2', serverResponse.error);
-    }
-  }
-
-  render() {
-    return (
-
-      <div id="zcredit">
-        {console.log('props', this.props)}
-        {
-          this.state.iframe !== "not valid" &&
-          <iframe frameBorder="0" src={this.state.iframe} />
+        if (serverResponse) {
+          setIframe(serverResponse);
         }
-      </div>
-    );
-  }
+        else {
+          console.log('error2', serverResponse.error);
+        }
+      })();
+    }
+  }, [selectedPackage])
+
+  return (
+    <div id="zcredit">
+      {
+        iframe !== "not valid" &&
+        <iframe frameBorder="0" src={iframe} />
+      }
+    </div>
+  );
 }
 
 const mapStateToProps = state => {
   return {
+    selectedPackage: state.selectedPackage
   }
 }
 
-export default connect(mapStateToProps, {userLogedIn})(Zcredit);
+export default connect(mapStateToProps, { userLogedIn })(Zcredit);
