@@ -20,9 +20,9 @@ import Takanon from './components/pages/Takanon';
 import Odot from './components/pages/Odot';
 import Blog from './components/pages/Blog';
 import Packages from './components/pages/packages/Packages';
-import Zcredit from './components/pages/packages/Zcredit';
-import SucceessUrl from './components/pages/packages/SuccessUrl';
-import Checkout from './components/pages/packages/Checkout';
+import Zcredit from './components/pages/packages/Payment/Zcredit';
+import SucceessUrl from './components/pages/packages/Payment/SuccessUrl';
+import Checkout from './components/pages/packages/Payment/Checkout';
 import RegisterSuccess from './components/auth/RegisterSuceess';
 import NotFound from './components/404';
 

@@ -13,7 +13,7 @@ import {
 } from 'react-bootstrap';
 
 import { userLogedIn } from '../../actions'; 
-import { userLogin } from '../../actions/ajax'; 
+import { userLogin } from '../../actions/authActions'; 
 
 
 class LoginForm extends Component {

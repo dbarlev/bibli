@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { InsertRecordToDB, EditRecord } from '../../../../actions/ajax';
+import { InsertRecordToDB, EditRecord } from '../../../../actions/recordsActions';
 import { GetFormatDate } from '../../services/GetFormatDate';
 import { FormatWriters } from '../../services/FormatWriters';
 import { VerifyLang } from '../../services/VerifyLang';

@@ -9,7 +9,8 @@ import BibList from './records/BibList';
 import ListOfBiblist from './listOfRecords/ListOfBiblist';
 import EditBiblist from './listOfRecords/EditBiblist';
 import { userLogedIn, activeBiblist } from '../../actions';
-import { addBibListNamesToStore, saveRecordsOnStore, getUserPackage } from '../../actions/ajax';
+import { getUserPackage } from '../../actions/authActions';
+import { addBibListNamesToStore, saveRecordsOnStore } from '../../actions/recordsActions';
 import Footer from '../footer/Footer.js';
 import { getCookie } from '../Services/GetCookies';
 import { apiClient } from '../../common/apiClient';
@@ -18,6 +19,7 @@ import { constructNewUserRecords } from './services/constructNewUserRecords';
 import StickyContact from '../sticky/stickyContact/StickyContact';
 import ChooseBiblist from './modal/chooseBiblist';
 import SkipLinks from '../skipLinks';
+import UpgradePackagesModal from '../pages/packages/UpgradePackagesModal';
 import '../App.css';
 
 const skipTo = [
@@ -113,6 +115,7 @@ class Records extends Component {
   render() {
     return (
       <div className="App">
+        {this.props.showPackages && <UpgradePackagesModal />}
         <SkipLinks skipTo={skipTo} />
         <HeaderLogin />
         <br />
@@ -148,7 +151,8 @@ class Records extends Component {
 const mapStateToProps = state => {
   return {
     userid: state.authReducer.userid,
-    auth: state.authReducer.auth
+    auth: state.authReducer.auth,
+    showPackages: state.showPackages
   }
 }
 

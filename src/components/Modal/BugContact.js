@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { detect } from 'detect-browser';
 import { connect } from 'react-redux';
-import { sendMassage } from '../../actions/ajax';
+import { sendMassage } from '../../actions/authActions';
 import {
     Button,
     Modal,

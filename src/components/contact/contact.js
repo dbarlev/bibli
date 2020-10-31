@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Grid, Row, Col, FormGroup, FormControl, Button, FormCheck, Alert, Form } from 'react-bootstrap';
 import { connect } from 'react-redux';
-import { sendMassage } from '../../actions/ajax';
+import { sendMassage } from '../../actions/authActions';
 import Header from '../header/Header';
 import Footer from '../footer/Footer';
 import SkipLinks from '../skipLinks';

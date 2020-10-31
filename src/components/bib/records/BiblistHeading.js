@@ -1,9 +1,9 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { LinkContainer } from "react-router-bootstrap";
-import { DeleteBibList, InsertBibListToDB } from "../../../actions/ajax";
+import { DeleteBibList, InsertBibListToDB } from "../../../actions/recordsActions";
 import { withRouter } from 'react-router-dom';
-import { activeBiblist } from "../../../actions";
+import { activeBiblist, ShowUpgradeModal } from "../../../actions";
 import { OverlayTrigger, Tooltip, Row, Col, Button } from "react-bootstrap";
 import Confirm from "../../Modal/Confirm";
 import Alert from "../../Modal/Alert";
@@ -223,8 +223,8 @@ class BiblistHeading extends Component {
   }
 
   renderAddItemBtn() {
-    const { activeBiblistData, addRecordBtn, userPacakge, records } = this.props;
-    const userNotPermited = userPacakge === "free" && records.length > 6;
+    const { activeBiblistData, addRecordBtn, userPackage, records } = this.props;
+    const userNotPermited = userPackage === "free" && records.length > 6;
     if (activeBiblistData.Name && addRecordBtn != "false") {
       return (
         <>
@@ -233,9 +233,11 @@ class BiblistHeading extends Component {
               ?
               <OverlayTrigger placement="top" overlay={<Tooltip>הינך בחבילה בסיסית עד 7 פריטים. שדרג עכשיו</Tooltip>}>
                 <span>
-                  <Button disabled id="addRecordBtn" style={{ pointerEvents: 'none' }}>
+                  <Button
+                    onClick={() => this.props.ShowUpgradeModal(true)}
+                    id="addRecordBtn" style={{ backgroundColor: '#dc8726' }}>
                     <i aria-hidden="true" className="fas fa-plus"></i>
-                    הוספת פריט
+                    שידרוג חבילה
                   </Button>
                 </span>
               </OverlayTrigger>
@@ -290,11 +292,11 @@ const mapStateToProps = state => {
     activeBiblistData: state.activeBiblist,
     getBiblistNamesFromDB: state.getBiblistNamesFromDB,
     exportData: state.recordsDataForExport,
-    userPacakge: state.userPacakge,
+    userPackage: state.userPackage,
     records: state.getBiblistFromDB
   };
 };
 
-export default connect(mapStateToProps, { DeleteBibList, activeBiblist, InsertBibListToDB })(withRouter(
+export default connect(mapStateToProps, { DeleteBibList, activeBiblist, InsertBibListToDB, ShowUpgradeModal })(withRouter(
   BiblistHeading
 ));

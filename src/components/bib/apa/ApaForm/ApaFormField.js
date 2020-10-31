@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import {InsertRecordToDB} from '../../../../actions/ajax';
+import {InsertRecordToDB} from '../../../../actions/recordsActions';
 import {
     FormControl,
     Col,

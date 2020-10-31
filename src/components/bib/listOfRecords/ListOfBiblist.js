@@ -1,11 +1,14 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { activeBiblist } from "../../../actions";
+import { activeBiblist, ShowUpgradeModal } from "../../../actions";
 import { LinkContainer } from "react-router-bootstrap";
 import { withRouter } from "react-router-dom";
-import { OverlayTrigger, Tooltip, Row, Col } from "react-bootstrap";
+import { OverlayTrigger, Tooltip, Row, Col, Button } from "react-bootstrap";
 
-const myLists = () => {
+const MyLists = (userPackage, ShowUpgradeModal) => {
+
+  const userShouldUpgrade = userPackage === "free";
+
   return (
     <Row>
       <Col sm="10">
@@ -19,18 +22,34 @@ const myLists = () => {
         </strong>
       </Col>
       <Col sm="2">
-        <OverlayTrigger placement="top" overlay={<Tooltip>הוסף רשימה</Tooltip>}>
-          <LinkContainer
-            className="sideMenuLinks hover-orange"
-            to="/records/addNewList"
-          >
-            <a aria-label="הוסף רשימה">
-              <i aria-hidden="true" className="fas fa-plus hover-orange"></i>
-            </a>
-          </LinkContainer>
-        </OverlayTrigger>
+        {
+          userShouldUpgrade
+            ?
+            <OverlayTrigger placement="top" overlay={<Tooltip>הינך בחבילת חינם עד עבודה אחת, לשידרוג חבילה לחצו כאן</Tooltip>}>
+              <Button
+                style={{ background: 'none', border: 'none', padding: 0 }}
+                onClick={() => ShowUpgradeModal(true)}
+                className="sideMenuLinks hover-orange"
+              >
+                <i aria-hidden="true" style={{ color: '#204260' }} className="fas fa-plus hover-orange"></i>
+              </Button>
+            </OverlayTrigger>
+            :
+            <OverlayTrigger placement="top" overlay={<Tooltip>הוסף רשימה</Tooltip>}>
+              <LinkContainer
+                className="sideMenuLinks hover-orange"
+                to="/records/addNewList"
+              >
+                <a aria-label="הוסף רשימה">
+                  <i aria-hidden="true" className="fas fa-plus hover-orange"></i>
+                </a>
+              </LinkContainer>
+            </OverlayTrigger>
+
+        }
+
       </Col>
-    </Row>
+    </Row >
   );
 };
 
@@ -45,13 +64,13 @@ class ListOfBiblist extends Component {
   }
 
   showList() {
-    let { allBiblist } = this.props;
+    let { allBiblist, userPackage, ShowUpgradeModal } = this.props;
     let uniqueListId = [];
 
     if (allBiblist && allBiblist.length > 0) {
       return (
         <div>
-          {myLists()}
+          {MyLists(userPackage, ShowUpgradeModal)}
           <ul
             className="list-no-style align-right padding-0"
             id="list-of-biblist"
@@ -83,7 +102,7 @@ class ListOfBiblist extends Component {
         </div>
       );
     } else {
-      return <div>{myLists()}</div>;
+      return <div>{MyLists(userPackage, ShowUpgradeModal)}</div>;
     }
   }
 
@@ -99,10 +118,12 @@ class ListOfBiblist extends Component {
 const mapStateToProps = state => {
   return {
     allBiblist: state.getBiblistNamesFromDB,
-    userid: state.authReducer.userid
+    userid: state.authReducer.userid,
+    userPackage: state.userPackage
   };
 };
 
 export default connect(mapStateToProps, {
-  activeBiblist
+  activeBiblist,
+  ShowUpgradeModal
 })(withRouter(ListOfBiblist));

@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { InsertRecordToDB } from "../../../../actions/ajax";
+import { InsertRecordToDB } from "../../../../actions/recordsActions";
 import Writers from "../../writers/Writers";
 import { withRouter } from 'react-router-dom';
 import { Button, Form, FormGroup, Col, Alert } from "react-bootstrap";

@@ -5,7 +5,7 @@ import ListOfBiblist from '../listOfRecords/ListOfBiblist';
 import BiblistHeading from './BiblistHeading';
 import Footer from '../../footer/Footer.js';
 import { connect } from 'react-redux';
-import { getSingleRecord, removeSingleRecordFromStore } from '../../../actions/ajax';
+import { getSingleRecord, removeSingleRecordFromStore } from '../../../actions/recordsActions';
 
 class EditRecord extends Component {
 

@@ -14,7 +14,7 @@ import {
 } from "react-bootstrap";
 import apiPath from "../../constants/api";
 import { userLogedIn } from "../../actions";
-import { userLogin } from "../../actions/ajax";
+import { userLogin } from "../../actions/authActions";
 
 import { async } from "q";
 

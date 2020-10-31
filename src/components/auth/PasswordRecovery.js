@@ -3,7 +3,7 @@ import { Form, Row, FormGroup, Col, Button, FormControl, Grid, Alert } from 'rea
 import { connect } from 'react-redux';
 import Header from '../header/Header';
 import Footer from '../footer/Footer';
-import { PassRecoveryAction } from '../../actions/ajax';
+import { PassRecoveryAction } from '../../actions/authActions';
 
 class PasswordRecovery extends Component {
     constructor(props) {

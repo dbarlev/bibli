@@ -1,112 +1,99 @@
-import React, { Component } from 'react';
-import { Image, Row, Button, FormGroup, Col, ButtonToolbar, ToggleButtonGroup, ToggleButton } from 'react-bootstrap';
-import { Link } from 'react-router-dom';
+import React, {  } from 'react';
+import { Image, Row, Button } from 'react-bootstrap';
+import { connect } from 'react-redux';
 import researcher from '../../img/researcher.png';
 import student from '../../img/student.png';
-import guest from '../../img/guest.png';
+import free from '../../img/guest.png';
+import "./Packages.scss";
 
-const _Yearly = "year";
-const _Monthly = "month";
-
-
-export class PricingTable extends Component {
-
-    constructor() {
-        super();
-        this.state = {
-            price: {
-                month: {
-                    guest: 0,
-                    student: 20,
-                    investigator: 50
-                },
-                year: {
-                    guest: 0,
-                    student: 8,
-                    investigator: 45
-                }
-            },
-            priceType: _Yearly
-        }
+const data = {
+    free: {
+        price: () => <div><span>ללא עלות</span></div>,
+        period: "",
+        src: free,
+        lists: 1,
+        items: 7,
+    },
+    student: {
+        price: () => <div><span className="smallNum bold">₪</span><span>8</span></div>,
+        period: "לחודש",
+        src: student,
+        lists: "ללא הגבלה",
+        items: 200
+    },
+    researcher: {
+        price: () => <div><span className="smallNum bold">₪</span><span>45</span></div>,
+        period: "לחודש",
+        src: researcher,
+        lists: "ללא הגבלה",
+        items: "ללא הגבלה"
     }
+};
 
-    render() {
 
-        let { price, priceType } = this.state;
-        price = price[priceType];
+const PricingTable = ({ onPackageChoosen, upgrade }) => {
 
-        return (
-            <div id="pricing-table">
-                <ul>
-                    <li className="text-center price-regular">
-                        <Image src={guest} alt="משתמש מסוג אורח" />
-                        <Row>
-                            <span className="">ללא</span>
-                            <br />
-                            <span className="">עלות</span>
-                        </Row>
+    return (
+        <div id="pricing-table">
+            <ul>
+                {
+                    Object.entries(data).map(([packageName, value]) => (
+                        <PricingItem upgrade={upgrade} onPackageChoosen={onPackageChoosen} packageName={packageName} value={value} />
+                    ))
+                }
+            </ul>
+        </div>
+    )
+}
 
-                        <Row>
-                            <p className="large bold">רשומות ביבליוגרפיות:</p>
-                            <p>1</p>
-                        </Row>
-                        <Row>
-                            <p className="large bold">פריטים ביבליוגרפיים:</p>
-                            <p>7</p>
-                        </Row>
-                        <Row>
-                            <Button onClick={async () => await this.props.onPackageChoosen()} bsStyle="primary" className="btn-yellow blue-text">לבחירת התכנית <i className="fas fa-chevron-left btn-yellow"></i></Button>
-                        </Row>
-                    </li>
-                    <li className="text-center price-recomended">
-                        <div className="recomended-badge">הנבחרת ביותר</div>
-                        <div className="recomended-container" >
-                            <Image src={student} alt="משתמש מסוג סטודנט" />
-                            <Row>
-                                <span className="smallNum">₪</span>
-                                <span className="large bold">{price.student}</span>
-                                <br />
-                                <span className="bigNum">לחודש</span>
-                            </Row>
+const PricingItem = ({ packageName, value, onPackageChoosen, upgrade }) => {
+    const recomended = packageName === "student";
+    const premium = packageName === "researcher";
+    const listClassName = recomended ? 'price-recomended' : premium ? 'price-premium' : 'price-regular';
+    const currentPackage = upgrade && packageName == "free";
+    const currentClassName = currentPackage ? "currentPackage" : "";
 
-                            <Row>
-                                <p className="large bold">רשומות ביבליוגרפיות:</p>
-                                <p className="large">200</p>
-                            </Row>
-                            <Row>
-                                <p className="large bold">פריטים ביבליוגרפיים:</p>
-                                <p className="large">ללא הגבלה</p>
-                            </Row>
-                            <Row>
-                                <Button bsStyle="primary"> <Link to="/checkout"> לבחירת התכנית <i className="fas fa-chevron-left"></i></Link></Button>
-                            </Row>
-                        </div>
-                    </li>
-                    <li className="text-center price-premium">
-                        <Image src={researcher} alt="משתמש מסוג חוקר" />
-                        <Row>
-                            <span className="smallNum bold">₪</span>
-                            <span className="large bold">{price.investigator}</span>
-                            <br />
-                            <span className="bigNum">לחודש</span>
-                        </Row>
+    return (
+        <li className={`text-center ${listClassName} ${currentClassName}`}>
+            {recomended && <div className="recomended-badge">הנבחרת ביותר</div>}
+            <div className={recomended && 'recomended-container'}>
+                <Image src={value.src} alt="משתמש מסוג אורח" />
+                <Row>
+                    {value.price()}
+                    <p>{value.period}</p>
+                </Row>
 
-                        <Row>
-                            <p className="large bold">רשומות ביבליוגרפיות:</p>
-                            <p className="large">ללא הגבלה</p>
-                        </Row>
-                        <Row>
-                            <p className="large bold">פריטים ביבליוגרפיים:</p>
-                            <p className="large">ללא הגבלה</p>
-                        </Row>
-                        <Row>
-                            <Button bsStyle="primary" className="btn-yellow blue-text"> <Link to="/checkout"> לבחירת התכנית <i className="fas fa-chevron-left btn-yellow"></i></Link></Button>
-                        </Row>
-                    </li>
-                </ul>
-            </div >
-        )
+                <Row>
+                    <p className="large bold">עבודות:</p>
+                    <p>{value.lists}</p>
+                </Row>
+                <Row>
+                    <p className="large bold">פריטים ביבליוגרפיים:</p>
+                    <p>{value.items}</p>
+                </Row>
+                <Row>
+                    {
+                        !currentPackage ?
+                            <Button
+                                onClick={() => onPackageChoosen(packageName)}
+                                bsStyle="primary"
+                                className="btn-yellow blue-text">
+                                לבחירת התכנית
+                            <i className="fas fa-chevron-left btn-yellow"></i>
+                            </Button>
+                            :
+                            <div>חבילה נוכחית</div>
+                    }
+                </Row>
+            </div>
+        </li>
+    )
+}
+
+const mapStateToProps = state => {
+    return {
+        userPackage: state.userPackage
     }
 }
 
-export default PricingTable;
+export default connect(mapStateToProps, {})(PricingTable);

@@ -7,7 +7,8 @@
       <change beforePath="$PROJECT_DIR$/api/users/Massage.php" beforeDir="false" afterPath="$PROJECT_DIR$/api/users/Massage.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/api/users/Passrecovery.php" beforeDir="false" afterPath="$PROJECT_DIR$/api/users/Passrecovery.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/api/users/User.php" beforeDir="false" afterPath="$PROJECT_DIR$/api/users/User.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/actions/ajax.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/actions/ajax.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/actions/authActions.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/actions/authActions.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/actions/recordsActions.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/actions/recordsActions.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/contact/contact.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/contact/contact.js" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />

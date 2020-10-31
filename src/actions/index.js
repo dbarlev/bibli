@@ -7,9 +7,11 @@ import {
     LOGGED_IN,
     PASS_RECOVERY,
     EXPORT_RECORD_TO_WORD,
-    ACCESSIBILITY
+    ACCESSIBILITY,
+    INSERT_USER_TO_DB,
+    SHOW_UPGRADE_MODAL,
+    SELECTED_PACAKGE
 } from './consts';
-import Accessibility from '../components/footer/FooterMenu/accessibility';
 
 
 export function exportRecordData(value) {
@@ -80,3 +82,22 @@ export function setAccessibility(value) {
     }
 }
 
+
+export const InsertUserToStore = data => {
+    return dispatch => {
+        dispatch({ type: INSERT_USER_TO_DB, value: data });
+    };
+};
+
+export const ShowUpgradeModal = state => {
+    return dispatch => {
+        dispatch({ type: SHOW_UPGRADE_MODAL, value: state });
+    };
+};
+
+
+export const SelectedPackage = name => {
+    return dispatch => {
+        dispatch({ type: SELECTED_PACAKGE, value: name });
+    };
+};

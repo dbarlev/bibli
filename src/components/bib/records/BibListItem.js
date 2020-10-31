@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { DeleteRecordFromUser } from "../../../actions/ajax";
+import { DeleteRecordFromUser } from "../../../actions/recordsActions";
 import { exportRecordData } from "../../../actions";
 import Confirm from "../../Modal/Confirm";
 import { Redirect, withRouter } from "react-router-dom";

@@ -19,7 +19,9 @@ import {
     CONTACT_US_MASSAGE,
     EXPORT_RECORD_TO_WORD,
     ACCESSIBILITY,
-    USER_PACAKGE
+    USER_PACAKGE,
+    SHOW_UPGRADE_MODAL,
+    SELECTED_PACAKGE
 } from '../actions/consts';
 
 import { populateAPAData, editListName } from './functions.js';
@@ -220,14 +222,27 @@ function searcResultsReducer(state = [], action) {
     }
 }
 
-function userPacakge(state = [], action) {
+function userPackage(state = [], action) {
     switch (action.type) {
         case USER_PACAKGE:
             return action.value[0].Name;
+        case SELECTED_PACAKGE:
+            return action.value
         default:
             return state;
     }
 }
+
+function showPackages(state = false, action) {
+    switch (action.type) {
+        case SHOW_UPGRADE_MODAL:
+            return action.value;
+        default:
+            return state;
+    }
+}
+
+
 
 const rootReducer = combineReducers({
     chooseSubscription,
@@ -243,7 +258,8 @@ const rootReducer = combineReducers({
     emailMassageReducer,
     recordsDataForExport,
     getAccessibility,
-    userPacakge
+    userPackage,
+    showPackages
 });
 
 export default rootReducer;

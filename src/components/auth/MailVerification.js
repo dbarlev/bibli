@@ -4,7 +4,7 @@ import { Grid, Row, Button } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import { Animated } from "react-animated-css";
 import { withRouter } from 'react-router-dom';
-import { MailVerAction } from '../../actions/ajax';
+import { MailVerAction } from '../../actions/authActions';
 import Header from '../header/Header';
 import Footer from '../footer/Footer';
 import LoginForm from './LoginForm/LoginForm';

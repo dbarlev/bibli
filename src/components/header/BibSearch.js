@@ -2,7 +2,8 @@ import React, { Component } from 'react'
 import { Form, FormGroup, Button, FormControl, Row, Col, Toast } from 'react-bootstrap';
 import { connect } from "react-redux";
 import { Link } from 'react-router-dom';
-import { saveRecordsOnStore } from '../../actions/ajax';
+import { saveRecordsOnStore } from '../../actions/recordsActions';
+import { ShowUpgradeModal } from '../../actions';
 import { apiClient } from '../../common/apiClient';
 import { ToastContainer, toast } from 'react-toastify';
 import './BibSearch.scss';
@@ -157,7 +158,7 @@ class BibSearch extends Component {
     }
 
     render() {
-        const userNotPermited = this.props.userPacakge === "free";
+        const userNotPermited = this.props.userPackage === "free";
         return (
             <div>
                 <Form>
@@ -186,10 +187,12 @@ class BibSearch extends Component {
                                             {
                                                 userNotPermited
                                                     ?
-                                                    <Link
+                                                    <Button
+                                                        onClick={() => this.props.ShowUpgradeModal(true)}
                                                         style={{
+                                                            background: '#dc8726',
                                                             textAlign: this.state.isEng ? 'right' : 'left',
-                                                        }} to="/checkout">שדרג חבילה</Link>
+                                                        }}>שידרוג חבילה</Button>
                                                     :
                                                     <Button
                                                         onClick={() => this.addBIb(item.data)}
@@ -205,7 +208,7 @@ class BibSearch extends Component {
                     </Col>
                 </Row>
                 <ToastContainer />
-            </div>
+            </div >
         );
     }
 }
@@ -213,8 +216,8 @@ class BibSearch extends Component {
 const mapStateToProps = state => {
     return {
         activeBiblistData: state.activeBiblist,
-        userPacakge: state.userPacakge
+        userPackage: state.userPackage
     };
 };
 
-export default connect(mapStateToProps, { saveRecordsOnStore })(BibSearch);
+export default connect(mapStateToProps, { saveRecordsOnStore, ShowUpgradeModal })(BibSearch);

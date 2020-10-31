@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import { withRouter } from 'react-router-dom';
 import { RegisterServerValidation } from "../../../auth/Services/RegisterService";
 import { setCookie } from "../../../auth/Services/LoginServerValidation";
-import { InsertUserToStore } from '../../../../actions/ajax';
+import { InsertUserToStore } from '../../../../actions';
 import {
     Button,
     Form,

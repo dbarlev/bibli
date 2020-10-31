@@ -13,7 +13,7 @@ import { Animated } from "react-animated-css";
 import axios from 'axios';
 import apiPath from '../../../constants/api';
 import { userLogedIn } from "../../../actions";
-import { userLogin } from "../../../actions/ajax";
+import { userLogin } from "../../../actions/authActions";
 import { withRouter } from 'react-router-dom';
 import { LoginServerValidation, sendNewConfMail } from '../Services/LoginServerValidation';
 import "./LoginForm.scss";

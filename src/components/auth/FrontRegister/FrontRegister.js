@@ -14,11 +14,11 @@ import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
 import { Animated } from "react-animated-css";
 import { setCookie } from "../Services/LoginServerValidation";
-import { InsertUserToStore } from "../../../actions/ajax";
+import { InsertUserToStore } from "../../../actions";
 import { apiClient } from '../../../common/apiClient';
 import { TogglePass } from '../../../common/Util.js';
 import './FrontRegister.scss';
-import PackagesModal from "../../pages/packages/PackagesModal";
+import { PackagesModal } from "../../pages/packages/PackagesModal";
 
 
 const TopMarginLoginBtn = {
@@ -100,7 +100,7 @@ class FrontRegister extends Component {
     }
   };
 
-  onPackageChoosen = async () => {
+  onPackageChoosen = async (name) => {
     const { history } = this.props;
     const { email, password } = this.state;
 

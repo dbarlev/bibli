@@ -6,7 +6,7 @@ import { withRouter } from 'react-router-dom';
 import Header from '../header/Header';
 import Footer from '../footer/Footer';
 
-import { PassRecoveryEdit } from '../../actions/ajax';
+import { PassRecoveryEdit } from '../../actions/authActions';
 
 class PasswordRecoveryEdit extends Component {
     constructor(props) {

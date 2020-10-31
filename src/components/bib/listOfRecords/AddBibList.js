@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
-import { InsertBibListToDB } from "../../../actions/ajax";
+import { InsertBibListToDB } from "../../../actions/recordsActions";
 import { activeBiblist } from "../../../actions";
 import { Form, FormGroup, FormControl, Col } from "react-bootstrap";
 

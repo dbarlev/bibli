@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import {connect} from 'react-redux';
 import Header from '../header/Header.js';
 import RegisterForm from './RegisterForm.js';
-import { InsertUserToDB } from '../../actions/ajax';
+import { InsertUserToDB } from '../../actions/recordsActions';
 
 
 class Register extends Component {
