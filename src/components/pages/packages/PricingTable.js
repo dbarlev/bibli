@@ -19,8 +19,8 @@ const data = {
     student: {
         name: "student",
         price: 8,
-        priceComponent: () => <div><span className="smallNum bold">₪</span><span>{data.student.price}</span></div>,
-        period: "לחודש",
+        priceComponent: () => <div><span className="smallNum bold">₪</span><span>{data.student.price}/לחודש</span></div>,
+        period: "למשך שנה",
         src: student,
         lists: "ללא הגבלה",
         items: 200
@@ -28,8 +28,8 @@ const data = {
     researcher: {
         name: "researcher",
         price: 45,
-        priceComponent: () => <div><span className="smallNum bold">₪</span><span>{data.researcher.price}</span></div>,
-        period: "לחודש",
+        priceComponent: () => <div><span className="smallNum bold">₪</span><span>{data.researcher.price}/לחודש</span></div>,
+        period: "למשך שנה",
         src: researcher,
         lists: "ללא הגבלה",
         items: "ללא הגבלה"
@@ -38,7 +38,6 @@ const data = {
 
 
 const PricingTable = ({ onPackageChoosen, upgrade }) => {
-
     return (
         <div id="pricing-table">
             <ul>

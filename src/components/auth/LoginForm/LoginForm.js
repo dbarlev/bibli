@@ -12,8 +12,6 @@ import {
 import { Animated } from "react-animated-css";
 import axios from 'axios';
 import apiPath from '../../../constants/api';
-import { userLogedIn } from "../../../actions";
-import { userLogin } from "../../../actions/authActions";
 import { withRouter } from 'react-router-dom';
 import { LoginServerValidation, sendNewConfMail } from '../Services/LoginServerValidation';
 import "./LoginForm.scss";
@@ -34,7 +32,7 @@ class LoginForm extends Component {
     this.onChange = this.onChange.bind(this);
     this.toggleLogin = this.toggleLogin.bind(this);
 
- 
+
   }
 
   clientValidate() {
@@ -54,7 +52,7 @@ class LoginForm extends Component {
     if (this.clientValidate()) {
 
       let response = await LoginServerValidation(this.state.email, this.state.password);
-      
+
       if (response && response.data == 'mailVerification') {
         this.setState({
           errorMsg: 'החשבון לא אומת ',
@@ -78,11 +76,11 @@ class LoginForm extends Component {
 
   sendNewConfMailT = (email) => {
     let mailSent = sendNewConfMail(email)
-    .then((data)=>{
-      if(data.doPush){
-        this.props.history.push("/registersuccess");
-       }
-    })
+      .then((data) => {
+        if (data.doPush) {
+          this.props.history.push("/registersuccess");
+        }
+      })
   }
 
 
@@ -172,15 +170,15 @@ class LoginForm extends Component {
             </Form>
           </Animated>
         ) : (
-          <button
-            className="btn"
-            id="openLoginForm"
-            onClick={this.toggleLogin}
-            style={ShowLoginButton}
-          >
-            התחבר
+            <button
+              className="btn"
+              id="openLoginForm"
+              onClick={this.toggleLogin}
+              style={ShowLoginButton}
+            >
+              התחבר
           </button>
-        )}
+          )}
       </div>
     );
   }
@@ -197,7 +195,8 @@ const mapStateToProps = state => {
   };
 };
 
-export default connect(mapStateToProps, { userLogedIn, userLogin })(withRouter(LoginForm));
+
+export default connect(mapStateToProps, {})(withRouter(LoginForm));
 
 const TopMarginLoginBtn = {
   padding: "5px"
