@@ -3,6 +3,7 @@ import { Modal } from 'react-bootstrap';
 import './RegisterModal.scss';
 import RegisterForm from './RegisterForm/RegisterForm';
 import LoginForm from './LoginForm/LoginForm';
+import PricingTable from '../../pages/packages/PricingTable';
 
 const TEXT = {
     LOGIN: {
@@ -52,13 +53,14 @@ class RegisterModal extends Component {
                     </div>
                 </Modal.Header>
                 <Modal.Body>
-                    {
-                        this.state.isLogin
-                            ?
-                            <LoginForm changeToRegister={() => this.changeToRegister()} />
-                            :
-                            <RegisterForm changeToLogin={() => this.changeToLogin()} />
-
+                    {!this.state.showPackages && this.state.isLogin &&
+                        <LoginForm changeToRegister={() => this.changeToRegister()} />
+                    }
+                    {!this.state.showPackages && !this.state.isLogin &&
+                        <RegisterForm
+                            onPackageChoosen={() => this.onPackageChoosen()}
+                            changeToLogin={() => this.changeToLogin()}
+                        />
                     }
                 </Modal.Body>
             </Modal>
