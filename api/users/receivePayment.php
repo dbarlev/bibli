@@ -10,6 +10,7 @@
 		$database = new Database();
 		$db = $database->connect();
 		CreateHeaders();
+		verifyRequestMethod($db);
     }
 
     function CreateHeaders()
@@ -20,36 +21,30 @@
 		header('Access-Control-Allow-Methods: GET, POST, PUT, PATCH, DELETE, HEAD, OPTIONS');
 			
     }
-    
-
+	
+	function verifyRequestMethod($db)
+    {
 		$request_method = $_SERVER["REQUEST_METHOD"];
-		
-		//$data = json_decode(file_get_contents('php://input'));	
-		//if(isset($data->email)) $email = $data->email; else  $email = null;
-
-		//$email = "davseveloff@gmail.com";
-       
+		if($request_method == 'POST')
+        {
+			handleSuccessPayment($db);
+		}
+	}
 	
-	
-	
-
-	
-        $data = json_decode(file_get_contents('php://input'));
+	function handleSuccessPayment($db){
+		$data = json_decode(file_get_contents('php://input'));
         
 		if(isset($data->Total)) $total = $data->Total; else  $total = 'null';
-		if(isset($data->UniqueID)) $email = $data->UniqueId; else  $email = null;
+		if(isset($data->UniqueID)) $email = $data->UniqueID; else  $email = null;
 		if(isset($data->CustomerEmail)) $payemail = $data->CustomerEmail; else  $payemail = null;
 		$paymenttime = time();
-
-
-		//mail("davseveloff@gmail.com","bibli payment receiveג", $data);
 
 		switch($total){
 			case '80': 
 				$package = 1;
 				break;
 			case '120': 
-				$package = 3;
+				$package = 2;
 				break;
 			default: 
 				$package = 0;
@@ -68,10 +63,7 @@
 		$stmt->bindParam(4, $email);
 
         $stmt->execute();
-        
-        
-
-        //mail("davseveloff@gmail.com","bibli payment receives", (bool)$stmt->fetchColumn());
-	
-
+		
+		mail("dbarlev1@gmail.com","bibli payment receive test", $email);
+	}
 ?>

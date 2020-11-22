@@ -2,21 +2,23 @@ import React, { Component } from 'react';
 
 
 class Zcredit extends Component {
-    constructor(){
+    constructor() {
         super();
-        this.state ={
-        
+        this.state = {
+
         }
     }
-  
-                
 
-     
+
+    componentDidMount() {
+        window.parent.location.href = "http://stage.bibli.co.il";
+    }
+
 
     render() {
         return (
             <div id="zcredit">
-               Success!!!
+                Success!!!
             </div>
         );
     }

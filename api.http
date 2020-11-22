@@ -1,0 +1,8 @@
+POST https://www.bibli.co.il/api/users/receivePayment.php HTTP/1.1
+content-type: application/json
+
+{
+    "Total": 80,
+    "UniqueID": "danny@mail.com",
+    "CustomerEmail": "danny@mail.com"
+}

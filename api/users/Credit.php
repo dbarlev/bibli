@@ -67,7 +67,7 @@
 			\"Key\": \"a908debc4f05f424e8fee6fa92fb4e74e309c66a0dde138504eb9c722a799c5e\",
 			\"Local\": \"He\",
 			\"UniqueId\": '$email',
-			\"SuccessUrl\": \"/successurl\",
+			\"SuccessUrl\": \"http://stage.bibli.co.il/succeessurl\",
 			\"CancelUrl\": \"\",
 			\"CallbackUrl\": \"https://www.bibli.co.il/api/users/receivePayment.php\",
 			\"PaymentType\": \"regular\",

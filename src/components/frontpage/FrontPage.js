@@ -26,6 +26,10 @@ class FrontPage extends Component {
   }
 
   componentDidMount() {
+    if (window.top.location.href == "http://stage.bibli.co.il/checkout") {
+      window.location.href = "http://stage.bibli.co.il";
+    }
+
     document.querySelector("title").textContent = "ביבלי | מערכת ליצירת רשומות ביבליוגרפיות";
 
     let isLoggedin = getCookie("auth");
