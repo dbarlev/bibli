@@ -26,10 +26,6 @@
     {
 		$request_method = $_SERVER["REQUEST_METHOD"];
 		
-		//$data = json_decode(file_get_contents('php://input'));	
-		//if(isset($data->email)) $email = $data->email; else  $email = null;
-
-		//$email = "davseveloff@gmail.com";
         switch($request_method)
 		{
 			case 'POST':
@@ -50,26 +46,31 @@
 	
 	
 	function get_iframe($db){
+		
 		$data = json_decode(file_get_contents('php://input'));
-		if(isset($data->price)) $package_price = $data->price; else  $package_price = '80';
+		if(isset($data->price)) $package_price = $data->price; else  $package_price = 8;
+		if(isset($data->userid)) $userid = $data->userid; else  $userid = null;
 		if(isset($data->email)) $email = $data->email; else  $email = null;
 		if(isset($data->annual)) $annual = $data->annual; else  $annual = null;
 		$description = 'Student package';
+		$package_price_yearly = $package_price * 12;
 
-		
-
-		switch($package_price){
-
+		if(!isset($email)){
+			$query = 'SELECT email FROM users WHERE userid = ?';
+			$res = $db->prepare($query);
+			$res->bindParam(1, $userid);
+			$res->execute();
+        	$user_row = $res->fetch(PDO::FETCH_ASSOC);
+        	$email = $user_row['email'];
 		}
-		// $package_name = 'החבילה המשתלמת ביותר עבור סטודנטים';
-
+		
 		$data = "{
 			\"Key\": \"a908debc4f05f424e8fee6fa92fb4e74e309c66a0dde138504eb9c722a799c5e\",
 			\"Local\": \"He\",
 			\"UniqueId\": '$email',
 			\"SuccessUrl\": \"http://stage.bibli.co.il/succeessurl\",
 			\"CancelUrl\": \"\",
-			\"CallbackUrl\": \"https://www.bibli.co.il/api/users/receivePayment.php\",
+			\"CallbackUrl\": \"http://stage.bibli.co.il/api/users/receivePayment.php\",
 			\"PaymentType\": \"regular\",
 			\"CreateInvoice\": \"false\",
 			\"AdditionalText\": \"\",
@@ -92,7 +93,7 @@
 			},
 		   \"CartItems\": [{
 				\"Description\": '$description', 
-				\"Amount\": '$package_price',
+				\"Amount\": '$package_price_yearly',
 				\"Currency\": \"ILS\",
 				\"Name\": \" חבילת סטודנט \",
 				\"Quantity\": 1 ,
@@ -114,16 +115,6 @@
 		));
 		
 		$response = curl_exec($ch);
-		
-		//turn the blok bellow to see curl errors
-
-		// if (!$response) {
-		// 	//print 'Error Posting JSON: ' . curl_error($ch) . '(' . curl_errno($ch) . ')';
-		// 	echo 'dav '. curl_error($ch);
-
-		// 	curl_close($ch);
-		// 	return;
-		//    }
 		   
 		curl_close($ch);
 		

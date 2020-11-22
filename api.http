@@ -1,8 +1,18 @@
-POST https://www.bibli.co.il/api/users/receivePayment.php HTTP/1.1
+POST http://stage.bibli.co.il/api/users/receivePayment.php HTTP/1.1
 content-type: application/json
 
 {
-    "Total": 80,
+    "Total": "120",
     "UniqueID": "danny@mail.com",
     "CustomerEmail": "danny@mail.com"
+}
+
+###
+POST http://stage.bibli.co.il/api/users/Credit.php HTTP/1.1
+content-type: application/json
+
+{
+     "userid":"3906",
+     "auth":"true",
+     "username":"","price":8
 }

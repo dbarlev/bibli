@@ -1,5 +1,4 @@
 <?php
-
 	require '../inc/inc.php';
 
     init();
@@ -9,17 +8,7 @@
     {
 		$database = new Database();
 		$db = $database->connect();
-		CreateHeaders();
 		verifyRequestMethod($db);
-    }
-
-    function CreateHeaders()
-    {
-
-		header("Access-Control-Allow-Origin: *");
-		header('Access-Control-Allow-Headers: Origin, Content-Type, Authorization, X-Auth-Token');
-		header('Access-Control-Allow-Methods: GET, POST, PUT, PATCH, DELETE, HEAD, OPTIONS');
-			
     }
 	
 	function verifyRequestMethod($db)
@@ -33,17 +22,17 @@
 	
 	function handleSuccessPayment($db){
 		$data = json_decode(file_get_contents('php://input'));
-        
-		if(isset($data->Total)) $total = $data->Total; else  $total = 'null';
+        $package = 1;
+		if(isset($data->Total)) $total = $data->Total; else  $total = null;
 		if(isset($data->UniqueID)) $email = $data->UniqueID; else  $email = null;
 		if(isset($data->CustomerEmail)) $payemail = $data->CustomerEmail; else  $payemail = null;
 		$paymenttime = time();
 
 		switch($total){
-			case '80': 
+			case 96: 
 				$package = 1;
 				break;
-			case '120': 
+			case 540: 
 				$package = 2;
 				break;
 			default: 
@@ -51,7 +40,6 @@
 				break;
 
 		}
-
 
 		$query = "UPDATE users SET package = ?, paytime = ?, paymail = ? 
 		WHERE email = ?";
@@ -63,7 +51,5 @@
 		$stmt->bindParam(4, $email);
 
         $stmt->execute();
-		
-		mail("dbarlev1@gmail.com","bibli payment receive test", $email);
 	}
 ?>
