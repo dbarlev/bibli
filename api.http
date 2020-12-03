@@ -1,9 +1,9 @@
-POST http://stage.bibli.co.il/api/users/receivePayment.php HTTP/1.1
+POST http://localhost/api/users/receivePayment.php HTTP/1.1
 content-type: application/json
 
 {
     "Total": "120",
-    "UniqueID": "danny@mail.com",
+    "UniqueID": "danny15@mail.com",
     "CustomerEmail": "danny@mail.com"
 }
 

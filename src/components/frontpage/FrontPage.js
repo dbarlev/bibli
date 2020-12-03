@@ -12,7 +12,7 @@ import StickyContact from "../sticky/stickyContact/StickyContact";
 import SkipLinks from '../skipLinks';
 
 const skipTo = [
-  { id: "home-createBib", text: "דלג לאזור המרכזי" },
+  { id: "mainContent", text: "דלג לאזור המרכזי" },
   { id: "mainMenuRow", text: "דלג לתפריט הראשי" },
   { id: "footer", text: "דלג לסוף העמוד" },
   { id: "FrontRegisterRow", text: "דלג להרשמה" },
@@ -43,11 +43,13 @@ class FrontPage extends Component {
         <SkipLinks skipTo={skipTo} />
         <Welcome />
         <FrontRegister />
-        <CreateBibItem />
-        <AboutUs />
-        <FrontFaq />
-        <StatisticsRow />
-        <StickyContact />
+        <main id="mainContent">
+          <CreateBibItem />
+          <AboutUs />
+          <FrontFaq />
+          <StatisticsRow />
+          <StickyContact />
+        </main>
         <Footer />
       </Grid>
     );

@@ -157,8 +157,8 @@ function userReducer(state = [], action) {
             return {
                 registerSuccess: action.value.userRegistered,
                 username: action.value.username,
-                email: action.value.email
-
+                email: action.value.email,
+                userid: action.value.userid
             };
         case USER_MAIL_VERIFICATION: //comes back from the ajax file response
             return {

@@ -153,6 +153,28 @@ class RegisterForm extends Component {
                             </Col>
                         </FormGroup>
                         <FormGroup>
+                            <Row>
+                                <Col lg={1} md={1} xs={1} mdOffset={3}>
+                                    <input
+                                        ref="terms"
+                                        name="terms"
+                                        id="terms"
+                                        type="checkbox"
+                                        aria-label="מסכים לתנאי השימוש"
+                                    />
+                                </Col>
+                                <Col lg={5} md={5} xs={5}>
+                                    <label for="terms">
+                                        <span style={{ fontSize: 12 }}>אני מסכים/ה</span>
+                                        <a
+                                            role="link"
+                                            style={{ marginRight: 5, textDecoration: 'underlina', fontSize: 12, cursor: 'pointer' }}
+                                            onClick={() => this.props.changeToTermsOfService()}>לתנאי השימוש</a>
+                                    </label>
+                                </Col>
+                            </Row>
+                        </FormGroup>
+                        <FormGroup>
                             <Col lg={7} md={7} mdOffset={4}>
                                 <Row>
                                     <Col>

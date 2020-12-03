@@ -4,6 +4,7 @@ import './RegisterModal.scss';
 import RegisterForm from './RegisterForm/RegisterForm';
 import LoginForm from './LoginForm/LoginForm';
 import PricingTable from '../../pages/packages/PricingTable';
+import TermsOfService from '../../pages/TermsOfService/TermsOfService';
 
 const TEXT = {
     LOGIN: {
@@ -13,7 +14,8 @@ const TEXT = {
     REGISTER: {
         LEVEL2: "עוד שלב אחד ומתחילים",
         LEVEL3: "יצירת חשבון חדש"
-    }
+    },
+    TERMS: "תנאי שימוש"
 }
 
 class RegisterModal extends Component {
@@ -22,6 +24,7 @@ class RegisterModal extends Component {
         super();
         this.state = {
             isLogin: false,
+            isTermsOfService: false,
             level2Text: TEXT.REGISTER.LEVEL2,
             level3Text: TEXT.REGISTER.LEVEL3
         }
@@ -30,17 +33,29 @@ class RegisterModal extends Component {
     changeToRegister() {
         this.setState({
             isLogin: false,
+            isTermsOfService: false,
             level2Text: TEXT.REGISTER.LEVEL2,
-            level3Text: TEXT.REGISTER.LEVEL3
+            level3Text: TEXT.REGISTER.LEVEL3,
         })
     }
 
     changeToLogin() {
         this.setState({
             isLogin: true,
+            isTermsOfService: false,
             level2Text: TEXT.LOGIN.LEVEL2,
-            level3Text: TEXT.LOGIN.LEVEL3
+            level3Text: TEXT.LOGIN.LEVEL3,
         })
+    }
+
+    changeToTermsOfService() {
+        this.setState({
+            isLogin: false,
+            isTermsOfService: true,
+            level2Text: TEXT.TERMS,
+            level3Text: "",
+        })
+
     }
 
     render() {
@@ -53,14 +68,21 @@ class RegisterModal extends Component {
                     </div>
                 </Modal.Header>
                 <Modal.Body>
-                    {!this.state.showPackages && this.state.isLogin &&
+                    {!this.state.showPackages && this.state.isLogin && !this.state.isTermsOfService &&
                         <LoginForm changeToRegister={() => this.changeToRegister()} />
                     }
-                    {!this.state.showPackages && !this.state.isLogin &&
+                    {!this.state.showPackages && !this.state.isLogin && !this.state.isTermsOfService &&
                         <RegisterForm
                             onPackageChoosen={() => this.onPackageChoosen()}
                             changeToLogin={() => this.changeToLogin()}
+                            changeToTermsOfService={() => this.changeToTermsOfService()}
                         />
+                    }
+                    {this.state.isTermsOfService &&
+                        <div>
+                            <TermsOfService />
+                            <button className="btn" onClick={() => this.changeToRegister()}>חזור לטופס התחברות</button>
+                        </div>
                     }
                 </Modal.Body>
             </Modal>

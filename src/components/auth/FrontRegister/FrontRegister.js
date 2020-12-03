@@ -21,21 +21,8 @@ import './FrontRegister.scss';
 import { PackagesModal } from "../../pages/packages/PackagesModal";
 
 
-const TopMarginLoginBtn = {
-  marginTop: "1px",
-  padding: "5px"
-};
-
 const ColPadd = {
   padding: "5px"
-};
-
-const marginBottomZero = {
-  marginBottom: "0px"
-};
-
-const YellowBg = {
-  backgroundColor: "#f2b500"
 };
 
 class FrontRegister extends Component {
@@ -73,36 +60,46 @@ class FrontRegister extends Component {
       return;
     }
 
-    let serverValidation = await apiClient("/users/User.php?validate=true", "post", { email, password });
-    if (serverValidation === "success") {
+    let obj = {
+      email,
+      password,
+      package: 0
+    };
+
+    let serverResponse = await apiClient("/users/User.php", "post", obj);
+    if (serverResponse.userRegistered === "1") {
+      this.props.InsertUserToStore(serverResponse);
       this.setState({ showPacakgesModal: true });
     }
     else {
-      let error = null;
-      switch (serverValidation.error) {
-        case 0:
-          error = 'הסיסמה קטנה מ 6 תווים';
-          break;
-        case 1:
-          error = 'שדה כתובת מייל ריק';
-          break;
-        case 2:
-          error = 'כתובת המייל שהוזנה אינה תקינה';
-          break;
-        case 3:
-          error = 'כתובת המייל קיימת במערכת';
-          break;
-        default:
-          break;
-      }
-
-      this.setState({ error });
+      this.handleErrors(serverResponse);
     }
   };
 
+  handleErrors = (serverResponse) => {
+    let error = null;
+    switch (serverResponse.error) {
+      case 0:
+        error = 'הסיסמה קטנה מ 6 תווים';
+        break;
+      case 1:
+        error = 'שדה כתובת מייל ריק';
+        break;
+      case 2:
+        error = 'כתובת המייל שהוזנה אינה תקינה';
+        break;
+      case 3:
+        error = 'כתובת המייל קיימת במערכת';
+        break;
+      default:
+        break;
+    }
+
+    this.setState({ error });
+  }
+
   onPackageChoosen = async (packageData) => {
-    const { history, SelectedPackage } = this.props;
-    const { email, password } = this.state;
+    const { history, SelectedPackage, user } = this.props;
 
     if (packageData && packageData.name !== "free") {
       SelectedPackage(packageData);
@@ -110,39 +107,9 @@ class FrontRegister extends Component {
       return;
     }
 
-    let obj = {
-      email,
-      password,
-      package: this.state.package
-    };
-
-    let serverResponse = await apiClient("/users/User.php", "post", obj);
-    if (serverResponse.userRegistered === "1") {
-      this.props.InsertUserToStore(serverResponse);
-      setCookie(true, serverResponse.userid);
-      history.push("/records/biblist");
-    }
-    else {
-      let error = null;
-      switch (serverResponse.error) {
-        case 0:
-          error = 'הסיסמה קטנה מ 6 תווים';
-          break;
-        case 1:
-          error = 'שדה כתובת מייל ריק';
-          break;
-        case 2:
-          error = 'כתובת המייל שהוזנה אינה תקינה';
-          break;
-        case 3:
-          error = 'כתובת המייל קיימת במערכת';
-          break;
-        default:
-          break;
-      }
-      this.setState({ error, showPacakgesModal: false });
-
-    }
+    setCookie(true, user.userid);
+    history.push("/records/biblist");
+    this.setState({ showPacakgesModal: false });
   }
 
   render() {
@@ -228,7 +195,12 @@ class FrontRegister extends Component {
             </Col>
           </Row>
         </Col>
-        {this.state.showPacakgesModal && <PackagesModal onClose={() => this.setState({ showPacakgesModal: false })} onPackageChoosen={async (packageData) => await this.onPackageChoosen(packageData)} />}
+        {this.state.showPacakgesModal &&
+          <PackagesModal
+            onClose={() => this.setState({ showPacakgesModal: false })}
+            onPackageChoosen={async (packageData) => await this.onPackageChoosen(packageData)}
+          />
+        }
       </Row>
     );
   }

@@ -1,5 +1,6 @@
 <?php
 	require '../inc/inc.php';
+	require './User.php';
 
     init();
 
@@ -40,7 +41,7 @@
 				break;
 
 		}
-
+		
 		$query = "UPDATE users SET package = ?, paytime = ?, paymail = ? 
 		WHERE email = ?";
 		
@@ -50,6 +51,6 @@
 		$stmt->bindParam(3, $payemail);
 		$stmt->bindParam(4, $email);
 
-        $stmt->execute();
+		$stmt->execute();
 	}
 ?>
