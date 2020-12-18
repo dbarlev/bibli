@@ -7,7 +7,6 @@ import { ShowUpgradeModal } from '../../actions';
 import { apiClient } from '../../common/apiClient';
 import { ToastContainer, toast } from 'react-toastify';
 import './BibSearch.scss';
-import 'react-toastify/dist/ReactToastify.css';
 
 const reducer = (state, action) => {
     switch (action.type) {

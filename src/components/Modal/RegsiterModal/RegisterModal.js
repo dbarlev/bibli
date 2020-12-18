@@ -73,7 +73,6 @@ class RegisterModal extends Component {
                     }
                     {!this.state.showPackages && !this.state.isLogin && !this.state.isTermsOfService &&
                         <RegisterForm
-                            onPackageChoosen={() => this.onPackageChoosen()}
                             changeToLogin={() => this.changeToLogin()}
                             changeToTermsOfService={() => this.changeToTermsOfService()}
                         />

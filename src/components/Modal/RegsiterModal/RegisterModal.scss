@@ -11,4 +11,13 @@
         color: white;
         opacity: 1;
     }
+
+    button[disabled]{
+        opacity: 0.4 !important;
+        background: #204260 !important;
+    }
+
+    button[disabled]{
+        opacity: 0.4 !important;
+    }
 }

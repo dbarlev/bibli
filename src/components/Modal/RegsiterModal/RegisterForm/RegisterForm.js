@@ -29,68 +29,65 @@ class RegisterForm extends Component {
             newMailVer: false,
             email: '',
             password: "",
-            showPackages: false
+            showPackages: false,
+            termsChecked: false
         }
-    }
-
-    async FormSubmit(e) {
-        e.preventDefault();
-
-    }
-
-    clinetValidate(email, password) {
-
-        if (email === "" || password === "") {
-            this.setState({
-                errorMsgState: true,
-                errorMsg: "כל השדות חובה"
-            });
-            return false;
-        }
-
-        return true;
     }
 
     async submitForm(event) {
+
         event.preventDefault();
         const email = event.target.elements.email.value.trim();
         const password = event.target.elements.password.value.trim();
 
-        if (this.clinetValidate(email, password)) {
-            let serverValidation = await apiClient("/users/User.php?validate=true", "post", { email, password });
-            if (serverValidation === "success") {
-                this.setState({ email, password, showPackages: true });
-            }
-            else {
-                let error = '';
-                switch (serverValidation.error) {
-                    case 0:
-                        error = 'הסיסמה קטנה מ 6 תווים';
-                        break;
-                    case 1:
-                        error = 'שדה כתובת מייל ריק';
-                        break;
-                    case 2:
-                        error = 'כתובת המייל שהוזנה אינה תקינה';
-                        break;
-                    case 3:
-                        error = 'כתובת המייל קיימת במערכת';
-                        break;
-                    default:
-                        break;
-                }
-                this.setState({
-                    errorMsgState: true,
-                    newMailVer: false,
-                    errorMsg: error
-                });
-            }
+        if (email.trim() === "" || password.trim() === "") {
+            this.setState({
+                errorMsgState: true,
+                errorMsg: "כל השדות חובה"
+            });
+            return;
         }
+
+        let obj = {
+            email,
+            password,
+            package: 0
+        };
+
+        let serverResponse = await apiClient("/users/User.php", "post", obj);
+        if (serverResponse.userRegistered === "1") {
+            this.props.InsertUserToStore(serverResponse);
+            this.setState({ email, password, showPackages: true });
+        }
+        else {
+            let error = '';
+            switch (serverResponse.error) {
+                case 0:
+                    error = 'הסיסמה קטנה מ 6 תווים';
+                    break;
+                case 1:
+                    error = 'שדה כתובת מייל ריק';
+                    break;
+                case 2:
+                    error = 'כתובת המייל שהוזנה אינה תקינה';
+                    break;
+                case 3:
+                    error = 'כתובת המייל קיימת במערכת';
+                    break;
+                default:
+                    break;
+            }
+            this.setState({
+                errorMsgState: true,
+                newMailVer: false,
+                errorMsg: error
+            });
+        }
+
     }
 
     onPackageChoosen = async (packageData) => {
-        const { history, SelectedPackage } = this.props;
-        const { email, password } = this.state;
+        const { history, SelectedPackage, user } = this.props;
 
         if (packageData && packageData.name !== "free") {
             SelectedPackage(packageData);
@@ -98,19 +95,9 @@ class RegisterForm extends Component {
             return;
         }
 
-        let response = await RegisterServerValidation({ email, password, package: 1 });
-        if (response && !response.success) {
-            this.setState({
-                errorMsgState: true,
-                newMailVer: false,
-                errorMsg: response.data
-            });
-        }
-        else if (response) {
-            this.props.InsertUserToStore(response.data);
-            setCookie(true, response.data.userid);
-            this.props.history.push("/records/biblist");
-        }
+        setCookie(true, user.userid);
+        history.push("/records/biblist");
+        this.setState({ showPacakgesModal: false });
     }
 
 
@@ -156,6 +143,7 @@ class RegisterForm extends Component {
                             <Row>
                                 <Col lg={1} md={1} xs={1} mdOffset={3}>
                                     <input
+                                        onChange={(e) => this.setState({ termsChecked: e.target.checked })}
                                         ref="terms"
                                         name="terms"
                                         id="terms"
@@ -178,7 +166,7 @@ class RegisterForm extends Component {
                             <Col lg={7} md={7} mdOffset={4}>
                                 <Row>
                                     <Col>
-                                        <Button type="submit">הירשם</Button>
+                                        <Button disabled={!this.state.termsChecked} type="submit">הירשם</Button>
                                     </Col>
                                     <Col>
                                         <a className="linkToLogin" href="#" onClick={() => this.props.changeToLogin()}>יש לך כבר חשבון?</a>
@@ -193,4 +181,10 @@ class RegisterForm extends Component {
     }
 }
 
-export default connect(null, { InsertUserToStore, SelectedPackage })(withRouter(RegisterForm));
+const mapStateToProps = state => {
+    return {
+        user: state.userReducer,
+    };
+};
+
+export default connect(mapStateToProps, { InsertUserToStore, SelectedPackage })(withRouter(RegisterForm));
