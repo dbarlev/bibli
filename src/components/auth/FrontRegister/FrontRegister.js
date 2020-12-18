@@ -184,8 +184,6 @@ class FrontRegister extends Component {
                       >
                         הצטרפו אלינו >
                       </Button>
-
-
                     </FormGroup>
                   </Col>
                 </Row>
