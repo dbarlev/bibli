@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { termsContent} from './TermsContent';
+import { termsContent } from './TermsContent';
 
 function TermsOfService() {
     useEffect(() => {
@@ -7,14 +7,20 @@ function TermsOfService() {
     }, [])
 
     return (
-            <div>
-                <p>{termsContent.background}</p>
-                <ol>
-                    {termsContent.list.map(text => (
-                        <li>{text}</li>
-                    ))}
-                </ol>
-            </div>
+        <div>
+            <p>{termsContent.background}</p>
+            <ol>
+                {termsContent.list.map(text => (
+                    <li>{text}</li>
+                ))}
+            </ol>
+            <h3 style={{ color: 'black' }}>אחריות</h3>
+            <ol>
+                {termsContent.responsibility.map(text => (
+                    <li>{text}</li>
+                ))}
+            </ol>
+        </div>
     )
 }
 
