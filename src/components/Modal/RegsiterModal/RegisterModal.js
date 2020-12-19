@@ -58,26 +58,43 @@ class RegisterModal extends Component {
 
     }
 
+    onclose() {
+        if (this.props.isFrontRegister) {
+            this.props.onClose();
+        }
+    }
+
     render() {
+        const { email, showRegisterModal, isFrontRegister } = this.props;
+        const { showPackages, isLogin, isTermsOfService } = this.state;
+
         return (
-            <Modal id="registerModal" size="sm" show={true}>
-                <Modal.Header className="modalHeader">
+            <Modal id="registerModal" size="sm" show={isFrontRegister ? showRegisterModal : true} onHide={() => this.onclose()}>
+                <Modal.Header closeButton closeLabel className="modalHeader">
                     <div className="text-center">
                         <h2>{this.state.level2Text}</h2>
                         <h3>{this.state.level3Text}</h3>
                     </div>
                 </Modal.Header>
                 <Modal.Body>
-                    {!this.state.showPackages && this.state.isLogin && !this.state.isTermsOfService &&
+                    {!showPackages && isLogin && !isTermsOfService &&
                         <LoginForm changeToRegister={() => this.changeToRegister()} />
                     }
-                    {!this.state.showPackages && !this.state.isLogin && !this.state.isTermsOfService &&
+                    {!showPackages && !isLogin && !isTermsOfService && isFrontRegister &&
+                        <RegisterForm
+                            isFrontRegister={isFrontRegister}
+                            email={email}
+                            changeToLogin={() => this.changeToLogin()}
+                            changeToTermsOfService={() => this.changeToTermsOfService()}
+                        />
+                    }
+                    {!showPackages && !isLogin && !isTermsOfService && !isFrontRegister &&
                         <RegisterForm
                             changeToLogin={() => this.changeToLogin()}
                             changeToTermsOfService={() => this.changeToTermsOfService()}
                         />
                     }
-                    {this.state.isTermsOfService &&
+                    {isTermsOfService &&
                         <div>
                             <TermsOfService />
                             <button className="btn" onClick={() => this.changeToRegister()}>חזור לטופס התחברות</button>

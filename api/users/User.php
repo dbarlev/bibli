@@ -150,7 +150,6 @@
 
 		$usertype = 9;
 		if(isset($data->email)) $email = $data->email; else  $email = null;
-		if(isset($data->password)) $password = password_hash($data->password, PASSWORD_DEFAULT); else  $password = null;
 		
 		//check if mail already exists in the database
 		$q = 'SELECT * FROM users WHERE email = ?';
@@ -159,9 +158,7 @@
 		$res->execute();
 		
 		//validation:
-		if(strlen($data->password) < 6){
-			echo json_encode(array('error' => 0, 'email'=> $email));
-		}else if($data->email == null){
+		if($data->email == null){
 			echo json_encode(array('error' => 1, 'email'=> $email));
 
 		//if emailis valid or not

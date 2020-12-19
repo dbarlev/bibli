@@ -20,14 +20,14 @@ import PricingTable from '../../../pages/packages/PricingTable';
 
 class RegisterForm extends Component {
 
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
 
         this.state = {
             errorMsg: '',
             errorMsgState: false,
             newMailVer: false,
-            email: '',
+            email: this.props.email || '',
             password: "",
             showPackages: false,
             termsChecked: false
@@ -37,7 +37,7 @@ class RegisterForm extends Component {
     async submitForm(event) {
 
         event.preventDefault();
-        const email = event.target.elements.email.value.trim();
+        const email = this.state.email.trim();
         const password = event.target.elements.password.value.trim();
 
         if (email.trim() === "" || password.trim() === "") {
@@ -118,6 +118,8 @@ class RegisterForm extends Component {
                         <FormGroup>
                             <Col lg={7} md={8} xs={10} mdOffset={3}>
                                 <FormControl
+                                    onChange={(e) => this.setState({ email: e.target.value })}
+                                    value={this.state.email}
                                     ref="email"
                                     name="email"
                                     id="email"
@@ -168,9 +170,9 @@ class RegisterForm extends Component {
                                     <Col>
                                         <Button disabled={!this.state.termsChecked} type="submit">הירשם</Button>
                                     </Col>
-                                    <Col>
+                                    {!this.props.isFrontRegister && <Col>
                                         <a className="linkToLogin" href="#" onClick={() => this.props.changeToLogin()}>יש לך כבר חשבון?</a>
-                                    </Col>
+                                    </Col>}
                                 </Row>
                             </Col>
                         </FormGroup>

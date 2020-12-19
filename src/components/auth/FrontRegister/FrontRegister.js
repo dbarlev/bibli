@@ -19,7 +19,7 @@ import { apiClient } from '../../../common/apiClient';
 import { TogglePass } from '../../../common/Util.js';
 import './FrontRegister.scss';
 import { PackagesModal } from "../../pages/packages/PackagesModal";
-
+import RegisterModal from '../../Modal/RegsiterModal/RegisterModal';
 
 const ColPadd = {
   padding: "5px"
@@ -30,11 +30,10 @@ class FrontRegister extends Component {
     super();
     this.state = {
       email: "",
-      password: "",
       package: 1,
       registerSuccess: false,
       error: '',
-      showPacakgesModal: false
+      showRegisterModal: false
     };
   }
 
@@ -53,64 +52,40 @@ class FrontRegister extends Component {
 
   onSubmitRegister = async (e) => {
     e.preventDefault();
-    const { email, password } = this.state;
+    const { email } = this.state;
 
-    if (email.trim() === "" || password.trim() === "") {
+    if (email.trim() === "") {
       this.setState({ error: 'חובה למלא אימייל וסיסמה' });
       return;
     }
 
-    let obj = {
-      email,
-      password,
-      package: 0
-    };
-
-    let serverResponse = await apiClient("/users/User.php", "post", obj);
-    if (serverResponse.userRegistered === "1") {
-      this.props.InsertUserToStore(serverResponse);
-      this.setState({ showPacakgesModal: true });
+    let serverResponse = await apiClient("/users/User.php?validate", "post", { email });
+    if (serverResponse === "success") {
+      this.setState({ showRegisterModal: true });
     }
     else {
-      this.handleErrors(serverResponse);
+      let error = '';
+      switch (serverResponse.error) {
+        case 0:
+          error = 'הסיסמה קטנה מ 6 תווים';
+          break;
+        case 1:
+          error = 'שדה כתובת מייל ריק';
+          break;
+        case 2:
+          error = 'כתובת המייל שהוזנה אינה תקינה';
+          break;
+        case 3:
+          error = 'כתובת המייל קיימת במערכת';
+          break;
+        default:
+          break;
+      }
+      this.setState({
+        error
+      });
     }
   };
-
-  handleErrors = (serverResponse) => {
-    let error = null;
-    switch (serverResponse.error) {
-      case 0:
-        error = 'הסיסמה קטנה מ 6 תווים';
-        break;
-      case 1:
-        error = 'שדה כתובת מייל ריק';
-        break;
-      case 2:
-        error = 'כתובת המייל שהוזנה אינה תקינה';
-        break;
-      case 3:
-        error = 'כתובת המייל קיימת במערכת';
-        break;
-      default:
-        break;
-    }
-
-    this.setState({ error });
-  }
-
-  onPackageChoosen = async (packageData) => {
-    const { history, SelectedPackage, user } = this.props;
-
-    if (packageData && packageData.name !== "free") {
-      SelectedPackage(packageData);
-      history.push("/checkout");
-      return;
-    }
-
-    setCookie(true, user.userid);
-    history.push("/records/biblist");
-    this.setState({ showPacakgesModal: false });
-  }
 
   render() {
     return (
@@ -154,28 +129,6 @@ class FrontRegister extends Component {
                     </FormGroup>
                   </Col>
                   <Col lg={4} md={4} sm={4} xs={12} style={ColPadd}>
-                    <FormGroup controlId="formHorizontalRegister1">
-                      <FormControl
-                        aria-label="סיסמה"
-                        ref="password"
-                        name="password"
-                        type="password"
-                        id="password"
-                        onChange={this.onChange}
-                        placeholder="הקלד סיסמה"
-                      />
-                      <button
-                        onClick={TogglePass}
-                        aria-label="הצג סיסמה"
-                        id="toggleBtn"
-                        className="glyphicon glyphicon-eye-open"
-                        type="button"
-                      >
-                        &nbsp;
-                    </button>
-                    </FormGroup>
-                  </Col>
-                  <Col lg={4} md={4} sm={4} xs={12} style={ColPadd}>
                     <FormGroup>
                       <Button
                         type="submit"
@@ -187,16 +140,16 @@ class FrontRegister extends Component {
                     </FormGroup>
                   </Col>
                 </Row>
-
-
               </Form>
             </Col>
           </Row>
         </Col>
-        {this.state.showPacakgesModal &&
-          <PackagesModal
-            onClose={() => this.setState({ showPacakgesModal: false })}
-            onPackageChoosen={async (packageData) => await this.onPackageChoosen(packageData)}
+        {this.state.showRegisterModal &&
+          <RegisterModal
+            email={this.state.email}
+            isFrontRegister={true}
+            showRegisterModal={this.state.showRegisterModal}
+            onClose={() => this.setState({ showRegisterModal: false })}
           />
         }
       </Row>
