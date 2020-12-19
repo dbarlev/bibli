@@ -46,33 +46,9 @@ class Checkout extends React.Component {
                         </Col>
                     </Row>
 
-                    <Col md={6}>
-                        <Tabs defaultActiveKey={1} id="uncontrolled-tab-example">
-                            <Tab eventKey={1} title="כרטיס אשראי">
-                                <Row>
-                                    <Zcredit package={this.state.package} />
-                                </Row>
-                            </Tab>
-                            <Tab eventKey={2} title="paypal">
-                                בעתיד...
-                        </Tab>
-                        </Tabs>
-                    </Col>
-                    <Col>
-                        <h2 className="text-center">פרטי החבילה</h2>
-
-                        <div class="text-center price-recomended">
-                            <div class="recomended-badge">הנבחרת ביותר</div>
-                            <div class="recomended-container">
-
-                                <div class="row">
-                                    <span class="smallNum">₪</span>
-                                    <span class="large bold">8</span>
-                                    <span class="bigNum">לחודש</span>
-                                </div>
-                            </div>
-                        </div>
-                    </Col>
+                    <Row>
+                        <Zcredit package={this.state.package} />
+                    </Row>
                 </main>
                 <StickyContact />
 
